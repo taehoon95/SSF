@@ -1,47 +1,77 @@
 //해더 모듈
-//2021-11-13
+//2021-11-15
 
-import React from "react";
-import { AppBar, Grid, IconButton, Toolbar } from "@mui/material";
-import { Avatar, Link, Tooltip } from "@mui/material";
-import {NotificationsNone, OndemandVideo} from "@mui/icons-material";
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core';
+import { AppBar, Box, Container, Drawer, IconButton, List, ListItem, Toolbar, Typography } from '@mui/material';
+import { Dehaze, Home } from '@mui/icons-material';
+import { AccessAlarms, LiveTv, NotificationsNone, OndemandVideo, Person, Upload, VideoLabel } from '@mui/icons-material';
+import { Avatar, Button, Divider, Grid, Tooltip } from '@mui/material';
+
+// SideBar CSS
+const useStyles = makeStyles((theme) => ({
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    marginRight: 'auto',
+  },
+  drawer: {
+    width: 250,
+    marginTop: 100,
+  },
+  iconAlign: {
+    marginLeft: 160,
+  },
+  content: {
+    padding: theme.spacing(9),
+  },
+}));
+
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
-const Header = (props) => {
+
+const SideBar = () => {
+  const classes = useStyles();
+
+  // SideBar On/Off 상태 설정
+  const [opens, setOpens] = useState(false);
+
   return (
     <>
-      <AppBar
-        style={{ background: "#515151" }}
-        position="absolute"
-        elevation={0}
-      >
+      <AppBar style={{ background: '#515151' }} >
         <Toolbar>
-          <Grid container spacing={1} alignItems="center">
+          {/* true, false로 나중에 로그인 하면 보이고, 안하면 보이게 할 수 있음 */}
+          {true && <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            onClick={() => setOpens(true)}
+          >
+            <Dehaze />
+          </IconButton> }
+
             {/* 로고 */}
-            <Grid item>
-              <Link
+            <Grid item >
+              <Button
                 href="/"
                 variant="inherit"
                 sx={{
                   textDecoration: "none",
                   color: lightColor,
-                  "&:hover": {
-                    color: "common.white",
-                  },
                 }}
                 rel="noopener noreferrer"
               >
-                <OndemandVideo />
-                SSP
-              </Link>
+                <VideoLabel />
+                SSF
+              </Button>
             </Grid>
-
-            <Grid item xs />
-
+        
+          <Grid container  alignItems="center" direction="row" justifyContent="flex-end" >
             {/* 회원가입 버튼 */}
             <Grid item>
-              <Link
+              <Button
                 href="./RegisterPage"
                 variant="inherit"
                 sx={{
@@ -53,14 +83,13 @@ const Header = (props) => {
                 }}
                 rel="noopener noreferrer"
               >
-            
                 회원가입
-              </Link>
+              </Button>
             </Grid>
 
             {/* 로그인 버튼 */}
             <Grid item>
-              <Link
+              <Button
                 href="./LoginPage"
                 variant="inherit"
                 sx={{
@@ -73,7 +102,7 @@ const Header = (props) => {
                 rel="noopener noreferrer"
               >
                 로그인
-              </Link>
+              </Button>
             </Grid>
 
             {/* 알림버튼 */}
@@ -94,8 +123,79 @@ const Header = (props) => {
           </Grid>
         </Toolbar>
       </AppBar>
+
+
+      {/* SideBar 안의 내용들 */}
+      <Container className={classes.root}>
+        <Drawer open={opens} onClose={() => setOpens(false)}>
+          <List className={classes.drawer}>
+
+            {/* SideBar안의 메뉴 버튼 */}
+            <ListItem className={classes.ListItem}>
+              <IconButton
+                style={{marginLeft:-8}}
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                onClick={() => setOpens(false)}
+              >
+                {/* 로고 아이콘 */}
+                <Dehaze />
+              </IconButton>
+              {/* SSF 로고 */}
+              <VideoLabel fontSize="small"  style={{marginLeft:13}}/>
+              <Box pl={0.5} type="paragraph" color="inherit">
+                <Typography variant="h6">SSF</Typography>
+              </Box>
+            </ListItem>
+
+            {/* Home 버튼 */}
+            <ListItem button component="a" href="/" className={classes.ListItem} >
+              <Home />
+              <Box pl={3} type="paragraph" color="inherit">
+                Home
+              </Box>
+            </ListItem>
+
+            {/* 내가 시청한 기록 버튼 */}
+            <ListItem button>
+              <AccessAlarms />
+              <Box pl={3} type="paragraph" color="inherit">
+                내가 시청한 기록
+              </Box>
+            </ListItem>
+
+            {/* 마이 페이지 버튼 */}
+            <ListItem button className={classes.ListItem}>
+              <Person />
+              <Box pl={3} type="paragraph" color="inherit">
+                마이 페이지
+              </Box>
+            </ListItem>
+
+            {/* 방송 하기 버튼 */}
+            <ListItem button>
+              <LiveTv />
+              <Box pl={3} type="paragraph" color="inherit">
+                방송 하기
+              </Box>
+            </ListItem>
+
+            {/* 방송 업로드 버튼 */}
+            <ListItem button>
+              <Upload />
+              <Box pl={3} type="paragraph" color="inherit">
+                방송 업로드
+              </Box>
+            </ListItem>
+
+            {/* 라인 아이콘 */}
+            <Divider variant="middle" />
+          </List>
+        </Drawer>
+      </Container>
     </>
   );
 };
 
-export default Header;
+export default SideBar;
