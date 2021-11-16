@@ -17,16 +17,16 @@ import liveStreaming.dto.TestDto;
 @SpringBootTest
 public class TestServiceTest {
 
-	@Autowired
-	TestService service;
-	
-	@Test
-	public void testShowTest() {
-		List<TestDto> t = service.showTest();
-		for(TestDto t2 : t) {
-			System.out.println(t2);
-		}
-		Assertions.assertNotNull(t);
-	}
+    @Autowired
+    TestService service;
+
+    @Test
+    public void testShowTest() {
+        List<TestDto> t = service.showTest();
+        for(TestDto t2 : t) {
+            System.out.println(t2);
+        }
+        Assertions.assertNotNull(t);
+    }
 
 }

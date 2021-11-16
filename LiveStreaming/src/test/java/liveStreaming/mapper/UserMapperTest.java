@@ -1,7 +1,10 @@
 package liveStreaming.mapper;
 
 import java.util.Date;
+import java.util.List;
 
+import liveStreaming.dto.UserDto;
+import org.apache.catalina.User;
 import org.joda.time.DateTime;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -11,9 +14,10 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import liveStreaming.dto.TestDto;
 import org.springframework.transaction.annotation.Transactional;
 
-import liveStreaming.dto.UserDto;
 
 @RunWith( SpringRunner.class )
 @SpringBootTest
@@ -25,22 +29,20 @@ public class UserMapperTest {
 
 	// 의존성 주입
 	// singleton느낌 : UserMapper mapper = new UserMapper() 객체가 생성
+
 	@Autowired
 	UserMapper mapper;
-	
+
 	//@Test
 	public void test01register() {
-		System.out.println("----------------------------------------");
-		System.out.println(new DateTime());
-		System.out.println("----------------------------------------");
-		
-		UserDto user = new UserDto("test4", "123", "ㅇㅇㅇ", "m", "ytt@sss", "123",new Date());
+
+		UserDto user = new UserDto(null,"test4", "123", "ㅇㅇㅇ", "m", "ytt@sss", "123",new Date());
 		int res = mapper.register(user);
 
 		Assertions.assertEquals(1, res);
 	}
 
-	@Test
+	//@Test
 	public void test02login() {
 		UserDto user = new UserDto();
 		user.setU_id("test2");
@@ -48,5 +50,13 @@ public class UserMapperTest {
 		UserDto res = mapper.loginUser(user);
 		System.out.println(res);
 		Assertions.assertNotNull(res);
+	}
+
+	@Test
+	public void test03checkUser() {
+		UserDto user = new UserDto();
+		user.setU_id("test2");
+		UserDto t = mapper.checkUser(user);
+		Assertions.assertNotNull(t);
 	}
 }
