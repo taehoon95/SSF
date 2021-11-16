@@ -34,6 +34,8 @@ export default function Footer() {
       <CssBaseline />
 
       <Box
+      // 푸터 색상 조절
+      style={{ background: '#A0A0A0' }}
         component="footer"
         sx={{
           py: 3,
@@ -45,7 +47,7 @@ export default function Footer() {
               : theme.palette.grey[800],
         }}
       >
-        <Container maxWidth="sm" align="center">
+        <Container maxWidth="sm" align="center" >
           <Typography variant="body1">
             TEL. 010.3488.1034 / 부산광역시 해운대구 우동
           </Typography>
