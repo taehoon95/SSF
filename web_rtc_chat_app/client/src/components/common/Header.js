@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { AppBar, Box, Container, Drawer, IconButton, List, ListItem, Toolbar, Typography } from '@mui/material';
 import { Dehaze, Home } from '@mui/icons-material';
-import { AccessAlarms, LiveTv, NotificationsNone, OndemandVideo, Person, Upload, VideoLabel } from '@mui/icons-material';
+import { AccessAlarms, LiveTv, NotificationsNone, Person, Upload, VideoLabel } from '@mui/icons-material';
 import { Avatar, Button, Divider, Grid, Tooltip } from '@mui/material';
 
 // SideBar CSS
@@ -40,7 +40,7 @@ const SideBar = () => {
 
   return (
     <>
-      <AppBar style={{ background: '#515151' }} >
+      <AppBar style={{ background: '#303030' }} >
         <Toolbar>
           {/* true, false로 나중에 로그인 하면 보이고, 안하면 보이게 할 수 있음 */}
           {true && <IconButton
