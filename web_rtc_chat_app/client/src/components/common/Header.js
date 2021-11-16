@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
 
-const SideBar = () => {
+const Header = () => {
   const classes = useStyles();
 
   // SideBar On/Off 상태 설정
@@ -64,7 +64,9 @@ const SideBar = () => {
                 rel="noopener noreferrer"
               >
                 <VideoLabel />
-                SSF
+                <Typography>
+                  SSF
+                </Typography>
               </Button>
             </Grid>
         
@@ -158,7 +160,7 @@ const SideBar = () => {
             </ListItem>
 
             {/* 내가 시청한 기록 버튼 */}
-            <ListItem button>
+            <ListItem button component="a" href="./ListPage">
               <AccessAlarms />
               <Box pl={3} type="paragraph" color="inherit">
                 내가 시청한 기록
@@ -166,7 +168,7 @@ const SideBar = () => {
             </ListItem>
 
             {/* 마이 페이지 버튼 */}
-            <ListItem button className={classes.ListItem}>
+            <ListItem button component="a" href="./MyPage" className={classes.ListItem}>
               <Person />
               <Box pl={3} type="paragraph" color="inherit">
                 마이 페이지
@@ -174,7 +176,7 @@ const SideBar = () => {
             </ListItem>
 
             {/* 방송 하기 버튼 */}
-            <ListItem button>
+            <ListItem button component="a" href="./LiveSettingPage">
               <LiveTv />
               <Box pl={3} type="paragraph" color="inherit">
                 방송 하기
@@ -182,7 +184,7 @@ const SideBar = () => {
             </ListItem>
 
             {/* 방송 업로드 버튼 */}
-            <ListItem button>
+            <ListItem button component="a" href="./UploadPage">
               <Upload />
               <Box pl={3} type="paragraph" color="inherit">
                 방송 업로드
@@ -198,4 +200,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default Header;

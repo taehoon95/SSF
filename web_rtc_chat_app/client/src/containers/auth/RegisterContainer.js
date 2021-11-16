@@ -227,17 +227,30 @@ const RegisterContainer = () => {
             </Grid>
           </Grid>
 
-          {/* 회원가입 버튼 */}
-          <Button
-            onClick={onClick}
-            style={{ marginTop: 40, marginBottom: 40 }}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            회원가입
-          </Button>
+          <Grid container style={{ marginTop: 20, marginBottom: 30 }} spacing={1}>
+            {/* 취소 버튼 */}
+            <Grid item xs={12} sm={6} >
+              <Button
+                variant="contained"
+                href="/"
+                fullWidth
+              >
+                취소
+              </Button>
+            </Grid>
+            {/* 회원가입 버튼 */}
+            <Grid item xs={6}>
+              <Button
+                onClick={onClick}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                회원가입
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
     </ThemeProvider>
