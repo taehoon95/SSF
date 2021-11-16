@@ -33,4 +33,6 @@ build/
 .vscode/
 
 application-oauth.properties
+application-production.properties
+application-local.properties
 
