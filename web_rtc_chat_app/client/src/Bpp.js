@@ -35,10 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Bpp = () => {
-  const onClick = () => {
-    console.log(111);
-    showTest().then(res => console.log(res));
-  }
+ 
   const classes = useStyles();
   return (
     <div className={classes.wrapper}>
@@ -51,7 +48,7 @@ const Bpp = () => {
       <Options>
         <Notification />
       </Options>
-      <button onClick={onClick}>버튼</button>
+      
     </div>
   );
 };
