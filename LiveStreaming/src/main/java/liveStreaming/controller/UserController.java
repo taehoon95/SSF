@@ -17,9 +17,25 @@ import liveStreaming.service.UserService;
 public class UserController {
 	@Autowired
 	UserService service;
-	
-	@PostMapping("/register")
-	public ResponseEntity<Object> register(@RequestBody UserDto user){
-		return ResponseEntity.ok(service.register(user));
+
+
+	@PostMapping("/signup")
+	public ResponseEntity<Object> registerUser(@RequestBody UserDto user){
+		return ResponseEntity.ok(service.create(user));
 	}
+
+	@PostMapping("/signin")
+	public ResponseEntity<Object> loginUser(@RequestBody UserDto user){
+		return user != null
+		       ? ResponseEntity.ok(service.getByCredentials(user)) : ResponseEntity.badRequest().body(user);
+	}
+
+
+//	@PostMapping("/register")
+//	public ResponseEntity<Object> register(@RequestBody UserDto user){
+//		return ResponseEntity.ok(service.register(user));
+//	}
+
+
+
 }

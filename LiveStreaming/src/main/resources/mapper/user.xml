@@ -12,4 +12,7 @@
     	  from ssf_schema.users 
     	 where u_id = #{u_id} and u_pwd = #{u_pwd};
     </select>
+    <select id="checkUser" resultType="liveStreaming.dto.UserDto">
+    select * from ssf_schema.users where u_id = #{u_id}
+    </select>
 </mapper>

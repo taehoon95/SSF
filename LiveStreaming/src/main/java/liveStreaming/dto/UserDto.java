@@ -12,9 +12,13 @@ import lombok.ToString;
 
 @Getter @Setter
 @ToString
+//전체를 포함하는 생성자 member 변수
 @AllArgsConstructor
+
+//기본 생성자
 @NoArgsConstructor
 public class UserDto {
+	String token;
 	String u_id;
 	String u_pwd;
 	String u_name;
