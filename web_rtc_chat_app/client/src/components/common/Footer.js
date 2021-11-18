@@ -27,18 +27,18 @@ export default function Footer() {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
+        height: 100
       }}
     >
 
-      <CssBaseline />
+
 
       <Box
       // 푸터 색상 조절
       style={{ background: '#A0A0A0' }}
         component="footer"
         sx={{
-          py: 3,
+          py: 4,
           px: 2,
           mt: 'auto',
           backgroundColor: (theme) =>

@@ -8,16 +8,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { change } from "../../modules/auth";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  Grid,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import {Avatar, Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 
 const LoginContainer = () => {
