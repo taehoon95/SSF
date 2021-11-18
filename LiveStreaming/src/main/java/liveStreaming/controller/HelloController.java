@@ -16,6 +16,7 @@ public class HelloController {
 	
 	@GetMapping("/showTest")
 	public ResponseEntity<Object> showTest(){
+		System.out.println(1);
 		return ResponseEntity.ok(service.showTest());
 	}
 }
