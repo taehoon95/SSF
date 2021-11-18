@@ -34,7 +34,7 @@ public class UserService {
 		if(mapper.checkUser(user) != null){
 			throw new RuntimeException("아이디 이미 있다.");
 		}
-		mapper.register(user);
+		mapper.registerUser(user);
 		return user;
 	}
 
