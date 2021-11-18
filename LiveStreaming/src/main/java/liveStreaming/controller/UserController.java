@@ -18,9 +18,11 @@ public class UserController {
 	@Autowired
 	UserService service;
 
-
-	@PostMapping("/signup")
+	// 20211118 강동하 회원가입 api
+	@PostMapping("/register")
 	public ResponseEntity<Object> registerUser(@RequestBody UserDto user){
+		System.out.println("===================");
+		System.out.println(user.getU_id());
 		return ResponseEntity.ok(service.create(user));
 	}
 

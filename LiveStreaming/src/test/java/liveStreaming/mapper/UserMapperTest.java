@@ -35,10 +35,8 @@ public class UserMapperTest {
 
 	//@Test
 	public void test01register() {
-
-		UserDto user = new UserDto(null,"test4", "123", "ㅇㅇㅇ", "m", "ytt@sss", "123",new Date());
-		int res = mapper.register(user);
-
+		UserDto user = new UserDto("test4", "123", "ㅇㅇㅇ", "m", "ytt@sss", "123", new Date());
+		int res = mapper.registerUser(user);
 		Assertions.assertEquals(1, res);
 	}
 
