@@ -11,19 +11,29 @@ import { takeLatest } from "redux-saga/effects";
 
 const CHANGE = "CHANGE";
 
+const NUMBUR = "NUMBUR";
+
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes("auth/REGISTER");
+
+const [ID_CHECK, ID_CHECK_SUCCESS, ID_CHECK_FAILURE] =
+  createRequestActionTypes("auth/ID_CHECK");
 
 const init = {
   u_id: "",
   u_pwd: "",
+  u_pwdcheck: "",
   u_name: "",
   u_birth: "",
   u_gender: "",
   u_email: "",
+  u_emailcheck: "",
   u_tell: "",
+  number: "",
   auth: null,
   authError: null,
+  idcheck: null,
+  idcheckError:null,
 };
 
 export const change = createAction(CHANGE, ({ id, value }) => ({
@@ -31,13 +41,42 @@ export const change = createAction(CHANGE, ({ id, value }) => ({
   value,
 }));
 
+export const numberAuth = createAction(NUMBUR, (number) => ({
+  number,
+}));
+
+export const id_check = createAction(ID_CHECK, ({ u_id }) => ({
+  u_id,
+}));
+
 const register = handleActions(
   {
-    [CHANGE]: (state, { payload: { id, value } }) =>
+    [CHANGE]: (state, { payload: { id, value} }) =>
       produce(state, (draft) => {
+        console.log(draft);
         draft[id] = value;
+        if(id == "u_id"){
+          draft["idcheck"] = null;
+          draft["idcheckError"] = null;
+         }
       }),
 
+    [NUMBUR]: (state, { payload: { number } }) =>
+      produce(state, (draft) => {
+        draft["number"] = number.a;
+      }),
+
+    [ID_CHECK_SUCCESS]: (state, { payload: idcheck }) => ({
+      ...state,
+      idcheckError: null,
+      idcheck,
+    }),
+
+    [ID_CHECK_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      idcheckError: error,
+    }),
+    
     [REGISTER_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
       authError: null,
@@ -70,8 +109,11 @@ export const register_Action = createAction(
 
 const registerSaga = createRequestSaga(REGISTER, registerAPI.register);
 
-export function* authSaga() {
+const idcheckSaga = createRequestSaga(ID_CHECK, registerAPI.idcheck);
+
+export function* registerAuthSaga() {
   yield takeLatest(REGISTER, registerSaga);
+  yield takeLatest(ID_CHECK, idcheckSaga);
 }
 
 export default register;
