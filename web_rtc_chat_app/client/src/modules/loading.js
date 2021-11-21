@@ -1,4 +1,3 @@
-
 import { createAction, handleActions } from 'redux-actions';
 
 const START_LOADING = 'loading/START_LOADING';
@@ -34,4 +33,6 @@ const loading = handleActions(
   initialState
 );
 
+
 export default loading;
+

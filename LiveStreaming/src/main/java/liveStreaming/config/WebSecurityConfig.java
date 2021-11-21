@@ -1,37 +1,54 @@
+//스프링 시큐리티 설정
+//2021-11-19
+//박진현
+
 package liveStreaming.config;
 
-import java.util.Arrays;
 
-import org.springframework.context.annotation.Bean;
+import liveStreaming.security.JwtAuthenticationFilter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.filter.CorsFilter;
 
 
-//20211116 이태훈 security 에서 cors설정 
+
+
+
 
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
-	@Override
-	protected void configure(HttpSecurity httpSecurity) throws Exception {
-	/*
-	 HTTP 설정(기존에 사용하던 설정에 추가하면 된다) 스프링 보안에서 기본적으로 활성화되어 있기 때문에 
-	 csrf 보호를 비활성화해야 합니다. 여기에서 cors origin을 허용하는 코드를 볼 수 있습니다.
-	*/
-	httpSecurity.cors().and().csrf().disable(); //cors 필터 등록
-	}
-	
-	@Bean
-	CorsConfigurationSource corsConfigurationSource(){
-	CorsConfiguration configuration = new CorsConfiguration();
-	configuration.setAllowedOrigins(Arrays.asList("*" ));
-	configuration.setAllowedMethods(Arrays.asList("*"));
-	configuration.setAllowedHeaders(Arrays.asList("*"));
-	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	source.registerCorsConfiguration("/**", configuration);
-	return source;
-	}
+		@Autowired
+		private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+		@Override
+		protected void configure(HttpSecurity http) throws Exception{
+			//http 시큐리티 빌더
+			http.cors() // WebMvcConfig에서 이미 설정했으므로 기본 cors 설정
+					.and()
+					.csrf() // csrf는 현재 사용하지 않으므로 disable
+					.disable()
+					.httpBasic() // token을 사용하므로 basic 인증 disable
+					.disable()
+					.sessionManagement() // session 기반이 아님을 선언
+					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+					.and()
+					.authorizeRequests() // /와 /api/** 경로는 인증 안해도 됨
+					.antMatchers("/","/api/**").permitAll()
+					.anyRequest() // /와 /api/** 이외의 모든 경로는 인증해야 함
+					.authenticated();
+			//filter 등록
+			// 매 요청마다
+			// CorsFilter 실행한 후에
+			// jwtAuthenticationFilter 실행한다.
+			http.addFilterAfter(
+					jwtAuthenticationFilter,
+					CorsFilter.class
+			);
+		}
+
 }

@@ -16,4 +16,7 @@
     <select id="checkUser" resultType="liveStreaming.dto.UserDto">
     select * from ssf_schema.users where u_id = #{u_id}
     </select>
+    <select id="login" resultType="liveStreaming.dto.UserDto">
+        select * from ssf_schema.users where u_id = #{u_id}
+    </select>
 </mapper>
