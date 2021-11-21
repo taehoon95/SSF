@@ -97,7 +97,12 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- jwt 토큰 라이브러 추가-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -115,5 +120,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

@@ -14,9 +14,6 @@ import {
   Grid,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
-import Footer from "../components/common/Footer";
-import Header from "../components/common/Header";
-import { showTest } from "../lib/api/showTest";
 
 const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -43,14 +40,15 @@ const UploadPage = () => {
       .catch((err) => console.log(err));
   };
 
-  const onClick = () => {
-    console.log(111);
-    showTest().then((res) => console.log(res));
-  };
+
 
   return (
     <>
-      <Header />
+
+      <h1>S3 이미지 업로더</h1>
+      <input type="file" onChange={handleFileChange} />
+      <button onClick={handleFileUpload}>업로드</button>
+
       <Container>
         <Grid container justify="center" style={{ marginTop: 65 }}>
           <Grid item xs={12}>
@@ -64,7 +62,6 @@ const UploadPage = () => {
         </Grid>
       </Container>
 
-      <Footer />
     </>
   );
 };

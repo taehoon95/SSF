@@ -7,8 +7,10 @@ const SocketContext = createContext();
 // 11 17 강동하 수정
 // 배포시에 ip 변경하기
 // 땡겨받고 자기 ip로 변경
+
 // const socket = io("https://218.159.169.101:5000",{ secure : true });
 const socket = io("https://localhost:5000",{ secure : true });
+
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);

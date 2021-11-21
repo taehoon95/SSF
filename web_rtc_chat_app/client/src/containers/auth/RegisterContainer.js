@@ -4,6 +4,7 @@
 // 아이디, 비밀번호, 이름, 생년월일, 성별, 이메일 , 휴대전화
 
 //2021-11-18 강동하 회원가입 구현
+
 //2021-11-19 강동하 이메일 인증 구현
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +23,7 @@ import {
 } from "../../../node_modules/@material-ui/core/index";
 import { LockOutlined } from "../../../node_modules/@material-ui/icons/index";
 import axios from "../../../node_modules/axios/index";
+
 
 const RegisterContainer = () => {
   // 2021--11-19 유효성 검사
@@ -157,6 +159,7 @@ const RegisterContainer = () => {
     // }
     onKeyUpID();
   }, [idcheck2, idcheckError]);
+
 
   useEffect(() => {
     if (authError) {
@@ -398,8 +401,8 @@ const RegisterContainer = () => {
         style={{
           background: "#FFFFFF",
           borderRadius: 5,
-          marginTop: 150,
-          marginBottom: 100,
+          marginTop: 50,
+          marginBottom: 50,
         }}
       >
         <CssBaseline />
@@ -427,7 +430,7 @@ const RegisterContainer = () => {
 
           {/* 여기서부터 텍스트 입력창 */}
           <Grid container>
-            <Grid item style={{ width: "100%" }}>
+            <Grid item xs={12}>
               <Typography
                 variant="h6"
                 style={{ color: "303030", marginBottom: -15, marginTop: 10 }}
@@ -435,8 +438,10 @@ const RegisterContainer = () => {
                 아이디
               </Typography>
             </Grid>
+
             {/* 아이디 입력 텍스트 */}
             <Grid item xs={9}>
+
               <TextField
                 onChange={onChange}
                 onKeyUp={onKeyUpID}
@@ -450,6 +455,7 @@ const RegisterContainer = () => {
                 autoComplete="id"
               />
             </Grid>
+
             <Grid item xs={3} style={{ marginTop: 10}}>
               <Button
                 onClick={onIdCheck}
@@ -467,8 +473,11 @@ const RegisterContainer = () => {
           <Grid container>
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               <Typography variant="h6" style={{ color: "303030" }}>
+
                 비밀번호
               </Typography>
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
               {/* 비밀번호 입력 텍스트 */}
               <TextField
                 onChange={onChange}
@@ -491,6 +500,7 @@ const RegisterContainer = () => {
           </Grid>
 
           <Grid container>
+
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               <Typography variant="h6" style={{ color: "303030" }}>
                 비밀번호 확인
@@ -499,6 +509,7 @@ const RegisterContainer = () => {
               <TextField
                 onChange={onChange}
                 onKeyUp={onKeyUpPWDCheck}
+
                 style={{
                   background: "#FFFFFF",
                   marginTop: 2,
@@ -509,18 +520,24 @@ const RegisterContainer = () => {
                 required
                 fullWidth
                 type="password"
+
                 id="u_pwdcheck"
                 autoComplete="current-password"
               />
               <label style={{ color: "red" }}>{pwdcheckcheck}</label>
+
             </Grid>
           </Grid>
 
           <Grid container>
+
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               <Typography variant="h6" style={{ color: "303030" }}>
+
                 이름
               </Typography>
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
               {/* 이름 입력 텍스트 */}
               <TextField
                 onChange={onChange}
@@ -542,10 +559,14 @@ const RegisterContainer = () => {
           </Grid>
 
           <Grid container>
+
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               <Typography variant="h6" style={{ color: "303030" }}>
+
                 생년월일
               </Typography>
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
               {/* 생년월일 입력 텍스트 */}
               <TextField
                 onChange={onChange}
@@ -568,10 +589,14 @@ const RegisterContainer = () => {
           </Grid>
 
           <Grid container>
+
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               <Typography variant="h6" style={{ color: "303030" }}>
+
                 성별
               </Typography>
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
               {/* 성별 입력 텍스트 */}
               <input
                 onChange={onChange}
@@ -619,6 +644,7 @@ const RegisterContainer = () => {
           </Grid>
 
           <Grid container>
+
             <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
               <Typography variant="h6" style={{ color: "303030" }}>
                 이메일
@@ -626,6 +652,7 @@ const RegisterContainer = () => {
             </Grid>
             {/* 이메일 입력 텍스트 */}
             <Grid item xs={9} style={{ marginTop: 5, width: "100%" }}>
+
               <TextField
                 onKeyUp={onKeyUpEmail}
                 onChange={onChange}
@@ -659,16 +686,22 @@ const RegisterContainer = () => {
             {emaildata}
           </Grid>
           <Grid container>
+
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               {test && (
                 <label style={{ color: "red" }}>{emailcheckcheck}</label>
               )}
               <Typography variant="h6" style={{ color: "303030" }}>
+
                 휴대전화
               </Typography>
+            </Grid>
+            <Grid item style={{ width: "100%" }}>
               {/* 휴대전화 입력 텍스트 */}
               <TextField
+
                 onKeyUp={onKeyUpTell}
+
                 onChange={onChange}
                 style={{
                   background: "#FFFFFF",

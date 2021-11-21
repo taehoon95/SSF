@@ -38,7 +38,6 @@ const MyVideoSettingPage = () => {
     };
   return (
     <>
-      <Header />
       <TableContainer justify="center" align="center" style={{ marginTop: 65 }} component={Paper}>
         <Table  size="large">
           <TableHead >
@@ -85,7 +84,6 @@ const MyVideoSettingPage = () => {
           </TableFooter>
         </Table>
       </TableContainer>
-      <Footer />
     </>
   );
 };

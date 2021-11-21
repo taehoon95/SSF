@@ -6,6 +6,7 @@ import Notification from "./components/Notification";
 import Options from "./components/Options";
 import VideoPlayer from "./components/VideoPlayer";
 
+
 const useStyles = makeStyles((theme) => ({
   appBar: {
     borderRadius: 15,
