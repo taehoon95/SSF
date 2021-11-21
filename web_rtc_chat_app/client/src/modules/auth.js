@@ -63,7 +63,6 @@ const auth = handleActions(
         [CHANGE]: (state, { payload : { name , value }}) =>                
             produce(state,(draft)=>{
                 console.log('여기는 필드');
-                
                 draft[name] =value;
             }),      
             //로그인 실패
