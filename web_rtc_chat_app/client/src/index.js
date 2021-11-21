@@ -14,8 +14,10 @@ const sagaMiddleware = createSagaMiddleware();
 
 // 스토어 생성
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+console.log(store.getState()); // 스토어의 상태를 확인해봅시다.
 
 sagaMiddleware.run(rootSaga);
+
 
 ReactDOM.render(
   <Provider store={store}>

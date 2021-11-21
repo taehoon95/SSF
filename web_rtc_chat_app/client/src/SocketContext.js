@@ -4,7 +4,10 @@ import Peer from "simple-peer";
 
 const SocketContext = createContext();
 
-const socket = io("http://127.0.0.1:5000");
+// 11 17 강동하 수정
+// 배포시에 ip 변경하기
+// 땡겨받고 자기 ip로 변경
+const socket = io("https://220.119.26.222:5000",{ secure : true });
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);

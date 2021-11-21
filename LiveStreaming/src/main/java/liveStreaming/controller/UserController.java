@@ -7,8 +7,10 @@ package liveStreaming.controller;
 import liveStreaming.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 
 import liveStreaming.dto.UserDto;
-import liveStreaming.service.TestService;
+
 import liveStreaming.service.UserService;
 
 @Slf4j
@@ -26,14 +28,20 @@ public class UserController {
 	@Autowired
 	UserService service;
 
+
 	@Autowired
 	private TokenProvider tokenProvider;
 
 	//bean으로 작성해도 됨
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-	@PostMapping("/signup")
+	
+	// 20211118 강동하 회원가입 api
+	@PostMapping("/register")
+
 	public ResponseEntity<Object> registerUser(@RequestBody UserDto user){
+		System.out.println("===================");
+		System.out.println(user.getU_id());
 		return ResponseEntity.ok(service.create(user));
 	}
 
@@ -51,18 +59,6 @@ public class UserController {
 			 return ResponseEntity.badRequest().body(user);
 		 }
 	}
-
-
-
-
-
-
-
-//	@PostMapping("/register")
-//	public ResponseEntity<Object> register(@RequestBody UserDto user){
-//		return ResponseEntity.ok(service.register(user));
-//	}
-
 
 
 }

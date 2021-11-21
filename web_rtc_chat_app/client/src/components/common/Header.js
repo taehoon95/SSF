@@ -7,6 +7,7 @@ import { AppBar, Box, Container, Drawer, IconButton, List, ListItem, Toolbar, Ty
 import { Dehaze, Home } from '@mui/icons-material';
 import { AccessAlarms, LiveTv, NotificationsNone, Person, Upload, VideoLabel } from '@mui/icons-material';
 import { Avatar, Button, Divider, Grid, Tooltip } from '@mui/material';
+import { VideoSettings } from '../../../node_modules/@mui/icons-material/index';
 
 // SideBar CSS
 const useStyles = makeStyles((theme) => ({
@@ -188,6 +189,14 @@ const Header = () => {
               <Upload />
               <Box pl={3} type="paragraph" color="inherit">
                 방송 업로드
+              </Box>
+            </ListItem>
+
+            {/* 내 영상 관리 버튼 */}
+            <ListItem button component="a" href="./MyVideoSettingPage">
+              <VideoSettings />
+              <Box pl={3} type="paragraph" color="inherit">
+                내 영상 관리
               </Box>
             </ListItem>
 

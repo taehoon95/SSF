@@ -2,7 +2,6 @@ package liveStreaming.dto;
 
 import java.util.Date;
 
-import org.joda.time.DateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,7 +17,6 @@ import lombok.ToString;
 //기본 생성자
 @NoArgsConstructor
 public class UserDto {
-	String token;
 	String u_id;
 	String u_pwd;
 	String u_name;
