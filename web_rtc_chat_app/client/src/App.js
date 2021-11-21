@@ -10,11 +10,15 @@ import UploadPage from './pages/UploadPage';
 import WatchPage from './pages/WatchPage';
 import WatchPage2 from './pages/WatchPage2';
 import MyVideoSettingPage from './pages/MyVideoSettingPage';
+import Header from './components/common/Header';
+import Footer from './components/common/Footer';
 
 
 function App() {
   return (
     <>
+    <Header />
+    <div>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
       <Route component={ListPage} path={['/ListPage/@:u_id', '/ListPage']} />
       <Route component={LiveSettingPage} path={['/LiveSettingPage/@:ID', '/LiveSettingPage']} />
@@ -28,6 +32,8 @@ function App() {
 
       {/* 20211115 이태훈 비디오 보는 페이지 테스트중*/}
       <Route component={WatchPage2} path={["/WatchPage2/:v_code" , "/WatchPage2"]} />
+    </div>
+    <Footer />
     </>
   );
 }

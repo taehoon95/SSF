@@ -5,14 +5,19 @@
 
 import React from "react";
 import { Grid } from "../../node_modules/@material-ui/core/index";
-import Footer from "../components/common/Footer";
-import Header from "../components/common/Header";
+import { videorecord } from "../lib/api/videoRecord";
+
+
 
 const WatchPage2 = () => {
   const cdn = "https://d3lafl73dhs1s7.cloudfront.net/";
+
+  const test = () => {
+    videorecord("kang97")
+  }
+  
   return (
     <>
-      <Header />
       <Grid container style={{ marginTop: 65 }}>
         <Grid item>
       <video controls autoPlay loop muted>
@@ -21,9 +26,9 @@ const WatchPage2 = () => {
           type="video/mp4"
         />
       </video>
+      <button onClick={test}>showList</button>
         </Grid>
       </Grid>
-      <Footer />
     </>
   );
 };

@@ -1,11 +1,10 @@
 package liveStreaming.mapper;
 
 import java.util.Date;
-import java.util.List;
+
 
 import liveStreaming.dto.UserDto;
-import org.apache.catalina.User;
-import org.joda.time.DateTime;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import liveStreaming.dto.TestDto;
+
 import org.springframework.transaction.annotation.Transactional;
 
 

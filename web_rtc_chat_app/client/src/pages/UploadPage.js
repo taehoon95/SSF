@@ -14,8 +14,6 @@ import {
   Grid,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
-import Footer from "../components/common/Footer";
-import Header from "../components/common/Header";
 import { showTest } from "../lib/api/showTest";
 
 const UploadPage = () => {
@@ -50,7 +48,6 @@ const UploadPage = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <Grid container justify="center" style={{ marginTop: 65 }}>
           <Grid item xs={12}>
@@ -64,7 +61,6 @@ const UploadPage = () => {
         </Grid>
       </Container>
 
-      <Footer />
     </>
   );
 };

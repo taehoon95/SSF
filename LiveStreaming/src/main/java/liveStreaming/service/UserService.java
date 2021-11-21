@@ -1,15 +1,9 @@
 package liveStreaming.service;
 
-import java.util.List;
-
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import liveStreaming.dto.TestDto;
 import liveStreaming.dto.UserDto;
-import liveStreaming.mapper.TestMapper;
+
 import liveStreaming.mapper.UserMapper;
 
 
@@ -29,8 +23,6 @@ public class UserService {
 		if(user == null || user.getU_id() == null){
 			throw new RuntimeException("모르겠다");
 		}
-		final String id = user.getU_id();
-
 		if(mapper.checkUser(user) != null){
 			throw new RuntimeException("아이디 이미 있다.");
 		}

@@ -2,7 +2,6 @@ package liveStreaming.dto;
 
 import java.util.Date;
 
-import org.joda.time.DateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
