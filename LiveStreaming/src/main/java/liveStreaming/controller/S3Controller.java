@@ -28,7 +28,6 @@ public class S3Controller {
 	@CrossOrigin(origins="*")
 	@PostMapping("/upload")
 	public ResponseEntity<Object> upload(@RequestParam(value="file") MultipartFile multipartFile) throws IOException {
-		System.out.println("데이터 등록으로 들어오냐?");
 		return ResponseEntity.ok(s3Uploader.upload(multipartFile, "static"));
 	}
 }
