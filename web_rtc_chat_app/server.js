@@ -5,6 +5,15 @@ const https = require('https');
 const cors = require('cors');
 const fs = require('fs');
 
+// 11 19 강동하 bodyparser 구현
+const bodyParser = require('body-parser');
+
+// 11 19 강동하 /api 라우터 구현
+const rootRouter = require('./routes/index');
+
+// 11 19 강동하 bodyparser 구현
+app.use(bodyParser());
+
 // 11 17 강동하 수정
 // ssl 인증키
 const options = {
@@ -32,6 +41,9 @@ app.use(cors());
 app.get("/", (req, res) => {
     res.send('Server is running');
 });
+
+// 11 19 강동하 /api 라우터 구현
+app.use('/api', rootRouter);
 
 // 특정 소켓이 실시간 데이터 전송에 사용
 // 데이터는 메시지, 오디오 또는 비디오

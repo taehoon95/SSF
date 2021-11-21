@@ -25,6 +25,13 @@ public class UserController {
 		System.out.println(user.getU_id());
 		return ResponseEntity.ok(service.create(user));
 	}
+	//20211120 강동하 회원가입 시 id 중복 체크
+	@PostMapping("/idcheck")
+	public ResponseEntity<Object> checkUser(@RequestBody UserDto user){
+		System.out.println("===================");
+		System.out.println(user.getU_id());
+		return ResponseEntity.ok(service.id_chcek(user));
+	}
 
 	@PostMapping("/signin")
 	public ResponseEntity<Object> loginUser(@RequestBody UserDto user){

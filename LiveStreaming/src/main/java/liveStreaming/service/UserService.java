@@ -38,6 +38,14 @@ public class UserService {
 		return user;
 	}
 
+	public UserDto id_chcek(UserDto user){
+		if(mapper.checkUser(user) != null){
+			throw new RuntimeException("ID 중복");
+		}
+		// 중복 체크 통과
+		return user;
+	}
+
 	public UserDto getByCredentials(UserDto user){
 		return mapper.loginUser(user);
 	}
