@@ -9,7 +9,6 @@ S3에 영상 올리기 테스트
 
 import React, { useState } from "react";
 import axios from "../../node_modules/axios/index";
-import { showTest } from "../lib/api/showTest";
 
 const UploadPage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -36,17 +35,13 @@ const UploadPage = () => {
       .catch((err) => console.log(err));
   };
 
-  const onClick = () => {
-    console.log(111);
-    showTest().then((res) => console.log(res));
-  };
+
 
   return (
     <>
       <h1>S3 이미지 업로더</h1>
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleFileUpload}>업로드</button>
-      <button onClick={onClick}>GET 버튼</button>
     </>
   );
 };

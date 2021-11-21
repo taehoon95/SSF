@@ -16,4 +16,7 @@ public interface UserMapper {
 	// 2021 1116 박진현
 	//아이디 체크
 	UserDto checkUser(UserDto user);
+
+
+	UserDto login(UserDto user);
 }

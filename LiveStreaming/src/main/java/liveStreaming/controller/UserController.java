@@ -1,34 +1,61 @@
+//2021-11-19
+//controller
+//박진현
+
 package liveStreaming.controller;
 
+import liveStreaming.security.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 
 import liveStreaming.dto.UserDto;
 import liveStreaming.service.TestService;
 import liveStreaming.service.UserService;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class UserController {
 	@Autowired
 	UserService service;
 
+	@Autowired
+	private TokenProvider tokenProvider;
+
+	//bean으로 작성해도 됨
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@PostMapping("/signup")
 	public ResponseEntity<Object> registerUser(@RequestBody UserDto user){
 		return ResponseEntity.ok(service.create(user));
 	}
 
-	@PostMapping("/signin")
+	@PostMapping("/login")
 	public ResponseEntity<Object> loginUser(@RequestBody UserDto user){
-		return user != null
-		       ? ResponseEntity.ok(service.getByCredentials(user)) : ResponseEntity.badRequest().body(user);
+		 	user = service.getByCredentials(user, passwordEncoder);
+		 if(user != null) {
+			//토큰 생성
+			 final String token = tokenProvider.create(user);
+			 user.setToken(token);
+			 System.out.println("토큰생성");
+			return ResponseEntity.ok().body(user);
+		}else{
+			 System.out.println("실패");
+			 return ResponseEntity.badRequest().body(user);
+		 }
 	}
+
+
+
+
+
 
 
 //	@PostMapping("/register")
