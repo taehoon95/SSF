@@ -16,4 +16,8 @@ public class VideoRecordService {
 	public List<VideoRecordDto> videoRecord(String u_id){
 		return mapper.videoRecord(u_id);
 	}
+	
+	public int videoUpload(VideoRecordDto video) {
+		return mapper.videoUpload(video);
+	}
 }
