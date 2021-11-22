@@ -23,6 +23,7 @@ import {
 } from "../../../node_modules/@material-ui/core/index";
 import { LockOutlined } from "../../../node_modules/@material-ui/icons/index";
 import axios from "../../../node_modules/axios/index";
+import { useHistory } from "react-router-dom";
 
 
 const RegisterContainer = () => {
@@ -59,6 +60,7 @@ const RegisterContainer = () => {
   const [numbertest, setNumberTest] = useState(0);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const {
     u_id,
@@ -171,6 +173,7 @@ const RegisterContainer = () => {
     if (auth) {
       alert("회원가입이 되었습니다.");
       console.log("회원가입 성공");
+      history.push("/");
       console.log(auth);
     }
   }, [auth, authError]);

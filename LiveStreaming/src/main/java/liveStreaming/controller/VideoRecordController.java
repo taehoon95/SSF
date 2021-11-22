@@ -23,9 +23,18 @@ public class VideoRecordController {
 		return ResponseEntity.ok(service.videoRecord(u_id));
 	}
 
+
 	// 2021 11-21 이태훈 비디오 업로드
 	@PostMapping("/videoupload")
 	public ResponseEntity<Object> videoUpload(@RequestBody VideoRecordDto video) {
 		return ResponseEntity.ok(service.videoUpload(video));
+  }
+
+	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
+	@GetMapping("/videoviews/{u_id}")
+	public ResponseEntity<Object> showVideoViews(@PathVariable String u_id){
+		System.out.println(1);
+		return ResponseEntity.ok(service.videoViews(u_id));
 	}
+  
 }
