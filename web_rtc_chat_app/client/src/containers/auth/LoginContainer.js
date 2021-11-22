@@ -67,7 +67,6 @@ const LoginContainer = () => {
       return;
     }
     if(auth){
-      console.log(auth);
       console.log('로그인 성공');
       history.push("/");
     }

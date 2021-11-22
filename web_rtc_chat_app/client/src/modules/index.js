@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([registerAuthSaga()]);
+  yield all([registerAuthSaga(), authSaga()]);
 }
 
 export default rootReducer;

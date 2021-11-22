@@ -1,7 +1,8 @@
 package liveStreaming.mapper;
 
-import liveStreaming.dto.UserDto;
 import org.springframework.stereotype.Repository;
+
+import liveStreaming.dto.UserDto;
 
 @Repository
 public interface UserMapper {
