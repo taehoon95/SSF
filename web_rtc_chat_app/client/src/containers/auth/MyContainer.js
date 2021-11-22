@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  CssBaseline,
-  Grid,
-  Typography,
-} from "../../../node_modules/@material-ui/core/index";
 import axios from "axios";
 import Slider from "react-slick";
-import { date } from "faker";
 
 const MyContainer = () => {
   const [myList, setMyList] = useState([]);
@@ -30,11 +24,11 @@ const MyContainer = () => {
 
   // slider 속성
   const settings = {
-    dots: true, // 하단에 점 콘텐츠 개수 점 표시
+    dots: false, // 하단에 점 콘텐츠 개수 점 표시
     infinite: true, //콘텐츠 끝까지 갔을 때 처음 콘텐츠로 가져와 반복
     speed: 500, // 콘텐츠 넘길 때 속도
     slidesToShow: 4, // 한 화면에 보이는 콘텐츠 수
-    slidesToScroll: 1, // 버튼 누르면 넘어가는 콘텐츠 개수
+    slidesToScroll: 4, // 버튼 누르면 넘어가는 콘텐츠 개수
   };
 
   return (

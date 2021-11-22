@@ -2,9 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="liveStreaming.mapper.VideoRecordMapper">
 
+    <!-- 마이페이지 View -->
     <select id="videoRecord" resultType="liveStreaming.dto.VideoRecordDto">
-        select * from ssf_schema.video_upload where u_id=#{u_id};
+        select * from ssf_schema.video_upload where u_id=#{u_id} and v_state = 1;
     </select>
+
+    <!-- 게시물 삭제 -->
+    <update id="videoDelete" parameterType="liveStreaming.dto.VideoRecordDto">
+        update ssf_schema.video_upload 
+            set v_state = 0 
+          where u_id = #{u_id} and v_code = #{v_code};
+    </update>
+
+    <!-- 게시물 올리기 -->
+    
 
 
 </mapper>
