@@ -6,6 +6,14 @@
         select * from ssf_schema.video_upload where u_id=#{u_id};
     </select>
 
+	<insert id="videoUpload" parameterType="liveStreaming.dto.VideoRecordDto">
+		insert 
+		  into ssf_schema.video_upload 
+		       (v_code, v_name, v_img, c_code, v_length, u_id, v_views, v_link)
+        values
+               (#{v_code},#{v_name},#{v_img},#{c_code},#{v_length},#{u_id}, #{v_views},#{v_link}) 
+	</insert>
+
     <select id="videoViews" resultType="liveStreaming.dto.VideoRecordDto">
         select v_name, v_views 
             from ssf_schema.video_upload 
