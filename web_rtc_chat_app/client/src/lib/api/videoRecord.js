@@ -5,7 +5,7 @@ export const videorecord = (u_id) =>
 
 // 비디오 리스트 가져오기 api
 axios.get(`/api/videorecord/`+u_id).then( response => {
-    alert("record 가져오기 성공ㅎㅎ");
+    //alert("record 가져오기 성공ㅎㅎ");
     console.log(response.data);
   })
   .catch( error => {
@@ -44,3 +44,15 @@ export const deleteListLine = ( v_code ) => {
 //     console.log(error);
 //   });
 // }
+
+// // 2021-11-21 강동하 마이페이지 탑5 영상 조회
+// export const videoviews = (u_id) => 
+
+// axios.get(`/api/videoviews/`+u_id).then( response => {
+//     alert("views 가져오기 성공ㅎㅎ");
+//     console.log(response.data);
+//   })
+//   .catch( error => {
+//       alert("views 가져오기 실패")
+//       console.log(error);
+// })

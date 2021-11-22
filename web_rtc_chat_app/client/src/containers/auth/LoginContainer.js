@@ -35,7 +35,8 @@ const LoginContainer = () => {
   const { auth, authError } = useSelector((state) => ({
     auth: state.auth,
     authError: state.authError,
-  }));
+  }))
+
 
   // input text 체인지
   const onChange = (e) => {
@@ -69,10 +70,10 @@ const LoginContainer = () => {
       setError("로그인 실패");
       return;
     }
-    if (auth) {
-      console.log(auth);
 
-      console.log("로그인 성공");
+    if(auth){
+      console.log('로그인 성공');
+      history.push("/");
     }
   }, [auth, authError]);
 
