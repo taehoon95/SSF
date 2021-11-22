@@ -6,5 +6,12 @@
         select * from ssf_schema.video_upload where u_id=#{u_id};
     </select>
 
+    <select id="videoViews" resultType="liveStreaming.dto.VideoRecordDto">
+        select v_name, v_views 
+            from ssf_schema.video_upload 
+                where u_id = #{u_id} 
+                order by v_views DESC 
+                LIMIT 10;
+    </select>
 
 </mapper>

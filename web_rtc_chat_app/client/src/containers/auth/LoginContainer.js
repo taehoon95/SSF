@@ -12,11 +12,12 @@ import { change, login, loginSaga, login_failure, login_success } from "../../mo
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {Avatar, Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
-
+import { useHistory } from "react-router-dom";
 
 const LoginContainer = () => {
   const [error,setError] = useState(null);
   const dispatch = useDispatch();
+  const history = useHistory();
   const {  u_id, u_pwd } = useSelector((state) => {      
       
     return{        
@@ -67,8 +68,8 @@ const LoginContainer = () => {
     }
     if(auth){
       console.log(auth);
-      
       console.log('로그인 성공');
+      history.push("/");
     }
   },[auth,authError])
 
