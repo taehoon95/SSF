@@ -16,4 +16,9 @@ public class VideoRecordService {
 	public List<VideoRecordDto> videoRecord(String u_id){
 		return mapper.videoRecord(u_id);
 	}
+
+	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
+	public List<VideoRecordDto> videoViews(String u_id){
+		return mapper.videoViews(u_id);
+	}
 }
