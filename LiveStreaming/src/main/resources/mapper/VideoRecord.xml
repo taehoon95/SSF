@@ -9,7 +9,7 @@
 
     <!-- MainVideo View(랜덤으로 16개 영상 추출) -->
     <select id="mainVideo" resultType="liveStreaming.dto.VideoRecordDto">
-        select * from ssf_schema.video_upload where v_state=1 ORDER BY RANDOM() limit 16;
+        select * from ssf_schema.video_upload where v_state=1 group by v_code ORDER BY RANDOM() limit 16;
     </select>
 
     <!-- List Delete -->
