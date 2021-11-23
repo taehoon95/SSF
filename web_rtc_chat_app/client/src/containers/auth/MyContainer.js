@@ -1,17 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Slider from "react-slick";
-
-import { date } from "faker";
-import Paper from "@material-ui/core/Paper";
-import {
-  Chart,
-  BarSeries,
-  Title,
-  ArgumentAxis,
-  ValueAxis,
-} from "@devexpress/dx-react-chart-material-ui";
-import { Animation } from "@devexpress/dx-react-chart";
 import { Bar } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 
