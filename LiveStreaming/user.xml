@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="liveStreaming.mapper.UserMapper">
-	<insert id="register" parameterType="liveStreaming.dto.UserDto">
-        INSERT 
-          INTO ssf_schema.users (u_id, u_pwd, u_name, u_gender,u_email, u_tell, u_birth) 
-        VALUES (#{u_id}, #{u_pwd}, #{u_name}, #{u_gender}, #{u_email}, #{u_tell}, #{u_birth});
-    </insert>
-</mapper>

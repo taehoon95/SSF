@@ -9,29 +9,53 @@
 
 import React, { useState } from "react";
 import {
+  Box,
   Button,
-  Container,
   Grid,
+  Input,
+  TextField,
+  Typography,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 
 const UploadPage = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedVFile, setSelectedVFile] = useState(null);
+  const [selectedIFile, setSelectedIFile] = useState(null);
 
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+  const handleVideoChange = (e) => {
+    console.log(e.target.files[0]);
+    
+    setSelectedVFile(e.target.files[0]);
   };
 
+  const handleImgChange = (e) => {
+    console.log(e.target.files[0]);
+    
+    setSelectedIFile(e.target.files[0]);
+  };
+
+  // 20211123 이태훈 동영상 이미지 업로드 api
   const handleFileUpload = () => {
     console.log("저장");
-    const formData = new FormData();
-    formData.append("file", selectedFile, selectedFile.name);
-    console.log(selectedFile);
+    const videoData = new FormData();
+    const imgData = new FormData();
+    videoData.append("file", selectedVFile, selectedVFile.name);
+    imgData.append("file", selectedIFile, selectedIFile.name);
+    console.log(selectedVFile);
+    console.log(1);
+    console.log(selectedIFile);
     // upload(formData)
     // .then(res => console.log(res))
-
     axios
-      .post("http://localhost:8080/api/upload", formData, {
+      .post("http://localhost:8080/api/upload", imgData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    axios
+      .post("http://localhost:8080/api/upload", videoData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -40,28 +64,30 @@ const UploadPage = () => {
       .catch((err) => console.log(err));
   };
 
-
-
   return (
     <>
-
-      <h1>S3 이미지 업로더</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleFileUpload}>업로드</button>
-
-      <Container>
-        <Grid container justify="center" style={{ marginTop: 65 }}>
-          <Grid item xs={12}>
-            <input type="file" onChange={handleFileChange} />
+        <Grid container style={{ marginTop: 65 }}>
+          <Grid item xs={12} align="left">
+            <Typography variant="h4" >제목</Typography>
+            <Input  placeholder="제목을 입력하세요." />
+          </Grid>
+          <Grid item xs={12} align="left">
+            <Typography variant="h4">내용</Typography>
+            <Input  placeholder="내용을 입력하세요." />
+          </Grid>
+          <Grid item xs={12} >
+            {/* file타입 옆에 multiple 옵션 넣어주면 다중선택 가능 */}
+            <input type="file" required onChange={handleVideoChange} />
           </Grid>
           <Grid item xs={12}>
+            <input type="file" required onChange={handleImgChange} />
+          </Grid>
+          <Grid item xs={12} align="center">
             <Button variant="contained" onClick={handleFileUpload}>
               업로드
             </Button>
           </Grid>
         </Grid>
-      </Container>
-
     </>
   );
 };

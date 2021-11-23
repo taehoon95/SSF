@@ -25,4 +25,6 @@ public class VideoRecordDto {
 	String u_id;
 	int v_views;
 	String v_link;
+	int v_state;
+	String v_descript;
 }
