@@ -9,7 +9,7 @@ import createRequestSaga, {
 import * as registerAPI from "../lib/api/register";
 import { takeLatest } from "redux-saga/effects";
 
-const CHANGE = "CHANGE";
+const CHANGE = "CHANGE2";
 
 const NUMBUR = "NUMBUR";
 
@@ -49,11 +49,26 @@ export const id_check = createAction(ID_CHECK, ({ u_id }) => ({
   u_id,
 }));
 
+export const register_Action = createAction(
+  REGISTER,
+  ({ u_id, u_pwd, u_name, u_birth, u_gender, u_email, u_tell }) => {
+    return {
+      u_id,
+      u_pwd,
+      u_name,
+      u_birth,
+      u_gender,
+      u_email,
+      u_tell,
+    };
+  }
+);
+
 const register = handleActions(
   {
     [CHANGE]: (state, { payload: { id, value} }) =>
       produce(state, (draft) => {
-        console.log(draft);
+        //console.log(draft);
         draft[id] = value;
         if(id == "u_id"){
           draft["idcheck"] = null;
@@ -91,21 +106,6 @@ const register = handleActions(
   init
 );
 
-export const register_Action = createAction(
-  REGISTER,
-  ({ u_id, u_pwd, u_name, u_birth, u_gender, u_email, u_tell }) => {
-    console.log(u_id + "============");
-    return {
-      u_id,
-      u_pwd,
-      u_name,
-      u_birth,
-      u_gender,
-      u_email,
-      u_tell,
-    };
-  }
-);
 
 const registerSaga = createRequestSaga(REGISTER, registerAPI.register);
 
