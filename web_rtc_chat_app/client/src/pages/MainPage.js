@@ -4,6 +4,7 @@
 //헤더,푸터 추가
 
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Grid, Typography } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
@@ -122,9 +123,7 @@ const MainPage = () => {
           </Grid>
         </div>
       </div>
-    </>
-  );
-};
+
 
 const cssstyle = `
 .container {

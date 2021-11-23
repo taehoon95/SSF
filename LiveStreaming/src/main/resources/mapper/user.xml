@@ -14,7 +14,16 @@
     </select>
 
     <select id="checkUser" resultType="liveStreaming.dto.UserDto">
-    select * from ssf_schema.users where u_id = #{u_id}
+    select * from ssf_schema.users where u_id = #{u_id};
     </select>
 
+    <select id="logincheck" resultType="liveStreaming.dto.UserDto">
+        select *
+        from ssf_schema.users
+        where u_id = #{u_id} and u_pwd = #{u_pwd};
+    </select>
+    <select id="idfind" resultType="liveStreaming.dto.UserDto">
+    select * from
+        ssf_schema.users where u_name= #{u_name} and u_email=#{u_email};
+    </select>
 </mapper>
