@@ -1,18 +1,20 @@
 import axios from "axios";
 
-export const videorecord = (u_id) => 
 
-// 비디오 리스트 가져오기 api
-axios.get(`/api/videorecord/`+u_id).then( response => {
+
+
+// 20211120 윤성준 비디오 리스트 가져오기 api
+export const videorecord = (u_id) => 
+axios
+  .get(`/api/videorecord/`+u_id)
+  .then( response => {
+    //alert("record 가져오기 성공ㅎㅎ");
     console.log(response.data);
   })
   .catch( error => {
-      console.log(error + "record 가져오기 실패");
-      alert("record 가져오기 실패")
-      console.log(error);
-})
+      //alert("record 가져오기 실패")
 
-// 20211122 리스트 삭제 api
+// 20211122 윤성준 리스트 삭제 api
 export const deleteListLine = ( v_code ) => {
   console.log(v_code);
   axios
