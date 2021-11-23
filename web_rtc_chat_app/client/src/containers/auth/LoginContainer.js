@@ -22,10 +22,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const LoginContainer = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const history = useHistory();
   const { u_id, u_pwd } = useSelector((state) => {
     return {
       u_id: state.auth.u_id,
@@ -36,6 +38,7 @@ const LoginContainer = () => {
     auth: state.auth,
     authError: state.authError,
   }))
+
 
 
   // input text 체인지

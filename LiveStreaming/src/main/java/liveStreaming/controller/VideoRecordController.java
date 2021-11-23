@@ -47,8 +47,13 @@ public class VideoRecordController {
 	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
 	@GetMapping("/videoviews/{u_id}")
 	public ResponseEntity<Object> showVideoViews(@PathVariable String u_id){
-		System.out.println(1);
 		return ResponseEntity.ok(service.videoViews(u_id));
 	}
-  
+
+
+	// 2021-11-22 강동하 WatchPage2 영상 정보 조회
+	@GetMapping("/thisvideo/{v_code}")
+	public ResponseEntity<Object> showThisVideo(@PathVariable String v_code){
+		return ResponseEntity.ok(service.thisVideo(v_code));
+	}
 }

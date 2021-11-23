@@ -33,4 +33,9 @@ public class VideoRecordService {
 	public List<VideoRecordDto> videoViews(String u_id){
 		return mapper.videoViews(u_id);
 	}
+
+	// 2021-11-22 강동하 WatchPage2 영상 정보 조회
+	public List<VideoRecordDto> thisVideo(String v_code){
+		return mapper.thisVideo(v_code);
+	}
 }

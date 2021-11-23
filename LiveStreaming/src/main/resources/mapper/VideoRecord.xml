@@ -26,11 +26,15 @@
 	</insert>
 
     <select id="videoViews" resultType="liveStreaming.dto.VideoRecordDto">
-        select v_name, v_views 
-            from ssf_schema.video_upload 
-                where u_id = #{u_id} 
+        select v_name, v_views from ssf_schema.video_upload 
+                where u_id = #{u_id}
                 order by v_views DESC 
                 LIMIT 10;
+    </select>
+
+    <select id="thisVideo" resultType="liveStreaming.dto.VideoRecordDto">
+        select * from ssf_schema.video_upload 
+            where v_code = #{v_code};
     </select>
 
 </mapper>
