@@ -5,7 +5,7 @@ import { Bar } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
 
 const MyContainer = () => {
-
+  const u_id =  localStorage.getItem('u_id');
 
   // const data2 = {
   //   dataHorizontal: {
@@ -49,7 +49,7 @@ const MyContainer = () => {
 
   const myVideoList = () => {
     axios
-      .get(`/api/videorecord/kang97`)
+      .get(`/api/videorecord/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setMyList(response.data);
@@ -120,7 +120,7 @@ const MyContainer = () => {
 
   const myVideoViews = () => {
     axios
-      .get(`/api/videoviews/kang97`)
+      .get(`/api/videoviews/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         console.log(response.data);
