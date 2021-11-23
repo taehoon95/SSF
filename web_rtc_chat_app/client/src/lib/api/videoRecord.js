@@ -7,9 +7,7 @@ axios.get(`/api/videorecord/`+u_id).then( response => {
     console.log(response.data);
   })
   .catch( error => {
-
       console.log(error + "record 가져오기 실패");
-})
       alert("record 가져오기 실패")
       console.log(error);
 })
