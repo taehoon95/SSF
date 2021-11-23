@@ -123,7 +123,8 @@ const MainPage = () => {
           </Grid>
         </div>
       </div>
-
+    </>
+  )};
 
 const cssstyle = `
 .container {
