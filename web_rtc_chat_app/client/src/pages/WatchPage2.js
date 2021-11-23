@@ -104,11 +104,11 @@ const WatchPage2 = () => {
             <label style={{ color: "black" }}>{video[0].v_descript}</label>
             <p />
             <label style={{ color: "black" }}>
-              조회수 {video[0].v_views}회
+              조회수 : {video[0].v_views}회
             </label>
             <p />
             <label style={{ color: "black" }}>
-              영상 업로드 일자 {video[0].v_date}
+              영상 업로드 일자 : {video[0].v_date}
             </label>
             <hr color="#000000" style={{ marginTop: 20 }} />
             {commentResult === 0 && (
@@ -142,14 +142,17 @@ const WatchPage2 = () => {
               </>
             )}
             <hr color="#000000" style={{ marginTop: 20 }} />
-            {commentSelectResult === 1 && (commentInfo.map( (data, index) => 
-              <Grid key={index} item style={{ marginBottom: 20 }}>
-                <label style={{ color: "black" }}>{data.u_id} : </label>
-                <label style={{ color: "black" }}>{data.m_text}</label>
-                <label style={{ color: "black" }}> 작성일 : {data.m_date}</label>
-              </Grid>
-              ))
-            }
+            {commentSelectResult === 1 &&
+              commentInfo.map((data, index) => (
+                <Grid key={index} item style={{ marginBottom: 20 }}>
+                  <label style={{ color: "black" }}>{data.u_id} : </label>
+                  <label style={{ color: "black" }}>{data.m_text}</label>
+                  <label style={{ color: "black" }}>
+                    {" "}
+                    작성일 : {data.m_date}
+                  </label>
+                </Grid>
+              ))}
           </Grid>
         </Grid>
       )}

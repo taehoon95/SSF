@@ -13,18 +13,27 @@ public class VideoRecordService {
     @Autowired
 	VideoRecordMapper mapper;
 	
-	// 로그인 후 마이페이지 View
+	// 20211119 윤성준 로그인 후 마이페이지 영상 조회
 	public List<VideoRecordDto> videoRecord(String u_id){
 		return mapper.videoRecord(u_id);
 	}
 
-	// 20211122 게시물 삭제 
+	// 20211122 윤성준 게시물 삭제 
 	public int videoDelete(VideoRecordDto videoRecordDto){
 		return mapper.videoDelete(videoRecordDto);
 	}
 
-	// 20211122 게시물 업로드
+	// 20211123 윤성준 Main video 전체 리스트 검색문
+	public List<VideoRecordDto> mainVideo(){
+		return mapper.mainVideo();
+	}
 	
+	// 20211123 윤성준 MainPage 조회수 탑4 영상 조회
+	public List<VideoRecordDto> videoTop5(){
+		return mapper.videoTop5();
+	}
+
+	// 2021 1121 이태훈 비디오 업로드
 	public int videoUpload(VideoRecordDto video) {
 		return mapper.videoUpload(video);
   }

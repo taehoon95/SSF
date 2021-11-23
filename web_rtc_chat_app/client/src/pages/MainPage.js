@@ -5,27 +5,148 @@
 
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Grid } from "../../node_modules/@material-ui/core/index";
+import { Link } from "react-router-dom";
+import { Grid, Typography } from "../../node_modules/@material-ui/core/index";
+import axios from "../../node_modules/axios/index";
 
 const MainPage = () => {
- 
+  const [myList, setMyList] = useState([]);
+  const [myTopList, setMyTopList] = useState([]);
+
+  useEffect(() => {
+    myVideoList();
+  }, []);
+
+  useEffect(() => {
+    myTopVideoList();
+  }, []);
+
+  const myVideoList = () => {
+    axios
+      .get(`/api/videoView`)
+      .then((response) => {
+        //alert("record 가져오기 성공ㅎㅎ");
+        setMyList(response.data);
+      })
+      .catch((error) => {
+        alert("record 가져오기 실패");
+        console.log(error);
+      });
+  };
+
+  // Top 4
+  const myTopVideoList = () => {
+    axios
+      .get(`/api/videoTop5`)
+      .then((response) => {
+        //alert("record 가져오기 성공ㅎㅎ");
+        setMyTopList(response.data);
+      })
+      .catch((error) => {
+        alert("record 가져오기 실패");
+        console.log(error);
+      });
+  };
+
   return (
     <>
-
-      {/* 메인 페이지 동영상 */}
-      <Grid container style={{ marginTop: 65, background: "#FFFFFF"}} justify = "center">
-        <Grid item xs={6}>
-            <img src="http://ojsfile.ohmynews.com/STD_IMG_FILE/2014/0323/IE001692752_STD.jpg" width="100%" height="100%" />
-        </Grid>
-        <Grid item xs={6}>
-            <img src="http://ojsfile.ohmynews.com/STD_IMG_FILE/2014/0323/IE001692752_STD.jpg" width="100%" height="100%" />
-        </Grid>
-        <Grid item xs={12}>
-            <img src="http://ojsfile.ohmynews.com/STD_IMG_FILE/2014/0323/IE001692752_STD.jpg" width="100%" height="100%" />
-        </Grid>
-      </Grid>
+      <div className="container" style={{ marginTop: 65 }}>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charset="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+        />
+        <style>{cssstyle}</style>
+        <div>
+          <br />
+          <Grid container xs={12}>
+            <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+              <Typography variant="h5">Top 4 영상</Typography>
+            </Grid>
+            {myTopList.map((data, idx) => (
+              <div key={idx}>
+                <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
+                  <Link to="./WatchPage2">
+                    <video
+                      src={data.v_link}
+                      controls
+                      muted
+                      width="320"
+                      height="250"
+                    />
+                  </Link>
+                  <h4>{data.v_name}</h4>
+                  <h5>
+                    조회수 : &nbsp;
+                    {data.v_views}
+                    &nbsp; - &nbsp;
+                    {data.v_date}
+                  </h5>
+                </Grid>
+              </div>
+            ))}
+          </Grid>
+          <br />
+          <br />
+          <Grid container xs={12}>
+            <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+              <Typography variant="h5">전체 영상</Typography>
+            </Grid>
+            {myList.map((data, idx) => (
+              <div key={idx}>
+                <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
+                  <Link to="./WatchPage2">
+                    <video
+                      src={data.v_link}
+                      controls
+                      muted
+                      width="320"
+                      height="250"
+                    />
+                  </Link>
+                  <h4>{data.v_name}</h4>
+                  <h5>
+                    조회수 : &nbsp;
+                    {data.v_views}
+                    &nbsp; - &nbsp;
+                    {data.v_date}
+                  </h5>
+                </Grid>
+              </div>
+            ))}
+          </Grid>
+        </div>
+      </div>
     </>
-  );
-};
+  )};
+
+const cssstyle = `
+.container {
+  margin: 0 auto;
+  padding: 0px 40px 40px 40px;
+  width: 1400px;
+}
+.button {
+    font-size: .9rem;
+    display: inline-block;
+    width: auto;
+    padding: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 1rem 1rem 0;
+		font-family: verdana;
+    background: #5f9ea0;
+    color: #fff;
+}
+.slick-next:before, .slick-prev:before {
+    color: #000;
+}
+`;
 
 export default MainPage;

@@ -19,7 +19,7 @@ public class VideoRecordController {
 	@Autowired
 	VideoRecordService service;
 
-	// 로그인 후 마이페이지 View 
+	// 20211119 윤성준 로그인 후 마이페이지 영상 조회
 	@GetMapping("/videorecord/{u_id}")
 	public ResponseEntity<Object> showVideoRecord(@PathVariable String u_id) {
 		System.out.println(1);
@@ -35,25 +35,34 @@ public class VideoRecordController {
 		return ResponseEntity.ok(res);
 	}
 
+	// 20211123 윤성준 Main video 전체 리스트검색문
+	@GetMapping("/videoView")
+	public ResponseEntity<Object> showMainVideo() {
+		System.out.println(22);
+		return ResponseEntity.ok(service.mainVideo());
+	}
 
-
+	// 20211123 윤성준 MainPage 조회수 탑5 영상 조회
+	@GetMapping("/videoTop5")
+	public ResponseEntity<Object> showTopViews() {
+		return ResponseEntity.ok(service.videoTop5());
+	}
 
 	// 2021 11-21 이태훈 비디오 업로드
 	@PostMapping("/videoupload")
 	public ResponseEntity<Object> videoUpload(@RequestBody VideoRecordDto video) {
 		return ResponseEntity.ok(service.videoUpload(video));
-  }
+	}
 
 	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
 	@GetMapping("/videoviews/{u_id}")
-	public ResponseEntity<Object> showVideoViews(@PathVariable String u_id){
+	public ResponseEntity<Object> showVideoViews(@PathVariable String u_id) {
 		return ResponseEntity.ok(service.videoViews(u_id));
 	}
 
-
 	// 2021-11-22 강동하 WatchPage2 영상 정보 조회
 	@GetMapping("/thisvideo/{v_code}")
-	public ResponseEntity<Object> showThisVideo(@PathVariable String v_code){
+	public ResponseEntity<Object> showThisVideo(@PathVariable String v_code) {
 		return ResponseEntity.ok(service.thisVideo(v_code));
 	}
 }

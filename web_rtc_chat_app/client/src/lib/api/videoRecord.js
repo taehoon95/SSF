@@ -4,9 +4,9 @@ import axios from "axios";
 
 
 // 20211120 윤성준 비디오 리스트 가져오기 api
-export const videorecord = (u_id) => 
+export const videorecord = () => 
 axios
-  .get(`/api/videorecord/`+u_id)
+  .get(`/api/videorecord/kang97`)
   .then( response => {
     //alert("record 가져오기 성공ㅎㅎ");
     console.log(response.data);

@@ -73,7 +73,9 @@ const LoginContainer = ({history}) => {
       history.push('/');
       try {
        localStorage.setItem('auth', JSON.stringify(auth));
-       localStorage.setItem('u_id', (auth.u_id));
+
+       localStorage.setItem('u_id', auth.u_id);
+
       } catch (e) {
         
         console.log('localStorage is not working');
