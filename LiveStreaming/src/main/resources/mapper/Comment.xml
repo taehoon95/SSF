@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liveStreaming.mapper.CommentMapper">
+
+    <insert id="commentInsert" parameterType="liveStreaming.dto.CommentDto">
+        insert into ssf_schema.comment (v_code, m_text, u_id) 
+            values (#{v_code}, #{m_text}, #{u_id});
+    </insert>
+
+    <select id="commentSelect" resultType="liveStreaming.dto.CommentDto">
+        select * from ssf_schema.comment 
+            where v_code = #{v_code}
+            ORDER BY m_num DESC;
+    </select>
+
+</mapper>
