@@ -72,12 +72,10 @@ const ContextProvider = ({ children }) => {
     });
     
     peer.on("stream", (currentStream) => {
-      console.log(444);
       userVideo.current.srcObject = currentStream;
     });
     
     socket.on("callAccepted", (signal) => {
-      console.log(555);
       setCallAccepted(true);
       peer.signal(signal);
     });

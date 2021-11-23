@@ -12,6 +12,8 @@ import {
   Button,
   Container,
   Grid,
+  Input,
+  Typography,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 
@@ -24,14 +26,13 @@ const UploadPage = () => {
 
   const handleFileUpload = () => {
     console.log("저장");
-    const formData = new FormData();
-    formData.append("file", selectedFile, selectedFile.name);
+    const videoData = new FormData();
+    videoData.append("file", selectedFile, selectedFile.name);
     console.log(selectedFile);
     // upload(formData)
     // .then(res => console.log(res))
-
     axios
-      .post("http://localhost:8080/api/upload", formData, {
+      .post("http://localhost:8080/api/upload", videoData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -44,24 +45,28 @@ const UploadPage = () => {
 
   return (
     <>
-
-      <h1>S3 이미지 업로더</h1>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleFileUpload}>업로드</button>
-
-      <Container>
-        <Grid container justify="center" style={{ marginTop: 65 }}>
+        <Grid container style={{ marginTop: 65 }}>
+          <Grid item xs={3} align="center">
+            <Typography variant="h4">제목 : </Typography>
+          </Grid>
+          <Grid item xs={9} >
+            <Input placeholder="제목을 입력하세요." />
+          </Grid>
+          <Grid item xs={3} align="center">
+            <Typography variant="h4">내용 : </Typography>
+          </Grid>
+          <Grid item xs={9}>
+            <Input placeholder="내용을 입력하세요." />
+          </Grid>
           <Grid item xs={12}>
             <input type="file" onChange={handleFileChange} />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} align="center">
             <Button variant="contained" onClick={handleFileUpload}>
               업로드
             </Button>
           </Grid>
         </Grid>
-      </Container>
-
     </>
   );
 };

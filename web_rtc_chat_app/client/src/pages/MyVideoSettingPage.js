@@ -4,43 +4,56 @@
 // 윤성준
 // 내 영상 관리 페이지 추가
 
-import { useState } from "react";
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TableRow } from "../../node_modules/@material-ui/core/index";
-import Footer from "../components/common/Footer";
-import Header from "../components/common/Header";
-import faker from 'faker';
-
-// faker는 더미 데이터 만드는 라이브러리임
-faker.seed(123);
-
-// 53페이지 만큼 배열 생성
-const users = Array(53)
-  .fill()
-  .map(() => ({
-    id: faker.random.uuid(),
-    name: faker.name.lastName() + faker.name.firstName(),
-    email: faker.internet.email(),
-    phone: faker.phone.phoneNumber(),
-
-  }));
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from "../../node_modules/@material-ui/core/index";
+import axios from "../../node_modules/axios/index";
+import { deleteListLine } from "../lib/api/videoRecord";
 
 const MyVideoSettingPage = () => {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-  
-    const handleChangePage = (event, newPage) => {
-      setPage(newPage);
-    };
-  
-    const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
+
+  const [myList, setMyList] = useState([]);
+
+  useEffect(() => {
+    myVideoList();
+  }, [myList]);
+
+  // VideoList 가져오기
+  const myVideoList = () => {
+    axios
+      .get(`/api/videorecord/kang97`)
+      .then((response) => {
+        setMyList(response.data);
+      })
+      .catch((error) => {
+        alert("record 가져오기 실패");
+        console.log(error);
+      });
+  };
+
+  // VideoList 삭제 
+  const deleteListLine2 = (e) => {
+    e.preventDefault(); 
+    console.log(e.target.name);
+    deleteListLine(e.target.name);
+  }
+
   return (
     <>
-      <TableContainer justify="center" align="center" style={{ marginTop: 65 }} component={Paper}>
-        <Table  size="large">
-          <TableHead >
+      <TableContainer style={{ marginTop: 65 }} component={Paper}>
+        <Table size="large">
+          <TableHead>
             <TableRow>
               <TableCell align="center">번호</TableCell>
               <TableCell align="center">썸네일</TableCell>
@@ -48,37 +61,37 @@ const MyVideoSettingPage = () => {
               <TableCell align="center">영상 길이</TableCell>
               <TableCell align="center">등록 날짜</TableCell>
               <TableCell align="center">조회수</TableCell>
+              <TableCell align="center">수정</TableCell>
               <TableCell align="center">삭제</TableCell>
             </TableRow>
           </TableHead>
 
-          <TableBody>
-          {users
-            .slice(page * rowsPerPage, (page + 1) * rowsPerPage)
-            .map(({ id, name, email, phone }, i) => (
-              <TableRow key={id}>
-                <TableCell component="th" scope="row">
-                  {page * rowsPerPage + i + 1}
-                </TableCell>
-              <TableCell align="center"><img src="http://artmug.kr/image/goods_img1/4731.jpg?ver=1563370523" width="150" height="100"/></TableCell>
-              <TableCell align="center">{name}</TableCell>
-              <TableCell align="center">{email}</TableCell>
-              <TableCell align="center">{phone}</TableCell>
-              <TableCell align="center">조회수</TableCell>
-              <TableCell align="center">삭제</TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
+          {myList.map((data, idx) => (
+            <TableBody>
+              <TableCell>{data.v_code}</TableCell>
+              <TableCell><img src={data.v_img} width="220" height="150" /></TableCell>
+              <TableCell>{data.v_name}</TableCell>
+              <TableCell>{data.v_length}</TableCell>
+              <TableCell>{data.v_date}</TableCell>
+              <TableCell>{data.v_views}</TableCell>
+              <TableCell align="center">
+              <button><Link to= './ListChangePage'>수정</Link></button>
+              </TableCell>
+              <TableCell align="center">
+                <input type="button" onClick={deleteListLine2} value="삭제" name={data.v_code} />
+              </TableCell>
+            </TableBody>
+          ))}
 
           <TableFooter>
             <TableRow>
-            <TablePagination
-              count={users.length}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+              <TablePagination
+              // count={users.length}
+              // page={page}
+              // rowsPerPage={rowsPerPage}
+              // onChangePage={handleChangePage}
+              // onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
               <TablePagination />
             </TableRow>
           </TableFooter>
