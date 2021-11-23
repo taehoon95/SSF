@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListPage from './pages/ListPage';
 import { Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -12,9 +12,13 @@ import WatchPage2 from './pages/WatchPage2';
 import MyVideoSettingPage from './pages/MyVideoSettingPage';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-
+import IdCheckPage from './pages/IdCheckPage';
+import { useDispatch, useSelector } from 'react-redux';
+import IdCheckViewrPage from './pages/IdCheckViewPage';
+import PwdCheckPage from './pages/PwdCheckPage';
 
 function App() {
+ 
   return (
     <>
     <Header />
@@ -22,7 +26,7 @@ function App() {
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
       <Route component={ListPage} path={['/ListPage/@:u_id', '/ListPage']} />
       <Route component={LiveSettingPage} path={['/LiveSettingPage/@:ID', '/LiveSettingPage']} />
-      <Route component={LoginPage} path="/LoginPage" />
+      <Route component={LoginPage} path='/LoginPage' />
       <Route component={MyPage} path={["/MyPage/@:u_id", '/MyPage']}  />
       <Route component={RegisterPage} path="/RegisterPage" />
       <Route component={UploadPage} path={["/UploadPage/@:u_id", '/UploadPage']}  />
@@ -32,6 +36,13 @@ function App() {
 
       {/* 20211115 이태훈 비디오 보는 페이지 테스트중*/}
       <Route component={WatchPage2} path={["/WatchPage2/:v_code" , "/WatchPage2"]} />
+      {/* 2021-11-22 아이디 찾기 페이지 추가*/}
+      <Route component={IdCheckPage} path={["/IdCheckPage"]} />
+      <Route component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
+      {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
+      <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
+
+
     </div>
     <Footer />
     </>

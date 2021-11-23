@@ -12,27 +12,27 @@ import { change, login, loginSaga, login_failure, login_success } from "../../mo
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {Avatar, Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
+import {withRouter} from 'react-router-dom';
+import {check} from '../../modules/users'
 
 
-const LoginContainer = () => {
+const LoginContainer = ({history}) => {
   const [error,setError] = useState(null);
   const dispatch = useDispatch();
-  const {  u_id, u_pwd } = useSelector((state) => {      
-      
+  const {  u_id, u_pwd,auth,authError  } = useSelector((state) => {            
+    
     return{        
     u_id: state.auth.u_id,
     u_pwd: state.auth.u_pwd,
-    
-    
-    
+    auth : state.auth.auth,
+    authError : state.auth.authError,
+            
   }});
-  const { auth, authError } = useSelector( ( state ) => ({
-    auth : state.auth,
-    authError : state.authError,
-  }));
-  
+
+
+
   // input text 체인지 
-  const onChange = (e) => {
+  const onChange = (e) => { 
     const { name, value } = e.target;
      
     dispatch(
@@ -49,7 +49,6 @@ const LoginContainer = () => {
 
   // 사가 핸들러
   const onsubmit = e => {
-    console.log('로그인 버튼 누름');
     
     e.preventDefault();
     dispatch(login({
@@ -57,20 +56,30 @@ const LoginContainer = () => {
       u_pwd})
     );    
   };
-  
-  useEffect(() =>{
-    if(authError){
-      console.log('오류 발생');
-      console.log(authError);
+
+  useEffect(() => {
+    if (authError) {
       setError('로그인 실패');
       return;
     }
-    if(auth){
-      console.log(auth);
-      
-      console.log('로그인 성공');
+    if (auth) {
+      dispatch(check());
     }
-  },[auth,authError])
+  }, [auth, authError, dispatch]);
+
+  useEffect(() => {
+    if (auth) {
+      console.log(auth);      
+      history.push('/');
+      try {
+       localStorage.setItem('auth', JSON.stringify(auth));
+       localStorage.setItem('u_id', JSON.stringify(auth.u_id));
+      } catch (e) {
+        
+        console.log('localStorage is not working');
+      }
+    }
+  }, [history, auth]);
 
   const theme = createTheme();
 
@@ -149,13 +158,21 @@ const LoginContainer = () => {
 
             <Grid container style={{ marginTop: -5 }}>
               <Grid item xs>
+                {/*아이디 찾기*/ }
+              <Button
+                  href="#"
+                  variant="body2"
+                  style={{ marginLeft: -15, color: "white" }}
+                >
+                 아이디
+                </Button>
                 {/* 비밀번호 찾는 페이지로 이동 할 링크 걸기 */}
                 <Button
                   href="#"
                   variant="body2"
                   style={{ marginLeft: -15, color: "white" }}
                 >
-                  비밀번호 찾기
+                 비밀번호 찾기
                 </Button>
               </Grid>
               <Grid item>
@@ -193,4 +210,4 @@ const LoginContainer = () => {
   );
 };
 
-export default LoginContainer;
+export default withRouter(LoginContainer);
