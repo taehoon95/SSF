@@ -13,6 +13,7 @@ axios
   })
   .catch( error => {
       //alert("record 가져오기 실패")
+  })
 
 // 20211122 윤성준 리스트 삭제 api
 export const deleteListLine = ( v_code ) => {
