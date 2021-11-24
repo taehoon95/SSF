@@ -275,11 +275,11 @@ const WatchPage2 = () => {
             <label style={{ color: "black" }}>{video[0].v_descript}</label>
             <p />
             <label style={{ color: "black" }}>
-              조회수 {video[0].v_views}회
+              조회수 : {video[0].v_views}회
             </label>
             <p />
             <label style={{ color: "black" }}>
-              영상 업로드 일자 {video[0].v_date}
+              영상 업로드 일자 : {video[0].v_date}
             </label>
             <hr color="#000000" style={{ marginTop: 20 }} />
                 <Grid item>
@@ -308,7 +308,12 @@ const WatchPage2 = () => {
                     댓글
                   </Button>
                 </Grid>
+
             <hr color="#000000" style={{ marginTop: 20, marginBottom: 20 }} />
+              </>
+            )}
+
+
             {commentSelectResult === 1 &&
               commentInfo.map((data, index) => (
                 <Grid key={index} item style={{ marginBottom: 20 }}>
@@ -318,6 +323,7 @@ const WatchPage2 = () => {
                     {" "}
                     작성일 : {data.m_date}
                   </label>
+
                   {/* <Button id={`${data.m_num}`} */}
                   <Button
                     id={`${data.m_num}`}
@@ -336,6 +342,7 @@ const WatchPage2 = () => {
                   >
                     삭제
                   </Button>
+
                 </Grid>
               ))}
           </Grid>

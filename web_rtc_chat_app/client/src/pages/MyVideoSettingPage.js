@@ -22,6 +22,8 @@ import axios from "../../node_modules/axios/index";
 import { deleteListLine } from "../lib/api/videoRecord";
 
 const MyVideoSettingPage = () => {
+  const u_id =  localStorage.getItem('u_id');
+
 
   const [myList, setMyList] = useState([]);
 
@@ -32,7 +34,7 @@ const MyVideoSettingPage = () => {
   // VideoList 가져오기
   const myVideoList = () => {
     axios
-      .get(`/api/videorecord/kang97`)
+      .get(`/api/videorecord/${u_id}`)
       .then((response) => {
         setMyList(response.data);
       })

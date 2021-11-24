@@ -1,13 +1,36 @@
 //해더 모듈
 //2021-11-15
-
-import React, { useState } from 'react';
+import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { AppBar, Box, Container, Drawer, IconButton, List, ListItem, Toolbar, Typography } from '@mui/material';
 import { Dehaze, Home } from '@mui/icons-material';
 import { AccessAlarms, LiveTv, NotificationsNone, Person, Upload, VideoLabel } from '@mui/icons-material';
-import { Avatar, Button, Divider, Grid, Tooltip } from '@mui/material';
+import { Avatar,  Divider, Grid, Tooltip } from '@mui/material';
 import { VideoSettings } from '../../../node_modules/@mui/icons-material/index';
+import Button from './Button';
+import { Route, Link } from 'react-router-dom';
+import Responsive from './Responsive';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { withRouter } from 'react-router-dom';
+
+
+const Wrapper = styled(Responsive)`
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 자식 엘리먼트 사이에 여백을 최대로 설정 */
+  .logo {
+    font-size: 1.125rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+  }
+`;
 
 // SideBar CSS
 const useStyles = makeStyles((theme) => ({
@@ -30,70 +53,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
+
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
 
 const Header = () => {
-  const classes = useStyles();
+  const classes = useStyles(); 
 
-  // SideBar On/Off 상태 설정
+  // SideBar On/Off 상태 설정  
   const [opens, setOpens] = useState(false);
 
+  const { u_id, tokenlled, token } = useSelector((state) =>
+    {
+    return{
+        u_id: state.auth.u_id,
+        token:state.auth.token,
+        tokenlled:state.auth.tokenlled
+    }})
+    
+    const onLogout = () =>{
+     localStorage.removeItem('auth');  
+     localStorage.removeItem('u_id');
+     window.location.href="/";
+  }
+ 
   return (
     <>
+   
       <AppBar style={{ background: '#303030' }} >
-        <Toolbar>
-          {/* true, false로 나중에 로그인 하면 보이고, 안하면 보이게 할 수 있음 */}
-          {true && <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            onClick={() => setOpens(true)}
-          >
-            <Dehaze />
-          </IconButton> }
-
-            {/* 로고 */}
-            <Grid item >
-              <Button
-                href="/"
-                variant="inherit"
-                sx={{
-                  textDecoration: "none",
-                  color: lightColor,
-                }}
-                rel="noopener noreferrer"
-              >
-                <VideoLabel />
-                <Typography>
-                  SSF
-                </Typography>
-              </Button>
-            </Grid>
-        
-          <Grid container  alignItems="center" direction="row" justifyContent="flex-end" >
-            {/* 회원가입 버튼 */}
-            <Grid item>
-              <Button
-                href="./RegisterPage"
-                variant="inherit"
-                sx={{
-                  textDecoration: "none",
-                  color: lightColor,
-                  "&:hover": {
-                    color: "common.white",
-                  },
-                }}
-                rel="noopener noreferrer"
-              >
-                회원가입
-              </Button>
-            </Grid>
-
+        <Toolbar>                         
+          <Grid container  alignItems="center" direction="row" justifyContent="flex-end" >           
             {/* 로그인 버튼 */}
+            {/* {
+              (()=>{
+                    console.log(tokenlled);
+                    console.log(token);
+                    
+              })()
+            } */}
             <Grid item>
-              <Button
-                href="./LoginPage"
+              {tokenlled ?(
+                <div>
+                {localStorage.getItem('u_id')} 님 어서오세요
+                <Button onClick={onLogout}>로그아웃</Button>
+                </div>
+              ):(
+                <Link 
+                 to="/LoginPage"
                 variant="inherit"
                 sx={{
                   textDecoration: "none",
@@ -102,10 +110,17 @@ const Header = () => {
                     color: "common.white",
                   },
                 }}
-                rel="noopener noreferrer"
-              >
-                로그인
-              </Button>
+                rel="noopener noreferrer">
+                  로그인
+                </Link>
+              )}
+              {/* {
+              (()=>{
+                    console.log(tokenlled);
+                    console.log(token);
+                    
+              })()
+            } */}
             </Grid>
 
             {/* 알림버튼 */}
@@ -117,10 +132,9 @@ const Header = () => {
               </Tooltip>
             </Grid>
 
-            {/* 개인 이미지 버튼 */}
+            {/*개인 이미지 버튼*/}
             <Grid item>
               <IconButton color="inherit" sx={{ p: 0.5 }}>
-                <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
               </IconButton>
             </Grid>
           </Grid>
@@ -209,4 +223,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

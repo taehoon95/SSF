@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liveStreaming.mapper.StreamingMapper">
+
+    <select id="streamingList" resultType="liveStreaming.dto.StreamingDto">
+        select * 
+          from ssf_schema.streaming
+          <trim prefix="where" prefixOverrides="and">
+          	<if test="l_title != null">and l_title like CONCAT('%',#{l_title},'%')</if>
+          	<if test="u_id != null">and u_id like CONCAT('%',#{u_id},'%')</if>
+          	<if test="l_description != null">and l_description like CONCAT('%',#{l_description},'%')</if>
+          </trim>
+    </select>
+    
+    <insert id="insertStreaming">
+    	insert
+  		  into ssf_schema.streaming (l_title, l_description, u_id)
+		values (#{l_title},#{l_description}, #{u_id});
+    </insert>
+    
+    <update id="updateStreaming">
+	    update ssf_schema.streaming
+	   	   set l_title = #{l_title} , l_description = #{l_description}
+	     where l_num = #{l_num} and u_id = #{u_id};
+    </update>
+    
+    <delete id="deleteStreaming">
+    	delete 
+		  from ssf_schema.streaming
+		 where l_num = #{l_num} and u_id = #{u_id};
+    </delete>
+
+</mapper>

@@ -42,13 +42,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.antMatchers("/","/api/**").permitAll()
 					.anyRequest() // /와 /api/** 이외의 모든 경로는 인증해야 함
 					.authenticated();
-			//filter 등록
-			// 매 요청마다
-			// CorsFilter 실행한 후에
-			// jwtAuthenticationFilter 실행한다.
+//			//filter 등록
+//			// 매 요청마다
+//			// CorsFilter 실행한 후에
+//			// jwtAuthenticationFilter 실행한다.
 			http.addFilterAfter(
 					jwtAuthenticationFilter,
 					CorsFilter.class
+
 			);
 		}
 
