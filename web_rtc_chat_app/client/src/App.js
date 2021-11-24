@@ -16,6 +16,7 @@ import IdCheckPage from './pages/IdCheckPage';
 import { useDispatch, useSelector } from 'react-redux';
 import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
+import PwdCheckviewPage from './pages/PwdCheckviewPage';
 
 function App() {
  
@@ -41,7 +42,7 @@ function App() {
       <Route component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
-
+      <Route component={PwdCheckviewPage} path={["/PwdCheckviewPage"]} />
 
     </div>
     <Footer />

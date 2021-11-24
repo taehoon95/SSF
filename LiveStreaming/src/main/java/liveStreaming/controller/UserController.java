@@ -91,4 +91,22 @@ public class UserController {
 		System.out.println("idfindUser "+idfindUser);
 		return ResponseEntity.ok(idfindUser);
 	}
+	@PostMapping("/pwdfind")
+	public ResponseEntity<Object> pwdFind(@RequestBody UserDto user){
+		System.out.println("여기는 pwdfind");
+		System.out.println(user + "1111111");
+		UserDto pwdfindUser = mapper.pwdFind(user);
+		System.out.println("user "+user);
+		System.out.println("pwdfindUser "+pwdfindUser);
+		return ResponseEntity.ok(pwdfindUser);
+	}
+	@PatchMapping("/pwdupdate")
+	public ResponseEntity<Object> pwdupdate(@RequestBody UserDto user) {
+
+		System.out.println("여기는 비밀번호 변경이다.");
+		System.out.println(user);
+		int pwdupdateUser = mapper.pwdupdate(user);
+		System.out.println(pwdupdateUser);
+		return ResponseEntity.ok(pwdupdateUser);
+	}
 }

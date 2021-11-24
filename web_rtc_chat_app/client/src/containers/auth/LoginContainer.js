@@ -19,7 +19,7 @@ import {check} from '../../modules/users'
 const LoginContainer = ({history}) => {
   const [error,setError] = useState(null);
   const dispatch = useDispatch();
-  const {  u_id, u_pwd,auth,authError  } = useSelector((state) => {            
+  const {  u_id, u_pwd, auth,authError  } = useSelector((state) => {            
     
     return{        
     u_id: state.auth.u_id,
