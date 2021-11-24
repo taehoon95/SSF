@@ -19,7 +19,7 @@ axios
 export const deleteListLine = ( v_code ) => {
   console.log(v_code);
   axios
-  .post(`/api/videoDelete`, { u_id:'kang97', v_code})
+  .post(`/api/videoDelete`, { u_id:'test2', v_code})
   .then((response) => {
     console.log(response);
     
