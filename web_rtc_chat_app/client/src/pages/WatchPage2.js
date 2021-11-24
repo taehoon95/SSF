@@ -27,6 +27,7 @@ import {
   commentInsert_Action,
   commentUpdate_Action,
 } from "../modules/watchpage2";
+import { useHistory } from "react-router";
 // 수정모달
 const styleModal = {
   position: "absolute",
@@ -53,6 +54,19 @@ const styleModal2 = {
   boxShadow: 24,
   p: 4,
 };
+// 댓글 로그인 권한 모달
+const styleModal3 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 340,
+  height: 100,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 const WatchPage2 = (props) => {
   const dispatch = useDispatch();
@@ -73,10 +87,14 @@ const WatchPage2 = (props) => {
   const [changeUpdate, setChangeUpdate] = useState("");
   const [UpdateId, setUpdateId] = useState("");
 
+  // 로컬스토리지에서 ID 값 갖고오기
+  const auth_Id = localStorage.getItem("u_id");
+  const history = useHistory();
   // Modal
-  // 1은 수정 2는 삭제
+  // 1은 수정 2는 삭제 3은 로그인 권한
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
   const handleOpen = (e) => {
     setChangeUpdate(e.currentTarget.value);
     setUpdateId(e.currentTarget.id);
@@ -92,6 +110,12 @@ const WatchPage2 = (props) => {
   };
   const handleClose2 = (e) => {
     setOpen2(false);
+  };
+  const handleOpen3 = (e) => {
+    setOpen3(true);
+  };
+  const handleClose3 = (e) => {
+    setOpen3(false);
   };
 
   // state 가 갱신되었을때 alert 출력 후 리렌더링
@@ -127,8 +151,12 @@ const WatchPage2 = (props) => {
   // 2021-11-23 강동하 댓글 insert
   const commentInsert = () => {
     console.log("댓글 작성");
-    // 로그인 구현 이후 useSelector 사용해서 로그인 정보 가져온 후 u_id value 변경
-    dispatch(commentInsert_Action({ v_code, m_text: comment, u_id: "kang97" }));
+    // 2021-11-24 강동하 로그인 id 값으로 댓글 구현 완
+    comment !== ""
+      ? dispatch(
+          commentInsert_Action({ v_code, m_text: comment, u_id: auth_Id })
+        )
+      : alert("댓글을 입력해주세요.");
   };
 
   // 2021-11-23 강동하 댓글 select
@@ -159,6 +187,10 @@ const WatchPage2 = (props) => {
     // const { id } = e.target;
     dispatch(commentDelete_Action({ m_num: id }));
     setOpen2(false);
+  };
+
+  const login_Auth = () => {
+    history.push("/LoginPage");
   };
 
   return (
@@ -258,6 +290,44 @@ const WatchPage2 = (props) => {
         </Box>
       </Modal>
 
+      {/* 비로그인 시 댓글 접근 Modal */}
+      <Modal
+        open={open3}
+        onClose={handleClose3}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={styleModal3} align="center">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            marginBottom="50"
+          >
+            로그인 권한이 필요합니다.
+            <br />
+            로그인 페이지로 이동하시겠습니까?
+          </Typography>
+          <br />
+          <Button
+            id={`${UpdateId}`}
+            onClick={login_Auth}
+            type="submit"
+            variant="contained"
+          >
+            이동
+          </Button>
+          <Button
+            id={`${UpdateId}`}
+            onClick={handleClose3}
+            type="submit"
+            variant="contained"
+          >
+            취소
+          </Button>
+        </Box>
+      </Modal>
+
       {video !== 0 && (
         <Grid container style={{ marginTop: 80, marginLeft: 120 }}>
           <Grid item style={{ marginBottom: 20 }}>
@@ -279,36 +349,69 @@ const WatchPage2 = (props) => {
               영상 업로드 일자 : {video[0].v_date}
             </label>
             <hr color="#000000" style={{ marginTop: 20 }} />
-            {comment_INSERT !== true && (
-              <>
-                <Grid item>
-                  <TextField
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: 3,
-                      padding: 8,
-                    }}
-                    placeholder="댓글을 작성해주세요."
-                    margin="normal"
-                    required
-                    fullWidth
-                    autoFocus
-                    id="comment"
-                    onChange={onChange}
-                  />
-                </Grid>
-                <Grid item xs={1} style={{ marginTop: 10 }}>
-                  <Button
-                    onClick={commentInsert}
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                  >
-                    댓글
-                  </Button>
-                </Grid>
-              </>
-            )}
+
+            {comment_INSERT !== true &&
+              (auth_Id === null ? (
+                <>
+                  <Grid item>
+                    <TextField
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 3,
+                        padding: 8,
+                      }}
+                      placeholder="로그인 후 이용해주세요."
+                      margin="normal"
+                      required
+                      fullWidth
+                      autoFocus
+                      onClick={handleOpen3}
+                      onChange={onChange}
+                      value={""}
+                    />
+                  </Grid>
+                  <Grid item xs={1} style={{ marginTop: 10 }}>
+                    <Button
+                      disabled="true"
+                      onClick={commentInsert}
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                    >
+                      댓글
+                    </Button>
+                  </Grid>
+                </>
+              ) : (
+                <>
+                  <Grid item>
+                    <TextField
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: 3,
+                        padding: 8,
+                      }}
+                      placeholder="댓글을 작성해주세요."
+                      margin="normal"
+                      required
+                      fullWidth
+                      autoFocus
+                      id="comment"
+                      onChange={onChange}
+                    />
+                  </Grid>
+                  <Grid item xs={1} style={{ marginTop: 10 }}>
+                    <Button
+                      onClick={commentInsert}
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                    >
+                      댓글
+                    </Button>
+                  </Grid>
+                </>
+              ))}
             <hr color="#000000" style={{ marginTop: 20, marginBottom: 20 }} />
 
             {commentSelectResult === 1 &&
@@ -322,6 +425,8 @@ const WatchPage2 = (props) => {
                   </label>
 
                   {/* <Button id={`${data.m_num}`} */}
+                  {auth_Id === data.u_id &&
+                  <>
                   <Button
                     id={`${data.m_num}`}
                     onClick={handleOpen}
@@ -339,6 +444,8 @@ const WatchPage2 = (props) => {
                   >
                     삭제
                   </Button>
+                  </>
+                }
                 </Grid>
               ))}
           </Grid>
