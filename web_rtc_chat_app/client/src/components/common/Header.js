@@ -83,7 +83,33 @@ const Header = () => {
     <>
    
       <AppBar style={{ background: '#303030' }} >
-        <Toolbar>                         
+        <Toolbar>
+        {true && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              onClick={() => setOpens(true)}
+            >
+              <Dehaze />
+            </IconButton>
+          )}
+
+          {/* 로고 */}
+          <Grid item>
+            <Button
+              href="/"
+              variant="inherit"
+              sx={{
+                textDecoration: "none",
+                color: lightColor,
+              }}
+              rel="noopener noreferrer"
+            >
+              <VideoLabel />
+              <Typography>SSF</Typography>
+            </Button>
+          </Grid>                         
           <Grid container  alignItems="center" direction="row" justifyContent="flex-end" >           
             {/* 로그인 버튼 */}
             {/* {
