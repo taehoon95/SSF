@@ -25,14 +25,19 @@ import { check } from "../../modules/users";
 const LoginContainer = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const { u_id, u_pwd, auth, authError } = useSelector((state) => {
-    return {
-      u_id: state.auth.u_id,
-      u_pwd: state.auth.u_pwd,
-      auth: state.auth.auth,
-      authError: state.auth.authError,
-    };
-  });
+  const {  u_id, u_pwd, auth,authError  } = useSelector((state) => {            
+    
+    return{        
+    u_id: state.auth.u_id,
+    u_pwd: state.auth.u_pwd,
+    auth : state.auth.auth,
+    authError : state.auth.authError,
+            
+  }});
+
+
+
+
 
   // input text 체인지
   const onChange = (e) => {
