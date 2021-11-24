@@ -65,6 +65,7 @@ const watchpage2 = handleActions(
       }),
     [COMMENT_INSERT_SUCCESS]: (state, { payload: commentInsert_Ation }) => ({
       ...state,
+      comment:"",
       commentInsert_AtionError: null,
       commentInsert_Ation,
     }),
