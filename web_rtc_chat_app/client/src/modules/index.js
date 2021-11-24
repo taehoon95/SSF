@@ -11,7 +11,8 @@ const rootReducer = combineReducers({
   auth,
   register,
   loading,
-  users
+  users,
+  watchpage2,
 
 });
 

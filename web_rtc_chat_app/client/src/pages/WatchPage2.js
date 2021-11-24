@@ -54,19 +54,15 @@ const styleModal2 = {
   p: 4,
 };
 
-const WatchPage2 = () => {
+const WatchPage2 = (props) => {
   const dispatch = useDispatch();
-  const {
-    comment,
-    comment_INSERT,
-    comment_UPDATE,
-    comment_DELETE,
-  } = useSelector((state) => ({
-    comment: state.watchpage2.comment,
-    comment_INSERT: state.loading.comment_INSERT,
-    comment_UPDATE: state.loading.comment_UPDATE,
-    comment_DELETE: state.loading.comment_DELETE,
-  }));
+  const { comment, comment_INSERT, comment_UPDATE, comment_DELETE } =
+    useSelector((state) => ({
+      comment: state.watchpage2.comment,
+      comment_INSERT: state.loading.comment_INSERT,
+      comment_UPDATE: state.loading.comment_UPDATE,
+      comment_DELETE: state.loading.comment_DELETE,
+    }));
 
   //const cdn = "https://d3lafl73dhs1s7.cloudfront.net/";
 
@@ -110,7 +106,7 @@ const WatchPage2 = () => {
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
   const selectVideo = () => {
     axios
-      .get(`/api/thisvideo/avi01`)
+      .get(`/api/thisvideo/${props.match.params.v_code}`)
       .then((response) => {
         console.log(response.data);
         setVideo(response.data);
@@ -139,7 +135,7 @@ const WatchPage2 = () => {
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
   const selectComment = () => {
     axios
-      .get(`/api/commentselect/avi01`)
+      .get(`/api/commentselect/${props.match.params.v_code}`)
       .then((response) => {
         setCommentInfo(response.data);
         console.log(response.data);
@@ -241,7 +237,8 @@ const WatchPage2 = () => {
             marginBottom="50"
           >
             정말로 댓글을 삭제하시겠습니까?
-          </Typography><br/>
+          </Typography>
+          <br />
           <Button
             id={`${UpdateId}`}
             onClick={commentDelete}
@@ -282,6 +279,8 @@ const WatchPage2 = () => {
               영상 업로드 일자 : {video[0].v_date}
             </label>
             <hr color="#000000" style={{ marginTop: 20 }} />
+            {comment_INSERT !== true && (
+              <>
                 <Grid item>
                   <TextField
                     style={{
@@ -308,11 +307,9 @@ const WatchPage2 = () => {
                     댓글
                   </Button>
                 </Grid>
-
-            <hr color="#000000" style={{ marginTop: 20, marginBottom: 20 }} />
               </>
             )}
-
+            <hr color="#000000" style={{ marginTop: 20, marginBottom: 20 }} />
 
             {commentSelectResult === 1 &&
               commentInfo.map((data, index) => (
@@ -342,7 +339,6 @@ const WatchPage2 = () => {
                   >
                     삭제
                   </Button>
-
                 </Grid>
               ))}
           </Grid>

@@ -35,9 +35,9 @@ function App() {
       <Route component={WatchPage} path={["/WatchPage/:v_code" , "/WatchPage"]} />
 
       {/* 20211115 이태훈 비디오 보는 페이지 테스트중*/}
-      <Route component={WatchPage2} path={["/WatchPage2/:v_code" , "/WatchPage2"]} />
+      <Route component={WatchPage2} path={["/WatchPage2/:v_code"]} />
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
-      <Route component={IdCheckPage} path={["/IdCheckPage"]} />
+      <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
       <Route component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
