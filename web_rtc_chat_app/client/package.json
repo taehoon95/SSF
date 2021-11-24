@@ -22,6 +22,7 @@
     "faker": "^5.5.3",
     "immer": "^9.0.6",
     "mdbreact": "^5.1.0",
+    "prop-types": "^15.7.2",
     "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-beforeunload": "^2.5.2",

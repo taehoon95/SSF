@@ -12,6 +12,7 @@ import axios from "../../node_modules/axios/index";
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
+  const [sendData, setSendData] = useState([]);
 
   useEffect(() => {
     myVideoList();
@@ -72,7 +73,7 @@ const MainPage = () => {
             {myTopList.map((data, idx) => (
               <div key={idx}>
                 <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to="./WatchPage2">
+                  <Link to={`/WatchPage2/${data.v_code}`}>
                     <video
                       src={data.v_link}
                       controls
@@ -101,7 +102,7 @@ const MainPage = () => {
             {myList.map((data, idx) => (
               <div key={idx}>
                 <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to="./WatchPage2">
+                  <Link to={`/WatchPage2/${data.v_code}`}>
                     <video
                       src={data.v_link}
                       controls
@@ -124,7 +125,8 @@ const MainPage = () => {
         </div>
       </div>
     </>
-  )};
+  );
+};
 
 const cssstyle = `
 .container {

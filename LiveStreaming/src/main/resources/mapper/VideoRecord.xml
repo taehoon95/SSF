@@ -21,11 +21,14 @@
 
     <!-- Video Upload-->
 	<insert id="videoUpload" parameterType="liveStreaming.dto.VideoRecordDto">
+        <selectKey resultType="String" keyProperty="v_code" order="BEFORE">
+            select (select max(CAST(substring(v_code,4) as integer)) from ssf_schema.video_upload)+1; 
+        </selectKey> 
 		insert 
 		  into ssf_schema.video_upload 
-		       (v_code, v_name, v_img, c_code, v_length, u_id, v_link)
+		       (v_code, v_name, v_img, c_code, u_id, v_link, v_descript)
         values
-               (#{v_code},#{v_name},#{v_img},#{c_code},#{v_length},#{u_id},#{v_link}) 
+               (concat ('avi', #{v_code}), #{v_name}, #{v_img}, #{c_code}, #{u_id}, #{v_link}, #{v_descript}) 
 	</insert>
 
     <!-- MainPage Top4 Video View -->
@@ -44,5 +47,8 @@
         select * from ssf_schema.video_upload 
             where v_code = #{v_code};
     </select>
+
+
+
 
 </mapper>
