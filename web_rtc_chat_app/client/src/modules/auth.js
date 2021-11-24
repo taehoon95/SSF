@@ -62,6 +62,9 @@ const init =
   authError: null,
   u_name:"",
   u_email:"",
+  checkError:null,
+  check:null,
+
   tokenlled:tokenlled
 }
 
@@ -113,18 +116,18 @@ const auth = handleActions(
             console.log('실패' + 'auth');            
             return{                
                 ...state,
-                authError:error,                              
+                checkError:error,                              
             };
         },
         //아이디 찾기 성공
-        [IDCHECK_SUCCESS] : (state,{payload: auth}) =>{
+        [IDCHECK_SUCCESS] : (state,{payload: check}) =>{
             console.log('여기는 성공' + 'auth');                 
             console.log(auth);
             
             return{
                 ...state,
-                authError:null,
-                auth
+                checkError:null,
+                check
                 
             };
         }              

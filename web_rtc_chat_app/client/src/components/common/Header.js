@@ -92,10 +92,10 @@ const Header = () => {
 
   return (
     <>
-      <AppBar style={{ background: "#303030" }}>
+      <AppBar style={{ background: '#303030' }} >
         <Toolbar>
-          {/* true, false로 나중에 로그인 하면 보이고, 안하면 보이게 할 수 있음 */}
-          {true && (
+        {true && (
+
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -120,6 +120,7 @@ const Header = () => {
               <VideoLabel />
               <Typography>SSF</Typography>
             </Button>
+
           </Grid>
           <Grid
             container
@@ -127,6 +128,10 @@ const Header = () => {
             direction="row"
             justifyContent="flex-end"
           >
+
+          </Grid>                         
+          <Grid container  alignItems="center" direction="row" justifyContent="flex-end" >           
+
             {/* 로그인 버튼 */}
             {/* {
               (()=>{

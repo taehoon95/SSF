@@ -13,13 +13,12 @@ import { withRouter } from "react-router";
 const IdCheckContainer = ({history}) => {
   const [error,setError] = useState(null);
     const dispatch= useDispatch();
-    const { u_name, u_email,auth,authError } = useSelector((state)=>{            
-      
+    const { u_name, u_email,check,checkError } = useSelector((state)=>{            
       return{        
       u_name : state.auth.u_name,
       u_email : state.auth.u_email,   
-      auth : state.auth.auth,
-      authError : state.auth.authError,
+      check : state.auth.check,
+      checkError : state.auth.checkError,
               
     }});
     const onChange = (e) =>{
@@ -44,15 +43,15 @@ const IdCheckContainer = ({history}) => {
       )
     }
     useEffect(() => {
-      if (authError) {
+      if (checkError) {
         setError('아이디 찾기 실패');
         return;
       }
-      if (auth) {
+      if (check) {
         console.log('아이디 찾기 성공');
         history.push('/IdCheckViewrPage');
       }
-    }, [auth, authError, dispatch]);
+    }, [check, checkError, dispatch]);
 
 
     const theme = createTheme();

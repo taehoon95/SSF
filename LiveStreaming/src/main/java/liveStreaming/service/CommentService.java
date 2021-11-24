@@ -29,4 +29,14 @@ public class CommentService {
 		System.out.println("댓글 가져와");
 		return mapper.commentSelect(v_code);
 	}
+    // 2021-11-24 강동하 댓글 update 기능
+	public int commentUpdate(CommentDto comment) {
+		System.out.println("댓글 바꿔");
+		return mapper.commentUpdate(comment);
+	}
+    // 2021-11-23 강동하 댓글 delete 기능
+	public int commentDelete(CommentDto comment) {
+		System.out.println("댓글 지워");
+		return mapper.commentDelete(comment);
+	}
 }

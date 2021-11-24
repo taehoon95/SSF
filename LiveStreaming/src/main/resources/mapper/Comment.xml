@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="liveStreaming.mapper.CommentMapper">
-
+    <!-- 댓글 달기 -->
     <insert id="commentInsert" parameterType="liveStreaming.dto.CommentDto">
         insert into ssf_schema.comment (v_code, m_text, u_id) 
             values (#{v_code}, #{m_text}, #{u_id});
     </insert>
-
+    <!-- 댓글 조회 -->
     <select id="commentSelect" resultType="liveStreaming.dto.CommentDto">
         select * from ssf_schema.comment 
             where v_code = #{v_code}
             ORDER BY m_num DESC;
     </select>
+    <!-- 댓글 수정 -->
+    <update id="commentUpdate">
+        update ssf_schema.comment set m_text = #{m_text} 
+            where m_num = #{m_num}
+    </update>
+    <!-- 댓글 삭제 -->
+    <delete id="commentDelete">
+        delete from ssf_schema.comment 
+            where m_num = #{m_num};
+    </delete>
 
 </mapper>

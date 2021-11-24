@@ -10,13 +10,12 @@ import { LockOutlined } from "@material-ui/icons";
 const IdCheckViewrPage = () => {
 
     
-    const { u_name,u_id,auth } = useSelector((state)=>{            
-      console.log(state.auth.auth);
+    const { u_name,u_id,check,auth } = useSelector((state)=>{            
+      
       return{        
-      u_id :state.auth.u_id,
+      u_id :state.auth.check.u_id,
       u_name : state.auth.u_name,
       u_email : state.auth.u_email,   
-      auth : state.auth.auth,
     
               
     }});
@@ -57,7 +56,7 @@ const IdCheckViewrPage = () => {
           </Typography>
           
 
-          {u_name}님의 아이디는 {auth.u_id} 입니다.
+          {u_name}님의 아이디는 {u_id} 입니다.
            
           {/* </Box> */}
       </Grid> 
