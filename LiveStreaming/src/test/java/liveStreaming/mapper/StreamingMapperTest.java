@@ -53,7 +53,7 @@ public class StreamingMapperTest {
 	//@Test
 	public void test03UpdateStreaming() {
 		StreamingDto st = new StreamingDto();
-		st.setL_num(3);
+		st.setL_code("2");
 		st.setL_title("test24");
 		st.setL_description("test24 des");
 		st.setU_id("kang97");
@@ -64,7 +64,7 @@ public class StreamingMapperTest {
 	//@Test
 	public void test04DeleteStreaming() {
 		StreamingDto st = new StreamingDto();
-		st.setL_num(3);
+		st.setL_code("3");
 		st.setU_id("kang97");
 		int res = mapper.deleteStreaming(st);
 		Assertions.assertEquals(1, res);

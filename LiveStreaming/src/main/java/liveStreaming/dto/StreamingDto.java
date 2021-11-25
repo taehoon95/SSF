@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StreamingDto {
-	int l_num;
+	String l_code;
 	String l_title;
 	String l_description;
 	String u_id;

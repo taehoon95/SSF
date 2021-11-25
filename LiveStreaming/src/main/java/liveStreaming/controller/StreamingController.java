@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import liveStreaming.service.CommentService;
 import liveStreaming.service.StreamingService;
-import liveStreaming.dto.CommentDto;
 import liveStreaming.dto.StreamingDto;
 
 @RestController
@@ -23,6 +21,7 @@ public class StreamingController {
     // 2021-11-23 이태훈 스트리밍 insert
 	@PostMapping("/insertStreaming")
 	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming){
+		System.out.println(streaming);
 		return ResponseEntity.ok(service.insertStreaming(streaming));
 	}
 	

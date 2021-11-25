@@ -4,16 +4,12 @@ import { finishLoading, startLoading } from '../modules/loading';
 export const createRequestActionTypes = type => {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-  console.log(SUCCESS);
-  console.log(FAILURE);
   return [type, SUCCESS, FAILURE];  
 };
 
 export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
-  console.log(SUCCESS);
-  console.log(FAILURE);
   return function*(action) {
     console.log(type);
     
