@@ -147,16 +147,16 @@ const MyContainer = () => {
   return (
     <>
       <div className="container" style={{ marginTop: 65 }}>
-        <link
+        <Link
           rel="stylesheet"
           type="text/css"
           charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
         />
-        <link
+        <Link
           rel="stylesheet"
           type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
         <style>{cssstyle}</style>
         <div>

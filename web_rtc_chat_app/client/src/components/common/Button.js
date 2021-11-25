@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import palette from '../../lib/styles/palette';
-import {withRouter} from 'react-router-dom';
 
 const buttonStyle = css`
   border: none;
@@ -46,9 +45,9 @@ const StyledLink = styled(Link)`
 
 const Button = props => {
   return props.to ? (
-    <StyledLink {...props} cyan={props.cyan ? 1 : 0} />
+    <StyledLink to={props} cyan={props.cyan ? 1 : 0} />
   ) : (
-    <StyledLink {...props} />
+    <StyledLink to={props} />
   );
 };
 

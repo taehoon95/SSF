@@ -27,7 +27,8 @@ const SearchResultContainer = () => {
 
   useEffect(() => {
     myVideoList();
-  }, []);
+    console.log(v_name);
+  }, [v_name]);
 
   console.log("----------------");
   console.log(selectList);
@@ -60,8 +61,9 @@ const SearchResultContainer = () => {
             <TableCell align="center">조회수</TableCell>
           </TableRow>
         </TableHead>
-
-        {selectList !== "" ? (
+        <>
+        {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
+        {(selectList.length !== 0) ? (
           selectList.map((data, idx) => (
             <Link to={`/WatchPage2/${data.v_code}`}>
               <TableBody>
@@ -76,16 +78,16 @@ const SearchResultContainer = () => {
             </Link>
           ))
         ) : (
-          <Grid container>
+          <>
             <Grid item xs={12}>
               <HelpOutline style={{ width: 300, height: 300 }} />
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h3">검색 결과가 없습니다.</Typography>
             </Grid>
-          </Grid>
+          </>
         )}
-
+        </>
         <TableFooter>
           <TableRow>
             <TablePagination

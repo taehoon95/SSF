@@ -13,7 +13,9 @@ import {
   ListItem,
   Toolbar,
   Typography,
+  Button,
 } from "@mui/material";
+
 import { Dehaze, Home } from "@mui/icons-material";
 import {
   AccessAlarms,
@@ -25,7 +27,8 @@ import {
 } from "@mui/icons-material";
 import { Avatar, Divider, Grid, Tooltip } from "@mui/material";
 import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
-import Button from "./Button";
+// 2021-11-25 강동하 버튼 pathname 에러 임시 수정
+// import Button from "./Button";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import Responsive from "./Responsive";
 import { useDispatch, useSelector } from "react-redux";
@@ -91,6 +94,8 @@ const Header = () => {
   const searchContent = (e) => {
     alert(inputSearch);
     history.push(`/SearchResultPage/${inputSearch}`);
+    // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
+    setInputSearch("");
   };
 
   const { u_id, tokenlled, token } = useSelector((state) => {
@@ -106,6 +111,11 @@ const Header = () => {
     localStorage.removeItem("u_id");
     window.location.href = "/";
   };
+
+  // 2021-11-25 강동하 홈 버튼 에러 수정
+  const home = () => {
+    history.push('/');
+  }
 
   return (
     <>
@@ -124,10 +134,11 @@ const Header = () => {
           )}
 
           {/* 로고 */}
+          {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
           <Grid container>
             <Grid item>
-              {/* <Button
-                href="/"
+              <Button
+                onClick={home}
                 variant="inherit"
                 sx={{
                   textDecoration: "none",
@@ -137,7 +148,7 @@ const Header = () => {
               >
                 <VideoLabel />
                 <Typography variant="h6">SSF</Typography>
-              </Button> */}
+              </Button>
             </Grid>
           </Grid>
 
