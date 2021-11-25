@@ -131,6 +131,7 @@ const WatchPage2 = (props) => {
   const selectVideo = () => {
     axios
       .get(`/api/thisvideo/${props.match.params.v_code}`)
+      //.get(`https://18.219.234.0:8080/api/thisvideo/${props.match.params.v_code}`)
       .then((response) => {
         console.log(response.data);
         setVideo(response.data);
@@ -164,6 +165,7 @@ const WatchPage2 = (props) => {
   const selectComment = () => {
     axios
       .get(`/api/commentselect/${props.match.params.v_code}`)
+      //.get(`https://18.219.234.0:8080/api/commentselect/${props.match.params.v_code}`)
       .then((response) => {
         setCommentInfo(response.data);
         console.log(response.data);

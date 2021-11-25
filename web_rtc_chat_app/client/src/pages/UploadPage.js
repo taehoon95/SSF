@@ -47,7 +47,8 @@ const UploadPage = () => {
     // upload(formData)
     // .then(res => console.log(res))
     axios
-      .post("http://localhost:8080/api/upload", imgData, {
+      .post("/api/upload", imgData, {
+      //.post("https://18.219.234.0:8080/api/upload", imgData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -55,7 +56,8 @@ const UploadPage = () => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     axios
-      .post("http://localhost:8080/api/upload", videoData, {
+      .post("/api/upload", videoData, {
+      //.post("https://18.219.234.0:8080/api/upload", videoData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

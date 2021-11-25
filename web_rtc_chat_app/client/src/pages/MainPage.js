@@ -25,6 +25,7 @@ const MainPage = () => {
   const myVideoList = () => {
     axios
       .get(`/api/videoView`)
+      //.get(`https://18.219.234.0:8080/api/videoView`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setMyList(response.data);
@@ -39,6 +40,7 @@ const MainPage = () => {
   const myTopVideoList = () => {
     axios
       .get(`/api/videoTop5`)
+      //.get(`https://18.219.234.0:8080/api/videoTop5`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setMyTopList(response.data);
