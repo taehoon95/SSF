@@ -47,4 +47,9 @@ public class VideoRecordService {
 	public List<VideoRecordDto> thisVideo(String v_code){
 		return mapper.thisVideo(v_code);
 	}
+
+	// 2021-11-25 강동하 영상 조회수 + 1
+	public int viewsInc(VideoRecordDto video){
+		return mapper.viewsInc(video);
+	}
 }
