@@ -34,6 +34,7 @@ const MyVideoSettingPage = () => {
   const myVideoList = () => {
     axios
       .get(`/api/videorecord/${u_id}`)
+      //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
       .then((response) => {
         setMyList(response.data);
       })

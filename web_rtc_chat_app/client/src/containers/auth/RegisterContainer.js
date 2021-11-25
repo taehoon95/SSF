@@ -209,6 +209,7 @@ const RegisterContainer = () => {
       alert("email 전송");
       try {
         axios
+          //.post("https://18.219.234.0:5000/api/email", { u_email })
           .post("https://localhost:5000/api/email", { u_email })
           .then((response) => {
             console.log(response.data.number);
