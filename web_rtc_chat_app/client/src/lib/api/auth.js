@@ -9,12 +9,8 @@ export const login = ({ u_id, u_pwd }) =>
 
 //아이디 찾기
 export const idfind = ({u_name, u_email}) =>
-
-   axios.post('/api/idfind', {u_name,u_email})
-   //axios.post('https://18.219.234.0:8080/api/idfind', {u_name,u_email})
-
-   axios.post('api/idfind', {u_name,u_email})
-
+axios.post('/api/idfind', {u_name,u_email})
+//axios.post('https://18.219.234.0:8080/api/idfind', {u_name,u_email})
 //비밀번호 찾기
 export const pwdfind = ({u_id,u_name,u_email}) =>
 axios.post('api/pwdfind',{u_id,u_name,u_email})
