@@ -10,12 +10,22 @@ import { takeLatest } from "redux-saga/effects";
 const CHANGE = "CHANGE3";
 
 const [COMMENT_INSERT, COMMENT_INSERT_SUCCESS, COMMENT_INSERT_FAILURE] =
-  createRequestActionTypes("comment/INSERT");
+  createRequestActionTypes("comment_INSERT");
+
+const [COMMENT_UPDATE, COMMENT_UPDATE_SUCCESS, COMMENT_UPDATE_FAILURE] =
+  createRequestActionTypes("comment_UPDATE");
+
+const [COMMENT_DELETE, COMMENT_DELETE_SUCCESS, COMMENT_DELETE_FAILURE] =
+  createRequestActionTypes("comment_DELETE");
 
 const init = {
   comment: "",
   commentInsert_Ation: "",
   commentInsert_AtionError: "",
+  commentUpdate_Ation: "",
+  commentUpdate_AtionError: "",
+  commentDelete_Ation: "",
+  commentDelete_AtionError: "",
 };
 
 export const change = createAction(CHANGE, ({ id, value }) => ({
@@ -32,15 +42,30 @@ export const commentInsert_Action = createAction(
   })
 );
 
+export const commentUpdate_Action = createAction(
+  COMMENT_UPDATE,
+  ({ m_num, m_text }) => ({
+    m_num,
+    m_text,
+  })
+);
+
+export const commentDelete_Action = createAction(
+  COMMENT_DELETE,
+  ({ m_num }) => ({
+    m_num,
+  })
+);
+
 const watchpage2 = handleActions(
   {
     [CHANGE]: (state, { payload: { id, value } }) =>
       produce(state, (draft) => {
-        //console.log(draft);
         draft[id] = value;
       }),
     [COMMENT_INSERT_SUCCESS]: (state, { payload: commentInsert_Ation }) => ({
       ...state,
+      comment:"",
       commentInsert_AtionError: null,
       commentInsert_Ation,
     }),
@@ -49,14 +74,49 @@ const watchpage2 = handleActions(
       ...state,
       commentInsert_AtionError: error,
     }),
+
+    [COMMENT_UPDATE_SUCCESS]: (state, { payload: commentUpdate_Ation }) => ({
+      ...state,
+      commentUpdate_AtionError: null,
+      commentUpdate_Ation,
+    }),
+
+    [COMMENT_UPDATE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      commentUpdate_AtionError: error,
+    }),
+    
+    [COMMENT_DELETE_SUCCESS]: (state, { payload: commentDelete_Ation }) => ({
+      ...state,
+      commentDelete_AtionError: null,
+      commentDelete_Ation,
+    }),
+
+    [COMMENT_DELETE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      commentDelete_AtionError: error,
+    }),
   },
   init
 );
 
-const commentInsertSaga = createRequestSaga(COMMENT_INSERT, commentAPI.commentInsert);
+const commentInsertSaga = createRequestSaga(
+  COMMENT_INSERT,
+  commentAPI.commentInsert
+);
+const commentUpdateSaga = createRequestSaga(
+  COMMENT_UPDATE,
+  commentAPI.commentUpdate
+);
+const commentDeleteSaga = createRequestSaga(
+  COMMENT_DELETE,
+  commentAPI.commentDelete
+);
 
 export function* watchpage2Sage() {
-    yield takeLatest(COMMENT_INSERT, commentInsertSaga);
-  }
+  yield takeLatest(COMMENT_INSERT, commentInsertSaga);
+  yield takeLatest(COMMENT_UPDATE, commentUpdateSaga);
+  yield takeLatest(COMMENT_DELETE, commentDeleteSaga);
+}
 
 export default watchpage2;

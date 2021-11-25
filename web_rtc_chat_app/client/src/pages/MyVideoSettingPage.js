@@ -24,7 +24,6 @@ import { deleteListLine } from "../lib/api/videoRecord";
 const MyVideoSettingPage = () => {
   const u_id =  localStorage.getItem('u_id');
 
-
   const [myList, setMyList] = useState([]);
 
   useEffect(() => {
@@ -35,6 +34,7 @@ const MyVideoSettingPage = () => {
   const myVideoList = () => {
     axios
       .get(`/api/videorecord/${u_id}`)
+      //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
       .then((response) => {
         setMyList(response.data);
       })
@@ -77,7 +77,7 @@ const MyVideoSettingPage = () => {
               <TableCell>{data.v_date}</TableCell>
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
-              <button><Link to= './ListChangePage'>수정</Link></button>
+              <Link to= './ListChangePage'>수정</Link>
               </TableCell>
               <TableCell align="center">
                 <input type="button" onClick={deleteListLine2} value="삭제" name={data.v_code} />

@@ -11,19 +11,15 @@ export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;
   const FAILURE = `${type}_FAILURE`;
   return function*(action) {
-    console.log(type);
     
     yield put(startLoading(type)); // 로딩 시작
-    console.log(request);
     try {
       const response = yield call(request, action.payload);
-      console.log(action.payload);
-
       yield put({
         type: SUCCESS,
         payload: response.data,
-        meta: response,
-      });
+        meta: response,        
+      });      
     } catch (e) {
       yield put({
         type: FAILURE,
@@ -32,6 +28,7 @@ export default function createRequestSaga(type, request) {
                 
       });
     }
+
     yield put(finishLoading(type)); // 로딩 끝
   };
 }

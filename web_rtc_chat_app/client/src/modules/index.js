@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
   loading,
   users,
   streaming,
-});
+  watchpage2,
+})
 
 export function* rootSaga() {
   yield all([registerAuthSaga(), authSaga(), watchpage2Sage(), streamingSaga()]);

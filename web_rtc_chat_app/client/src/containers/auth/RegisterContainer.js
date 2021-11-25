@@ -30,7 +30,7 @@ const RegisterContainer = () => {
   // 2021--11-19 유효성 검사
   const [resultid, setResultId] = useState(0); // 아이디 결과
   const [resultpwd, setResultPwd] = useState(0); // 비밀번호 결과
-  const [resultpwdcheck, setResultPwdCheck] = useState(0); // 비밀번호 확인 결과
+  const [resultpwdcheck, setResultPwdCheck] = useState(0); // 비밀번호 확 결과
   const [resultname, setResultName] = useState(0); // 이름 결과
   const [resultbirth, setResultBirth] = useState(0); // 생년월일 결과
   const [resultgender, setResultGender] = useState(0); // 성별 결과
@@ -209,6 +209,7 @@ const RegisterContainer = () => {
       alert("email 전송");
       try {
         axios
+          //.post("https://18.219.234.0:5000/api/email", { u_email })
           .post("https://localhost:5000/api/email", { u_email })
           .then((response) => {
             console.log(response.data.number);

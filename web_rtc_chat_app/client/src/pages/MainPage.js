@@ -12,6 +12,7 @@ import axios from "../../node_modules/axios/index";
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
+  const [sendData, setSendData] = useState([]);
 
   useEffect(() => {
     myVideoList();
@@ -24,6 +25,7 @@ const MainPage = () => {
   const myVideoList = () => {
     axios
       .get(`/api/videoView`)
+      //.get(`https://18.219.234.0:8080/api/videoView`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setMyList(response.data);
@@ -38,6 +40,7 @@ const MainPage = () => {
   const myTopVideoList = () => {
     axios
       .get(`/api/videoTop5`)
+      //.get(`https://18.219.234.0:8080/api/videoTop5`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setMyTopList(response.data);
@@ -72,7 +75,7 @@ const MainPage = () => {
             {myTopList.map((data, idx) => (
               <div key={idx}>
                 <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to="./WatchPage2">
+                  <Link to={`/WatchPage2/${data.v_code}`}>
                     <video
                       src={data.v_link}
                       controls
@@ -101,7 +104,7 @@ const MainPage = () => {
             {myList.map((data, idx) => (
               <div key={idx}>
                 <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to="./WatchPage2">
+                  <Link to={`/WatchPage2/${data.v_code}`}>
                     <video
                       src={data.v_link}
                       controls
@@ -124,7 +127,8 @@ const MainPage = () => {
         </div>
       </div>
     </>
-  )};
+  );
+};
 
 const cssstyle = `
 .container {

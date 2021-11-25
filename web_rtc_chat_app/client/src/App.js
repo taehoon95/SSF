@@ -15,7 +15,10 @@ import Footer from './components/common/Footer';
 import IdCheckPage from './pages/IdCheckPage';
 import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
+
 import streamingListPage from './pages/streamingListPage';
+import PwdCheckviewPage from './pages/PwdCheckviewPage';
+
 
 function App() {
  
@@ -33,18 +36,22 @@ function App() {
       <Route component={MyVideoSettingPage} path={["/MyVideoSettingPage/@:u_id", '/MyVideoSettingPage']}  />
 
       {/* 20211115 이태훈 비디오 보는 페이지 테스트중*/}
+
       <Route component={LiveSettingPage} path={['/LiveSettingPage/@:ID', '/LiveSettingPage']} />
-      <Route component={WatchPage2} path={["/WatchPage2/:v_code" , "/WatchPage2"]} />
+
       <Route component={WatchPage} path={["/WatchPage/:l_code" , "/WatchPage"]} />
 
+
+      <Route component={WatchPage2} path={["/WatchPage2/:v_code"]} />
+
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
-      <Route component={IdCheckPage} path={["/IdCheckPage"]} />
+      <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
       <Route component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
       <Route component={streamingListPage} path={"/streamingListPage"} />
       
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
-
+      <Route component={PwdCheckviewPage} path={["/PwdCheckviewPage"]} />
 
     </div>
     <Footer />

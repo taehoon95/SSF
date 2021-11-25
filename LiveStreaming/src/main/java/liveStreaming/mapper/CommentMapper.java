@@ -11,6 +11,13 @@ public interface CommentMapper {
 
     // 2021-11-23 강동하 댓글 select
     List<CommentDto> commentSelect(String v_code);
+
+    // 2021-11-24 강동하 댓글 update
+    int commentUpdate(CommentDto comment);
+
+    // 2021-11-23 강동하 댓글 select
+    int commentDelete(CommentDto comment);
+    
 }
 
 
