@@ -20,8 +20,10 @@ axios
 export const deleteListLine = ( v_code ) => {
   console.log(v_code);
   axios
+
   .post(`/api/videoDelete`, { u_id:'kang97', v_code})
   //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id:'kang97', v_code})
+
   .then((response) => {
     console.log(response);
     

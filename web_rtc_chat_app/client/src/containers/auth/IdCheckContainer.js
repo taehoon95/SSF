@@ -51,7 +51,7 @@ const IdCheckContainer = ({history}) => {
         console.log('아이디 찾기 성공');
         history.push('/IdCheckViewrPage');
       }
-    }, [check, checkError, dispatch]);
+    }, [check, checkError ]);
 
 
     const theme = createTheme();
