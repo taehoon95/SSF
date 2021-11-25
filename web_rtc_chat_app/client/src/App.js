@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import React from 'react';
 import ListPage from './pages/ListPage';
 import { Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
@@ -18,7 +17,6 @@ import IdCheckPage from './pages/IdCheckPage';
 import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import SearchResultPage from './pages/SearchResultPage';
-
 import streamingListPage from './pages/streamingListPage';
 import PwdCheckviewPage from './pages/PwdCheckviewPage';
 
