@@ -92,7 +92,7 @@ const Header = () => {
 
   return (
     <>
-      <AppBar style={{ background: '#303030' }} >
+      <AppBar style={{ background: '#6ea4e6' }} >
         <Toolbar>         
             {/* true, false로 나중에 로그인 하면 보이고, 안하면 보이게 할 수 있음 */}
             {true && <IconButton
