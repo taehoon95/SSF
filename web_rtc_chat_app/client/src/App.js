@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import ListPage from './pages/ListPage';
 import { Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import LiveSettingPage from './pages/LiveSettingPage';
@@ -29,7 +28,6 @@ function App() {
     <div>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
       <Route component={LiveSettingPage} path={['/LiveSettingPage/@:ID', '/LiveSettingPage']} />
-      <Route component={ListPage} path={['/ListPage/@:u_id', '/ListPage']} />
       <Route component={LoginPage} path='/LoginPage' />
       <Route component={MyPage} path={["/MyPage/@:u_id", '/MyPage']}  />
       <Route component={RegisterPage} path="/RegisterPage" />
