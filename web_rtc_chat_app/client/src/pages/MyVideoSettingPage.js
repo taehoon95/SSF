@@ -52,14 +52,13 @@ const MyVideoSettingPage = () => {
 
   return (
     <>
-      <TableContainer style={{ marginTop: 65 }} component={Paper}>
+      <TableContainer style={{ marginTop: 100 }} component={Paper}>
         <Table size="large">
           <TableHead>
             <TableRow>
               <TableCell align="center">번호</TableCell>
               <TableCell align="center">썸네일</TableCell>
               <TableCell align="center">영상 제목</TableCell>
-              <TableCell align="center">영상 길이</TableCell>
               <TableCell align="center">등록 날짜</TableCell>
               <TableCell align="center">조회수</TableCell>
               <TableCell align="center">수정</TableCell>
@@ -72,7 +71,6 @@ const MyVideoSettingPage = () => {
               <TableCell>{data.v_code}</TableCell>
               <TableCell><img src={data.v_img} width="220" height="150" /></TableCell>
               <TableCell>{data.v_name}</TableCell>
-              <TableCell>{data.v_length}</TableCell>
               <TableCell>{data.v_date}</TableCell>
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
@@ -93,7 +91,6 @@ const MyVideoSettingPage = () => {
               // onChangePage={handleChangePage}
               // onChangeRowsPerPage={handleChangeRowsPerPage}
               />
-              <TablePagination />
             </TableRow>
           </TableFooter>
         </Table>

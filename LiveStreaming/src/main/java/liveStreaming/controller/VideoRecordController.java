@@ -48,6 +48,14 @@ public class VideoRecordController {
 		return ResponseEntity.ok(service.videoTop5());
 	}
 
+	// 20211125 윤성준 All Video Search 전체에서 영상 조회
+	@GetMapping("/videoSearch/{v_name}")
+	public ResponseEntity<Object> searchVideoAll(@PathVariable String v_name) {
+		System.out.println(55);
+		System.out.println(v_name);
+		return ResponseEntity.ok(service.videoSearch(v_name));
+	}
+
 	// 2021 11-21 이태훈 비디오 업로드
 	@PostMapping("/videoUpload")
 	public ResponseEntity<Object> videoVidImgUpload(@RequestBody VideoRecordDto video) {
