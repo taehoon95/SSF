@@ -37,7 +37,7 @@ const Wrapper = styled(Responsive)`
   height: 4rem;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 자식 엘리먼트 사이에 여백을 최대로 설정 */
+  justify-content: space-between;
   .logo {
     font-size: 1.125rem;
     font-weight: 800;
@@ -172,6 +172,7 @@ const Header = () => {
             direction="row"
             justifyContent="flex-end"
           >
+
             <Grid item>
               {tokenlled ? (
                 <div>

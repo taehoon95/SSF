@@ -10,6 +10,8 @@ const SocketContext = createContext();
 
 // const socket = io("https://218.159.169.101:5000",{ secure : true });
 const socket = io("https://localhost:5000",{ secure : true });
+// const socket = io("https://18.219.234.0:5000",{ secure : true });
+// const socket = io("https://172.31.47.101:5000",{ secure : true });
 
 
 const ContextProvider = ({ children }) => {

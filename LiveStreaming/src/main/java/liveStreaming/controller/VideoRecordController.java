@@ -75,4 +75,12 @@ public class VideoRecordController {
 	public ResponseEntity<Object> showThisVideo(@PathVariable String v_code) {
 		return ResponseEntity.ok(service.thisVideo(v_code));
 	}
+
+	// 2021-11-25 강동하 영상 조회수 + 1
+	@PatchMapping("/viewsinc")
+	public ResponseEntity<Object> viewsInc(@RequestBody VideoRecordDto video) {
+		System.out.println("================");
+		System.out.println(video);
+		return ResponseEntity.ok(service.viewsInc(video));
+	}
 }

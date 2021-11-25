@@ -7,6 +7,7 @@ import axios from "axios";
 export const videorecord = () => 
 axios
   .get(`/api/videorecord/kang97`)
+  //.get(`https://18.219.234.0:8080/api/videorecord/kang97`)
   .then( response => {
     //alert("record 가져오기 성공ㅎㅎ");
     console.log(response.data);
@@ -19,7 +20,10 @@ axios
 export const deleteListLine = ( v_code ) => {
   console.log(v_code);
   axios
-  .post(`/api/videoDelete`, { u_id:'test2', v_code})
+
+  .post(`/api/videoDelete`, { u_id:'kang97', v_code})
+  //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id:'kang97', v_code})
+
   .then((response) => {
     console.log(response);
     

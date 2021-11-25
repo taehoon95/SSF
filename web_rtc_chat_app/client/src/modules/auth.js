@@ -14,6 +14,10 @@ import produce from "immer";
 //사가 액션 타입 
 const CHANGE ="CHANGE"
 
+
+const NUMBUR = "NUMBUR";
+
+
 const token = localStorage.getItem('auth');
 const tokenlled = !!token
 
@@ -23,7 +27,13 @@ const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] =
 
 
 const [IDCHECK,IDCHECK_SUCCESS,IDCHECK_FAILURE] =
-createRequestActionTypes("Idcheck/IDCHECK")
+createRequestActionTypes("auth/IDCHECK")
+
+const [PWDCHECK,PWDCHECK_SUCCESS,PWDCHECK_FAILURE] = 
+createRequestActionTypes("auth/PWDCHECK")
+
+const [PWDUPDATECHECK,PWDUPDATECHECK_SUCCESS,PWDUPDATECHECK_FAILURE] =
+createRequestActionTypes("auth/PWDUPDATECHECK")
 
 
 // input change 값 
@@ -32,7 +42,7 @@ export const change = createAction(CHANGE,({name, value}) =>({
     value
 }))
 
-//사가 액션정의
+//로그인 액션정의
 export const login = createAction(LOGIN,({u_id, u_pwd}) =>
     {                 
         return {
@@ -43,7 +53,12 @@ export const login = createAction(LOGIN,({u_id, u_pwd}) =>
     }} 
 )
 
-//사가 액션 정의
+
+export const numberAuth = createAction(NUMBUR, (number) => ({
+    number,
+  }));
+
+//아이디 액션 정의
 export const idcheck = createAction(IDCHECK,({u_name,u_email}) =>{
     console.log('여기 액션');
     
@@ -53,30 +68,58 @@ export const idcheck = createAction(IDCHECK,({u_name,u_email}) =>{
     }
 })
 
+//비밀번호 액션 정의
+export const pwdcheck = createAction(PWDCHECK,({u_id,u_email,u_name}) =>({
+    u_id,
+    u_email,
+    u_name
+
+}))
+
+//비밀번호 변경 액션 정의
+
+export const pwdupdatecheck = createAction(PWDUPDATECHECK,({ u_id,
+    u_pwd}) =>({
+        u_id,
+        u_pwd}))
 
 const init = 
 {                    
   u_id:"",
   u_pwd:"",
+  u_pwdcheck: "",  
+  u_name:"",
+  u_email: "",
+  u_emailcheck: "",
+  number:"",
   auth: null,
   authError: null,
-  u_name:"",
-  u_email:"",
   checkError:null,
   check:null,
-
+  pwd:null,
+  pwdError:null,
+  pwdupdate:null,
+  pwdupdateError:null,
   tokenlled:tokenlled
 }
 
 //loginsaga 생성
 export const loginSaga =  createRequestSaga(LOGIN, authAPI.login);
 
-
 //idchecksaga 생성
 export const idchecksaga = createRequestSaga(IDCHECK,authAPI.idfind);
 
+//pwdchecksaga 생성
+export const pwdchecksaga = createRequestSaga(PWDCHECK,authAPI.pwdfind);
+
+//pwdupdatesaga 생성
+export const pwdupdatesaga = createRequestSaga(PWDUPDATECHECK,authAPI.pwdupdate);
+
+
 //제네레이터 함수 
 export function* authSaga() {
+    yield takeLatest(PWDUPDATECHECK, pwdupdatesaga);
+    yield takeLatest(PWDCHECK, pwdchecksaga);
     yield takeLatest(IDCHECK, idchecksaga);
     yield takeLatest(LOGIN, loginSaga);
 }
@@ -89,6 +132,10 @@ const auth = handleActions(
             produce(state,(draft)=>{
                 console.log(state + "2");
                 draft[name] =value;
+            }),      
+            [NUMBUR]: (state, { payload: { number } }) =>
+            produce(state, (draft) => {
+              draft["number"] = number.a;
             }),      
             //로그인 실패
         [LOGIN_FAILURE] : (state,{ payload:error }) =>{
@@ -130,8 +177,46 @@ const auth = handleActions(
                 check
                 
             };
-        }              
-     },
+        },             
+        //비밀번호 찾기 실패
+        [PWDCHECK_FAILURE] : (state,{ payload:error }) =>{   
+            console.log('여기는 pwdcheck 실패');
+                           
+            return{                
+             ...state,
+             pwdError:error,                              
+            };
+        },
+        //비밀번호 찾기 성공        
+         [PWDCHECK_SUCCESS] : (state,{ payload:pwd }) =>{                  
+            console.log('여기는 pwdcheck 성공');
+            
+          return{                
+                 ...state,
+                pwdError:null,                              
+                pwd
+            };
+         },
+         //비밀번호 변경 실패
+         [PWDUPDATECHECK_FAILURE] : (state,{ payload:error }) =>{ 
+            console.log(error);                              
+            console.log('여기는 pwdupdate 실패');
+            return{                
+             ...state,
+             pwdupdateError:error,                              
+            };
+        },
+          //비밀번호 변경 성공
+          [PWDUPDATECHECK_SUCCESS] : (state,{ payload:pwdupdate }) =>{                  
+            console.log('여기는 pwdupdate 성공' + pwdupdate);
+            console.log(state);
+            return{                
+                   ...state,
+                  pwdupdateError:null,                              
+                  pwdupdate
+              };
+           }                              
+        },
     init     
 )
 export default auth;

@@ -50,6 +50,7 @@ const MyContainer = () => {
 
   const myVideoList = () => {
     axios
+      //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
       .get(`/api/videorecord/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
@@ -121,6 +122,7 @@ const MyContainer = () => {
 
   const myVideoViews = () => {
     axios
+      //.get(`https://18.219.234.0:8080/api/videoviews/${u_id}`)
       .get(`/api/videoviews/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");

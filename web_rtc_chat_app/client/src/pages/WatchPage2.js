@@ -118,6 +118,18 @@ const WatchPage2 = (props) => {
     setOpen3(false);
   };
 
+  // 2021-11-25 강동하 영상 들어올 시 조회수 + 1
+  // 최초 1회만
+  useEffect(() => {
+    axios.patch('/api/viewsinc', {v_code : props.match.params.v_code})
+      .then(response => {
+        console.log("조회수 증가" + response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  },[])
+
   // state 가 갱신되었을때 alert 출력 후 리렌더링
   useEffect(() => {
     selectVideo();
@@ -131,6 +143,7 @@ const WatchPage2 = (props) => {
   const selectVideo = () => {
     axios
       .get(`/api/thisvideo/${props.match.params.v_code}`)
+      //.get(`https://18.219.234.0:8080/api/thisvideo/${props.match.params.v_code}`)
       .then((response) => {
         console.log(response.data);
         setVideo(response.data);
@@ -164,6 +177,7 @@ const WatchPage2 = (props) => {
   const selectComment = () => {
     axios
       .get(`/api/commentselect/${props.match.params.v_code}`)
+      //.get(`https://18.219.234.0:8080/api/commentselect/${props.match.params.v_code}`)
       .then((response) => {
         setCommentInfo(response.data);
         console.log(response.data);

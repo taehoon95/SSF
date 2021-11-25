@@ -22,9 +22,12 @@ public interface UserMapper {
 	// 아이디 찾기
 	UserDto idfind(UserDto user);
 
+	//2021 1124 박진현
+	// 비밀번호 찾기
+	UserDto pwdFind(UserDto user);
 
-
-	UserDto PwdFind(UserDto user);
+	//비밀번호 변경
+	int pwdupdate(UserDto user);
 
 
 }

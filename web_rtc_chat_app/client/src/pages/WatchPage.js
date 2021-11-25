@@ -2,14 +2,12 @@
 //2021-11-13
 
 import React from 'react';
-import Bpp from '../Bpp.js'
-import { ContextProvider } from '../SocketContext.js';
+import StreamShowContainer from '../containers/streaming/StreamShowContainer'
+
 
 const WatchPage = () => {
     return (
-        <ContextProvider>
-            <Bpp/>
-        </ContextProvider>
+        <StreamShowContainer/>
     );
 };
 
