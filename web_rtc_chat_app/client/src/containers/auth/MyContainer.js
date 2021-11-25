@@ -3,6 +3,7 @@ import axios from "axios";
 import Slider from "react-slick";
 import { Bar } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
+import { Link } from "react-router-dom";
 
 const MyContainer = () => {
   const u_id =  localStorage.getItem('u_id');
@@ -164,6 +165,7 @@ const MyContainer = () => {
           <Slider {...settings}>
             {myList.map((data, idx) => (
               <div key={idx}>
+                <Link to={`/WatchPage2/${data.v_code}`}>
                 <video
                   src={data.v_link}
                   controls
@@ -178,6 +180,7 @@ const MyContainer = () => {
                   &nbsp; - &nbsp;
                   {data.v_date}
                 </h5>
+                </Link>
               </div>
             ))}
           </Slider>

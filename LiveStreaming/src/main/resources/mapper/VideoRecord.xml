@@ -12,6 +12,11 @@
         select * from ssf_schema.video_upload where v_state=1 group by v_code ORDER BY RANDOM() limit 16;
     </select>
 
+    <!-- All Video Search 전체에서 영상 조회 -->
+    <select id="videoSearch" resultType="liveStreaming.dto.VideoRecordDto">
+        select * from ssf_schema.video_upload where v_state=1 and v_name LIKE CONCAT('%',#{v_name},'%');
+    </select>
+
     <!-- List Delete -->
     <update id="videoDelete" parameterType="liveStreaming.dto.VideoRecordDto">
         update ssf_schema.video_upload 

@@ -6,7 +6,6 @@
 
 //2021-11-17
 // 윤성준 - Header, Footer 격자 나누기
-
 import React, { useState } from "react";
 import {
   Button,

@@ -21,6 +21,9 @@ public interface VideoRecordMapper {
     // 20211123 윤성준 MainPage 조회수 탑5 영상 조회
     List<VideoRecordDto> videoTop5();
 
+    // 20211125 윤성준 All Video Search 전체에서 영상 조회
+    List<VideoRecordDto> videoSearch(String v_name);
+
     // 2021 1121 이태훈 비디오 업로드
     int videoUpload(VideoRecordDto video);
 
