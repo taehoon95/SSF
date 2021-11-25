@@ -24,7 +24,7 @@ function App() {
  
   return (
     <>
-    {/* <Header /> */}
+    <Header />
     <div>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
       <Route component={ListPage} path={['/ListPage/@:u_id', '/ListPage']} />
