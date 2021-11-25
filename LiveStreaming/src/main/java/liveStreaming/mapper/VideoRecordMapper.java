@@ -30,4 +30,7 @@ public interface VideoRecordMapper {
     // 2021-11-22 강동하 WatchPage2 영상 정보 조회
     List<VideoRecordDto> thisVideo(String v_code);
 
+    // 2021-11-25 강동하 영상 조회수 + 1
+    int viewsInc(VideoRecordDto video);
+
 }

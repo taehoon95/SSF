@@ -48,7 +48,10 @@
             where v_code = #{v_code};
     </select>
 
-
-
+    <!-- 2021-11-25 강동하 조회수 + 1 -->
+    <update id="viewsInc">
+        update ssf_schema.video_upload set v_views = v_views + 1 
+            where v_code = #{v_code};
+    </update>
 
 </mapper>

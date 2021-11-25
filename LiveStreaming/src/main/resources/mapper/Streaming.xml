@@ -14,20 +14,20 @@
     
     <insert id="insertStreaming">
     	insert
-  		  into ssf_schema.streaming (l_title, l_description, u_id)
-		values (#{l_title},#{l_description}, #{u_id});
+  		  into ssf_schema.streaming (l_code,l_title, l_description, u_id)
+		values (#{l_code},#{l_title},#{l_description}, #{u_id});
     </insert>
     
     <update id="updateStreaming">
 	    update ssf_schema.streaming
 	   	   set l_title = #{l_title} , l_description = #{l_description}
-	     where l_num = #{l_num} and u_id = #{u_id};
+	     where l_code = #{l_code} and u_id = #{u_id};
     </update>
     
     <delete id="deleteStreaming">
     	delete 
 		  from ssf_schema.streaming
-		 where l_num = #{l_num} and u_id = #{u_id};
+		 where l_code = #{l_code} and u_id = #{u_id};
     </delete>
 
 </mapper>
