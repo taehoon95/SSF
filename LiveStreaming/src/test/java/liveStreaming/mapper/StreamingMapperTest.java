@@ -31,7 +31,8 @@ public class StreamingMapperTest {
 	
 	@Test
 	public void test01StreamingList() {
-		List<StreamingDto> list = mapper.streamingList("s");
+		StreamingDto streaming = new StreamingDto();
+		List<StreamingDto> list = mapper.streamingList(streaming);
 		for (StreamingDto t : list) {
 			System.out.println(t);
 		}

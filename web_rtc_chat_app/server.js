@@ -50,25 +50,17 @@ Signaling Server
 
 // rooms객체 생성(스트리밍중인 방들이 저장될 예정)
 let rooms = {};
-
 // room에 있는 user들 정보
 let users = {};
 
-// chat의 message정보
-// let msgs = {};
-let msgs = [];
 io.on("connection", (socket) => {
   
   // clientSendMessage: chatting 에서 message보내기
   socket.on("clientSendMessage", (message, username, l_code) => {
-    // msgs.push({message,username});
-    // console.log(msgs);
     socket.to(l_code).emit("serverRoomMessage", {
       message,
       username,
     });
-    // socket.broadcast.to(l_code).emit("serverRoomMessage", msgs);
-    // socket.to(l_code).emit("serverRoomMessage", msgs);
   });
 
   // clientCreateRoom 방 만들기(스트리머)
@@ -95,56 +87,9 @@ io.on("connection", (socket) => {
     socket.join(l_code);
     socket.emit("serverJoinRoom", rooms[l_code]);
   });
-  
-  //
-  socket.on("joinRoom", (data) => {
-    console.log(data);
-    // user[room]에는 room에 있는 사용자들이 배열 형태로 저장된다.
-    // room이 존재한다면
-    if (users[data.room]) {
-      const length = users[data.room].length;
-      // 최대 인원을 충족시켰으면 더 이상 접속 불가
-      if (length === maximum) {
-        socket.to(socket.id).emit("room_full");
-        return;
-      }
-      // 인원이 최대 인원보다 적으면 접속 가능
-      users[data.room].push({ id: socket.id, email: data.email });
-    } else {
-      // room이 존재하지 않는다면 새로 생성
-      users[data.room] = [{ id: socket.id, email: data.email }];
-    }
-    // 해당 소켓이 어느 room에 속해있는 지 알기 위해 저장
-    // socketToRoom[socket.id] = data.room;
-
-    socket.join(data.room);
-    // console.log(`[${socketToRoom[socket.id]}]: ${socket.id} enter`);
-
-    // 본인을 제외한 같은 room의 user array
-    const usersInThisRoom = users[data.room].filter(
-      (user) => user.id !== socket.id
-      );
-
-      // console.log(usersInThisRoom);
-      
-    // 본인에게 해당 user array를 전송
-    // 새로 접속하는 user가 이미 방에 있는 user들에게 offer(signal)를 보내기 위해
-    io.sockets.to(socket.id).emit("all_users", usersInThisRoom);
-  });
 
   // 소켓 연결 해제
   socket.on("disconnect", () => {
-    // const roomID = socketToRoom[socket.id];
-    // let room = users[roomID];
-    // if (room) {
-    //   room = room.filter((user) => user.id !== socket.id);
-    //   users[roomID] = room;
-    //   if (room.length === 0) {
-      //     delete users[roomID];
-      //     return;
-    //   }
-    // }
-    // socket.to(roomID).emit("user_exit", { id: socket.id });
   });
 });
 
