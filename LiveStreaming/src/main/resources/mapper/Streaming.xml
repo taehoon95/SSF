@@ -29,5 +29,11 @@
 		  from ssf_schema.streaming
 		 where l_code = #{l_code} and u_id = #{u_id};
     </delete>
+    
+    <select id="selectStreamingbyLnum" resultType="liveStreaming.dto.StreamingDto">
+    	select *
+    	  from ssf_schema.streaming
+    	 where l_code = #{l_code}
+    </select>
 
 </mapper>

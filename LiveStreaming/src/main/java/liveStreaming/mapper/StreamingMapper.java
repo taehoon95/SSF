@@ -12,4 +12,5 @@ public interface StreamingMapper {
 	int deleteStreaming(StreamingDto u_id);
 	int updateStreaming(StreamingDto streaming);
 	int insertStreaming(StreamingDto streaming);
+	StreamingDto selectStreamingbyLnum(String l_num);
 }

@@ -1,6 +1,5 @@
 // import React, { createContext, useState, useRef, useEffect } from "react";
-// import { io } from "socket.io-client";
-// import Peer from "simple-peer";
+// import  io  from "socket.io-client";
 
 // const SocketContext = createContext();
 
@@ -8,103 +7,52 @@
 // // 배포시에 ip 변경하기
 // // 땡겨받고 자기 ip로 변경
 
+// const SOCKET_SERVER_URL = "https://localhost:5000";
 // // const socket = io("https://218.159.169.101:5000",{ secure : true });
-// // const socket = io("https://localhost:5000",{ secure : true });
-// const socket = io("https://115.22.10.117:5000",{ secure : true });
+// // const socket = io("https://18.219.234.0:5000",{ secure : true });
+// // const socket = io("https://172.31.47.101:5000",{ secure : true });
 
 
 // const ContextProvider = ({ children }) => {
-//   const [callAccepted, setCallAccepted] = useState(false);
-//   const [callEnded, setCallEnded] = useState(false);
-//   const [stream, setStream] = useState(null);
-//   const [name, setName] = useState("");
-//   const [call, setCall] = useState({});
-//   const [me, setMe] = useState("");
+//   const socketRef = useRef();
+//   // rooms: room 객체들 정보모음
+//   const [rooms, setRooms] = useState({});
+//   // joinRoom: 현재 참여하고 있는 room정보
+//   const [joinRoom, setJoinRoom] = useState("");
 
-//   const myVideo = useRef();
-//   const userVideo = useRef();
-//   const connectionRef = useRef();
+//   const [usernaem,setUserName] = useState("");
+//   const [messages, setMessages] = useState([]);
 
 //   useEffect(() => {
-//     navigator.mediaDevices
-//       .getUserMedia({ video: true, audio: true })
-//       .then((currentStream) => {
-//         setStream(currentStream);
-//         myVideo.current.srcObject = currentStream;
-//         console.log(currentStream.getAudioTracks());
-//       });
-     
-//     // back에서 index.js에서 이벤트명이 'me'인 socket.emit('me', socket.id)
-//     socket.on("me", (id) => setMe(id));
+//     socketRef = io.connect(SOCKET_SERVER_URL,{ secure : true });
 
-//     socket.on("callUser", ({ from, name: callerName, signal }) => {
-//       setCall({ isReceivedCall: true, from, name: callerName, signal });
-//     });
-//   }, []);
+//     // rooms 객체 설정
+//     socketRef.on("serverRooms", (value) => {
+//       console.log(value);
+//       setRooms(value)
+//     })
 
-//   const answerCall = () => {
-//     setCallAccepted(true);
+//     // 현재 참여하고 있는 방
+//     socketRef.on("serverJoinRoom", (roomInfo) => {
+//       setJoinRoom(roomInfo)
+//     })
 
-//     const peer = new Peer({ initiator: false, trickle: false, stream });
-
-//     peer.on("signal", (data) => {
-//       socket.emit("answerCall", { signal: data, to: call.from });
-//     });
-
-//     peer.on("stream", (currentStream) => {
-//       userVideo.current.srcObject = currentStream;
-//     });
-
-//     peer.signal(call.signal);
-
-//     connectionRef.current = peer;
-//   };
-
-//   const callUser = (id) => {
-//     const peer = new Peer({ initiator: true, trickle: false, stream });
-    
-//     peer.on("signal", (data) => {
-//       socket.emit("callUser", {
-//         userToCall: id,
-//         signalData: data,
-//         from: me,
-//         name,
-//       });
-//     });
-    
-//     peer.on("stream", (currentStream) => {
-//       userVideo.current.srcObject = currentStream;
-//     });
-    
-//     socket.on("callAccepted", (signal) => {
-//       setCallAccepted(true);
-//       peer.signal(signal);
-//     });
-
-//     connectionRef.current = peer;
-//   };
-
-//   const leaveCall = () => {
-//     setCallEnded(true);
-//     connectionRef.current.destroy();
-//     window.location.reload();
-//   };
-
+//     // disconnect
+//     return () => {
+//       if(socketRef){
+//         socketRef.disconnect();
+//       }
+//     }
+//   }, []); 
+ 
 //   return (
 //     <SocketContext.Provider
 //       value={{
-//         call,
-//         callAccepted,
-//         myVideo,
-//         userVideo,
-//         stream,
-//         name,
-//         setName,
-//         callEnded,
-//         me,
-//         callUser,
-//         leaveCall,
-//         answerCall,
+//         socketRef,
+//         rooms,
+//         joinRoom,
+//         usernaem,
+//         messages,
 //       }}
 //     >
 //       {children}

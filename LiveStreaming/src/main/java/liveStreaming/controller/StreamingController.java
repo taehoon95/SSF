@@ -21,7 +21,6 @@ public class StreamingController {
     // 2021-11-23 이태훈 스트리밍 insert
 	@PostMapping("/insertStreaming")
 	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming){
-		System.out.println(streaming);
 		return ResponseEntity.ok(service.insertStreaming(streaming));
 	}
 	
@@ -52,4 +51,12 @@ public class StreamingController {
 		}
 		return ResponseEntity.ok(service.showStreaming(stream));
 	}
+	
+	// 2021 1125 이태훈 l_num으로 방검색
+	@GetMapping("/showStreamingByLnum/{l_code}")
+	public ResponseEntity<Object> showStreaming(@PathVariable String l_code){
+		return ResponseEntity.ok(service.showStreamingByLnum(l_code));
+	}
+	
+	
 }

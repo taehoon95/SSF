@@ -19,25 +19,20 @@ import {
   Typography,
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { check } from "../../modules/users";
 
 const LoginContainer = ({ history }) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-  const {  u_id, u_pwd, auth,authError  } = useSelector((state) => {            
-    
-    return{        
-    u_id: state.auth.u_id,
-    u_pwd: state.auth.u_pwd,
-    auth : state.auth.auth,
-    authError : state.auth.authError,
-            
-  }});
-
-
-
-
+  const { u_id, u_pwd, auth, authError } = useSelector((state) => {
+    return {
+      u_id: state.auth.u_id,
+      u_pwd: state.auth.u_pwd,
+      auth: state.auth.auth,
+      authError: state.auth.authError,
+    };
+  });
 
   // input text 체인지
   const onChange = (e) => {
@@ -170,30 +165,33 @@ const LoginContainer = ({ history }) => {
         <Grid container style={{ marginTop: -5 }}>
           <Grid item xs>
             {/*아이디 찾기*/}
-            <Button
-              href="#"
-              variant="body2"
-              style={{ marginLeft: -15, color: "white" }}
-            >
-              아이디
-            </Button>
-            {/* 비밀번호 찾는 페이지로 이동 할 링크 걸기 */}
-            <Button
-              href="#"
-              variant="body2"
-              style={{ marginLeft: -15, color: "white" }}
-            >
-              비밀번호 찾기
-            </Button>
+            <Link to="/IdCheckPage">
+              <Button
+                variant="body2"
+                style={{ marginLeft: -15, color: "white" }}
+              >
+                아이디
+              </Button>
+            </Link>
+            {/* 비밀번호 찾는 페이지로 이동 할 링크 걸기 */}\
+            <Link to="/PwdCheckviewPage">
+              <Button
+                variant="body2"
+                style={{ marginLeft: -15, color: "white" }}
+              >
+                비밀번호 찾기
+              </Button>
+            </Link>
           </Grid>
           <Grid item>
-            <Button
-              href="./RegisterPage"
-              variant="body2"
-              style={{ marginRight: -15, color: "white" }}
-            >
-              회원가입
-            </Button>
+            <Link to="./RegisterPage">
+              <Button
+                variant="body2"
+                style={{ marginRight: -15, color: "white" }}
+              >
+                회원가입
+              </Button>
+            </Link>
           </Grid>
         </Grid>
         <Grid>
