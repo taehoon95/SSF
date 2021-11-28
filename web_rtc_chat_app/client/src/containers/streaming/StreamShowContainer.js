@@ -23,6 +23,7 @@ const StreamShow = () => {
   }, [offStreaming]);
 
   const buildPlayer = () => {
+    setOffStreaming(false);
     const player = flv.createPlayer({
       type: "flv",
       url: `https://localhost:8443/live/${l_code}.flv`,

@@ -70,7 +70,6 @@ const StreamListContainer = () => {
     });
   };
 
-  liveRenderList();
   const renderCreate = () => {
     // 아이디 있는경우
     if (login_id) {

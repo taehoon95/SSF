@@ -155,7 +155,7 @@ const Header = () => {
 
           {/* 검색바 */}
           <Grid
-            Conatiner
+            // Contatiner
             // alignItems="center"
             // direction="row"
             // justifyContent="center"
