@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import Container from "@mui/material/Container";
 import { LockOutlined } from "@material-ui/icons";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { check } from "../../modules/users";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";

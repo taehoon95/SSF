@@ -1,12 +1,15 @@
 import React from 'react';
 import StreamListContainer from '../containers/streaming/StreamListContainer';
+import { ContextProvider } from '../SocketContext';
 
-const streamingListPage = () => {
+const StreamingListPage = () => {
     return (
         <div>
+            <ContextProvider>
             <StreamListContainer/>
+            </ContextProvider>
         </div>
     );
 };
 
-export default streamingListPage;
+export default StreamingListPage;

@@ -74,8 +74,8 @@ export const deleteStreaming = createAction(DELETESTREAMING, ( streamInfo ) => (
   streamInfo,
 }));
 
-export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( streamInfo ) => ({
-  streamInfo,
+export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( l_code ) => ({
+  l_code,
 }));
 
 

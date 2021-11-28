@@ -25,13 +25,14 @@ import {
   Upload,
   VideoLabel,
 } from "@mui/icons-material";
-import { Avatar, Divider, Grid, Tooltip } from "@mui/material";
+import { Divider, Grid, Tooltip } from "@mui/material";
 import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
+
 // 2021-11-25 강동하 버튼 pathname 에러 임시 수정
-// import Button from "./Button";
 import { Link, withRouter, useHistory } from "react-router-dom";
+
 import Responsive from "./Responsive";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Search } from "../../../node_modules/@material-ui/icons/index";
 import {
@@ -79,10 +80,8 @@ const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const Header = () => {
   const classes = useStyles();
-
-  // SideBar On/Off 상태 설정
   const history = useHistory();
-
+  // SideBar On/Off 상태 설정
   const [opens, setOpens] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   //const [inputSearch, setInputSearch] = useState("");
@@ -136,6 +135,7 @@ const Header = () => {
             </IconButton>
           )}
 
+
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
           <Grid container>
@@ -154,6 +154,7 @@ const Header = () => {
               </Button>
             </Grid>
           </Grid>
+
 
           {/* 검색바 */}
           <Box
