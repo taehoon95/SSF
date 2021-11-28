@@ -23,12 +23,12 @@ import {
   Upload,
   VideoLabel,
 } from "@mui/icons-material";
-import { Avatar, Divider, Grid, Tooltip } from "@mui/material";
+import { Divider, Grid, Tooltip } from "@mui/material";
 import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
 import Button from "./Button";
-import { Route, Link } from "react-router-dom";
+import {  Link, useHistory } from "react-router-dom";
 import Responsive from "./Responsive";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { withRouter } from "react-router-dom";
 
@@ -72,7 +72,7 @@ const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const Header = () => {
   const classes = useStyles();
-
+  const history = useHistory();
   // SideBar On/Off 상태 설정
   const [opens, setOpens] = useState(false);
 
@@ -106,8 +106,8 @@ const Header = () => {
 
             {/* 로고 */}
             <Grid item >
+              <Link to="#">
               <Button
-                href="/"
                 variant="inherit"
                 sx={{
                   textDecoration: "none",
@@ -120,6 +120,7 @@ const Header = () => {
                   SSF
                 </Typography>
               </Button>
+              </Link>
             </Grid>                
 
     
@@ -137,6 +138,7 @@ const Header = () => {
               {tokenlled ? (
                 <div>
                   {localStorage.getItem("u_id")} 님 어서오세요
+
                   <Button onClick={onLogout}>로그아웃</Button>
                 </div>
               ) : (
