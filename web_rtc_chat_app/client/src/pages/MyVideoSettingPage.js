@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import {
-  Button,
   Paper,
   Table,
   TableBody,
@@ -42,6 +41,7 @@ const MyVideoSettingPage = () => {
       //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
       .then((response) => {
         setMyList(response.data);
+        console.log(11111)
       })
       .catch((error) => {
         alert("record 가져오기 실패");
@@ -49,12 +49,29 @@ const MyVideoSettingPage = () => {
       });
   };
 
+  const deleteListLine = ( u_id, v_code ) => {
+    console.log(v_code);
+    axios
+    .post(`/api/videoDelete`, { u_id, v_code})
+    //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id, v_code})
+    .then((response) => {
+      console.log(response);
+      // videorecord(u_id)
+      myVideoList();
+      alert("삭제 성공");
+    })
+    .catch((error) => {
+      alert("삭제 실패");
+      console.log(error);
+    });
+  }
+
   // VideoList 삭제
   const deleteListLine2 = (e) => {
     e.preventDefault();
     console.log(e.target.name);
+    // deleteListLine(u_id,e.target.name);
     deleteListLine(u_id,e.target.name);
-    myVideoList();
   };
 
   return (

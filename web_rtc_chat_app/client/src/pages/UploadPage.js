@@ -70,6 +70,28 @@ const UploadPage = () => {
     console.log(selectedVFile);
     console.log("-----------------");
     console.log(selectedIFile);
+    const url = "https://ssfupload.s3.ap-northeast-2.amazonaws.com/static/";
+    const v_link = url + selectedVFile.name;
+    const v_img = url + selectedIFile.name;
+
+    axios
+      .post(`/api/videoUpload`, {
+        u_id,
+        c_code: selectCategory,
+        v_name: inputTitle,
+        v_descript: inputContent,
+        v_link,
+        v_img,
+      })
+      .then((response) => {
+        console.log(response);
+        alert("업로드 성공");
+      })
+      .catch((error) => {
+        alert("업로드 실패");
+        console.log(error);
+      });
+
     // upload(formData)
     // .then(res => console.log(res))
     axios
@@ -96,30 +118,9 @@ const UploadPage = () => {
     console.log(inputContent);
 
     console.log("------------------------");
-    const url = "https://ssfupload.s3.ap-northeast-2.amazonaws.com/static/";
     console.log(url + selectedVFile.name);
-    const v_link = url + selectedVFile.name;
-    const v_img = url + selectedIFile.name;
     console.log(url + selectedIFile.name);
     console.log("------------------------");
-
-    axios
-      .post(`/api/videoUpload`, {
-        u_id,
-        c_code: selectCategory,
-        v_name: inputTitle,
-        v_descript: inputContent,
-        v_link,
-        v_img,
-      })
-      .then((response) => {
-        console.log(response);
-        alert("업로드 성공");
-      })
-      .catch((error) => {
-        alert("업로드 실패");
-        console.log(error);
-      });
   };
 
   return (
