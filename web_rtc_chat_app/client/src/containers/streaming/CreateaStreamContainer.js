@@ -12,7 +12,7 @@ const CreateaStreamContainer = () => {
   const l_code = nanoid();
 
   const history = useHistory();
-
+  const [loading, setLoading] = useState(true);
   const streamingInfo = {
     l_code,
     u_id,
@@ -25,6 +25,7 @@ const CreateaStreamContainer = () => {
   const handleStreamInfo = (e) => {
     setStreamInfo({ ...streamInfo, [e.target.name]: e.target.value });
     dispatch(change({ streamInfo }));
+    setLoading(false);
   };
 
   const createStreaming = () => {

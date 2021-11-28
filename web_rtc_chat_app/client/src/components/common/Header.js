@@ -157,6 +157,7 @@ const Header = () => {
 
 
           {/* 검색바 */}
+
           <Box
             component="span"
             display="flex"
