@@ -5,14 +5,15 @@
 
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { Grid, Typography } from "../../node_modules/@material-ui/core/index";
+import { Link, useHistory } from "react-router-dom";
+import { Button, Grid, Typography } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
   const [sendData, setSendData] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     myVideoList();
@@ -22,6 +23,7 @@ const MainPage = () => {
     myTopVideoList();
   }, []);
 
+  // 20211123 윤성준 전체 영상 List api
   const myVideoList = () => {
     axios
       .get(`/api/videoView`)
@@ -36,7 +38,7 @@ const MainPage = () => {
       });
   };
 
-  // Top 4
+  // 20211123 윤성준 Top 4 영상 api
   const myTopVideoList = () => {
     axios
       .get(`/api/videoTop5`)
@@ -54,16 +56,16 @@ const MainPage = () => {
   return (
     <>
       <div className="container" style={{ marginTop: 65 }}>
-        <link
+        <Link
           rel="stylesheet"
           type="text/css"
           charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
         />
-        <link
+        <Link
           rel="stylesheet"
           type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
         <style>{cssstyle}</style>
         <div>

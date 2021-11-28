@@ -3,6 +3,7 @@ import axios from "axios";
 import Slider from "react-slick";
 import { Bar } from "react-chartjs-2";
 import { MDBContainer } from "mdbreact";
+import { Link } from "react-router-dom";
 
 const MyContainer = () => {
   const u_id =  localStorage.getItem('u_id');
@@ -146,16 +147,16 @@ const MyContainer = () => {
   return (
     <>
       <div className="container" style={{ marginTop: 65 }}>
-        <link
+        <Link
           rel="stylesheet"
           type="text/css"
           charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
         />
-        <link
+        <Link
           rel="stylesheet"
           type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
         <style>{cssstyle}</style>
         <div>
@@ -164,6 +165,7 @@ const MyContainer = () => {
           <Slider {...settings}>
             {myList.map((data, idx) => (
               <div key={idx}>
+                <Link to={`/WatchPage2/${data.v_code}`}>
                 <video
                   src={data.v_link}
                   controls
@@ -178,6 +180,7 @@ const MyContainer = () => {
                   &nbsp; - &nbsp;
                   {data.v_date}
                 </h5>
+                </Link>
               </div>
             ))}
           </Slider>

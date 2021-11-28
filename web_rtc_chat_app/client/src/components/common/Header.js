@@ -13,7 +13,9 @@ import {
   ListItem,
   Toolbar,
   Typography,
+  Button,
 } from "@mui/material";
+
 import { Dehaze, Home } from "@mui/icons-material";
 import {
   AccessAlarms,
@@ -25,18 +27,21 @@ import {
 } from "@mui/icons-material";
 import { Divider, Grid, Tooltip } from "@mui/material";
 import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
-import Button from "./Button";
-import {  Link, useHistory } from "react-router-dom";
+
+// 2021-11-25 강동하 버튼 pathname 에러 임시 수정
+import { Link, withRouter, useHistory } from "react-router-dom";
+
 import Responsive from "./Responsive";
 import { useSelector } from "react-redux";
 
-import { withRouter } from "react-router-dom";
+import { Search } from "../../../node_modules/@material-ui/icons/index";
+import { Input } from "../../../node_modules/@material-ui/core/index";
 
 const Wrapper = styled(Responsive)`
   height: 4rem;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 자식 엘리먼트 사이에 여백을 최대로 설정 */
+  justify-content: space-between;
   .logo {
     font-size: 1.125rem;
     font-weight: 800;
@@ -51,13 +56,13 @@ const Wrapper = styled(Responsive)`
 // SideBar CSS
 const useStyles = makeStyles((theme) => ({
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(3),
   },
   title: {
     marginRight: "auto",
   },
   drawer: {
-    width: 250,
+    width: 300,
     marginTop: 100,
   },
   iconAlign: {
@@ -74,7 +79,25 @@ const Header = () => {
   const classes = useStyles();
   const history = useHistory();
   // SideBar On/Off 상태 설정
+  const history = useHistory();
+
   const [opens, setOpens] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
+  //const [inputSearch, setInputSearch] = useState("");
+
+  // 영상 검색
+  const onSearchBar = (e) => {
+    setInputSearch(e.target.value);
+    console.log(e.target.value);
+  };
+
+  // 검색 값 전송 버튼
+  const searchContent = (e) => {
+    alert(inputSearch);
+    history.push(`/SearchResultPage/${inputSearch}`);
+    // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
+    setInputSearch("");
+  };
 
   const { u_id, tokenlled, token } = useSelector((state) => {
     return {
@@ -90,24 +113,34 @@ const Header = () => {
     window.location.href = "/";
   };
 
+  // 2021-11-25 강동하 홈 버튼 에러 수정
+  const home = () => {
+    history.push('/');
+  }
+
   return (
     <>
-      <AppBar style={{ background: '#6ea4e6' }} >
-        <Toolbar>         
-            {/* true, false로 나중에 로그인 하면 보이고, 안하면 보이게 할 수 있음 */}
-            {true && <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            onClick={() => setOpens(true)}
-          >
-            <Dehaze />
-          </IconButton> }
+      <AppBar style={{ background: "#0080FF" }}>
+        <Toolbar>
+          {/* 사이드바  */}
+          {true && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              onClick={() => setOpens(true)}
+            >
+              <Dehaze />
+            </IconButton>
+          )}
 
-            {/* 로고 */}
-            <Grid item >
-              <Link to="#">
+
+          {/* 로고 */}
+          {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
+          <Grid container>
+            <Grid item>
               <Button
+                onClick={home}
                 variant="inherit"
                 sx={{
                   textDecoration: "none",
@@ -116,24 +149,44 @@ const Header = () => {
                 rel="noopener noreferrer"
               >
                 <VideoLabel />
-                <Typography>
-                  SSF
-                </Typography>
+                <Typography variant="h6">SSF</Typography>
               </Button>
-              </Link>
-            </Grid>                
+            </Grid>
+          </Grid>
 
-    
-          <Grid container  alignItems="center" direction="row" justifyContent="flex-end" >           
 
-            {/* 로그인 버튼 */}
-            {/* {
-              (()=>{
-                    console.log(tokenlled);
-                    console.log(token);
-                    
-              })()
-            } */}
+          {/* 검색바 */}
+          <Grid
+            Conatiner
+            // alignItems="center"
+            // direction="row"
+            // justifyContent="center"
+          >
+            <Grid item xs={10}>
+              <Input
+                onChange={onSearchBar}
+                value={inputSearch}
+                type="text"
+                style={{ width: 700 }}
+              >
+                검색
+              </Input>
+            </Grid>
+            <Grid item xs={2}>
+              <Button onClick={searchContent}>
+                <Search />
+              </Button>
+            </Grid>
+          </Grid>
+
+          {/* 로그인, 로그아웃 버튼 감쌈 */}
+          <Grid
+            container
+            alignItems="center"
+            direction="row"
+            justifyContent="flex-end"
+          >
+
             <Grid item>
               {tokenlled ? (
                 <div>
@@ -157,13 +210,6 @@ const Header = () => {
                   로그인
                 </Link>
               )}
-              {/* {
-              (()=>{
-                    console.log(tokenlled);
-                    console.log(token);
-                    
-              })()
-            } */}
             </Grid>
 
             {/* 알림버튼 */}
@@ -207,62 +253,54 @@ const Header = () => {
             </ListItem>
 
             {/* Home 버튼 */}
-            <ListItem
-              button
-              component="a"
-              href="/"
-              className={classes.ListItem}
-            >
-              <Home />
-              <Box pl={3} type="paragraph" color="inherit">
-                Home
-              </Box>
-            </ListItem>
-
-            {/* 내가 시청한 기록 버튼 */}
-            <ListItem button component="a" href="./ListPage">
-              <AccessAlarms />
-              <Box pl={3} type="paragraph" color="inherit">
-                내가 시청한 기록
-              </Box>
-            </ListItem>
+            <Link to="/">
+              <ListItem button className={classes.ListItem}>
+                <Home />
+                <Box pl={3} type="paragraph" color="inherit">
+                  Home
+                </Box>
+              </ListItem>
+            </Link>
 
             {/* 마이 페이지 버튼 */}
-            <ListItem
-              button
-              component="a"
-              href="./MyPage"
-              className={classes.ListItem}
-            >
-              <Person />
-              <Box pl={3} type="paragraph" color="inherit">
-                마이 페이지
-              </Box>
-            </ListItem>
+            <Link to="/MyPage">
+              <ListItem button className={classes.ListItem}>
+                <Person />
+                <Box pl={3} type="paragraph" color="inherit">
+                  마이 페이지
+                </Box>
+              </ListItem>
+            </Link>
 
             {/* 방송 하기 버튼 */}
-            <ListItem button component="a" href="./LiveSettingPage">
-              <LiveTv />
-              <Box pl={3} type="paragraph" color="inherit">
-                방송 하기
-              </Box>
-            </ListItem>
+            <Link to="/LiveSettingPage">
+              <ListItem button>
+                <LiveTv />
+                <Box pl={3} type="paragraph" color="inherit">
+                  방송 하기
+                </Box>
+              </ListItem>
+            </Link>
 
             {/* 방송 업로드 버튼 */}
-            <ListItem button component="a" href="./UploadPage">
-              <Upload />
-              <Box pl={3} type="paragraph" color="inherit">
-                방송 업로드
-              </Box>
-            </ListItem>
+            <Link to="/UploadPage">
+              <ListItem button>
+                <Upload />
+                <Box pl={3} type="paragraph" color="inherit">
+                  방송 업로드
+                </Box>
+              </ListItem>
+            </Link>
 
             {/* 내 영상 관리 버튼 */}
-            <ListItem button component="a" href="./MyVideoSettingPage">
-              <VideoSettings />
-              <Box pl={3} type="paragraph" color="inherit">
-                내 영상 관리
-              </Box>
-            </ListItem>
+            <Link to="/MyVideoSettingPage">
+              <ListItem button>
+                <VideoSettings />
+                <Box pl={3} type="paragraph" color="inherit">
+                  내 영상 관리
+                </Box>
+              </ListItem>
+            </Link>
 
             {/* 라인 아이콘 */}
             <Divider variant="middle" />

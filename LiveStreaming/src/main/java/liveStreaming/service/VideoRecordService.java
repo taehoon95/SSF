@@ -33,6 +33,11 @@ public class VideoRecordService {
 		return mapper.videoTop5();
 	}
 
+	// 20211125 윤성준 All Video Search 전체에서 영상 조회
+	public List<VideoRecordDto> videoSearch(String v_name){
+		return mapper.videoSearch(v_name);
+	}
+
 	// 2021 1121 이태훈 비디오 업로드
 	public int videoUpload(VideoRecordDto video) {
 		return mapper.videoUpload(video);
@@ -46,5 +51,10 @@ public class VideoRecordService {
 	// 2021-11-22 강동하 WatchPage2 영상 정보 조회
 	public List<VideoRecordDto> thisVideo(String v_code){
 		return mapper.thisVideo(v_code);
+	}
+
+	// 2021-11-25 강동하 영상 조회수 + 1
+	public int viewsInc(VideoRecordDto video){
+		return mapper.viewsInc(video);
 	}
 }

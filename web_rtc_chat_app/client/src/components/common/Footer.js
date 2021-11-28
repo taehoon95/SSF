@@ -1,18 +1,17 @@
 //푸터 모듈
 //2021-11-15
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
       {'Copyright © '}
       {/* 나중에 밑에 링크 주소 바꿔줘야함 11-15일 작성 */}
-      <Link color="inherit" href="https://localhost:3000/">
+      <Link color="inherit" to="https://localhost:3000/">
         SSF
       </Link>{' '}
       {new Date().getFullYear()}

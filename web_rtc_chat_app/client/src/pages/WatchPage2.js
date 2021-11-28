@@ -118,6 +118,18 @@ const WatchPage2 = (props) => {
     setOpen3(false);
   };
 
+  // 2021-11-25 강동하 영상 들어올 시 조회수 + 1
+  // 최초 1회만
+  useEffect(() => {
+    axios.patch('/api/viewsinc', {v_code : props.match.params.v_code})
+      .then(response => {
+        console.log("조회수 증가" + response);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  },[])
+
   // state 가 갱신되었을때 alert 출력 후 리렌더링
   useEffect(() => {
     selectVideo();
