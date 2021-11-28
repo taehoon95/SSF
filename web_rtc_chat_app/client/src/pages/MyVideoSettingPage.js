@@ -33,7 +33,7 @@ const MyVideoSettingPage = () => {
 
   useEffect(() => {
     myVideoList();
-  }, [myList]);
+  }, []);
 
   // VideoList 가져오기
   const myVideoList = () => {
@@ -53,7 +53,8 @@ const MyVideoSettingPage = () => {
   const deleteListLine2 = (e) => {
     e.preventDefault();
     console.log(e.target.name);
-    deleteListLine(e.target.name);
+    deleteListLine(u_id,e.target.name);
+    myVideoList();
   };
 
   return (

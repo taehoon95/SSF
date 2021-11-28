@@ -59,7 +59,6 @@ public class VideoRecordController {
 	// 2021 11-21 이태훈 비디오 업로드
 	@PostMapping("/videoUpload")
 	public ResponseEntity<Object> videoVidImgUpload(@RequestBody VideoRecordDto video) {
-		System.out.println(2222);
 		System.out.println(video);
 		return ResponseEntity.ok(service.videoUpload(video));
 	}
