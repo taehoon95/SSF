@@ -30,8 +30,6 @@ export default function Footer() {
       }}
     >
 
-
-
       <Box
       // 푸터 색상 조절
       style={{ background: '#A0A0A0' }}

@@ -5,6 +5,7 @@
 // 내 영상 관리 페이지 추가
 
 import { useEffect, useState } from "react";
+import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -22,9 +23,13 @@ import axios from "../../node_modules/axios/index";
 import { deleteListLine } from "../lib/api/videoRecord";
 
 const MyVideoSettingPage = () => {
-  const u_id =  localStorage.getItem('u_id');
-
+  const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
+
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
 
   useEffect(() => {
     myVideoList();
@@ -44,20 +49,20 @@ const MyVideoSettingPage = () => {
       });
   };
 
-  // VideoList 삭제 
+  // VideoList 삭제
   const deleteListLine2 = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log(e.target.name);
     deleteListLine(e.target.name);
-  }
+  };
 
   return (
     <>
-      <TableContainer style={{ marginTop: 100 }} component={Paper}>
+      <TableContainer style={{ marginTop: 65 }} component={Paper}>
         <Table size="large">
           <TableHead>
             <TableRow>
-              <TableCell align="center">번호</TableCell>
+              {/* <TableCell align="center">번호</TableCell> */}
               <TableCell align="center">썸네일</TableCell>
               <TableCell align="center">영상 제목</TableCell>
               <TableCell align="center">등록 날짜</TableCell>
@@ -69,28 +74,37 @@ const MyVideoSettingPage = () => {
 
           {myList.map((data, idx) => (
             <TableBody>
-              <TableCell>{data.v_code}</TableCell>
-              <TableCell><img src={data.v_img} width="220" height="150" /></TableCell>
+              {/* <TableCell>{data.v_code}</TableCell> */}
+              <TableCell>
+                <img src={data.v_img} width="350" height="230" />
+              </TableCell>
               <TableCell>{data.v_name}</TableCell>
               <TableCell>{data.v_date}</TableCell>
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
-              <Link to= './ListChangePage'>수정</Link>
+                <Link to="./ListChangePage">수정</Link>
               </TableCell>
               <TableCell align="center">
-                <input type="button" onClick={deleteListLine2} value="삭제" name={data.v_code} />
+                <input
+                  type="button"
+                  onClick={deleteListLine2}
+                  value="삭제"
+                  name={data.v_code}
+                />
               </TableCell>
             </TableBody>
           ))}
 
           <TableFooter>
             <TableRow>
-              <TablePagination
-              // count={users.length}
-              // page={page}
-              // rowsPerPage={rowsPerPage}
-              // onChangePage={handleChangePage}
-              // onChangeRowsPerPage={handleChangeRowsPerPage}
+              <Pagination
+                activePage={page}
+                itemsCountPerPage={10}
+                totalItemsCount={450}
+                pageRangeDisplayed={5}
+                prevPageText={"‹"}
+                nextPageText={"›"}
+                onChange={handlePageChange}
               />
             </TableRow>
           </TableFooter>
