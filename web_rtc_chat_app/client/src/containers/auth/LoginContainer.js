@@ -12,15 +12,17 @@ import { change, login } from "../../modules/auth";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Avatar,
-  Button,
   CssBaseline,
   Grid,
   TextField,
   Typography,
 } from "@material-ui/core";
+import Container from "@mui/material/Container";
 import { LockOutlined } from "@material-ui/icons";
 import { Link, withRouter } from "react-router-dom";
 import { check } from "../../modules/users";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 const LoginContainer = ({ history }) => {
   const [error, setError] = useState(null);
@@ -84,16 +86,16 @@ const LoginContainer = ({ history }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <form
-        onSubmit={onsubmit}
+      <Container
         component="main"
         maxWidth="xs"
-        style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
+        style={{
+          background: "#FFFFFF",
+          borderRadius: 5,
+          marginTop: 150, 
+        }}
       >
-        <CssBaseline />
-
         {/* <Box
-
           sx={{
             marginTop: 8,
             display: "flex",
@@ -102,117 +104,141 @@ const LoginContainer = ({ history }) => {
           }}
         > */}
 
-        <Avatar
-          sx={{ m: 1, bgcolor: "secondary.main" }}
-          style={{ marginTop: 20 }}
+        {/* 자물쇠 버튼 아이콘 */}
+        <Box
+          sx={{
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: 8,
+            display: "flex",
+          }}
         >
-          <LockOutlined />
-        </Avatar>
-        <Typography
-          component="h1"
-          variant="h4"
-          style={{ marginTop: 20, color: "white" }}
+          <Avatar
+            sx={{ m: 1, bgcolor: "secondary.main" }}
+            style={{ marginTop: 20 }}
+          >
+            <LockOutlined />
+          </Avatar>
+
+          {/* 로그인 글자  */}
+          <Typography
+            component="h1"
+            variant="h4"
+            style={{ marginTop: 20, color: "black" }}
+          >
+            로그인
+          </Typography>
+        </Box>
+
+        <form
+          onSubmit={onsubmit}
+          // component="main"
+          // maxWidth="xs"
+          // style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
         >
-          로그인
-        </Typography>
-        <Grid container>
-          <Grid item style={{ width: "100%" }}>
-            <Typography
-              variant="h6"
-              style={{ color: "white", marginBottom: -15, marginTop: 10 }}
-            >
-              아이디
-            </Typography>
-            <TextField
-              onChange={onChange}
-              style={{ background: "#FFFFFF", borderRadius: 3 }}
-              placeholder="  ID"
-              margin="normal"
-              required
-              fullWidth
-              autoFocus
-              name="u_id"
-              id="u_id"
-              autoComplete="id"
-            />
-          </Grid>
-        </Grid>
+          <Grid container>
+            <Grid item style={{ width: "100%" }}>
+              {/* 아이디 글자 */}
+              <Typography
+                variant="h6"
+                style={{ color: "black", marginBottom: -15, marginTop: 10 }}
+              >
+                아이디
+              </Typography>
 
-        <Grid container>
-          <Grid item style={{ marginTop: 5, width: "100%" }}>
-            <Typography variant="h6" style={{ color: "white" }}>
-              비밀번호
-            </Typography>
-            <TextField
-              onChange={onChange}
-              style={{
-                background: "#FFFFFF",
-                marginTop: 2,
-                borderRadius: 3,
-              }}
-              placeholder="  Password"
-              margin="normal"
-              required
-              fullWidth
-              type="password"
-              id="u_pwd"
-              name="u_pwd"
-              autoComplete="current-password"
-            />
+              {/* 아이디 입력 칸 */}
+              <TextField
+                onChange={onChange}
+                style={{ background: "#FFFFFF", borderRadius: 3 }}
+                placeholder="  ID"
+                margin="normal"
+                required
+                fullWidth
+                autoFocus
+                name="u_id"
+                id="u_id"
+                autoComplete="id"
+              />
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid container style={{ marginTop: -5 }}>
-          <Grid item xs>
-            {/*아이디 찾기*/}
-            <Link to="/IdCheckPage">
+          <Grid container>
+            <Grid item style={{ marginTop: 5, width: "100%" }}>
+              {/* 비밀번호 글자 */}
+              <Typography variant="h6" style={{ color: "black" }}>
+                비밀번호
+              </Typography>
+
+              {/* 비밀번호 입력 칸 */}
+              <TextField
+                onChange={onChange}
+                style={{
+                  background: "#FFFFFF",
+                  marginTop: 2,
+                  borderRadius: 3,
+                }}
+                placeholder="  Password"
+                margin="normal"
+                required
+                fullWidth
+                type="password"
+                id="u_pwd"
+                name="u_pwd"
+                autoComplete="current-password"
+              />
+            </Grid>
+          </Grid>
+
+          <Grid container style={{ marginTop: -5 }}>
+            <Grid item xs>
+              {/*아이디 찾기*/}
               <Button
+                href="#"
                 variant="body2"
-                style={{ marginLeft: -15, color: "white" }}
+                style={{ marginLeft: -15, color: "black" }}
               >
                 아이디
               </Button>
-            </Link>
-            {/* 비밀번호 찾는 페이지로 이동 할 링크 걸기 */}\
-            <Link to="/PwdCheckviewPage">
+              {/* 비밀번호 찾는 페이지로 이동 할 링크 걸기 */}
               <Button
+                href="#"
                 variant="body2"
-                style={{ marginLeft: -15, color: "white" }}
+                style={{ marginLeft: -15, color: "black" }}
               >
                 비밀번호 찾기
               </Button>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link to="./RegisterPage">
+            </Grid>
+            <Grid item>
               <Button
+                href="./RegisterPage"
                 variant="body2"
-                style={{ marginRight: -15, color: "white" }}
+                style={{ marginRight: -15, color: "black" }}
               >
                 회원가입
               </Button>
-            </Link>
+            </Grid>
           </Grid>
-        </Grid>
-        <Grid>
-          <Grid item>
-            <Typography variant="22">
-              <span>{error}</span>
-            </Typography>
+          <Grid>
+            <Grid item>
+              <Typography variant="22">
+                <span>{error}</span>
+              </Typography>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Button
-          style={{ marginTop: 10, marginBottom: 40 }}
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={onsubmit}
-        >
-          로그인
-        </Button>
+          <Button
+            style={{ marginTop: 10, marginBottom: 40 }}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={onsubmit}
+          >
+            로그인
+          </Button>
+        </form>
+
         {/* </Box> */}
-      </form>
+      </Container>
     </ThemeProvider>
   );
 };

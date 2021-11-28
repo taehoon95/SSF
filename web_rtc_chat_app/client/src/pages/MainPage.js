@@ -6,7 +6,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Grid, Typography } from "../../node_modules/@material-ui/core/index";
+import {
+  Button,
+  Grid,
+  Typography,
+} from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 
 const MainPage = () => {
@@ -71,13 +75,24 @@ const MainPage = () => {
         <div>
           <br />
           <Grid container xs={12}>
+            {/* 실시간 방송 영상 뷰 */}
+            <Grid item>
+              
+            </Grid>
+
+            {/* Top4 영상 뷰 */}
             <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
-              <Typography variant="h5">Top 4 영상</Typography>
+              <Typography variant="h5" style={{ color: "white" }}>
+                Top 4 영상
+              </Typography>
             </Grid>
             {myTopList.map((data, idx) => (
               <div key={idx}>
                 <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to={`/WatchPage2/${data.v_code}`}>
+                  <Link
+                    to={`/WatchPage2/${data.v_code}`}
+                    style={{ textDecoration: "none" }}
+                  >
                     <video
                       src={data.v_link}
                       controls
@@ -85,14 +100,16 @@ const MainPage = () => {
                       width="320"
                       height="250"
                     />
+                    <h3 style={{ color: "white", marginTop: 3 }}>
+                      {data.v_name}
+                    </h3>
+                    <h4 style={{ color: "gray", marginTop: 2 }}>
+                      조회수 : &nbsp;
+                      {data.v_views}
+                      &nbsp; - &nbsp;
+                      {data.v_date}
+                    </h4>
                   </Link>
-                  <h4>{data.v_name}</h4>
-                  <h5>
-                    조회수 : &nbsp;
-                    {data.v_views}
-                    &nbsp; - &nbsp;
-                    {data.v_date}
-                  </h5>
                 </Grid>
               </div>
             ))}
@@ -101,12 +118,14 @@ const MainPage = () => {
           <br />
           <Grid container xs={12}>
             <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
-              <Typography variant="h5">전체 영상</Typography>
+              <Typography variant="h5" style={{ color: "white" }}>
+                전체 영상
+              </Typography>
             </Grid>
             {myList.map((data, idx) => (
               <div key={idx}>
                 <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to={`/WatchPage2/${data.v_code}`}>
+                  <Link to={`/WatchPage2/${data.v_code}`} style={{ textDecoration: "none" }}>
                     <video
                       src={data.v_link}
                       controls
@@ -114,14 +133,16 @@ const MainPage = () => {
                       width="320"
                       height="250"
                     />
+                    <h3 style={{ color: "white", marginTop: 3 }}>
+                      {data.v_name}
+                    </h3>
+                    <h4 style={{ color: "gray", marginTop: 2 }}>
+                      조회수 : &nbsp;
+                      {data.v_views}
+                      &nbsp; - &nbsp;
+                      {data.v_date}
+                    </h4>
                   </Link>
-                  <h4>{data.v_name}</h4>
-                  <h5>
-                    조회수 : &nbsp;
-                    {data.v_views}
-                    &nbsp; - &nbsp;
-                    {data.v_date}
-                  </h5>
                 </Grid>
               </div>
             ))}
