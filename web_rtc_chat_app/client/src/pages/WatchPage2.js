@@ -18,6 +18,7 @@ import {
   Modal,
   Box,
   Typography,
+  Divider,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -268,6 +269,7 @@ const WatchPage2 = (props) => {
           </Button>
         </Box>
       </Modal>
+      
       {/* 댓글 삭제 Modal */}
       <Modal
         open={open2}
@@ -343,31 +345,41 @@ const WatchPage2 = (props) => {
       </Modal>
 
       {video !== 0 && (
-        <Grid container style={{ marginTop: 80, marginLeft: 120 }}>
+        <Grid container style={{ marginTop: 100 , marginLeft:50, width: 800 }}> 
+
+        {/* 비디오 영상  */}
           <Grid item style={{ marginBottom: 20 }}>
-            <video controls autoPlay loop muted>
+            <video controls autoPlay loop muted style={{ height: 800 }}>
               <source src={video[0].v_link} type="video/mp4" />
             </video>
           </Grid>
-          <Grid item xs={12} style={{ marginRight: 640 }}>
-            <h2 style={{ color: "black", marginBottom: 10 }}>
+
+          {/* 상세정보 */}
+          <Grid item xs={12} style={{ }}>
+            {/* 영상 제목 */}
+            <Typography variant="h4" style={{ color: "white", marginBottom: 10 }}>
               {video[0].v_name}
-            </h2>
-            <label style={{ color: "black" }}>{video[0].v_descript}</label>
-            <p />
-            <label style={{ color: "black" }}>
+            </Typography>
+
+            {/* 영상 내용 */}
+            <Typography style={{ color: "white" }}>{video[0].v_descript}</Typography>
+            
+            {/* 조회수 */}
+            <Typography style={{ color: "white" }}>
               조회수 : {video[0].v_views}회
-            </label>
-            <p />
-            <label style={{ color: "black" }}>
+            </Typography>
+
+            {/* 영상 업로드 일자 */}
+            <Typography style={{ color: "white" }}>
               영상 업로드 일자 : {video[0].v_date}
-            </label>
-            <hr color="#000000" style={{ marginTop: 20 }} />
+            </Typography>
+
+            <Divider variant="middle" style={{ background:'gray', marginBottom:20, marginTop: 20 }} />
 
             {comment_INSERT !== true &&
               (auth_Id === null ? (
                 <>
-                  <Grid item>
+                  <Grid item >
                     <TextField
                       style={{
                         background: "#FFFFFF",
@@ -426,17 +438,17 @@ const WatchPage2 = (props) => {
                   </Grid>
                 </>
               ))}
-            <hr color="#000000" style={{ marginTop: 20, marginBottom: 20 }} />
+             <Divider variant="middle" style={{ background:'gray', marginBottom:20, marginTop: 20 }} />
 
             {commentSelectResult === 1 &&
               commentInfo.map((data, index) => (
                 <Grid key={index} item style={{ marginBottom: 20 }}>
-                  <label style={{ color: "black" }}>{data.u_id} : </label>
-                  <label style={{ color: "black" }}>{data.m_text}</label>
-                  <label style={{ color: "black" }}>
+                  <Typography style={{ color: "white" }}>{data.u_id} : </Typography>
+                  <Typography style={{ color: "white" }}>{data.m_text}</Typography>
+                  <Typography style={{ color: "white" }}>
                     {" "}
                     작성일 : {data.m_date}
-                  </label>
+                  </Typography>
 
                   {/* <Button id={`${data.m_num}`} */}
                   {auth_Id === data.u_id &&
