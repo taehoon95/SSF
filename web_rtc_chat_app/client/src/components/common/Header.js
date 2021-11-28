@@ -79,8 +79,6 @@ const Header = () => {
   const classes = useStyles();
   const history = useHistory();
   // SideBar On/Off 상태 설정
-  const history = useHistory();
-
   const [opens, setOpens] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   //const [inputSearch, setInputSearch] = useState("");
