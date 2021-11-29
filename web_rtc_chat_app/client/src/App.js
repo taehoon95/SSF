@@ -33,9 +33,10 @@ function App() {
       <Route component={UploadPage} path={["/UploadPage/@:u_id", '/UploadPage']}  />
       {/* 2021-11-18 : 내 영상 관리 페이지(MyVideoSettingPage) 추가 */}
       <Route component={MyVideoSettingPage} path={["/MyVideoSettingPage/@:u_id", '/MyVideoSettingPage']}  />
-      {/* 20211115 이태훈 스트리밍 보는 페이지*/}
+      {/* 20211115 이태훈 스트리밍 방만들기 페이지*/}      
       <Route component={LiveSettingPage} path={'/LiveSettingPage'} />
-      <Route component={WatchPage} path={["/WatchPage/:l_code" , "/WatchPage"]} />
+      {/* 20211115 이태훈 스트리밍 보는 페이지*/}
+      <Route component={WatchPage} path={"/WatchPage/:l_code" } />
       <Route component={WatchPage2} path={["/WatchPage2/:v_code"]} />
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
       <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
