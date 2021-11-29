@@ -1,0 +1,23 @@
+.button {
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  
+  .modal-background {
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(10, 10, 10, 0.86);
+  }
+  
+  .modal-card {
+    margin: 0 auto;
+    display: block;
+    margin-top: 250px;
+    width: 300px;
+    height: 300px;
+    background-color: lightgray;
+    border-radius: 5px;
+  }

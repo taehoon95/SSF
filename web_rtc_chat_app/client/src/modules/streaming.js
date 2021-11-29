@@ -59,19 +59,16 @@ export const showstreaming = createAction(SHOWSTREAMING, (streamInfo ) => ({
     streamInfo
 }));
 
-export const insertStreaming = createAction(INSERTSTREAMING, ( streamInfo ) => 
-{
-    console.log(streamInfo);
-    return {
+export const insertStreaming = createAction(INSERTSTREAMING, ( streamInfo ) => ({
     streamInfo
-}});
-
-export const updateStreaming = createAction(UPDATESTREAMING, ( streamInfo ) => ({
-  streamInfo,
 }));
 
-export const deleteStreaming = createAction(DELETESTREAMING, ( streamInfo ) => ({
-  streamInfo,
+export const updateStreaming = createAction(UPDATESTREAMING, ( u_id, l_code, l_title, l_description ) => ({
+  u_id, l_code, l_title, l_description
+}));
+
+export const deleteStreaming = createAction(DELETESTREAMING, ( u_id,l_code ) => ({
+  u_id, l_code,
 }));
 
 export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( l_code ) => ({

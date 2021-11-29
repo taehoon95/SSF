@@ -3,7 +3,6 @@
 
 import React from "react";
 import StreamShowContainer from "../containers/streaming/StreamShowContainer";
-import ChatContainer from "../containers/streaming/ChatContainer";
 import { ContextProvider } from "../SocketContext";
 
 const WatchPage = () => {
@@ -11,7 +10,6 @@ const WatchPage = () => {
     <>
       <ContextProvider>
         <StreamShowContainer />
-        <ChatContainer />
       </ContextProvider>
     </>
   );
