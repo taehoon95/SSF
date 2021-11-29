@@ -11,8 +11,6 @@ import UploadPage from './pages/UploadPage';
 import WatchPage from './pages/WatchPage';
 import WatchPage2 from './pages/WatchPage2';
 import MyVideoSettingPage from './pages/MyVideoSettingPage';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
 import IdCheckPage from './pages/IdCheckPage';
 import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
@@ -42,11 +40,11 @@ function App() {
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
       <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
       <PrivateRoute component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
-      <Route component={streamingListPage} path={"/streamingListPage"} />
+      <Route component={StreamingListPage} path={"/StreamingListPage"} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
       <PrivateRoute component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
-      <PrivateRoute component={PwdCheckviewPage} path={["/PwdCheckviewPage"]} />
+      <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
       {/*2021-11-25 영상관리 수정 페이지*/}
       <PrivateRoute component={ListChangePage} path={["/ListChangePage/:v_code", '/ListChangePage']} />
 

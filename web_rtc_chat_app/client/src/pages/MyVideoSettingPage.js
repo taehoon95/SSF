@@ -24,7 +24,7 @@ import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 import { deleteListLine } from "../lib/api/videoRecord";
 
-const MyVideoSettingPage = () => {
+const MyVideoSettingPage = ({history}) => {
 
   const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
@@ -110,13 +110,13 @@ const MyVideoSettingPage = () => {
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
 
-//                 <Button 
-//                   component={Link}
-//                   to={"/ListChangePage"}
-//                   variant="outlined"
-//                 >
-//                   수정
-//                   </Button>
+                 {/* <Button 
+                   component={Link}
+                   to={"/ListChangePage"}
+                   variant="outlined"
+                 >
+                  수정
+                 </Button> */}
 
               <input type="button" onClick={onUpdate} value="수정" name={data.v_code} />
 
