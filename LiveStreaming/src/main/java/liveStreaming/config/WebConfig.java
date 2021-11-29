@@ -8,10 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+
+  //allowedOrgin 메소드를 이용하여 자원 공유를 허락할 origin 지정
+  //allowedMethods를 이용해서 http method를 지정
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-    registry.addMapping("/**")
-        .allowedOrigins("*")
+    registry.addMapping("/api/**")
+        .allowedOrigins("https://localhost:3000/")
         .allowedMethods("GET", "POST", "PATCH", "DELETE");
   }
 }

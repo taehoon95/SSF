@@ -3,8 +3,8 @@
 // 2021-11-18
 // 윤성준
 // 내 영상 관리 페이지 추가
-
 import { useEffect, useState } from "react";
+
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import {
@@ -22,6 +22,7 @@ import axios from "../../node_modules/axios/index";
 import { deleteListLine } from "../lib/api/videoRecord";
 
 const MyVideoSettingPage = () => {
+
   const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
 
@@ -74,6 +75,12 @@ const MyVideoSettingPage = () => {
     deleteListLine(u_id,e.target.name);
   };
 
+  //수정 버튼 시 pk 값 가져가기
+  const onUpdate = e =>{
+     alert(e.target.name)
+     history.push(`/ListChangePage/${e.target.name}`)
+  }
+
   return (
     <>
       <TableContainer style={{ marginTop: 65 }} component={Paper}>
@@ -100,7 +107,8 @@ const MyVideoSettingPage = () => {
               <TableCell>{data.v_date}</TableCell>
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
-                <Link to="./ListChangePage">수정</Link>
+              <input type="button" onClick={onUpdate} value="수정" name={data.v_code} />
+
               </TableCell>
               <TableCell align="center">
                 <input
