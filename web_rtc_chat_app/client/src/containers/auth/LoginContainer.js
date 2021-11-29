@@ -92,7 +92,7 @@ const LoginContainer = ({ history }) => {
         style={{
           background: "#FFFFFF",
           borderRadius: 5,
-          marginTop: 150, 
+          marginTop: 150,
         }}
       >
         {/* <Box
@@ -193,7 +193,8 @@ const LoginContainer = ({ history }) => {
             <Grid item xs>
               {/*아이디 찾기*/}
               <Button
-                href="#"
+                component={Link}
+                to={"/IdCheckPage"}
                 variant="body2"
                 style={{ marginLeft: -15, color: "black" }}
               >
@@ -201,7 +202,8 @@ const LoginContainer = ({ history }) => {
               </Button>
               {/* 비밀번호 찾는 페이지로 이동 할 링크 걸기 */}
               <Button
-                href="#"
+                component={Link}
+                to={"/PwdCheckPage"}
                 variant="body2"
                 style={{ marginLeft: -15, color: "black" }}
               >
@@ -210,7 +212,8 @@ const LoginContainer = ({ history }) => {
             </Grid>
             <Grid item>
               <Button
-                href="./RegisterPage"
+                component={Link}
+                to={"/RegisterPage"}
                 variant="body2"
                 style={{ marginRight: -15, color: "black" }}
               >

@@ -204,7 +204,8 @@ const Header = () => {
                   </Button>
                 </Typography>
               ) : (
-                // 로그인 버튼
+                <>
+                {/* // 로그인 버튼 */}
                 <Button
                   component={Link}
                   to={"/LoginPage"}
@@ -213,6 +214,16 @@ const Header = () => {
                 >
                   <Typography variant="body1">로그인</Typography>
                 </Button>
+                {/* // 회원가입 버튼 */}
+                <Button
+                  component={Link}
+                  to={"/RegisterPage"}
+                  variant="inherit"
+                  style={{ color: "white" }}
+                >
+                  <Typography variant="body1">회원가입</Typography>
+                </Button>
+                </>
                 // 아래 Link 태그는 수정 전 로그인 버튼
                 // <Link
                 //   to="/LoginPage"
@@ -317,11 +328,11 @@ const Header = () => {
               </Box>
             </ListItem>
 
-            {/* 방송 업로드 버튼 */}
+            {/* 동영상 업로드 버튼 */}
             <ListItem component={Link} to={"/UploadPage"}>
               <Upload style={{ color: "white" }} />
               <Box pl={3} type="paragraph" color="white">
-                방송 업로드
+                동영상 업로드
               </Box>
             </ListItem>
 
