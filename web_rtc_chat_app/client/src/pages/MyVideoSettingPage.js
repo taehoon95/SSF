@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
 import { Link } from "react-router-dom";
 import {
+  Button,
   Paper,
   Table,
   TableBody,
@@ -19,6 +20,8 @@ import {
   TableRow,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
+import Footer from "../components/common/Footer";
+import Header from "../components/common/Header";
 import { deleteListLine } from "../lib/api/videoRecord";
 
 const MyVideoSettingPage = () => {
@@ -83,11 +86,11 @@ const MyVideoSettingPage = () => {
 
   return (
     <>
+    <Header />
       <TableContainer style={{ marginTop: 65 }} component={Paper}>
         <Table size="large">
           <TableHead>
             <TableRow>
-              {/* <TableCell align="center">번호</TableCell> */}
               <TableCell align="center">썸네일</TableCell>
               <TableCell align="center">영상 제목</TableCell>
               <TableCell align="center">등록 날짜</TableCell>
@@ -99,7 +102,6 @@ const MyVideoSettingPage = () => {
 
           {myList.map((data, idx) => (
             <TableBody>
-              {/* <TableCell>{data.v_code}</TableCell> */}
               <TableCell>
                 <img src={data.v_img} width="350" height="230" />
               </TableCell>
@@ -107,16 +109,27 @@ const MyVideoSettingPage = () => {
               <TableCell>{data.v_date}</TableCell>
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
+
+//                 <Button 
+//                   component={Link}
+//                   to={"/ListChangePage"}
+//                   variant="outlined"
+//                 >
+//                   수정
+//                   </Button>
+
               <input type="button" onClick={onUpdate} value="수정" name={data.v_code} />
 
               </TableCell>
               <TableCell align="center">
-                <input
+                <Button
                   type="button"
                   onClick={deleteListLine2}
-                  value="삭제"
                   name={data.v_code}
-                />
+                  variant="outlined"
+                >
+                삭제
+                </Button>
               </TableCell>
             </TableBody>
           ))}
@@ -136,6 +149,7 @@ const MyVideoSettingPage = () => {
           </TableFooter>
         </Table>
       </TableContainer>
+      <Footer />
     </>
   );
 };

@@ -18,17 +18,16 @@ import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import StreamingListPage from './pages/StreamingListPage';
 import SearchResultPage from './pages/SearchResultPage';
-import PwdCheckviewPage from './pages/PwdCheckviewPage';
+import PwdCheckViewPage from './pages/PwdCheckViewPage';
 import ListChangePage from './pages/ListChangePage';
 import PrivateRoute from "././components/common/PrivateRoute"
+
 
 
 function App() {
  
   return (
     <>
-    <Header />
-    <div>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
       <PrivateRoute component={LiveSettingPage} path={['/LiveSettingPage/@:ID', '/LiveSettingPage']} />
       <Route component={LoginPage} path='/LoginPage' />
@@ -61,9 +60,8 @@ function App() {
       <Route component={StreamingListPage} path={"/StreamingListPage"} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
+      <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
       <PrivateRoute component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
-    </div>
-    <Footer />
     </>
   );
 }

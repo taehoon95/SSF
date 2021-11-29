@@ -5,88 +5,89 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {Avatar,  Button,  CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  Grid,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
-import { change,pwdcheck, numberAuth } from "../../modules/auth";
+import { change, pwdcheck, numberAuth } from "../../modules/auth";
 import { withRouter } from "react-router";
-import axios from 'axios';
+import axios from "axios";
+import { Box, Container } from "../../../node_modules/@material-ui/core/index";
 
-const PwdCheckContainer = ({history}) => {
+const PwdCheckContainer = ({ history }) => {
   const [test, setTest] = useState(false);
   const [numbertest, setNumberTest] = useState(0);
-  const [error,setError] = useState(null);
+  const [error, setError] = useState(null);
   const [emaildata, setEmailData] = useState(null);
   const [resultemail, setResultEmail] = useState(0); // 이메일 결과
   const [resultemailcheck, setResultEmailCheck] = useState(0); // 이메일 인증 결과
   const [emailcheckcheck, setEmailCheckCheck] = useState("");
   const [emailcheck, setEmailCheck] = useState("이메일을 입력 해주세요.");
 
-
-
-
-    const dispatch= useDispatch();
-    const { u_name, u_email,u_id, pwd, pwdError, number, u_emailcheck } = useSelector((state)=>{            
+  const dispatch = useDispatch();
+  const { u_name, u_email, u_id, pwd, pwdError, number, u_emailcheck } =
+    useSelector((state) => {
       console.log(state);
-      
-      return{        
-      u_name : state.auth.u_name,
-      u_id : state.auth.u_id,
-      u_email : state.auth.u_email,   
-      pwd : state.auth.pwd,
-      pwdError : state.auth.pwdError,
-      number : state.auth.number,
-              
-    }});
-    const onChange = (e) =>{
-      console.log('이건 체인지');
-      
-      const {name,value} = e.target;
-      console.log(value);
-      
-      dispatch(
-        change({ 
-        name, 
-        value 
-        })
-      );
-    }
-    const onsubmit = e =>{
-      e.preventDefault();
-      console.log('비밀번호찾기');
-      
-      dispatch(pwdcheck({
+
+      return {
+        u_name: state.auth.u_name,
+        u_id: state.auth.u_id,
+        u_email: state.auth.u_email,
+        pwd: state.auth.pwd,
+        pwdError: state.auth.pwdError,
+        number: state.auth.number,
+      };
+    });
+  const onChange = (e) => {
+    console.log("이건 체인지");
+
+    const { name, value } = e.target;
+    console.log(value);
+
+    dispatch(
+      change({
+        name,
+        value,
+      })
+    );
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
+    console.log("비밀번호찾기");
+
+    dispatch(
+      pwdcheck({
         u_name,
         u_email,
-        u_id
+        u_id,
       })
-      )
+    );
+  };
+
+  useEffect(() => {
+    if (pwdError) {
+      setError("비밀번호 찾기 실패");
+      return;
     }
+    if (pwd) {
+      console.log("비밀번호 찾기 성공");
+      history.push("/PwdCheckViewPage");
+    }
+  }, [pwd, pwdError]);
 
-    useEffect(() => {
-      if (pwdError) {
-        setError('비밀번호 찾기 실패');
-        return;
-      }
-      if (pwd) {
-        console.log('비밀번호 찾기 성공');
-        history.push('/PwdCheckviewPage');
-    
-      }
-    }, [pwd, pwdError]);
+  useEffect(() => {
+    setNumberTest(number);
+  }, [number]);
 
-
-
-
-
-
-    useEffect(() => {
-      setNumberTest(number);
-    }, [number]);
-
-   // 인증 이메일 전송
-   const onEmailClick = (e) => {
+  // 인증 이메일 전송
+  const onEmailClick = (e) => {
     console.log(u_email);
-    if(resultemail == 1) {
+    if (resultemail == 1) {
       alert("email 전송");
       try {
         axios
@@ -106,24 +107,22 @@ const PwdCheckContainer = ({history}) => {
       } catch (error) {
         console.log(error);
       }
-    }
-    else {
+    } else {
       alert("메일전송 실패. \n이메일을 올바르게 입력해주세요.");
     }
   };
-    useEffect(() => {
-      if (pwdError) {
-        setError('비밀번호 찾기 실패');
-        return;
-      }
-      if (pwd) {
-        console.log('비밀번호 찾기 성공');
-        history.push('/PwdCheckViewPage');
-      }
-    }, [pwd, pwdError, dispatch]);
+  useEffect(() => {
+    if (pwdError) {
+      setError("비밀번호 찾기 실패");
+      return;
+    }
+    if (pwd) {
+      console.log("비밀번호 찾기 성공");
+      history.push("/PwdCheckViewPage");
+    }
+  }, [pwd, pwdError, dispatch]);
 
-
- // email 유효성 검증
+  // email 유효성 검증
   // 알파벳,숫자 + @ + 알바벳 + . + 알파벳
   const onKeyUpEmail = () => {
     let emailPattern =
@@ -162,19 +161,21 @@ const PwdCheckContainer = ({history}) => {
     onKeyUpEmailCheck();
   }, [u_emailcheck]);
 
-    const theme = createTheme();
+  const theme = createTheme();
 
-    return (
-        <div>
-        <ThemeProvider theme={theme}>
-      <Grid container
-        component="main"
-        maxWidth="xs"
-        style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
-      >
-        <CssBaseline />
-        
-        {/* <Box
+  return (
+    <div>
+      <ThemeProvider theme={theme}>
+        <Container
+          component="main"
+          maxWidth="xs"
+          style={{
+            background: "#FFFFFF",
+            borderRadius: 5,
+            marginTop: 100,
+          }}
+        >
+            {/* <Box
 
           sx={{
             marginTop: 8,
@@ -183,26 +184,35 @@ const PwdCheckContainer = ({history}) => {
             alignItems: "center",
           }}
         > */}
-          
-          <Avatar
-            sx={{ m: 1, bgcolor: "secondary.main" }}
-            style={{ marginTop: 20 }}
-          >
-            <LockOutlined />
-          </Avatar>
-          <Typography
-            component="h1"
-            variant="h4"
-            style={{ marginTop: 20, color: "white" }}
-          >
-            비밀번호찾기
-          </Typography>
-          
 
-            
+            <Box
+              sx={{
+                flexDirection: "column",
+                alignItems: "center",
+                marginTop: 8,
+                display: "flex",
+              }}
+            >
+              <Avatar
+                sx={{ m: 1, bgcolor: "secondary.main" }}
+                style={{ marginTop: 20 }}
+              >
+                <LockOutlined />
+              </Avatar>
+              <Typography
+                component="h1"
+                variant="h4"
+                style={{ marginTop: 20, color: "black" }}
+              >
+                비밀번호찾기
+              </Typography>
+            </Box>
+
             <Grid container>
-              <Grid item style={{ marginTop:5, width:"100%" }}>
-                <Typography variant="h6" style={{ color:"white" }}>이름</Typography>
+              <Grid item style={{ marginTop: 5, width: "100%" }}>
+                <Typography variant="h6" style={{ color: "black" }}>
+                  이름
+                </Typography>
                 <TextField
                   onChange={onChange}
                   style={{
@@ -222,8 +232,11 @@ const PwdCheckContainer = ({history}) => {
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item style={{ marginTop:5, width:"100%" }}>
-                <Typography variant="h6" style={{ color:"white" }}>아이디</Typography>
+
+              <Grid item style={{ marginTop: 5, width: "100%" }}>
+                <Typography variant="h6" style={{ color: "black" }}>
+                  아이디
+                </Typography>
                 <TextField
                   onChange={onChange}
                   style={{
@@ -242,9 +255,16 @@ const PwdCheckContainer = ({history}) => {
                 />
               </Grid>
             </Grid>
+
             <Grid container>
-              <Grid item xs={9} style={{ marginTop:5, width:"100%" }}>
-                <Typography variant="h6" style={{ color:"white" }}>이메일</Typography>
+              <Grid item  style={{ marginTop: 5, width: "100%" }}>
+
+                <Typography variant="h6" style={{ color: "black" }}>
+                  본인 확인 이메일
+                </Typography>
+
+
+                <Grid item>
                 <TextField
                   onKeyUp={onKeyUpEmail}
                   onChange={onChange}
@@ -262,20 +282,23 @@ const PwdCheckContainer = ({history}) => {
                   name="u_email"
                   autoComplete="current-password"
                 />
+                <Button
+                  onClick={onEmailClick}
+                  style={{ marginTop: 10, marginBottom: 20, height: 40 }}
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  이메일인증
+                </Button>
+                </Grid>
+
+
               </Grid>
-              <Grid item xs={3}>
-              <Button
-              onClick={onEmailClick}
-              style={{ marginTop: 10, marginBottom: 40 }}              
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              이메일인증
-            </Button>    
-            </Grid>   
-            <Grid item xs={9} style={{ marginTop:5, width:"100%" }}>
-                <Typography variant="h6" style={{ color:"white" }}>이메일 인증 코드</Typography>
+              <Grid item xs={9} style={{ marginTop: 5, width: "100%" }}>
+                <Typography variant="h6" style={{ color: "black" }}>
+                  이메일 인증 코드
+                </Typography>
                 <TextField
                   onChange={onChange}
                   style={{
@@ -292,10 +315,11 @@ const PwdCheckContainer = ({history}) => {
                   name="u_emailcheck"
                   autoComplete="current-password"
                 />
-              </Grid>  
-            </Grid>                           
+              </Grid>
+            </Grid>
+
             <Grid>
-            <Grid item>
+              <Grid item>
                 <Typography variant="22">
                   <span>{error}</span>
                 </Typography>
@@ -303,7 +327,7 @@ const PwdCheckContainer = ({history}) => {
             </Grid>
 
             <Button
-              style={{ marginTop: 10, marginBottom: 40 }}              
+              style={{ marginTop: 10, marginBottom: 40 }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -311,12 +335,12 @@ const PwdCheckContainer = ({history}) => {
             >
               비밀번호찾기
             </Button>
-          {/* </Box> */}
-      </Grid> 
-    </ThemeProvider>
+            {/* </Box> */}
 
-        </div>
-    );
+        </Container>
+      </ThemeProvider>
+    </div>
+  );
 };
 
 export default withRouter(PwdCheckContainer);
