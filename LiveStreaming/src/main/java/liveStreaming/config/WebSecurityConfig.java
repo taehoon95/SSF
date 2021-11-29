@@ -19,11 +19,6 @@ import org.springframework.web.filter.CorsFilter;
 import liveStreaming.security.JwtAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
 
-
-
-
-
-
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{

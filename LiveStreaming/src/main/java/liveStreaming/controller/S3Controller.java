@@ -30,4 +30,9 @@ public class S3Controller {
 	public ResponseEntity<Object> upload(@RequestParam(value="file") MultipartFile multipartFile) throws IOException {
 		return ResponseEntity.ok(s3Uploader.upload(multipartFile, "static"));
 	}
+	@CrossOrigin(origins="*")
+	@PostMapping("/uploadImg")
+	public ResponseEntity<Object> uploadImg(@RequestParam(value="file") MultipartFile multipartFile) throws IOException {
+		return ResponseEntity.ok(s3Uploader.upload(multipartFile, "static"));
+	}
 }

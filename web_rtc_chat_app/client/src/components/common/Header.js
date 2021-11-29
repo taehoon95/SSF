@@ -25,16 +25,20 @@ import {
   Upload,
   VideoLabel,
 } from "@mui/icons-material";
-import { Avatar, Divider, Grid, Tooltip } from "@mui/material";
+import { Divider, Grid, Tooltip } from "@mui/material";
 import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
+
 // 2021-11-25 강동하 버튼 pathname 에러 임시 수정
-// import Button from "./Button";
 import { Link, withRouter, useHistory } from "react-router-dom";
+
 import Responsive from "./Responsive";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { Search } from "../../../node_modules/@material-ui/icons/index";
-import { Input } from "../../../node_modules/@material-ui/core/index";
+import {
+  Input,
+  TextField,
+} from "../../../node_modules/@material-ui/core/index";
 
 const Wrapper = styled(Responsive)`
   height: 4rem;
@@ -61,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "auto",
   },
   drawer: {
-    width: 300,
+    width: 270,
     marginTop: 100,
   },
   iconAlign: {
@@ -76,10 +80,8 @@ const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const Header = () => {
   const classes = useStyles();
-
-  // SideBar On/Off 상태 설정
   const history = useHistory();
-
+  // SideBar On/Off 상태 설정
   const [opens, setOpens] = useState(false);
   const [inputSearch, setInputSearch] = useState("");
   //const [inputSearch, setInputSearch] = useState("");
@@ -114,12 +116,12 @@ const Header = () => {
 
   // 2021-11-25 강동하 홈 버튼 에러 수정
   const home = () => {
-    history.push('/');
-  }
+    history.push("/");
+  };
 
   return (
     <>
-      <AppBar style={{ background: "#0080FF" }}>
+      <AppBar classes={Wrapper} style={{ background: "#303030" }}>
         <Toolbar>
           {/* 사이드바  */}
           {true && (
@@ -132,6 +134,7 @@ const Header = () => {
               <Dehaze />
             </IconButton>
           )}
+
 
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
@@ -152,29 +155,33 @@ const Header = () => {
             </Grid>
           </Grid>
 
+
           {/* 검색바 */}
-          <Grid
-            Conatiner
-            // alignItems="center"
-            // direction="row"
-            // justifyContent="center"
+          <Box
+            component="span"
+            display="flex"
+            m={1}
+            justifyContent="center"
+            alignItems="center"
           >
-            <Grid item xs={10}>
-              <Input
-                onChange={onSearchBar}
-                value={inputSearch}
-                type="text"
-                style={{ width: 700 }}
-              >
-                검색
-              </Input>
-            </Grid>
-            <Grid item xs={2}>
-              <Button onClick={searchContent}>
-                <Search />
-              </Button>
-            </Grid>
-          </Grid>
+            <TextField
+              alignItems="center"
+              onChange={onSearchBar}
+              value={inputSearch}
+              type="text"
+              style={{ width: 500 }}
+              placeholder="검색"
+              variant="outlined"
+              size="small"
+            />
+            <Button
+              variant="contained"
+              alignItems="center"
+              onClick={searchContent}
+            >
+              <Search />
+            </Button>
+          </Box>
 
           {/* 로그인, 로그아웃 버튼 감쌈 */}
           <Grid
@@ -183,28 +190,54 @@ const Header = () => {
             direction="row"
             justifyContent="flex-end"
           >
-
             <Grid item>
               {tokenlled ? (
-                <div>
-                  {localStorage.getItem("u_id")} 님 어서오세요
-                  <Button onClick={onLogout}>로그아웃</Button>
-                </div>
+                <Typography variant="body1">
+                  {/* 로그아웃 버튼 */}
+                  {localStorage.getItem("u_id")} 님 어서오세요 &nbsp;
+                  <Button
+                    variant="inherit"
+                    onClick={onLogout}
+                    style={{ color: "white" }}
+                  >
+                    <Typography variant="body1">로그아웃</Typography>
+                  </Button>
+                </Typography>
               ) : (
-                <Link
-                  to="/LoginPage"
+                <>
+                {/* // 로그인 버튼 */}
+                <Button
+                  component={Link}
+                  to={"/LoginPage"}
                   variant="inherit"
-                  sx={{
-                    textDecoration: "none",
-                    color: lightColor,
-                    "&:hover": {
-                      color: "common.white",
-                    },
-                  }}
-                  rel="noopener noreferrer"
+                  style={{ color: "white" }}
                 >
-                  로그인
-                </Link>
+                  <Typography variant="body1">로그인</Typography>
+                </Button>
+                {/* // 회원가입 버튼 */}
+                <Button
+                  component={Link}
+                  to={"/RegisterPage"}
+                  variant="inherit"
+                  style={{ color: "white" }}
+                >
+                  <Typography variant="body1">회원가입</Typography>
+                </Button>
+                </>
+                // 아래 Link 태그는 수정 전 로그인 버튼
+                // <Link
+                //   to="/LoginPage"
+                //   sx={{
+                //     textDecoration: "none",
+                //     color: lightColor,
+                //     "&:hover": {
+                //       color: "common.white",
+                //     },
+                //   }}
+                //   rel="noopener noreferrer"
+                // >
+                //   로그인
+                // </Link>
               )}
             </Grid>
 
@@ -218,9 +251,9 @@ const Header = () => {
             </Grid>
 
             {/*개인 이미지 버튼*/}
-            <Grid item>
+            {/* <Grid item>
               <IconButton color="inherit" sx={{ p: 0.5 }}></IconButton>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Toolbar>
       </AppBar>
@@ -228,11 +261,11 @@ const Header = () => {
       {/* SideBar 안의 내용들 */}
       <Container className={classes.root}>
         <Drawer open={opens} onClose={() => setOpens(false)}>
-          <List className={classes.drawer}>
+          <List className={classes.drawer} style={{ background: "#303030" }}>
             {/* SideBar안의 메뉴 버튼 */}
             <ListItem className={classes.ListItem}>
               <IconButton
-                style={{ marginLeft: -8 }}
+                style={{ marginLeft: -8, color: "white" }}
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
@@ -242,65 +275,83 @@ const Header = () => {
                 <Dehaze />
               </IconButton>
               {/* SSF 로고 */}
-              <VideoLabel fontSize="small" style={{ marginLeft: 13 }} />
-              <Box pl={0.5} type="paragraph" color="inherit">
-                <Typography variant="h6">SSF</Typography>
+              <Grid container>
+                <Grid item>
+                  <Button
+                    onClick={home}
+                    variant="inherit"
+                    sx={{
+                      textDecoration: "none",
+                      color: lightColor,
+                    }}
+                    rel="noopener noreferrer"
+                  >
+                    <VideoLabel />
+                    <Typography variant="h6">SSF</Typography>
+                  </Button>
+                </Grid>
+              </Grid>
+            </ListItem>
+
+            <Divider variant="middle" style={{ background: "gray" }} />
+
+            {/* Home 버튼 */}
+            <ListItem
+              component={Link}
+              to={"/"}
+              className={classes.ListItem}
+              style={{ marginTop: 10 }}
+            >
+              <Home style={{ color: "white" }} />
+              <Box pl={3} type="paragraph" color="white">
+                Home
               </Box>
             </ListItem>
 
-            {/* Home 버튼 */}
-            <Link to="/">
-              <ListItem button className={classes.ListItem}>
-                <Home />
-                <Box pl={3} type="paragraph" color="inherit">
-                  Home
-                </Box>
-              </ListItem>
-            </Link>
-
             {/* 마이 페이지 버튼 */}
-            <Link to="/MyPage">
-              <ListItem button className={classes.ListItem}>
-                <Person />
-                <Box pl={3} type="paragraph" color="inherit">
-                  마이 페이지
-                </Box>
-              </ListItem>
-            </Link>
+            <ListItem
+              component={Link}
+              to={"/MyPage"}
+              className={classes.ListItem}
+            >
+              <Person style={{ color: "white" }} />
+              <Box pl={3} type="paragraph" color="white">
+                마이 페이지
+              </Box>
+            </ListItem>
 
             {/* 방송 하기 버튼 */}
-            <Link to="/LiveSettingPage">
-              <ListItem button>
-                <LiveTv />
-                <Box pl={3} type="paragraph" color="inherit">
-                  방송 하기
-                </Box>
-              </ListItem>
-            </Link>
+            <ListItem component={Link} to={"/LiveSettingPage"}>
+              <LiveTv style={{ color: "white" }} />
+              <Box pl={3} type="paragraph" color="white">
+                방송 하기
+              </Box>
+            </ListItem>
 
-            {/* 방송 업로드 버튼 */}
-            <Link to="/UploadPage">
-              <ListItem button>
-                <Upload />
-                <Box pl={3} type="paragraph" color="inherit">
-                  방송 업로드
-                </Box>
-              </ListItem>
-            </Link>
+            {/* 동영상 업로드 버튼 */}
+            <ListItem component={Link} to={"/UploadPage"}>
+              <Upload style={{ color: "white" }} />
+              <Box pl={3} type="paragraph" color="white">
+                동영상 업로드
+              </Box>
+            </ListItem>
 
             {/* 내 영상 관리 버튼 */}
-            <Link to="/MyVideoSettingPage">
-              <ListItem button>
-                <VideoSettings />
-                <Box pl={3} type="paragraph" color="inherit">
-                  내 영상 관리
-                </Box>
-              </ListItem>
-            </Link>
+            <ListItem component={Link} to={"/MyVideoSettingPage"}>
+              <VideoSettings style={{ color: "white" }} />
+              <Box pl={3} type="paragraph" color="white">
+                내 영상 관리
+              </Box>
+            </ListItem>
 
             {/* 라인 아이콘 */}
-            <Divider variant="middle" />
+            <Divider
+              variant="middle"
+              style={{ marginTop: 10, background: "gray" }}
+            />
           </List>
+
+          <List style={{ height: 1000, background: "#303030" }}></List>
         </Drawer>
       </Container>
     </>
