@@ -21,7 +21,7 @@ import {
 import axios from "../../node_modules/axios/index";
 import { deleteListLine } from "../lib/api/videoRecord";
 
-const MyVideoSettingPage = ({history}) => {
+const MyVideoSettingPage = () => {
 
   const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
