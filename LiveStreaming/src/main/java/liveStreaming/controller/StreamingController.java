@@ -31,6 +31,9 @@ public class StreamingController {
 	
 	@DeleteMapping("/deleteStreaming")
 	public ResponseEntity<Object> deleteStreaming(@RequestBody StreamingDto streaming){
+		System.out.println("=================");
+		System.out.println(streaming);
+		System.out.println("=================");
 		return ResponseEntity.ok(service.deleteStreaming(streaming));
 	}
 
