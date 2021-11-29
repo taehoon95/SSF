@@ -3,9 +3,8 @@
 // 2021-11-18
 // 윤성준
 // 내 영상 관리 페이지 추가
-
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import {
   Button,
   Paper,
@@ -22,12 +21,14 @@ import axios from "../../node_modules/axios/index";
 import { deleteListLine } from "../lib/api/videoRecord";
 
 const MyVideoSettingPage = () => {
+  const history = useHistory();
   const u_id =  localStorage.getItem('u_id');
 
   const [myList, setMyList] = useState([]);
-
   useEffect(() => {
     myVideoList();
+    console.log(myList);
+    
   }, [myList]);
 
   // VideoList 가져오기
@@ -49,6 +50,12 @@ const MyVideoSettingPage = () => {
     e.preventDefault(); 
     console.log(e.target.name);
     deleteListLine(e.target.name);
+  }
+
+  //수정 버튼 시 pk 값 가져가기
+  const onUpdate = e =>{
+     alert(e.target.name)
+     history.push(`/ListChangePage/${e.target.name}`)
   }
 
   return (
@@ -75,7 +82,7 @@ const MyVideoSettingPage = () => {
               <TableCell>{data.v_date}</TableCell>
               <TableCell>{data.v_views}</TableCell>
               <TableCell align="center">
-              <Link to= './ListChangePage'>수정</Link>
+              <input type="button" onClick={onUpdate} value="수정" name={data.v_code} />
               </TableCell>
               <TableCell align="center">
                 <input type="button" onClick={deleteListLine2} value="삭제" name={data.v_code} />

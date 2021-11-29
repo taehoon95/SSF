@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import liveStreaming.dto.VideoRecordDto;
 
+import java.util.Map;
+
+
 @Repository
 public interface VideoRecordMapper {
     
@@ -35,5 +38,12 @@ public interface VideoRecordMapper {
 
     // 2021-11-25 강동하 영상 조회수 + 1
     int viewsInc(VideoRecordDto video);
+
+
+    //2021-11-26 박진현 비디오 업데이트
+    int videoupdate(VideoRecordDto video);
+
+    List<Map<String,Object>> videochangeserch(String v_code);
+
 
 }

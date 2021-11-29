@@ -34,5 +34,3 @@ export const deleteListLine = ( v_code ) => {
     console.log(error);
   });
 }
-
-

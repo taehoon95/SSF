@@ -1,5 +1,6 @@
 package liveStreaming.controller;
 
+import liveStreaming.mapper.VideoRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,13 @@ import liveStreaming.service.VideoRecordService;
 @RestController
 @RequestMapping("/api")
 public class VideoRecordController {
+
+
 	@Autowired
 	VideoRecordService service;
 
+	@Autowired
+	VideoRecordMapper mapper;
 	// 20211119 윤성준 로그인 후 마이페이지 영상 조회
 	@GetMapping("/videorecord/{u_id}")
 	public ResponseEntity<Object> showVideoRecord(@PathVariable String u_id) {
@@ -64,6 +69,23 @@ public class VideoRecordController {
 		return ResponseEntity.ok(service.videoUpload(video));
 	}
 
+	//2021 11-26 박진현 비디오 수정
+	@PatchMapping("/videoupdate")
+	public ResponseEntity<Object> videoupdate(@RequestBody VideoRecordDto video) {
+		System.out.println("여기는 변경이다.");
+		System.out.println(video);
+		int videoUpdate = mapper.videoupdate(video);
+		System.out.println(videoUpdate);
+		return ResponseEntity.ok(videoUpdate);
+	}
+
+	//2021 11-26 박진현 비디오 검색
+	@GetMapping("/videochangeserch/{v_code}")
+		public ResponseEntity<Object> videochangeserch(@PathVariable String v_code) {
+		System.out.println("여기는 검색이다.");
+		return ResponseEntity.ok(mapper.videochangeserch(v_code));
+	}
+
 	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
 	@GetMapping("/videoviews/{u_id}")
 	public ResponseEntity<Object> showVideoViews(@PathVariable String u_id) {
@@ -84,3 +106,4 @@ public class VideoRecordController {
 		return ResponseEntity.ok(service.viewsInc(video));
 	}
 }
+

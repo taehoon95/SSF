@@ -6,10 +6,14 @@ package liveStreaming.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import liveStreaming.security.JwtAuthenticationFilter;
@@ -39,18 +43,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 					.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 					.and()
 					.authorizeRequests() // /와 /api/** 경로는 인증 안해도 됨
-					.antMatchers("/","/api/**").permitAll()
+					.antMatchers("/api/**","/").permitAll()
 					.anyRequest() // /와 /api/** 이외의 모든 경로는 인증해야 함
 					.authenticated();
-//			//filter 등록
-//			// 매 요청마다
-//			// CorsFilter 실행한 후에
-//			// jwtAuthenticationFilter 실행한다.
+
+
+			//filter 등록
+			// 매 요청마다
+			// CorsFilter 실행한 후에
+			// jwtAuthenticationFilter 실행한다.
 			http.addFilterAfter(
 					jwtAuthenticationFilter,
 					CorsFilter.class
-
 			);
 		}
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.addAllowedOrigin("http://localhost:8080");
+		corsConfiguration.addAllowedHeader("*");
+		corsConfiguration.addAllowedMethod("*");
+		corsConfiguration.setAllowCredentials(true);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfiguration);
+		return source;
+	}
 
 }
