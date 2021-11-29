@@ -10,7 +10,7 @@ import {
 import "../../lib/styles/Modal.css";
 import ChatContainer from "./ChatContainer";
 
-// 2021 1125 이태훈 streaming show page
+// 2021 1125 이태훈 streaming show page 방송 정보,편집,종료
 const StreamShow = () => {
   const history = useHistory();
   const u_id = localStorage.getItem("u_id");
@@ -46,13 +46,13 @@ const StreamShow = () => {
 
   // 방송 종료
   const offStreamingbtn = () => {
-    if (window.confirm(`스트림키는 ${streamInfo.l_code}입니다.`)) {
-      dispatch(deleteStreaming(u_id, l_code));
-      history.push("/");
+    if (window.confirm(`방송종료 하시겠습니까?`)) {
+      setOffStreaming(true);
+      return;
     } else {
       alert("방송종료를 취소 하셨습니다.");
+      return;
     }
-    setOffStreaming(true);
   };
 
   // 방설정 편집
@@ -60,6 +60,8 @@ const StreamShow = () => {
   const [l_description, setL_description] = useState("");
   // 모달창 show
   const [show, setShow] = useState(false);
+  // 유효성 검사
+  const [isValid, setIsValid] = useState(false);
 
   // 모달창 끄기 modal-card div밖에클릭해야 창이 꺼짐
   const handleModalClose = (e) => {
@@ -78,10 +80,20 @@ const StreamShow = () => {
     const { name, value } = e.target;
     name === "l_title" && setL_title(value);
     name === "l_description" && setL_description(value);
+    if(name === "l_title" && value !== ""){
+      setIsValid(false);
+    }else{
+      setIsValid(true);
+    }
   };
   // 완료 클릭시
   const handleEdit = () => {
-    dispatch(updateStreaming(u_id, streamInfo.l_code, l_title, l_description));
+    if(l_title === ""){
+      setIsValid(true);
+    }else{
+      dispatch(updateStreaming(u_id, streamInfo.l_code, l_title, l_description));
+      setShow(false);
+    }
   };
 
   return (
@@ -92,7 +104,7 @@ const StreamShow = () => {
           <div className="modal-background" onClick={handleModalClose}>
             <div className="modal-card">
               <p className="modal-item">
-                방송제목:{" "}
+                방송제목:
                 <input
                   className="modal-item"
                   type="text"
@@ -101,8 +113,9 @@ const StreamShow = () => {
                   onChange={handleEditItem}
                 ></input>
               </p>
+              {isValid && <p className="modal-item" >방송제목을 입력해주세요</p>}
               <p className="modal-item">
-                방송설명:{" "}
+                방송설명:
                 <input
                   className="modal-item"
                   type="text"
@@ -112,7 +125,7 @@ const StreamShow = () => {
                 ></input>
               </p>
               <input type="button" value="취소" />
-              <input type="button" value="완료" onClick={handleEdit} />
+              <input className="modal-item" type="button" value="완료" onClick={handleEdit} />
             </div>
           </div>
         </div>
@@ -129,6 +142,7 @@ const StreamShow = () => {
             </button>
           </>
         )}
+        <h1>{streamInfo.u_id}</h1>
         <h1>{streamInfo.l_title}</h1>
         <h3>{streamInfo.l_description}</h3>
         <ChatContainer />
