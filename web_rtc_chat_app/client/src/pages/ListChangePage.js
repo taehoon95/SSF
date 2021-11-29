@@ -7,10 +7,13 @@ import {
   TableHead,
   TableRow,
 } from "../../node_modules/@material-ui/core/index";
+import Footer from "../components/common/Footer";
+import Header from "../components/common/Header";
 
 const ListChangePage = () => {
   return (
     <>
+    <Header />
       <TableContainer style={{ marginTop: 65 }} component={Paper}>
         <TableHead>
           <TableRow>
@@ -29,6 +32,7 @@ const ListChangePage = () => {
             </TableCell>
         </TableBody>
       </TableContainer>
+      <Footer />
     </>
   );
 };

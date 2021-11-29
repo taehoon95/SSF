@@ -17,15 +17,13 @@ import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import StreamingListPage from './pages/StreamingListPage';
 import SearchResultPage from './pages/SearchResultPage';
-import PwdCheckviewPage from './pages/PwdCheckviewPage';
+import PwdCheckViewPage from './pages/PwdCheckViewPage';
 
 
 function App() {
  
   return (
     <>
-    <Header />
-    <div>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
       <Route component={LoginPage} path='/LoginPage' />
       <Route component={MyPage} path={["/MyPage/@:u_id", '/MyPage']}  />
@@ -44,9 +42,7 @@ function App() {
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
       <Route component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
-      <Route component={PwdCheckviewPage} path={["/PwdCheckviewPage"]} />
-    </div>
-    <Footer />
+      <Route component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
     </>
   );
 }
