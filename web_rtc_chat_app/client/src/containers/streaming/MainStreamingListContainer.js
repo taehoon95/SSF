@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import flv from "flv.js";
-import { useDispatch } from 'react-redux';
-import { showStreamingByLnum } from '../../modules/streaming';
 const MainStreamingListContainer = ({l_code}) => {
     const videoRef = useRef();
-    const dispatch = useDispatch();
 
     const buildPlayer = () => {
         const player = flv.createPlayer({
@@ -21,7 +18,7 @@ const MainStreamingListContainer = ({l_code}) => {
 
     return (
         <div>
-            <video ref={videoRef} style={{ width: "70%" }} controls />
+            <video ref={videoRef} style={{ width: "30%" }} controls />
         </div>
     );
 };
