@@ -220,116 +220,123 @@ const UploadPage = () => {
 
   return (
     <>
-    <Header />
-    <Container
-        component="main"
-        style={{
-          background: "#FFFFFF",
-          borderRadius: 5,
-          marginTop: 100,
-          width: 600,
-          height: 715,
-          marginBottom: 45
-        }}
-      >
-
-      <Grid container justify="left" align="left" style={{ marginTop : 100}}>
-        {/* 제목 입력 */}
-        <Grid item xs={12} style={{ marginTop: 20 }}>
-          <Typography textAlign="left" variant="h5">
-            제목
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            onChange={handleTitle}
-            value={inputTitle}
-            style={{ width: 550 }}
-            required
-            type="text"
-            placeholder="제목을 입력하세요."
-          />
-        </Grid>
-
-        {/* 내용 입력 */}
-        <Grid item xs={12} style={{ marginTop: 20 }}>
-          <Typography variant="h5">내용</Typography>
-        </Grid>
-        <Grid itme xs={12}>
-          <TextField
-            variant="outlined"
-            onChange={handleContent}
-            value={inputContent}
-            style={{ width: 550 }}
-            required
-            type="text"
-            placeholder="내용을 입력하세요."
-            multiline
-            rows={8}
-          />
-        </Grid>
-
-        {/* 비디오 선택 */}
-        <Grid item xs={12} style={{ marginTop: 30 }}>
-          <Typography variant="h5">동영상 파일 선택</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Input
-            type="file"
-            required
-            onChange={handleVideoChange}
-            style={{ width: 550 }}
-          />
-        </Grid>
-
-        {/* 이미지 선택 */}
-        <Grid item xs={12} style={{ marginTop: 30 }}>
-          <Typography variant="h5">썸네일 파일 선택</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Input
-            type="file"
-            required
-            onChange={handleImgChange}
-            style={{ width: 550 }}
-          />
-        </Grid>
-
-        {/* 카테고리 선택 */}
-        <Grid item xs={12} style={{ marginTop: 20 }}>
-          <Typography variant="h5">카테고리 선택</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Select
-            style={{ width: 550, height: 40 }}
-            onChange={selectChange}
-            value={selectCategory}
+      <Header />
+      <div>
+        <Container
+          component="main"
+          style={{
+            background: "#FFFFFF",
+            borderRadius: 5,
+            marginTop: 100,
+            width: 600,
+            height: 715,
+            marginBottom: 45,
+          }}
+        >
+          <Grid
+            container
+            justify="left"
+            align="left"
+            style={{ marginTop: 100 }}
           >
-            <MenuItem value="NT001">자연</MenuItem>
-            <MenuItem value="VL001">브이로그</MenuItem>
-            <MenuItem value="GM001">게임</MenuItem>
-            <MenuItem value="SP001">스포츠</MenuItem>
-            <MenuItem value="MC001">음악</MenuItem>
-            <MenuItem value="AM001">동물</MenuItem>
-            <MenuItem value="HH001">운동</MenuItem>
-            <MenuItem value="CK001">요리</MenuItem>
-          </Select>
-        </Grid>
+            {/* 제목 입력 */}
+            <Grid item xs={12} style={{ marginTop: 20 }}>
+              <Typography textAlign="left" variant="h5">
+                제목
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                onChange={handleTitle}
+                value={inputTitle}
+                style={{ width: 550 }}
+                required
+                type="text"
+                placeholder="제목을 입력하세요."
+              />
+            </Grid>
 
-        {/* 업로드 버튼 */}
-        <Grid item xs={12} style={{ marginTop: 30 }}>
-          <Button
-            variant="contained"
-            //onClick={handleFileUpload}
-            onClick={Click}
-            style={{ width: 550, height: 40, marginBottom: 50 }}
-          >
-            업로드
-          </Button>
-        </Grid>
-      </Grid>
-      </Container>
+            {/* 내용 입력 */}
+            <Grid item xs={12} style={{ marginTop: 20 }}>
+              <Typography variant="h5">내용</Typography>
+            </Grid>
+            <Grid itme xs={12}>
+              <TextField
+                variant="outlined"
+                onChange={handleContent}
+                value={inputContent}
+                style={{ width: 550 }}
+                required
+                type="text"
+                placeholder="내용을 입력하세요."
+                multiline
+                rows={8}
+              />
+            </Grid>
+
+            {/* 비디오 선택 */}
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Typography variant="h5">동영상 파일 선택</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Input
+                type="file"
+                required
+                onChange={handleVideoChange}
+                style={{ width: 550 }}
+              />
+            </Grid>
+
+            {/* 이미지 선택 */}
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Typography variant="h5">썸네일 파일 선택</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Input
+                type="file"
+                required
+                onChange={handleImgChange}
+                style={{ width: 550 }}
+              />
+            </Grid>
+
+            {/* 카테고리 선택 */}
+            <Grid item xs={12} style={{ marginTop: 20 }}>
+              <Typography variant="h5">카테고리 선택</Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Select
+                style={{ width: 550, height: 40 }}
+                onChange={selectChange}
+                value={selectCategory}
+              >
+                <MenuItem value="NT001">자연</MenuItem>
+                <MenuItem value="VL001">브이로그</MenuItem>
+                <MenuItem value="GM001">게임</MenuItem>
+                <MenuItem value="SP001">스포츠</MenuItem>
+                <MenuItem value="MC001">음악</MenuItem>
+                <MenuItem value="AM001">동물</MenuItem>
+                <MenuItem value="HH001">운동</MenuItem>
+                <MenuItem value="CK001">요리</MenuItem>
+              </Select>
+            </Grid>
+
+            {/* 업로드 버튼 */}
+            <Grid item xs={12} style={{ marginTop: 30 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                onClick={handleFileUpload}
+                style={{ width: 550, height: 40, marginBottom: 50, background: "#1565C0", color:"white" }}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                업로드
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+      </div>
       <Footer />
     </>
   );

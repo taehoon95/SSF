@@ -56,16 +56,7 @@ const SearchResultContainer = () => {
 
   return (
     <TableContainer style={{ marginTop: 65 }} component={Paper}>
-      <Table size="large">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">번호</TableCell>
-            <TableCell align="center">썸네일</TableCell>
-            <TableCell align="center">영상 제목</TableCell>
-            <TableCell align="center">등록 날짜</TableCell>
-            <TableCell align="center">조회수</TableCell>
-          </TableRow>
-        </TableHead>
+      <Table size="small">
         <>
         {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
         {/* 2021-11-29 강동하 로딩 추가 */}
