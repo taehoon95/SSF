@@ -39,7 +39,7 @@ function App() {
       <Route component={StreamingListPage} path={"/StreamingListPage"} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
-      <PrivateRoute component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
+      <Route component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
       <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
       {/*2021-11-25 영상관리 수정 페이지*/}
       <PrivateRoute component={ListChangePage} path={["/ListChangePage/:v_code", '/ListChangePage']} />

@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: 270,
+    marginTop: 0,
   },
   iconAlign: {
     marginLeft: 160,
@@ -139,6 +140,7 @@ const Header = () => {
           {/* 사이드바  */}
           {true && (
             <IconButton
+              style={{ marginRight:10 }}
               edge="start"
               className={classes.menuButton}
               color="inherit"
@@ -151,7 +153,7 @@ const Header = () => {
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
           <Grid container>
-            <Grid item>
+            <Grid item style={{ marginLeft: -10 }}>
               <Button
                 onClick={home}
                 variant="inherit"
@@ -290,7 +292,7 @@ const Header = () => {
               </IconButton>
               {/* SSF 로고 */}
               <Grid container>
-                <Grid item>
+                <Grid item style={{ marginLeft: 0 }}>
                   <Button
                     onClick={home}
                     variant="inherit"

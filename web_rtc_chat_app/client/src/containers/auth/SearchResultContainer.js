@@ -51,42 +51,45 @@ const SearchResultContainer = () => {
 
   return (
     <TableContainer style={{ marginTop: 65 }} component={Paper}>
-      <Table size="large">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">번호</TableCell>
-            <TableCell align="center">썸네일</TableCell>
-            <TableCell align="center">영상 제목</TableCell>
-            <TableCell align="center">등록 날짜</TableCell>
-            <TableCell align="center">조회수</TableCell>
-          </TableRow>
-        </TableHead>
+      <Table size="small">
         <>
-        {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
-        {(selectList.length !== 0) ? (
-          selectList.map((data, idx) => (
-            <Link to={`/WatchPage2/${data.v_code}`}>
+          {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
+          {selectList.length !== 0 ? (
+            selectList.map((data, idx) => (
               <TableBody>
-                <TableCell>{data.v_code}</TableCell>
-                <TableCell>
-                  <video src={data.v_link} width="220" height="150" />
+                <TableCell align="center">{data.v_code}</TableCell>
+                <TableCell align="center">
+                  <Link to={`/WatchPage2/${data.v_code}`}>
+                    <video src={data.v_link} width="300" height="220" />
+                  </Link>
                 </TableCell>
-                <TableCell>{data.v_name}</TableCell>
-                <TableCell>{data.v_date}</TableCell>
-                <TableCell>{data.v_views}</TableCell>
+                <TableCell align="center">
+                  <Typography variant="h6" style={{ color: "white" }}>
+                    <Link to={`/WatchPage2/${data.v_code}`}>{data.v_name}</Link>
+                  </Typography>
+                </TableCell>
+                <TableCell align="center">{data.v_date}</TableCell>
+                <TableCell align="center">{data.v_views}</TableCell>
               </TableBody>
-            </Link>
-          ))
-        ) : (
-          <>
-            <Grid item xs={12}>
-              <HelpOutline style={{ width: 300, height: 300 }} />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography variant="h3">검색 결과가 없습니다.</Typography>
-            </Grid>
-          </>
-        )}
+            ))
+          ) : (
+            <>
+              <Grid
+                container
+                alignItems="center"
+                align="center"
+                justifyContent="center"
+                style={{ height: 690, marginLeft: 250 }}
+              >
+                <Grid item xs={12} style={{ marginTop: 120 }}>
+                  <HelpOutline style={{ width: 300, height: 300 }} />
+                </Grid>
+                <Grid item xs={12} style={{ marginBottom: 200 }}>
+                  <Typography variant="h3">검색 결과가 없습니다.</Typography>
+                </Grid>
+              </Grid>
+            </>
+          )}
         </>
         <TableFooter>
           <TableRow>
