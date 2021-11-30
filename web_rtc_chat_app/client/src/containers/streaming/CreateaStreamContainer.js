@@ -31,12 +31,12 @@ const CreateaStreamContainer = () => {
 
   const createStreaming = () => {
     // 방만들기
-    socketRef.emit("clientCreateRoom", streamInfo)
     if(streamInfo.l_title === ""){
-        setIsValidCheck(true)
-        return; 
+      setIsValidCheck(true)
+      return; 
     }
     if (window.confirm(`스트림키는 ${streamInfo.l_code}입니다.`)) {
+      socketRef.emit("clientCreateRoom", streamInfo)
       dispatch(insertStreaming(streamInfo));
       history.push(`/WatchPage/${streamInfo.l_code}`)
     } else {

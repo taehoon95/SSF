@@ -14,6 +14,8 @@ import {
 import axios from "../../node_modules/axios/index";
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
+import StreamListContainer from "../containers/streaming/StreamListContainer";
+import { ContextProvider } from "../SocketContext";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
@@ -61,95 +63,101 @@ const MainPage = () => {
 
   return (
     <>
-    <Header />
-      <div className="container" style={{ marginTop: 65 }}>
-        <Link
-          rel="stylesheet"
-          type="text/css"
-          charset="UTF-8"
-          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <Link
-          rel="stylesheet"
-          type="text/css"
-          to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-        <style>{cssstyle}</style>
-        <div>
-          <br />
-          <Grid container xs={12}>
-            {/* 실시간 방송 영상 뷰 */}
-            <Grid item>
+      <Header />
+      <ContextProvider>
+        <div className="container" style={{ marginTop: 65 }}>
+          <Link
+            rel="stylesheet"
+            type="text/css"
+            charset="UTF-8"
+            to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <Link
+            rel="stylesheet"
+            type="text/css"
+            to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
+          <style>{cssstyle}</style>
+          <div>
+            <br />
+            <Grid container xs={12}>
+              {/* 실시간 방송 영상 뷰 */}
+              <Grid item>
+                <StreamListContainer />
+              </Grid>
+              {/* Top4 영상 뷰 */}
+              <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+                <Typography variant="h5" style={{ color: "white" }}>
+                  Top 4 영상
+                </Typography>
+              </Grid>
+              {myTopList.map((data, idx) => (
+                <div key={idx}>
+                  <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
+                    <Link
+                      to={`/WatchPage2/${data.v_code}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <video
+                        src={data.v_link}
+                        controls
+                        muted
+                        width="320"
+                        height="250"
+                      />
+                      <h3 style={{ color: "white", marginTop: 3 }}>
+                        {data.v_name}
+                      </h3>
+                      <h4 style={{ color: "gray", marginTop: 2 }}>
+                        조회수 : &nbsp;
+                        {data.v_views}
+                        &nbsp; - &nbsp;
+                        {data.v_date}
+                      </h4>
+                    </Link>
+                  </Grid>
+                </div>
+              ))}
             </Grid>
-            {/* Top4 영상 뷰 */}
-            <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
-              <Typography variant="h5" style={{ color: "white" }}>
-                Top 4 영상
-              </Typography>
+            <br />
+            <br />
+            <Grid container xs={12}>
+              <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+                <Typography variant="h5" style={{ color: "white" }}>
+                  전체 영상
+                </Typography>
+              </Grid>
+              {myList.map((data, idx) => (
+                <div key={idx}>
+                  <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
+                    <Link
+                      to={`/WatchPage2/${data.v_code}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <video
+                        src={data.v_link}
+                        controls
+                        muted
+                        width="320"
+                        height="250"
+                      />
+                      <h3 style={{ color: "white", marginTop: 3 }}>
+                        {data.v_name}
+                      </h3>
+                      <h4 style={{ color: "gray", marginTop: 2 }}>
+                        조회수 : &nbsp;
+                        {data.v_views}
+                        &nbsp; - &nbsp;
+                        {data.v_date}
+                      </h4>
+                    </Link>
+                  </Grid>
+                </div>
+              ))}
             </Grid>
-            {myTopList.map((data, idx) => (
-              <div key={idx}>
-                <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link
-                    to={`/WatchPage2/${data.v_code}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <video
-                      src={data.v_link}
-                      controls
-                      muted
-                      width="320"
-                      height="250"
-                    />
-                    <h3 style={{ color: "white", marginTop: 3 }}>
-                      {data.v_name}
-                    </h3>
-                    <h4 style={{ color: "gray", marginTop: 2 }}>
-                      조회수 : &nbsp;
-                      {data.v_views}
-                      &nbsp; - &nbsp;
-                      {data.v_date}
-                    </h4>
-                  </Link>
-                </Grid>
-              </div>
-            ))}
-          </Grid>
-          <br />
-          <br />
-          <Grid container xs={12}>
-            <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
-              <Typography variant="h5" style={{ color: "white" }}>
-                전체 영상
-              </Typography>
-            </Grid>
-            {myList.map((data, idx) => (
-              <div key={idx}>
-                <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                  <Link to={`/WatchPage2/${data.v_code}`} style={{ textDecoration: "none" }}>
-                    <video
-                      src={data.v_link}
-                      controls
-                      muted
-                      width="320"
-                      height="250"
-                    />
-                    <h3 style={{ color: "white", marginTop: 3 }}>
-                      {data.v_name}
-                    </h3>
-                    <h4 style={{ color: "gray", marginTop: 2 }}>
-                      조회수 : &nbsp;
-                      {data.v_views}
-                      &nbsp; - &nbsp;
-                      {data.v_date}
-                    </h4>
-                  </Link>
-                </Grid>
-              </div>
-            ))}
-          </Grid>
+          </div>
         </div>
-      </div>
+      </ContextProvider>
       <Footer />
     </>
   );
