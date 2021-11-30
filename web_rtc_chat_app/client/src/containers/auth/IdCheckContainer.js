@@ -5,68 +5,88 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import {Avatar, Box, Button, Container, CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
-import { LockOutlined } from "@material-ui/icons";
-import { change,idcheck } from "../../modules/auth";
+import { change, idcheck } from "../../modules/auth";
 import { withRouter } from "react-router";
+import Container from "@mui/material/Container";
+import {
+  Avatar,
+  Box,
+  Button,
+  CssBaseline,
+  Grid,
+  TextField,
+  Typography,
+} from "../../../node_modules/@material-ui/core/index";
+import { LockOutlined } from "../../../node_modules/@mui/icons-material/index";
 
-const IdCheckContainer = ({history}) => {
-  const [error,setError] = useState(null);
-    const dispatch= useDispatch();
-    const { u_name, u_email,check,checkError } = useSelector((state)=>{            
-      return{        
-      u_name : state.auth.u_name,
-      u_email : state.auth.u_email,   
-      check : state.auth.check,
-      checkError : state.auth.checkError,
-              
-    }});
-    const onChange = (e) =>{
-      console.log('이건 체인지');
-      
-      const {name,value} = e.target;
-      console.log(value);
-      
-      dispatch(
-        change({ 
-        name, 
-        value 
-        })
-      );
-    }
-    const onsubmit = e =>{
-      e.preventDefault();
-      console.log('아이디찾기');
-      dispatch(idcheck({
+const IdCheckContainer = ({ history }) => {
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const { u_name, u_email, check, checkError } = useSelector((state) => {
+    return {
+      u_name: state.auth.u_name,
+      u_email: state.auth.u_email,
+      check: state.auth.check,
+      checkError: state.auth.checkError,
+    };
+  });
+  const onChange = (e) => {
+    console.log("이건 체인지");
+
+    const { name, value } = e.target;
+    console.log(value);
+
+    dispatch(
+      change({
+        name,
+        value,
+      })
+    );
+  };
+  const onsubmit = (e) => {
+    e.preventDefault();
+    console.log("아이디찾기");
+    dispatch(
+      idcheck({
         u_name,
-        u_email})
-      )
+        u_email,
+      })
+    );
+  };
+  useEffect(() => {
+    if (checkError) {
+      setError("아이디 찾기 실패");
+      return;
     }
-    useEffect(() => {
-      if (checkError) {
-        setError('아이디 찾기 실패');
-        return;
-      }
-      if (check) {
-        console.log('아이디 찾기 성공');
-        history.push('/IdCheckViewrPage');
-      }
-    }, [check, checkError ]);
+    if (check) {
+      console.log("아이디 찾기 성공");
+      history.push("/IdCheckViewrPage");
+    }
+  }, [check, checkError]);
+
+  const theme = createTheme();
+
+  return (
+    <div>
+      <ThemeProvider theme={theme}>
+        <Container
+          component="main"
+          maxWidth="xs"
+          style={{
+            background: "#FFFFFF",
+            borderRadius: 5,
+            marginTop: 150,
+          }}
+        >
+          <form
+            onSubmit={onsubmit}
+            //   component="main"
+            //   maxWidth="xs"
+            //   style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
+          >
 
 
-    const theme = createTheme();
-
-    return (
-        <div>
-        <ThemeProvider theme={theme}>
-      <form onSubmit={onsubmit}
-        component="main"
-        maxWidth="xs"
-        style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
-      >
-        <CssBaseline />
-        
-        {/* <Box
+            {/* <Box
 
           sx={{
             marginTop: 8,
@@ -75,26 +95,35 @@ const IdCheckContainer = ({history}) => {
             alignItems: "center",
           }}
         > */}
-          
-          <Avatar
-            sx={{ m: 1, bgcolor: "secondary.main" }}
-            style={{ marginTop: 20 }}
-          >
-            <LockOutlined />
-          </Avatar>
-          <Typography
-            component="h1"
-            variant="h4"
-            style={{ marginTop: 20, color: "white" }}
-          >
-            아이디찾기
-          </Typography>
-          
 
-            
+            <Box
+              sx={{
+                flexDirection: "column",
+                alignItems: "center",
+                marginTop: 8,
+                display: "flex",
+              }}
+            >
+              <Avatar
+                sx={{ m: 1, bgcolor: "secondary.main" }}
+                style={{ marginTop: 20 }}
+              >
+                <LockOutlined />
+              </Avatar>
+              <Typography
+                component="h1"
+                variant="h4"
+                style={{ marginTop: 20, color: "black" }}
+              >
+                아이디찾기
+              </Typography>
+            </Box>
+
             <Grid container>
-              <Grid item style={{ marginTop:5, width:"100%" }}>
-                <Typography variant="h6" style={{ color:"white" }}>이름</Typography>
+              <Grid item style={{ marginTop: 5, width: "100%" }}>
+                <Typography variant="h6" style={{ color: "black" }}>
+                  이름
+                </Typography>
                 <TextField
                   onChange={onChange}
                   style={{
@@ -114,8 +143,10 @@ const IdCheckContainer = ({history}) => {
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item style={{ marginTop:5, width:"100%" }}>
-                <Typography variant="h6" style={{ color:"white" }}>이메일</Typography>
+              <Grid item style={{ marginTop: 5, width: "100%" }}>
+                <Typography variant="h6" style={{ color: "black" }}>
+                  이메일
+                </Typography>
                 <TextField
                   onChange={onChange}
                   style={{
@@ -134,10 +165,9 @@ const IdCheckContainer = ({history}) => {
                 />
               </Grid>
             </Grid>
-        
-             
+
             <Grid>
-            <Grid item>
+              <Grid item>
                 <Typography variant="22">
                   <span>{error}</span>
                 </Typography>
@@ -145,7 +175,7 @@ const IdCheckContainer = ({history}) => {
             </Grid>
 
             <Button
-              style={{ marginTop: 10, marginBottom: 40 }}              
+              style={{ marginTop: 10, marginBottom: 40 }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -153,12 +183,12 @@ const IdCheckContainer = ({history}) => {
             >
               아이디찾기
             </Button>
-          {/* </Box> */}
-      </form> 
-    </ThemeProvider>
-
-        </div>
-    );
+            {/* </Box> */}
+          </form>
+        </Container>
+      </ThemeProvider>
+    </div>
+  );
 };
 
 export default withRouter(IdCheckContainer);

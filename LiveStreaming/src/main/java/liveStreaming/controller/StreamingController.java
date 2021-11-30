@@ -21,16 +21,21 @@ public class StreamingController {
     // 2021-11-23 이태훈 스트리밍 insert
 	@PostMapping("/insertStreaming")
 	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming){
+		System.out.println(streaming);
 		return ResponseEntity.ok(service.insertStreaming(streaming));
 	}
 	
 	@PatchMapping("/updateStreaming")
 	public ResponseEntity<Object> updateStreaming(@RequestBody StreamingDto streaming){
+		System.out.println(streaming);
 		return ResponseEntity.ok(service.updateStreaming(streaming));
 	}
 	
 	@DeleteMapping("/deleteStreaming")
 	public ResponseEntity<Object> deleteStreaming(@RequestBody StreamingDto streaming){
+		System.out.println("=================");
+		System.out.println(streaming);
+		System.out.println("=================");
 		return ResponseEntity.ok(service.deleteStreaming(streaming));
 	}
 

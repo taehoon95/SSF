@@ -408,7 +408,7 @@ const RegisterContainer = () => {
           marginBottom: 50,
         }}
       >
-        <CssBaseline />
+ 
         <Box
           sx={{
             marginTop: 8,

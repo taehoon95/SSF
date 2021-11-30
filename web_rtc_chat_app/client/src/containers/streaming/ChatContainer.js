@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { SocketContext } from "../../SocketContext";
 
+// 2021 1125 이태훈 streaming 채팅 page
 const ChatContainer = () => {
   const { socketRef, setMsgs, msgs } = useContext(SocketContext);
   // message: 채팅 메세지
@@ -11,19 +12,17 @@ const ChatContainer = () => {
   const { l_code } = useParams();
   // u_id: username처럼 쓸것
   const u_id = localStorage.getItem("u_id");
-  
+
   const onChangeMessage = (e) => {
     const { value } = e.target;
     setMessage(value);
   };
 
+  
   const handleMessage = () => {
     // 일단 테스트용으로 socket id로 채팅 해본다.(spring security 잘되있어서 다른아이디로 여러 로그인 불가)
     const username = socketRef.id;
     socketRef.emit("clientSendMessage", message, username, l_code);
-
-    console.log(msgs);
-
     setMsgs([
       ...msgs,
       {
@@ -31,9 +30,8 @@ const ChatContainer = () => {
         message,
       },
     ]);
-
     setMessage("");
-  };
+  }; 
 
   return (
     <div>
@@ -53,7 +51,11 @@ const ChatContainer = () => {
       <h1>채팅 치는곳</h1>
       <div>
         <input type="text" onChange={onChangeMessage} value={message} />
-        <input type="button" onClick={handleMessage} value="전송" />
+        <input
+          type="button"
+          onClick={handleMessage}
+          value="전송"
+        />
       </div>
     </div>
   );

@@ -18,7 +18,6 @@ import {
 
 import { Dehaze, Home } from "@mui/icons-material";
 import {
-  AccessAlarms,
   LiveTv,
   NotificationsNone,
   Person,
@@ -26,19 +25,18 @@ import {
   VideoLabel,
 } from "@mui/icons-material";
 import { Divider, Grid, Tooltip } from "@mui/material";
-import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
+import {
+  Style,
+  VideoSettings,
+} from "../../../node_modules/@mui/icons-material/index";
 
 // 2021-11-25 강동하 버튼 pathname 에러 임시 수정
 import { Link, withRouter, useHistory } from "react-router-dom";
 
 import Responsive from "./Responsive";
 import { useSelector } from "react-redux";
-
 import { Search } from "../../../node_modules/@material-ui/icons/index";
-import {
-  Input,
-  TextField,
-} from "../../../node_modules/@material-ui/core/index";
+
 
 const Wrapper = styled(Responsive)`
   height: 4rem;
@@ -57,7 +55,27 @@ const Wrapper = styled(Responsive)`
 `;
   
 // SideBar CSS
+
+// const Wrapper = styled(Responsive)`
+//   height: 4rem;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   .logo {
+//     font-size: 1.125rem;
+//     font-weight: 800;
+//     letter-spacing: 2px;
+//   }
+//   .right {
+//     display: flex;
+//     align-items: center;
+//   }
+// `;
+
+// sideBar CSS
+
 const useStyles = makeStyles((theme) => ({
+  // sideBar css start
   menuButton: {
     marginRight: theme.spacing(3),
   },
@@ -66,7 +84,6 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: 270,
-    marginTop: 100,
   },
   iconAlign: {
     marginLeft: 160,
@@ -74,6 +91,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: theme.spacing(9),
   },
+  // sideBar css end
 }));
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
@@ -118,10 +136,27 @@ const Header = () => {
   const home = () => {
     history.push("/");
   };
-  
+
+
+  // 로그인, 회원가입 페이지는 header, footer 제외
+  // if(window.location.pathname === '/LoginPage') return null;
+  // if(window.location.pathname === '/RegisterPage') return null;
+  // if (window.location.pathname === "/IdCheckPage") return null;
+  // if (window.location.pathname === "/PwdCheckPage") return null;
+  // if (window.location.pathname === "/PwdCheckViewPage") return null;
+  // if (window.location.pathname === "/IdCheckViewrPage") return null;
+
+
   return (
     <>
-      <AppBar classes={Wrapper} style={{ background: "#303030" }}>
+      <AppBar
+        style={{
+          background: "#303030",
+          height: 60,
+          justifyContent: "center",
+          // alignItems: "center",
+        }}
+      >
         <Toolbar>
           {/* 사이드바  */}
           {true && (
@@ -134,7 +169,6 @@ const Header = () => {
               <Dehaze />
             </IconButton>
           )}
-
 
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
@@ -155,7 +189,6 @@ const Header = () => {
             </Grid>
           </Grid>
 
-
           {/* 검색바 */}
           <Box
             component="span"
@@ -164,20 +197,35 @@ const Header = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <TextField
-              alignItems="center"
+            <input
               onChange={onSearchBar}
               value={inputSearch}
               type="text"
-              style={{ width: 500 }}
-              placeholder="검색"
-              variant="outlined"
+              alignItems="center"
+              style={{
+                width: 500,
+                height: 36,
+                background: "black",
+                borderRadius: 2,
+                borderColor: "black",
+                color: "white",
+                fontSize: 17,
+              }}
+              placeholder=" 검색"
               size="small"
             />
+
             <Button
               variant="contained"
               alignItems="center"
               onClick={searchContent}
+              style={{
+                background: "black",
+                borderRadius: 2,
+                marginLeft: 1,
+                height: 40,
+                width: 70,
+              }}
             >
               <Search />
             </Button>
@@ -188,7 +236,7 @@ const Header = () => {
             container
             alignItems="center"
             direction="row"
-            justifyContent="flex-end"
+            justifyContent="right"
           >
             <Grid item>
               {tokenlled ? (
@@ -200,44 +248,32 @@ const Header = () => {
                     onClick={onLogout}
                     style={{ color: "white" }}
                   >
-                    <Typography variant="body1">로그아웃</Typography>
+                    <Typography variant="body1" color="#d30000">
+                      로그아웃
+                    </Typography>
                   </Button>
                 </Typography>
               ) : (
                 <>
-                {/* // 로그인 버튼 */}
-                <Button
-                  component={Link}
-                  to={"/LoginPage"}
-                  variant="inherit"
-                  style={{ color: "white" }}
-                >
-                  <Typography variant="body1">로그인</Typography>
-                </Button>
-                {/* // 회원가입 버튼 */}
-                <Button
-                  component={Link}
-                  to={"/RegisterPage"}
-                  variant="inherit"
-                  style={{ color: "white" }}
-                >
-                  <Typography variant="body1">회원가입</Typography>
-                </Button>
+                  {/* // 로그인 버튼 */}
+                  <Button
+                    component={Link}
+                    to={"/LoginPage"}
+                    variant="inherit"
+                    style={{ color: "white" }}
+                  >
+                    <Typography variant="body1">로그인</Typography>
+                  </Button>
+                  {/* // 회원가입 버튼 */}
+                  <Button
+                    component={Link}
+                    to={"/RegisterPage"}
+                    variant="inherit"
+                    style={{ color: "white" }}
+                  >
+                    <Typography variant="body1">회원가입</Typography>
+                  </Button>
                 </>
-                // 아래 Link 태그는 수정 전 로그인 버튼
-                // <Link
-                //   to="/LoginPage"
-                //   sx={{
-                //     textDecoration: "none",
-                //     color: lightColor,
-                //     "&:hover": {
-                //       color: "common.white",
-                //     },
-                //   }}
-                //   rel="noopener noreferrer"
-                // >
-                //   로그인
-                // </Link>
               )}
             </Grid>
 

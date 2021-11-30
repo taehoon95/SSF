@@ -19,8 +19,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "../../node_modules/axios/index";
+
 import { Container } from "../../node_modules/@material-ui/core/index";
 import { useHistory } from "react-router-dom";
+
+
+import { Container, Grid } from "../../node_modules/@material-ui/core/index";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 
 
 const UploadPage = () => {
@@ -218,21 +224,27 @@ const UploadPage = () => {
 
   return (
     <>
-      <Container
+    <Header />
+    <Container
         component="main"
-        maxWidth="sm"
         style={{
           background: "#FFFFFF",
           borderRadius: 5,
           marginTop: 100,
-          marginBottom: 50,
+          width: 600,
+          height: 715,
+          marginBottom: 45
         }}
       >
+
+      <Grid container justify="left" align="left" style={{ marginTop : 100}}>
         {/* 제목 입력 */}
-        <div align="left" >
-          <Typography textAlign="left" variant="h5" >
+        <Grid item xs={12} style={{ marginTop: 20 }}>
+          <Typography textAlign="left" variant="h5">
             제목
           </Typography>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             variant="outlined"
             onChange={handleTitle}
@@ -242,13 +254,13 @@ const UploadPage = () => {
             type="text"
             placeholder="제목을 입력하세요."
           />
-        </div>
-        <br />
-        <br />
+        </Grid>
 
         {/* 내용 입력 */}
-        <div>
+        <Grid item xs={12} style={{ marginTop: 20 }}>
           <Typography variant="h5">내용</Typography>
+        </Grid>
+        <Grid itme xs={12}>
           <TextField
             variant="outlined"
             onChange={handleContent}
@@ -260,40 +272,39 @@ const UploadPage = () => {
             multiline
             rows={8}
           />
-        </div>
-        <br />
-        <br />
+        </Grid>
 
-        {/* file타입 옆에 multiple 옵션 넣어주면 다중선택 가능 */}
         {/* 비디오 선택 */}
-        <div align="left">
+        <Grid item xs={12} style={{ marginTop: 30 }}>
           <Typography variant="h5">동영상 파일 선택</Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Input
             type="file"
             required
             onChange={handleVideoChange}
             style={{ width: 550 }}
           />
-        </div>
-        <br />
-        <br />
+        </Grid>
 
         {/* 이미지 선택 */}
-        <div align="left">
+        <Grid item xs={12} style={{ marginTop: 30 }}>
           <Typography variant="h5">썸네일 파일 선택</Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Input
             type="file"
             required
             onChange={handleImgChange}
             style={{ width: 550 }}
           />
-        </div>
-        <br />
-        <br />
+        </Grid>
 
         {/* 카테고리 선택 */}
-        <div align="left">
+        <Grid item xs={12} style={{ marginTop: 20 }}>
           <Typography variant="h5">카테고리 선택</Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Select
             style={{ width: 550, height: 40 }}
             onChange={selectChange}
@@ -308,20 +319,22 @@ const UploadPage = () => {
             <MenuItem value="HH001">운동</MenuItem>
             <MenuItem value="CK001">요리</MenuItem>
           </Select>
-        </div>
-        <br />
-        <br />
+        </Grid>
 
         {/* 업로드 버튼 */}
-        <Button
-          variant="contained"
-          //onClick={handleFileUpload}
-          onClick={Click}
-          style={{ width: 550, height: 40, marginBottom: 50 }}
-        >
-          업로드
-        </Button>
+        <Grid item xs={12} style={{ marginTop: 30 }}>
+          <Button
+            variant="contained"
+            //onClick={handleFileUpload}
+            onClick={Click}
+            style={{ width: 550, height: 40, marginBottom: 50 }}
+          >
+            업로드
+          </Button>
+        </Grid>
+      </Grid>
       </Container>
+      <Footer />
     </>
   );
 };

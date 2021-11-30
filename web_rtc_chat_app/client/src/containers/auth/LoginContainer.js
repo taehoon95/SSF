@@ -12,7 +12,6 @@ import { change, login } from "../../modules/auth";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Avatar,
-  CssBaseline,
   Grid,
   TextField,
   Typography,
@@ -83,7 +82,7 @@ const LoginContainer = ({ history }) => {
   }, [history, auth]);
 
   const theme = createTheme();
-
+  
   return (
     <ThemeProvider theme={theme}>
       <Container

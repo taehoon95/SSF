@@ -36,6 +36,17 @@
                (concat ('avi', #{v_code}), #{v_name}, #{v_img}, #{c_code}, #{u_id}, #{v_link}, #{v_descript}) 
 	</insert>
 
+    <!-- Video Upload 검색 수정-->
+    <select id="videochangeserch" resultType="map">
+        select a.v_code,a.v_name,a.c_code,a.v_descript,b.c_name from ssf_schema.video_upload as a left join ssf_schema.category as b on
+            a.c_code = b.c_code where a.v_code =#{v_code};
+    </select>
+
+    <update id="videoupdate">
+        update ssf_schema.video_upload set v_name = #{v_name},c_code = #{c_code},v_descript =#{v_descript}
+        where v_code = #{v_code};
+    </update>
+
     <!-- MainPage Top4 Video View -->
     <select id="videoTop5" resultType="liveStreaming.dto.VideoRecordDto">
         select * from ssf_schema.video_upload where v_state=1 ORDER BY v_views DESC LIMIT 4;
@@ -44,6 +55,7 @@
     <select id="videoViews" resultType="liveStreaming.dto.VideoRecordDto">
         select v_name, v_views from ssf_schema.video_upload 
                 where u_id = #{u_id}
+
                 order by v_views DESC 
                 LIMIT 10;
     </select>

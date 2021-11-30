@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import liveStreaming.dto.VideoRecordDto;
 
+import java.util.Map;
+
+
 @Repository
 public interface VideoRecordMapper {
     
@@ -44,5 +47,10 @@ public interface VideoRecordMapper {
 
     // 2021-11-30 강동하 영상 업로드 시 영상썸네일이름 중복체크
     int videoIfileCheck(String v_img);
+
+
+    //2021-11-26 박진현 비디오 업데이트
+    int videoupdate(VideoRecordDto video);
+    List<Map<String,Object>> videochangeserch(String v_code);
 
 }

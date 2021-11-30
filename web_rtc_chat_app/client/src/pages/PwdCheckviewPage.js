@@ -1,11 +1,12 @@
 import React from 'react';
-import PwdCheckviewContainer from '../containers/auth/PwdCheckviewContainer'
-const PwdCheckviewPage = () => {
+import PwdCheckViewContainer from '../containers/auth/PwdCheckViewContainer'
+const PwdCheckViewPage = () => {
   return (
     <div>
-      <PwdCheckviewContainer/>
+      
+      <PwdCheckViewContainer/>
     </div>
   );
 };
 
-export default PwdCheckviewPage;
+export default PwdCheckViewPage;

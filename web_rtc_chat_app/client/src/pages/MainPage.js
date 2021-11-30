@@ -12,6 +12,8 @@ import {
   Typography,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
+import Footer from "../components/common/Footer";
+import Header from "../components/common/Header";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
@@ -59,6 +61,7 @@ const MainPage = () => {
 
   return (
     <>
+    <Header />
       <div className="container" style={{ marginTop: 65 }}>
         <Link
           rel="stylesheet"
@@ -147,6 +150,7 @@ const MainPage = () => {
           </Grid>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -29,6 +29,8 @@ import {
   commentUpdate_Action,
 } from "../modules/watchpage2";
 import { useHistory } from "react-router";
+import Footer from "../components/common/Footer";
+import Header from "../components/common/Header";
 // 수정모달
 const styleModal = {
   position: "absolute",
@@ -210,6 +212,7 @@ const WatchPage2 = (props) => {
 
   return (
     <>
+    <Header />
       {/* 댓글 수정 Modal */}
       <Modal
         open={open}
@@ -477,6 +480,7 @@ const WatchPage2 = (props) => {
           </Grid>
         </Grid>
       )}
+      <Footer />
     </>
   );
 };

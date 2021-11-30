@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { change } from "../../modules/streaming";
+import { change, insertStreaming } from "../../modules/streaming";
 import { nanoid } from "nanoid";
 import { useHistory } from "react-router";
 import { SocketContext } from "../../SocketContext";
@@ -21,17 +21,23 @@ const CreateaStreamContainer = () => {
   };
 
   const [streamInfo, setStreamInfo] = useState(streamingInfo);
+  const [isValidCheck, setIsValidCheck] = useState(false)
 
   const handleStreamInfo = (e) => {
     setStreamInfo({ ...streamInfo, [e.target.name]: e.target.value });
+    setIsValidCheck(false)
     dispatch(change({ streamInfo }));
   };
 
   const createStreaming = () => {
     // 방만들기
     socketRef.emit("clientCreateRoom", streamInfo)
+    if(streamInfo.l_title === ""){
+        setIsValidCheck(true)
+        return; 
+    }
     if (window.confirm(`스트림키는 ${streamInfo.l_code}입니다.`)) {
-      // dispatch(insertStreaming(streamInfo));
+      dispatch(insertStreaming(streamInfo));
       history.push(`/WatchPage/${streamInfo.l_code}`)
     } else {
       alert("방만들기를 취소 하셨습니다.");
@@ -49,6 +55,7 @@ const CreateaStreamContainer = () => {
         onChange={handleStreamInfo}
         value={streamInfo.l_title}
       />
+      {isValidCheck && <label>방 제목을 입력 해주세요</label>} 
       <input
         type="text"
         name="l_description"

@@ -20,6 +20,8 @@ axios.post('api/pwdfind',{u_id,u_name,u_email})
 //비밀번호 변경
 export const pwdupdate = ({ u_id,u_pwd}) => 
  axios.patch('api/pwdupdate',{ u_id,u_pwd} )
+
+ 
 //  .then( (response) =>  {
 //     console.log(response.data);
 //  })
