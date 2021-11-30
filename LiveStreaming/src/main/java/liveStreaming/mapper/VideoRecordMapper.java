@@ -39,11 +39,18 @@ public interface VideoRecordMapper {
     // 2021-11-25 강동하 영상 조회수 + 1
     int viewsInc(VideoRecordDto video);
 
+    // 2021-11-29 강동하 영상 업로드 시 영상제목 중복체크
+    List<VideoRecordDto> videoNameCheck(String v_name);
+
+    // 2021-11-30 강동하 영상 업로드 시 영상파일이름 중복체크
+    int videoVfileCheck(String v_link);
+
+    // 2021-11-30 강동하 영상 업로드 시 영상썸네일이름 중복체크
+    int videoIfileCheck(String v_img);
+
 
     //2021-11-26 박진현 비디오 업데이트
     int videoupdate(VideoRecordDto video);
-
     List<Map<String,Object>> videochangeserch(String v_code);
-
 
 }
