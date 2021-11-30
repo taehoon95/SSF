@@ -16,7 +16,7 @@ import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import StreamingListPage from './pages/StreamingListPage';
 import SearchResultPage from './pages/SearchResultPage';
-import PwdCheckViewPage from './pages/PwdCheckViewPage';
+import PwdCheckviewPage from './pages/PwdCheckviewPage';
 import ListChangePage from './pages/ListChangePage';
 import PrivateRoute from "././components/common/PrivateRoute"
 
@@ -40,7 +40,7 @@ function App() {
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
       <PrivateRoute component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
-      <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
+      <PrivateRoute component={PwdCheckviewPage} path={["/PwdCheckviewPage"]} />
       {/*2021-11-25 영상관리 수정 페이지*/}
       <PrivateRoute component={ListChangePage} path={["/ListChangePage/:v_code", '/ListChangePage']} />
 
