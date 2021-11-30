@@ -55,7 +55,7 @@ const Wrapper = styled(Responsive)`
     align-items: center;
   }
 `;
-
+  
 // SideBar CSS
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -94,7 +94,7 @@ const Header = () => {
 
   // 검색 값 전송 버튼
   const searchContent = (e) => {
-    alert(inputSearch);
+    //alert(inputSearch);
     history.push(`/SearchResultPage/${inputSearch}`);
     // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
     setInputSearch("");
@@ -118,7 +118,7 @@ const Header = () => {
   const home = () => {
     history.push("/");
   };
-
+  
   return (
     <>
       <AppBar classes={Wrapper} style={{ background: "#303030" }}>

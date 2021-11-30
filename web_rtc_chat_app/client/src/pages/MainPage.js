@@ -77,9 +77,7 @@ const MainPage = () => {
           <Grid container xs={12}>
             {/* 실시간 방송 영상 뷰 */}
             <Grid item>
-              
             </Grid>
-
             {/* Top4 영상 뷰 */}
             <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
               <Typography variant="h5" style={{ color: "white" }}>
