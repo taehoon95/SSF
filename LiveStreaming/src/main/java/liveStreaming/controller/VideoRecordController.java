@@ -1,6 +1,11 @@
 package liveStreaming.controller;
 
+
+import java.util.LinkedList;
+
+
 import liveStreaming.mapper.VideoRecordMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,6 +73,18 @@ public class VideoRecordController {
 		return ResponseEntity.ok(service.videoUpload(video));
 	}
 
+
+	// 2021-11-30 강동하 수정 영상파일이름, 썸네일이름 중복체크
+	@GetMapping("/filename/{v_link}/{v_img}")
+	public LinkedList<Object> fileName(@PathVariable String v_link, @PathVariable String v_img) {
+		// System.out.println(v_link);
+		// System.out.println(v_img);
+		// System.out.println("================");
+		LinkedList<Object> result = new LinkedList<Object>();
+		result.add(ResponseEntity.ok(service.videoVfileCheck(v_link)));
+		result.add(ResponseEntity.ok(service.videoIfileCheck(v_img)));
+		return result;
+
 	//2021 11-26 박진현 비디오 수정
 	@PatchMapping("/videoupdate")
 	public ResponseEntity<Object> videoupdate(@RequestBody VideoRecordDto video) {
@@ -83,6 +100,7 @@ public class VideoRecordController {
 		public ResponseEntity<Object> videochangeserch(@PathVariable String v_code) {
 		System.out.println("여기는 검색이다.");
 		return ResponseEntity.ok(mapper.videochangeserch(v_code));
+
 	}
 
 	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
@@ -104,5 +122,13 @@ public class VideoRecordController {
 		System.out.println(video);
 		return ResponseEntity.ok(service.viewsInc(video));
 	}
-}
 
+
+	// 2021-11-29 강동하 영상 업로드 시 영상제목 중복체크
+	@GetMapping("/videonamecheck/{v_name}")
+	public ResponseEntity<Object> videoNameCheck(@PathVariable String v_name) {
+		System.out.println("================");
+		System.out.println(v_name);
+		return ResponseEntity.ok(service.videoNameCheck(v_name));
+	}
+}

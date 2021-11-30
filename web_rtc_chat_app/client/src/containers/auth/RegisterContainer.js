@@ -199,7 +199,6 @@ const RegisterContainer = () => {
   }, [number]);
 
   useEffect(() => {
-    
   }, [test]);
 
   // 인증 이메일 전송
