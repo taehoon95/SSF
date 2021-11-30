@@ -19,11 +19,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import axios from "../../node_modules/axios/index";
-
-import { Container } from "../../node_modules/@material-ui/core/index";
 import { useHistory } from "react-router-dom";
-
-
 import { Container, Grid } from "../../node_modules/@material-ui/core/index";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";

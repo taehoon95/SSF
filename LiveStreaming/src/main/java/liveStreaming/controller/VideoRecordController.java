@@ -84,7 +84,7 @@ public class VideoRecordController {
 		result.add(ResponseEntity.ok(service.videoVfileCheck(v_link)));
 		result.add(ResponseEntity.ok(service.videoIfileCheck(v_img)));
 		return result;
-
+	}
 	//2021 11-26 박진현 비디오 수정
 	@PatchMapping("/videoupdate")
 	public ResponseEntity<Object> videoupdate(@RequestBody VideoRecordDto video) {

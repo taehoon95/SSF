@@ -43,18 +43,6 @@ const RegisterContainer = () => {
 
   const [emaildata, setEmailData] = useState(null);
 
-  // 2021-11-19 강동하 정규표현식 체크
-  const [idcheck, setIdCheck] = useState("아이디를 입력 해주세요.");
-  const [pwdcheck, setPwdCheck] = useState("비밀번호를 입력 해주세요.");
-  const [pwdcheckcheck, setPwdCheckCheck] =
-    useState("비밀번호를 재입력 해주세요.");
-  const [namecheck, setNameCheck] = useState("이름를 입력 해주세요.");
-  const [birthcheck, setBirthCheck] = useState("생년월일을 선택 해주세요.");
-  const [gendercheck, setGenderCheck] = useState("성별을 선택 해주세요.");
-  const [emailcheck, setEmailCheck] = useState("이메일을 입력 해주세요.");
-  const [emailcheckcheck, setEmailCheckCheck] = useState("");
-  const [tellcheck, setTellCheck] = useState("전화번호를 입력 해주세요.");
-
   ///// 이메일 인증 코드 유효성 검증
   const [test, setTest] = useState(false);
   const [numbertest, setNumberTest] = useState(0);
@@ -87,6 +75,18 @@ const RegisterContainer = () => {
       number: state.register.number,
     };
   });
+
+    // 2021-11-19 강동하 정규표현식 체크
+    // 2021-11-30 강동하 입력 시에만 문구 보이게 리팩토링
+    const [idcheck, setIdCheck] = useState("아이디를 입력 해주세요.");
+    const [pwdcheck, setPwdCheck] = useState("비밀번호를 입력 해주세요.");
+    const [pwdcheckcheck, setPwdCheckCheck] = useState(u_pwdcheck == "" ? "" : "비밀번호를 재입력 해주세요.");
+    const [namecheck, setNameCheck] = useState(u_name == "" ? "" : "이름를 입력 해주세요.");
+    const [birthcheck, setBirthCheck] = useState(u_birth == "" ? "" : "생년월일을 선택 해주세요.");
+    const [gendercheck, setGenderCheck] = useState(u_gender == "" ? "" : "성별을 선택 해주세요.");
+    const [emailcheck, setEmailCheck] = useState(u_email == "" ? "" : "이메일을 입력 해주세요.");
+    const [emailcheckcheck, setEmailCheckCheck] = useState("");
+    const [tellcheck, setTellCheck] = useState(u_tell == "" ? "" : "전화번호를 입력 해주세요.");
 
   const { idcheck2, idcheckError } = useSelector((state) => ({
     idcheck2: state.register.idcheck,
@@ -141,7 +141,7 @@ const RegisterContainer = () => {
   };
   // 20211120 강동하 id 중복체크
   const onIdCheck = () => {
-    alert('중복체크 시도');
+    //alert('중복체크 시도');
     dispatch(id_check({
        u_id
       })
@@ -180,7 +180,7 @@ const RegisterContainer = () => {
 
   useEffect(() => {
     onKeyUpID();
-  }, []);
+  }, [u_id]);
 
   useEffect(() => {
     onKeyUpBirth();
@@ -235,26 +235,30 @@ const RegisterContainer = () => {
   // id 유효성 검증
   // 알파벳이나 숫자 4 ~ 25 글자
   const onKeyUpID = () => {
-    let idPattern = /^[a-zA-z0-9]{4,25}$/;
-    if (idPattern.test(u_id) === true) {
-      console.log(idcheck2);
-      console.log(resultid);
-      if ((idcheck2 != null) && (idcheckError == null)) {
-        alert("사용 가능한 아이디입니다.")
-        setIdCheck("사용 가능한 아이디입니다.");
-        setResultId(1);
-      } else if(idcheckError != null) {
-        setIdCheck("사용중인 아이디입니다.");
-        setResultId(0);
-      } 
-      else {
-        //alert("1")
-        setIdCheck("중복체크를 진행해주세요.");
+    if(u_id != ""){
+      let idPattern = /^[a-zA-z0-9]{4,25}$/;
+      if (idPattern.test(u_id) === true) {
+        console.log(idcheck2);
+        console.log(resultid);
+        if ((idcheck2 != null) && (idcheckError == null)) {
+          alert("사용 가능한 아이디입니다.")
+          setIdCheck("사용 가능한 아이디입니다.");
+          setResultId(1);
+        } else if(idcheckError != null) {
+          setIdCheck("사용중인 아이디입니다.");
+          alert("사용중인 아이디입니다.")
+          setResultId(0);
+        } 
+        else {
+          //alert("1")
+          setIdCheck("중복체크를 진행해주세요.");
+          setResultId(0);
+        }
+      } else {
+        setIdCheck("아이디는 알파벳 4자에서 25자 사이어야 합니다.");
+        console.log("들어와????????");
         setResultId(0);
       }
-    } else {
-      setIdCheck("아이디는 알파벳 4자에서 25자 사이어야 합니다.");
-      setResultId(0);
     }
   };
   // pwd 유효성 검증
@@ -297,23 +301,27 @@ const RegisterContainer = () => {
   // 숫자4개-숫자2개-숫자2개
   // 입력 시, date에서 선택 시 이벤트 발생
   const onKeyUpBirth = () => {
-    let birthPattern = /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/;
-    if (birthPattern.test(u_birth) === true) {
-      setBirthCheck(null);
-      setResultBirth(1);
-    } else {
-      setBirthCheck("생년월일을 선택해주세요.");
-      setResultBirth(0);
+    if(u_birth != ""){
+      let birthPattern = /^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/;
+      if (birthPattern.test(u_birth) === true) {
+        setBirthCheck(null);
+        setResultBirth(1);
+      } else {
+        setBirthCheck("생년월일을 선택해주세요.");
+        setResultBirth(0);
+      }
     }
   };
   // 성별
   const onKeyUpGender = () => {
-    if (u_gender === "남" || u_gender === "여") {
-      setGenderCheck(null);
-      setResultGender(1);
-    } else {
-      setGenderCheck("성별을 선택해주세요.");
-      setResultGender(0);
+    if(u_gender != ""){
+      if (u_gender === "남" || u_gender === "여") {
+        setGenderCheck(null);
+        setResultGender(1);
+      } else {
+        setGenderCheck("성별을 선택해주세요.");
+        setResultGender(0);
+      }
     }
   };
 
