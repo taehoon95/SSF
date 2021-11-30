@@ -8,17 +8,16 @@ import { SocketContext } from "../../SocketContext";
 import MainStreamingListContainer from "./MainStreamingListContainer";
 
 // 2021 1125 이태훈 streaming list
-const StreamListContainer = () => {
+const StreamListContainer = ({streamRes}) => {
   const u_id = localStorage.getItem("u_id")
   const history = useHistory();
-  const login_id = localStorage.getItem("u_id");
   const dispatch = useDispatch();
 
   // 방 리스트 뽑기 애매함
   // DB에서 방리스트 뽑아오기(처음 페이지 접속했을때 사용)
-  const  {streamRes}  = useSelector((state) => ({
-    streamRes: state.streaming.streamRes,
-  }));
+  // const  {streamRes}  = useSelector((state) => ({
+  //   streamRes: state.streaming.streamRes,
+  // }));
 
   // useContext를 이용해서 실시간으로 방생성 될 때마다 받아오기(처음이후 계속 이용)
   const { socketRef, rooms } = useContext(SocketContext);
@@ -36,6 +35,7 @@ const StreamListContainer = () => {
   };
 
   const dbRenderList = () => {
+    console.log(streamRes);
     return streamRes.map((value,i) => {
       return (
         <div key={i}>
@@ -69,7 +69,7 @@ const StreamListContainer = () => {
 
   return (
     <div>
-      <h2>실시간 방송 리스트</h2>
+      <h2>{Object.keys(rooms).length && "실시간 방송 리스트"}</h2>
       <div>{Object.keys(rooms).length ? liveRenderList() : dbRenderList()}</div>
     </div>
   );

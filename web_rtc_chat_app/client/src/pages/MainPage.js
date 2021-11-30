@@ -4,7 +4,7 @@
 //헤더,푸터 추가
 
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import {
   Button,
@@ -15,6 +15,7 @@ import axios from "../../node_modules/axios/index";
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 import StreamListContainer from "../containers/streaming/StreamListContainer";
+import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
 
 const MainPage = () => {
@@ -23,7 +24,14 @@ const MainPage = () => {
   const [sendData, setSendData] = useState([]);
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
+  const  {showStreamRes}  = useSelector((state) => ({
+    showStreamRes: state.streaming.showStreamRes,
+  }));
+
   useEffect(() => {
+    dispatch(showstreaming("noSearch", "noCondition"));
     myVideoList();
   }, []);
 
@@ -83,7 +91,7 @@ const MainPage = () => {
             <Grid container xs={12}>
               {/* 실시간 방송 영상 뷰 */}
               <Grid item>
-                <StreamListContainer />
+                <StreamListContainer streamRes={showStreamRes}/>
               </Grid>
               {/* Top4 영상 뷰 */}
               <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
