@@ -71,4 +71,24 @@
             where v_code = #{v_code};
     </update>
 
+    <!-- 2021-11-29 강동하 영상 업로드 시 영상제목 중복 체크 -->
+    <select id="videoNameCheck" resultType="liveStreaming.dto.VideoRecordDto">
+        select * from ssf_schema.video_upload
+                where v_name = #{v_name};
+    </select>
+
+    <!-- 2021-11-30 강동하 영상 업로드 시 영상파일이름 중복 체크 -->
+    <select id="videoVfileCheck" resultType="int">
+        select count(*) from ssf_schema.video_upload
+                where v_link like concat('%/', #{v_link}, '.%')
+                or v_link like concat('%/', #{v_link}, ' (%');
+    </select>
+
+    <!-- 2021-11-30 강동하 영상 업로드 시 영상썸네일이름 중복 체크 -->
+    <select id="videoIfileCheck" resultType="int">
+        select count(*) from ssf_schema.video_upload
+                where v_img like concat('%/', #{v_img}, '.%')
+                or v_img like concat('%/', #{v_img}, ' (%');
+    </select>
+
 </mapper>

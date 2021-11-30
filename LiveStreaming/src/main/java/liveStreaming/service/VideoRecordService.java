@@ -57,4 +57,19 @@ public class VideoRecordService {
 	public int viewsInc(VideoRecordDto video){
 		return mapper.viewsInc(video);
 	}
+
+	// 2021-11-29 강동하 영상 업로드 시 영상제목 중복체크
+	public List<VideoRecordDto> videoNameCheck(String v_name){
+		return mapper.videoNameCheck(v_name);
+	}
+
+	// 2021-11-30 강동하 영상 업로드 시 영상파일이름 중복체크
+	public int videoVfileCheck(String v_link){
+		return mapper.videoVfileCheck(v_link);
+	}
+
+	// 2021-11-30 강동하 영상 업로드 시 영상썸네일이름 중복체크
+	public int videoIfileCheck(String v_img){
+		return mapper.videoIfileCheck(v_img);
+	}
 }

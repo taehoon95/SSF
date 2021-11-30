@@ -16,7 +16,7 @@ import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import StreamingListPage from './pages/StreamingListPage';
 import SearchResultPage from './pages/SearchResultPage';
-import PwdCheckViewPage from './pages/PwdCheckViewPage';
+import PwdCheckviewPage from './pages/PwdCheckviewPage';
 import ListChangePage from './pages/ListChangePage';
 import PrivateRoute from "././components/common/PrivateRoute"
 
@@ -43,15 +43,11 @@ function App() {
       <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
       {/*2021-11-25 영상관리 수정 페이지*/}
       <PrivateRoute component={ListChangePage} path={["/ListChangePage/:v_code", '/ListChangePage']} />
-
       {/* 20211115 이태훈 스트리밍 방만들기 페이지*/}      
       <PrivateRoute component={LiveSettingPage} path={'/LiveSettingPage'} />
       {/* 20211115 이태훈 스트리밍 보는 페이지*/}
       <Route component={WatchPage} path={"/WatchPage/:l_code" } />
       <Route component={WatchPage2} path={["/WatchPage2/:v_code"]} />
-
-
-
     </>
   );
 }
