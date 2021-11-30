@@ -27,16 +27,12 @@ function App() {
   return (
     <>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />
-      <PrivateRoute component={LiveSettingPage} path={['/LiveSettingPage/@:ID', '/LiveSettingPage']} />
       <Route component={LoginPage} path='/LoginPage' />
       <PrivateRoute component={MyPage} path={["/MyPage/@:u_id", '/MyPage']}  />
       <Route component={RegisterPage} path="/RegisterPage" />
       <PrivateRoute component={UploadPage} path={["/UploadPage/@:u_id", '/UploadPage']}  />
       {/* 2021-11-18 : 내 영상 관리 페이지(MyVideoSettingPage) 추가 */}
       <PrivateRoute component={MyVideoSettingPage} path={["/MyVideoSettingPage/@:u_id", '/MyVideoSettingPage']}  />
-      {/* 20211115 이태훈 비디오 보는 페이지 테스트중*/}
-      <Route component={WatchPage} path={["/WatchPage/:l_code" , "/WatchPage"]} />
-      <Route component={WatchPage2} path={["/WatchPage2/:v_code"]} />
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
       <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
       <PrivateRoute component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
@@ -53,13 +49,9 @@ function App() {
       {/* 20211115 이태훈 스트리밍 보는 페이지*/}
       <Route component={WatchPage} path={"/WatchPage/:l_code" } />
       <Route component={WatchPage2} path={["/WatchPage2/:v_code"]} />
-      {/* 2021-11-22 아이디 찾기 페이지 추가*/}
-      <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
-      <Route component={StreamingListPage} path={"/StreamingListPage"} />
-      {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
-      <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
-      <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
-      <PrivateRoute component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
+
+
+
     </>
   );
 }

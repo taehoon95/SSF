@@ -53,8 +53,6 @@ import { Search } from "../../../node_modules/@material-ui/icons/index";
 //   }
 // `;
 
-
-
 // sideBar CSS
 const useStyles = makeStyles((theme) => ({
   // sideBar css start
@@ -66,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: 270,
-    marginTop: 100,
   },
   iconAlign: {
     marginLeft: 160,
@@ -80,7 +77,6 @@ const useStyles = makeStyles((theme) => ({
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const Header = () => {
-
   const classes = useStyles();
   const history = useHistory();
   // SideBar On/Off 상태 설정
@@ -128,7 +124,7 @@ const Header = () => {
   // if (window.location.pathname === "/PwdCheckPage") return null;
   // if (window.location.pathname === "/PwdCheckViewPage") return null;
   // if (window.location.pathname === "/IdCheckViewrPage") return null;
-  
+
   return (
     <>
       <AppBar
@@ -180,7 +176,6 @@ const Header = () => {
             alignItems="center"
           >
             <input
-           
               onChange={onSearchBar}
               value={inputSearch}
               type="text"
@@ -193,18 +188,22 @@ const Header = () => {
                 borderColor: "black",
                 color: "white",
                 fontSize: 17,
-                
               }}
               placeholder=" 검색"
               size="small"
-              
             />
 
             <Button
               variant="contained"
               alignItems="center"
               onClick={searchContent}
-              style={{ background: "black", borderRadius: 2, marginLeft: 1, height:40, width: 70 }}
+              style={{
+                background: "black",
+                borderRadius: 2,
+                marginLeft: 1,
+                height: 40,
+                width: 70,
+              }}
             >
               <Search />
             </Button>
@@ -216,9 +215,8 @@ const Header = () => {
             alignItems="center"
             direction="row"
             justifyContent="right"
-
           >
-            <Grid item >
+            <Grid item>
               {tokenlled ? (
                 <Typography variant="body1">
                   {/* 로그아웃 버튼 */}
@@ -228,7 +226,9 @@ const Header = () => {
                     onClick={onLogout}
                     style={{ color: "white" }}
                   >
-                    <Typography variant="body1" color="#d30000">로그아웃</Typography>
+                    <Typography variant="body1" color="#d30000">
+                      로그아웃
+                    </Typography>
                   </Button>
                 </Typography>
               ) : (
