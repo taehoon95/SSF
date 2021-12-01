@@ -5,6 +5,7 @@ import React from "react";
 import StreamShowContainer from "../containers/streaming/StreamShowContainer";
 import { ContextProvider } from "../SocketContext";
 import Header from "../components/common/Header";
+
 import Footer from "../components/common/Footer";
 
 const WatchPage = () => {

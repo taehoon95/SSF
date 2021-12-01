@@ -13,7 +13,6 @@ const MyPage = () => {
             <Header />
             마이페이지
             <MyContainer />
-            <Footer />
         </div>
     );
 };
