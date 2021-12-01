@@ -16,7 +16,6 @@ const WatchPage = () => {
         <StreamShowContainer />
         <ChatContainer />
       </ContextProvider>
-      <Footer />
     </>
   );
 };

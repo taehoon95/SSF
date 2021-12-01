@@ -8,9 +8,9 @@ import RegisterContainer from '../containers/auth/RegisterContainer';
 
 const RegisterPage = () => {
     return (
-        <div>
+        <>
             <RegisterContainer />
-        </div>
+        </>
     );
 };
 

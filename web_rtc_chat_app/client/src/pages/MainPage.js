@@ -18,6 +18,12 @@ import StreamListContainer from "../containers/streaming/StreamListContainer";
 import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
 
+
+import { config } from "react-spring";
+import Carousel from "react-spring-3d-carousel";
+import uuidv4 from "uuid";
+
+
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
@@ -26,7 +32,7 @@ const MainPage = () => {
 
   const dispatch = useDispatch();
 
-  const  {showStreamRes}  = useSelector((state) => ({
+  const { showStreamRes } = useSelector((state) => ({
     showStreamRes: state.streaming.showStreamRes,
   }));
 
@@ -69,6 +75,99 @@ const MainPage = () => {
       });
   };
 
+  // 실시간 영상 view
+  const [state, setState] = useState({
+    goToSlide: 0,
+    offsetRadius: 2,
+    showNavigation: true,
+    config: config.gentle,
+  });
+
+  let slides = [
+    {
+      key: uuidv4(),
+      content: (
+        <img
+          src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
+          alt="1"
+        />
+      ),
+    },
+    {
+      key: uuidv4(),
+      content: (
+        <img
+          src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
+          alt="2"
+        />
+      ),
+    },
+    {
+      key: uuidv4(),
+      content: (
+        <img
+          src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
+          alt="3"
+        />
+      ),
+    },
+  ].map((slide, index) => {
+    return { ...slide, onClick: () => setState({ goToSlide: index }) };
+  });
+
+  const onChangeInput = (e) => {
+    setState({
+      [e.target.name]: parseInt(e.target.value, 10) || 0,
+    });
+  };
+
+  let xDown = null;
+  let yDown = null;
+
+  const getTouches = (evt) => {
+    return (
+      evt.touches || evt.originalEvent.touches // browser API
+    ); // jQuery
+  };
+
+  const handleTouchStart = (evt) => {
+    const firstTouch = getTouches(evt)[0];
+    xDown = firstTouch.clientX;
+    yDown = firstTouch.clientY;
+  };
+
+  const handleTouchMove = (evt) => {
+    if (!xDown || !yDown) {
+      return;
+    }
+
+    let xUp = evt.touches[0].clientX;
+    let yUp = evt.touches[0].clientY;
+
+    let xDiff = xDown - xUp;
+    let yDiff = yDown - yUp;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+      /*most significant*/
+      if (xDiff > 0) {
+        /* left swipe */
+        setState({ goToSlide: state.goToSlide + 1 });
+      } else {
+        /* right swipe */
+        setState({ goToSlide: state.goToSlide - 1 });
+      }
+    } else {
+      if (yDiff > 0) {
+        /* up swipe */
+      } else {
+        /* down swipe */
+      }
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;
+  };
+
   return (
     <>
       <Header />
@@ -88,12 +187,40 @@ const MainPage = () => {
           <style>{cssstyle}</style>
           <div>
             <br />
+
             <Grid container xs={12}>
               {/* 실시간 방송 영상 뷰 */}
-              <Grid item>
-                <StreamListContainer streamRes={showStreamRes}/>
+              <Grid item xs={12}>
+                {/* <StreamListContainer streamRes={showStreamRes} /> */}
+
+
+
+
+                {/* 메인페이지 3D 슬라이더 테스트 */}
+                <div
+                  style={{ width: "80%", height: "500px", margin: "0 auto" }}
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                >
+                  <Carousel
+                    slides={slides}
+                    goToSlide={state.goToSlide}
+                    offsetRadius={state.offsetRadius}
+                    showNavigation={state.showNavigation}
+                    animationConfig={state.config}
+                  />
+                </div>
+
+
+
+
+
               </Grid>
-              {/* Top4 영상 뷰 */}
+            </Grid>
+
+            {/* Top4 영상 뷰 */}
+            <Grid container>
+              {/* Top4 영상 */}
               <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
                 <Typography variant="h5" style={{ color: "white" }}>
                   Top 4 영상
@@ -129,6 +256,8 @@ const MainPage = () => {
             </Grid>
             <br />
             <br />
+
+            {/* 전체 랜덤 영상 */}
             <Grid container xs={12}>
               <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
                 <Typography variant="h5" style={{ color: "white" }}>
@@ -166,7 +295,6 @@ const MainPage = () => {
           </div>
         </div>
       </ContextProvider>
-      <Footer />
     </>
   );
 };

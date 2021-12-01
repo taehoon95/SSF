@@ -15,7 +15,6 @@ const LiveSettingPage = () => {
       <ContextProvider>
         <CreateaStreamContainer />
       </ContextProvider>
-      <Footer />
     </div>
   );
 };

@@ -204,6 +204,7 @@ const Header = () => {
               value={inputSearch}
               type="text"
               alignItems="center"
+              position="relative"
               style={{
                 width: 500,
                 height: 36,

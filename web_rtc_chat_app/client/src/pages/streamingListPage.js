@@ -6,13 +6,13 @@ import { ContextProvider } from '../SocketContext';
 
 const StreamingListPage = () => {
     return (
-        <div>
+        <>
             <Header />
             <ContextProvider>
             <StreamListContainer/>
             </ContextProvider>
-            <Footer />
-        </div>
+
+        </>
     );
 };
 
