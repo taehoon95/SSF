@@ -1,0 +1,61 @@
+
+.chat {
+  width: 300px;
+  height: 100vh;
+  overflow: hidden;
+}
+/*채팅 창 전체*/
+.messages {
+  box-sizing: border-box;
+  height: 80vh;
+  overflow-y: auto;
+  padding: 15px 10px;
+  border-left: 1px solid #464649;
+}
+
+/* 스크롤바 CSS */
+.messages::-webkit-scrollbar{
+  width: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+  background-color: grey;
+  opacity: 0.3;
+  border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-track{
+  border-radius: 10px;
+  border-left: 1px solid #464649;
+  border-right: 1px solid #464649;
+}
+
+.footer {
+  display: flex;
+  border-radius: 5px;
+}
+
+/* 채팅 시 하얀색 */
+.msg{
+  color:#fff;
+}
+
+/* 채팅 치는 곳*/
+.messageBox{
+  border: none;
+  border-radius: 4px;
+  padding: 14px;
+  color: #b3b3b4;
+  width: 80%;
+  background-color: #464649;
+}
+/* 채팅 버튼*/
+.submitBtn{
+  border:none;
+  width: 20%;
+  background-color: black;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+} 
+

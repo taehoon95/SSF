@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { SocketContext } from "../../SocketContext";
+import "../../lib/styles/Chat.css";
 
 // 2021 1125 이태훈 streaming 채팅 page
 const ChatContainer = () => {
@@ -18,11 +19,25 @@ const ChatContainer = () => {
     setMessage(value);
   };
 
-  
+  const messageEl = useRef("");
+
+  useEffect(() => {
+    if (messageEl) {
+      messageEl.current.addEventListener("DOMNodeInserted", (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      });
+    }
+  }, []);
+
   const handleMessage = () => {
     // 일단 테스트용으로 socket id로 채팅 해본다.(spring security 잘되있어서 다른아이디로 여러 로그인 불가)
     const username = socketRef.id;
     socketRef.emit("clientSendMessage", message, username, l_code);
+    // message값 없으면 리턴
+    if(!message){
+      return;
+    }
     setMsgs([
       ...msgs,
       {
@@ -31,33 +46,33 @@ const ChatContainer = () => {
       },
     ]);
     setMessage("");
-  }; 
+  };
+
+  const onkeyPress = (e) => {
+    if(e.key == 'Enter'){
+      handleMessage();
+    }
+  }
 
   return (
-    <div>
-      <h1>채팅 공간</h1>
-      <div>
-        {msgs.map(({ message, username }, index) => {
-          return (
-            <div key={index}>
+    <>
+      <div className="chat">
+        <div className="messages" ref={messageEl}>
+          {msgs.map(({ message, username }, index) => {
+            return (
               <div key={index}>
-                <span>{username} :</span>
-                <span> {message}</span>
+                <span className="msg">{username} :</span>
+                <span className="msg"> {message}</span>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <div className="footer">
+          <input className="messageBox" onKeyPress={onkeyPress} type="text" onChange={onChangeMessage} value={message} placeholder="메세지 보내기"/>
+          <input className="submitBtn" type="submit" onClick={handleMessage} value="채팅"/>
+        </div>
       </div>
-      <h1>채팅 치는곳</h1>
-      <div>
-        <input type="text" onChange={onChangeMessage} value={message} />
-        <input
-          type="button"
-          onClick={handleMessage}
-          value="전송"
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
