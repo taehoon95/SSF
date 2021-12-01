@@ -71,10 +71,11 @@ const LoginContainer = ({ history }) => {
   useEffect(() => {
     if (auth) {
       console.log(auth);
-      history.push("/");
+       //history.push("/");
       try {
         localStorage.setItem("auth", JSON.stringify(auth));
         localStorage.setItem("u_id", auth.u_id);
+        history.goBack();                         
       } catch (e) {
         console.log("localStorage is not working");
       }
