@@ -6,8 +6,9 @@
 
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
+import Pagination from "../../pages/Pagination";
 import {
-  Button,
+  Box,
   CircularProgress,
   Grid,
   Paper,
@@ -16,28 +17,34 @@ import {
   TableCell,
   TableContainer,
   TableFooter,
-  TableHead,
-  TablePagination,
   TableRow,
   Typography,
 } from "../../../node_modules/@material-ui/core/index";
 import { HelpOutline } from "../../../node_modules/@material-ui/icons/index";
 import axios from "../../../node_modules/axios/index";
+
 const SearchResultContainer = () => {
-  const [selectList, setSelectList] = useState("");
+  const [selectList, setSelectList] = useState([]);
   const { v_name } = useParams();
   const [load, setLoad] = useState(0);
+
+  // 2021-12-01 윤성준 pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(3); // 한 페이지당 보여줄 게시물 수
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  function currentPosts(tmp) {
+    let currentPosts = 0;
+    currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  }
+
   useEffect(() => {
     setLoad(0);
     myVideoList();
     console.log(v_name);
   }, [v_name]);
-
-  //console.log("----------------");
-  //console.log(selectList);
-  //console.log("----------------");
-  //console.log(setSelectList);
-  //console.log("----------------");
 
   // 검색 결과 가져오기
   const myVideoList = () => {
@@ -55,55 +62,89 @@ const SearchResultContainer = () => {
   };
 
   return (
-    <TableContainer style={{ marginTop: 65 }} component={Paper}>
-      <Table size="small">
-        <>
+    <Grid
+      container
+      style={{ marginTop: 80, background: "#303030", postion: "relative" }}
+      component={Paper}
+    >
+      <>
         {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
         {/* 2021-11-29 강동하 로딩 추가 */}
-        {load === 0 ? 
-        <Grid item xs={12}>
-          <Typography variant="h3" style={{textAlign: 'center'}}>검색중 입니다. <CircularProgress /> </Typography>
-        </Grid>
-        :
-          (selectList.length !== 0) ? (
-            selectList.map((data, idx) => (
-              <Link to={`/WatchPage2/${data.v_code}`}>
-                <TableBody>
-                  <TableCell>{data.v_code}</TableCell>
-                  <TableCell>
-                    <video src={data.v_link} width="220" height="150" />
-                  </TableCell>
-                  <TableCell>{data.v_name}</TableCell>
-                  <TableCell>{data.v_date}</TableCell>
-                  <TableCell>{data.v_views}</TableCell>
-                </TableBody>
-              </Link>
-            ))
-          ) : (
-            <>
+        {load === 0 ? (
+          // 검색 로딩중일 때
+          <Grid container>
+            <Grid item>
+              <Typography variant="h3" style={{ textAlign: "center" }}>
+                검색중 입니다. <CircularProgress />{" "}
+              </Typography>
+            </Grid>
+          </Grid>
+        ) : selectList.length !== 0 ? (
+          // 검색 결과 창
+          currentPosts(selectList).map((data, idx) => (
+            <Grid
+              container
+              component={Link}
+              to={`/WatchPage2/${data.v_code}`}
+              style={{
+                textDecoration: "none",
+                marginBottom: 10,
+                marginLeft: 30,
+              }}
+            >
+              <Grid item xs={4}>
+                <Box>
+                  <video src={data.v_link} width="100%" />
+                </Box>
+              </Grid>
+
+              <Grid item xs={4} style={{ marginLeft: 10 }}>
+                <Box style={{ width: "800px" }}>
+                  <Typography variant="h5" style={{ color: "white" }}>
+                    {data.v_name}
+                  </Typography>
+                  <br />
+
+                  <Typography variant="body1" style={{ color: "gray" }}>
+                    {data.v_date}
+                  </Typography>
+
+                  <Typography variant="body1" style={{ color: "gray" }}>
+                    조회수 {data.v_views} 회
+                  </Typography>
+                  <br />
+
+                  <Typography variant="body1" style={{ color: "gray" }}>
+                    {data.v_descript}
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          ))
+        ) : (
+          <>
+            {/* 검색 결과가 없을 경우 */}
+            <Grid container>
               <Grid item xs={12}>
                 <HelpOutline style={{ width: 300, height: 300 }} />
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h3">검색 결과가 없습니다.</Typography>
               </Grid>
-            </>
-          )
-        }
-        </>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-            // count={users.length}
-            // page={page}
-            // rowsPerPage={rowsPerPage}
-            // onChangePage={handleChangePage}
-            // onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </TableRow>
-        </TableFooter>
-      </Table>
-    </TableContainer>
+            </Grid>
+          </>
+        )}
+      </>
+      {/* 페이징 */}
+      <div style={{ width:'100%',display:'flex',justifyContent:'center' }}>
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={selectList.length}
+          paginate={setCurrentPage}
+          myList={currentPosts(selectList)}
+        ></Pagination>
+      </div>
+    </Grid>
   );
 };
 

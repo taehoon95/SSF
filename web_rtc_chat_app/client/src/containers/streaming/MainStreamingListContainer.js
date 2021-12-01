@@ -17,9 +17,9 @@ const MainStreamingListContainer = ({l_code}) => {
     }, []);
 
     return (
-        <div>
-            <video ref={videoRef} style={{ width: "30%" }} controls />
-        </div>
+        <>
+            <video ref={videoRef} style={{ width: "100%" }} controls />
+        </>
     );
 };
 

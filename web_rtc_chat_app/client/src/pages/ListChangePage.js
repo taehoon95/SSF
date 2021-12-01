@@ -8,7 +8,6 @@ const ListChangePage = () => {
     <>
       <Header />
         <ListChagneContainer/>
-      <Footer />
     </>
   );
 };

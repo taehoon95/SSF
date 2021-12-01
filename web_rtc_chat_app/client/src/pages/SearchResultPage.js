@@ -5,11 +5,10 @@ import SearchResultContainer from '../containers/auth/SearchResultContainer';
 
 const searchResultPage = () => {
     return (
-        <div>
+        <>
             <Header />
             <SearchResultContainer />
-            <Footer />
-        </div>
+        </>
     );
 };
 

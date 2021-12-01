@@ -16,7 +16,7 @@ import IdCheckViewrPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import StreamingListPage from './pages/StreamingListPage';
 import SearchResultPage from './pages/SearchResultPage';
-import PwdCheckViewPage from './pages/PwdCheckviewPage';
+import PwdCheckViewPage from './pages/PwdCheckViewPage';
 import ListChangePage from './pages/ListChangePage';
 import PrivateRoute from "././components/common/PrivateRoute"
 

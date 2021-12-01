@@ -4,11 +4,12 @@
 // 윤성준
 // 내 영상 관리 페이지 추가
 import { useEffect, useState } from "react";
-import Pagination from "react-js-pagination";
 
 import { Link } from "react-router-dom";
 import {
+  Box,
   Button,
+  Grid,
   Paper,
   Table,
   TableBody,
@@ -21,41 +22,28 @@ import {
   Typography,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
-import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
+import Pagination from "./Pagination";
 
 const MyVideoSettingPage = ({ history }) => {
   const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
 
-  // pagination 시작
-  // const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const [postsPerPage, setPostsPerPage] = useState(10); // 한 페이지당 보여줄 게시물 수
+  // 2021-12-01 윤성준 pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5); // 한 페이지당 보여줄 게시물 수
 
-  // const indexOfLast = currentPage * postsPerPage;
-  // const indexOfFirst = indexOfLast - postsPerPage;
-  // function currentPosts(tmp) {
-  //   let currentPosts = 0;
-  //   currentPosts = tmp.slice(indexOfFirst, indexOfLast);
-  //   return currentPosts;
-  // }
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  function currentPosts(tmp) {
+    let currentPosts = 0;
+    currentPosts = tmp.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
+  }
 
-  const [page, setPage] = useState(1);
-  const handlePageChange = (page) => {
-    setPage(page);
-    console.log(page);
+  const plusPage = () => {
+    setCurrentPage(currentPage + 1);
   };
-
-
-
-
-
-
-
-
-  // pagination 끝
 
   useEffect(() => {
     myVideoList();
@@ -76,6 +64,7 @@ const MyVideoSettingPage = ({ history }) => {
       });
   };
 
+  // VideoList 삭제
   const deleteListLine = (u_id, v_code) => {
     console.log(v_code);
     axios
@@ -155,7 +144,7 @@ const MyVideoSettingPage = ({ history }) => {
             </TableRow>
           </TableHead>
 
-          {myList.map((data, idx) => (
+          {currentPosts(myList).map((data, idx) => (
             <TableBody>
               <TableCell align="center" style={{ color: "white" }}>
                 <Typography variant="h6" style={{ color: "white" }}>
@@ -167,17 +156,17 @@ const MyVideoSettingPage = ({ history }) => {
                   to={`/WatchPage2/${data.v_code}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <img src={data.v_img} width="350" height="230" />
+                  <img src={data.v_img} width="70%" />
                 </Link>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h6" style={{ color: "white" }}>
-                  <Link
-                    to={`/WatchPage2/${data.v_code}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    {data.v_name}
-                  </Link>
+                <Typography
+                  component={Link}
+                  to={`/WatchPage2/${data.v_code}`}
+                  variant="h6"
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  {data.v_name}
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
@@ -214,30 +203,19 @@ const MyVideoSettingPage = ({ history }) => {
               </TableCell>
             </TableBody>
           ))}
-
-          <TableFooter>
-            <TableRow>
-              <Pagination
-                activePage={page}
-                itemsCountPerPage={10}
-                // totalItemsCount={count}
-                pageRangeDisplayed={5}
-                prevPageText={"‹"}
-                nextPageText={"›"}
-                onChange={handlePageChange}
-                // activePage: 현재 페이지
-                // itemsCountPerPage: 한 페이지당 보여줄 리스트 아이템의 개수
-                // totalItemsCount: 총 아이템의 개수
-                // pageRangeDisplayed: Paginator 내에서 보여줄 페이지의 범위
-                // prevPageText: "이전"을 나타낼 텍스트 (prev, <, ...)
-                // nextPageText: "다음"을 나타낼 텍스트 (next, >, ...)
-                // onChange: 페이지가 바뀔 때 핸들링해줄 함수
-              />
-            </TableRow>
-          </TableFooter>
+       
         </Table>
       </TableContainer>
-      <Footer />
+         {/* {페이징} */}
+         <div style={{width:'100%',display:'flex',justifyContent:'center'}}>
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPosts={myList.length}
+                paginate={setCurrentPage}
+                myList={currentPosts(myList)}
+                plusPage={plusPage}
+              />
+            </div>
     </>
   );
 };
