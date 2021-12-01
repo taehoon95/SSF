@@ -48,6 +48,7 @@ const init = {
   condition:"",
   streamInfo: null,
   streamRes: [],
+  showStreamRes: [],
   streamError: null,
 };
 
@@ -84,10 +85,10 @@ const streaming = handleActions(
       ...state,
       streamInfo
     }),
-    [SHOWSTREAMING_SUCCESS]: (state, { payload: streamRes }) => ({
+    [SHOWSTREAMING_SUCCESS]: (state, { payload: showStreamRes }) => ({
       ...state,
       streamError: null,
-      streamRes,
+      showStreamRes,
     }),
 
     [SHOWSTREAMING_FAILURE]: (state, { payload: error }) => ({

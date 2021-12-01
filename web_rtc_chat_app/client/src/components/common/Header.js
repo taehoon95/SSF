@@ -37,6 +37,25 @@ import Responsive from "./Responsive";
 import { useSelector } from "react-redux";
 import { Search } from "../../../node_modules/@material-ui/icons/index";
 
+
+const Wrapper = styled(Responsive)`
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .logo {
+    font-size: 1.125rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+  }
+`;
+  
+// SideBar CSS
+
 // const Wrapper = styled(Responsive)`
 //   height: 4rem;
 //   display: flex;
@@ -54,6 +73,7 @@ import { Search } from "../../../node_modules/@material-ui/icons/index";
 // `;
 
 // sideBar CSS
+
 const useStyles = makeStyles((theme) => ({
   // sideBar css start
   menuButton: {
@@ -64,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: 270,
+    marginTop: 0,
   },
   iconAlign: {
     marginLeft: 160,
@@ -92,7 +113,7 @@ const Header = () => {
 
   // 검색 값 전송 버튼
   const searchContent = (e) => {
-    alert(inputSearch);
+    //alert(inputSearch);
     history.push(`/SearchResultPage/${inputSearch}`);
     // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
     setInputSearch("");
@@ -117,6 +138,7 @@ const Header = () => {
     history.push("/");
   };
 
+
   // 로그인, 회원가입 페이지는 header, footer 제외
   // if(window.location.pathname === '/LoginPage') return null;
   // if(window.location.pathname === '/RegisterPage') return null;
@@ -124,6 +146,7 @@ const Header = () => {
   // if (window.location.pathname === "/PwdCheckPage") return null;
   // if (window.location.pathname === "/PwdCheckViewPage") return null;
   // if (window.location.pathname === "/IdCheckViewrPage") return null;
+
 
   return (
     <>
@@ -139,6 +162,7 @@ const Header = () => {
           {/* 사이드바  */}
           {true && (
             <IconButton
+              style={{ marginRight:10 }}
               edge="start"
               className={classes.menuButton}
               color="inherit"
@@ -151,7 +175,7 @@ const Header = () => {
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
           <Grid container>
-            <Grid item>
+            <Grid item style={{ marginLeft: -10 }}>
               <Button
                 onClick={home}
                 variant="inherit"
@@ -290,7 +314,7 @@ const Header = () => {
               </IconButton>
               {/* SSF 로고 */}
               <Grid container>
-                <Grid item>
+                <Grid item style={{ marginLeft: 0 }}>
                   <Button
                     onClick={home}
                     variant="inherit"
