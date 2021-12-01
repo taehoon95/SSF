@@ -65,6 +65,7 @@ io.on("connection", (socket) => {
 
   // clientCreateRoom 방 만들기(스트리머)
   socket.on("clientCreateRoom", (roomInfo) => {
+    
     const l_code = roomInfo.l_code;
     const l_title = roomInfo.l_title;
     const l_description = roomInfo.l_description;
@@ -84,6 +85,7 @@ io.on("connection", (socket) => {
 
   // 방 입장하기
   socket.on("clientJoinRoom", (l_code, u_id) => {
+    console.log(111111);
     socket.join(l_code);
     socket.emit("serverJoinRoom", rooms[l_code]);
   });

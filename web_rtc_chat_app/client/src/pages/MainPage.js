@@ -14,7 +14,6 @@ import {
 import axios from "../../node_modules/axios/index";
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
-import StreamListContainer from "../containers/streaming/StreamListContainer";
 import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
 
@@ -90,9 +89,9 @@ const MainPage = () => {
             <br />
             <Grid container xs={12}>
               {/* 실시간 방송 영상 뷰 */}
-              <Grid item>
+              {/* <Grid item>
                 <StreamListContainer streamRes={showStreamRes}/>
-              </Grid>
+              </Grid> */}
               {/* Top4 영상 뷰 */}
               <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
                 <Typography variant="h5" style={{ color: "white" }}>
