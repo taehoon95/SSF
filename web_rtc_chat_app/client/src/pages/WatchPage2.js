@@ -10,7 +10,7 @@
 // 2021-11-23 강동하 댓글 select, insert 구현
 
 // 2021-11-24 강동하 댓글 delete, update 구현
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import {
   Button,
   Grid,
@@ -19,6 +19,7 @@ import {
   Box,
   Typography,
   Divider,
+  makeStyles,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +32,9 @@ import {
 import { useHistory } from "react-router";
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
+import { styled } from '@mui/material/styles';
+import { CssTextField } from "../lib/styles/CssTextField";
+import { useMediaQuery } from 'react-responsive'
 // 수정모달
 const styleModal = {
   position: "absolute",
@@ -70,6 +74,16 @@ const styleModal3 = {
   boxShadow: 24,
   p: 4,
 };
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 992 })
+  //console.log(isDesktop);
+  return isDesktop ? children : null
+}
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+  //console.log(isMobile);
+  return isMobile ? children : null
+}
 
 const WatchPage2 = (props) => {
   const dispatch = useDispatch();
@@ -162,6 +176,10 @@ const WatchPage2 = (props) => {
     const { id, value } = e.target;
     setChangeUpdate(value);
     dispatch(change({ id, value }));
+    // console.log(e.currentTarget.id);
+    // console.log(e.currentTarget.value);
+    //console.log(e.currentTarget.style);
+    
   };
 
   // 2021-11-23 강동하 댓글 insert
@@ -183,7 +201,11 @@ const WatchPage2 = (props) => {
       //.get(`https://18.219.234.0:8080/api/commentselect/${props.match.params.v_code}`)
       .then((response) => {
         setCommentInfo(response.data);
-        console.log(response.data);
+        // let day = (new Date(response.data[0].m_date)).toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+        // console.log((new Date(response.data[0].m_date)).toLocaleString("ko-KR", {timeZone: "Asia/Seoul"}));
+        
+        //let a = day.toLocaleString("ko-KR", {timeZone: "Asia/Seoul"});
+        //console.log(a);
         setCommentSelectResult(1);
       })
       .catch((error) => {
@@ -209,9 +231,10 @@ const WatchPage2 = (props) => {
   const login_Auth = () => {
     history.push("/LoginPage");
   };
-
+  
   return (
     <>
+    {/* 2021-11-30 강동하 css */}
     <Header />
       {/* 댓글 수정 Modal */}
       <Modal
@@ -249,7 +272,7 @@ const WatchPage2 = (props) => {
             onChange={onChange}
             margin="normal"
             required
-            fullWidth
+            fullwidth="true"
             type="text"
             id="comment"
             value={`${changeUpdate}`}
@@ -257,6 +280,7 @@ const WatchPage2 = (props) => {
           <Button
             id={`${UpdateId}`}
             onClick={commentUpdate}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -265,6 +289,7 @@ const WatchPage2 = (props) => {
           <Button
             id={`${UpdateId}`}
             onClick={handleClose}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -293,6 +318,7 @@ const WatchPage2 = (props) => {
           <Button
             id={`${UpdateId}`}
             onClick={commentDelete}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -301,6 +327,7 @@ const WatchPage2 = (props) => {
           <Button
             id={`${UpdateId}`}
             onClick={handleClose2}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -331,6 +358,7 @@ const WatchPage2 = (props) => {
           <Button
             id={`${UpdateId}`}
             onClick={login_Auth}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -339,6 +367,7 @@ const WatchPage2 = (props) => {
           <Button
             id={`${UpdateId}`}
             onClick={handleClose3}
+            color={'primary'}
             type="submit"
             variant="contained"
           >
@@ -348,21 +377,30 @@ const WatchPage2 = (props) => {
       </Modal>
 
       {video !== 0 && (
-        <Grid container style={{ marginTop: 100 , marginLeft:50, width: 800 }}> 
-
+        <Grid container style={{}}> 
         {/* 비디오 영상  */}
-          <Grid item style={{ marginBottom: 20 }}>
-            <video controls autoPlay loop muted style={{ height: 800 }}>
-              <source src={video[0].v_link} type="video/mp4" />
+          <Grid item style={{ marginTop: '4%', marginLeft: '5%', marginBottom: '2%' }}>
+            <Desktop>
+            <video className='video' controls autoPlay loop muted style={{ width:'88vw', height:'80vh'}}>
+              <source src={video[0].v_link} type="video/mp4"/>
             </video>
+            </Desktop>
+            <Mobile>
+            <video className='video' controls autoPlay loop muted style={{ width:'88vw', height:'35vh'}}>
+              <source src={video[0].v_link} type="video/mp4"/>
+            </video>
+            </Mobile>
           </Grid>
 
           {/* 상세정보 */}
-          <Grid item xs={12} style={{ }}>
+          <Grid item style={{ marginLeft: '10%', width:'100vw', height: '100vh' }}>
             {/* 영상 제목 */}
             <Typography variant="h4" style={{ color: "white", marginBottom: 10 }}>
               {video[0].v_name}
             </Typography>
+
+            {/* 올린 사람 */}
+            <Typography variant="h5" style={{ color: "white" }}>{video[0].u_id}</Typography>
 
             {/* 영상 내용 */}
             <Typography style={{ color: "white" }}>{video[0].v_descript}</Typography>
@@ -377,35 +415,34 @@ const WatchPage2 = (props) => {
               영상 업로드 일자 : {video[0].v_date}
             </Typography>
 
-            <Divider variant="middle" style={{ background:'gray', marginBottom:20, marginTop: 20 }} />
+            <Divider variant="middle" style={{ width:'86%', background:'gray', marginBottom:20, marginTop: 20 }} />
 
             {comment_INSERT !== true &&
               (auth_Id === null ? (
                 <>
-                  <Grid item >
-                    <TextField
+                  <Grid>
+                    <CssTextField
                       style={{
-                        background: "#FFFFFF",
+                        width: "80%",
+                        height: "100%",
                         borderRadius: 3,
-                        padding: 8,
+                        fontSize: 22,
+                        padding:'2.5%',
                       }}
                       placeholder="로그인 후 이용해주세요."
-                      margin="normal"
-                      required
-                      fullWidth
-                      autoFocus
+                      fullwidth="true"
+                      autoComplete='off'
+                      autoFocus={false}
                       onClick={handleOpen3}
                       onChange={onChange}
                       value={""}
                     />
-                  </Grid>
-                  <Grid item xs={1} style={{ marginTop: 10 }}>
                     <Button
-                      disabled="true"
+                      disabled={true}
                       onClick={commentInsert}
                       type="submit"
-                      fullWidth
                       variant="contained"
+                      style={{fontSize: 18, marginTop: '2%', color: '#4F4F5B'}}
                     >
                       댓글
                     </Button>
@@ -413,55 +450,70 @@ const WatchPage2 = (props) => {
                 </>
               ) : (
                 <>
-                  <Grid item>
-                    <TextField
-                      style={{
-                        background: "#FFFFFF",
-                        borderRadius: 3,
-                        padding: 8,
-                      }}
-                      placeholder="댓글을 작성해주세요."
-                      margin="normal"
-                      required
-                      fullWidth
-                      autoFocus
-                      id="comment"
-                      onChange={onChange}
-                    />
-                  </Grid>
-                  <Grid item xs={1} style={{ marginTop: 10 }}>
+                  <Grid item style={{ marginBottom:20, marginRight: '5%' }} >
+                  <Desktop>
+                  <CssTextField
+                    placeholder="댓글을 입력해주세요."
+                    style={{
+                      width: "80%",
+                      height: "100%",
+                      borderRadius: 3,
+                      fontSize: 22,
+                      padding:'2.5%',
+                    }}
+                    required
+                    fullWidth
+                    autoFocus={false}
+                    id="comment"
+                    autoComplete='false'
+                    onChange={onChange}
+                  />
+                  </Desktop>
+                  <Mobile>
+                  <CssTextField
+                    placeholder="댓글을 입력해주세요."
+                    style={{
+                      width: "70%",
+                      height: "100%",
+                      borderRadius: 3,
+                      fontSize: 22,
+                      padding:'2.5%',
+                    }}
+                    required
+                    fullWidth
+                    autoFocus={false}
+                    id="comment"
+                    autoComplete='false'
+                    onChange={onChange}
+                  />
+                  </Mobile>
                     <Button
                       onClick={commentInsert}
                       type="submit"
-                      fullWidth
                       variant="contained"
+                      color={'primary'}
+                      style={{fontSize: 18, marginTop: '2%'}}
                     >
                       댓글
                     </Button>
                   </Grid>
                 </>
               ))}
-             <Divider variant="middle" style={{ background:'gray', marginBottom:20, marginTop: 20 }} />
+             <Divider variant="middle" style={{ width:'86%', background:'gray', marginBottom:20}} />
 
             {commentSelectResult === 1 &&
               commentInfo.map((data, index) => (
-                <Grid key={index} item style={{ marginBottom: 20 }}>
-                  <Typography style={{ color: "white" }}>{data.u_id} : </Typography>
-                  <Typography style={{ color: "white" }}>{data.m_text}</Typography>
-                  <Typography style={{ color: "white" }}>
-                    {" "}
-                    작성일 : {data.m_date}
-                  </Typography>
-
-                  {/* <Button id={`${data.m_num}`} */}
+                <Grid key={index} item style={{ marginBottom: 20}}>
+                  <Typography variant="h6" style={{ color: "white" }}>{data.u_id}
                   {auth_Id === data.u_id &&
                   <>
                   <Button
                     id={`${data.m_num}`}
                     onClick={handleOpen}
                     type="submit"
-                    variant="contained"
+                    //variant="contained"
                     value={data.m_text}
+                    style={{color:"white", fontSize:17, marginLeft:20}}
                   >
                     수정
                   </Button>
@@ -469,12 +521,22 @@ const WatchPage2 = (props) => {
                     id={`${data.m_num}`}
                     onClick={handleOpen2}
                     type="submit"
-                    variant="contained"
+                    //variant="contained"
+                    style={{color:"white", fontSize:17, marginLeft:5}}
                   >
                     삭제
                   </Button>
                   </>
                 }
+                </Typography>
+                  <Typography style={{ color: "white", width: "75%"}}>{data.m_text}</Typography>
+                  <Typography style={{ color: "white" }}>
+                    {" "}
+                    작성일 : {(new Date(data.m_date)).toLocaleString("ko-KR", {timeZone: "Asia/Seoul"})}
+                  </Typography>
+
+                  {/* <Button id={`${data.m_num}`} */}
+                  
                 </Grid>
               ))}
           </Grid>

@@ -32,6 +32,7 @@ public class CommentController {
 	public ResponseEntity<Object> commentSelect(@PathVariable String v_code){
 		System.out.println("===================");
 		System.out.println(v_code);
+		System.out.println(ResponseEntity.ok(service.commentSelect(v_code)));
 		return ResponseEntity.ok(service.commentSelect(v_code));
 	}
 
