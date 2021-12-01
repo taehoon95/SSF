@@ -1,5 +1,5 @@
 import React from 'react';
-import PwdCheckViewContainer from '../containers/auth/PwdCheckviewContainer'
+import PwdCheckViewContainer from '../containers/auth/PwdCheckViewContainer'
 const PwdCheckViewPage = () => {
   return (
     <div>

@@ -34,12 +34,12 @@ const StreamListContainer = ({streamRes}) => {
       return (
         <div key={i}>
            <MainStreamingListContainer l_code={value.l_code}/>
-          <div>
+
             <div onClick={handleJoinRoom} className={value.l_code}>
               {value.l_title}
               <div className={value.l_code}>{value.l_description}</div>
             </div>
-          </div>
+            
         </div>
       );
     });

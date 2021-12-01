@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Avatar,
-  Button,
   CssBaseline,
   Grid,
   TextField,
@@ -18,6 +17,8 @@ import { change, pwdcheck, numberAuth } from "../../modules/auth";
 import { withRouter } from "react-router";
 import axios from "axios";
 import { Box, Container } from "../../../node_modules/@material-ui/core/index";
+import Button from "@mui/material/Button";
+
 
 const PwdCheckContainer = ({ history }) => {
   const [test, setTest] = useState(false);
@@ -295,7 +296,7 @@ const PwdCheckContainer = ({ history }) => {
 
 
               </Grid>
-              <Grid item xs={9} style={{ marginTop: 5, width: "100%" }}>
+              <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
                 <Typography variant="h6" style={{ color: "black" }}>
                   이메일 인증 코드
                 </Typography>

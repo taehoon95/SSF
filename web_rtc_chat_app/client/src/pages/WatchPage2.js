@@ -480,7 +480,6 @@ const WatchPage2 = (props) => {
           </Grid>
         </Grid>
       )}
-      <Footer />
     </>
   );
 };

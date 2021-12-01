@@ -237,7 +237,7 @@ const UploadPage = () => {
             container
             justify="left"
             align="left"
-            style={{ marginTop: 100 }}
+            style={{ marginTop: 130 }}
           >
             {/* 제목 입력 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
@@ -337,7 +337,6 @@ const UploadPage = () => {
           </Grid>
         </Container>
       </div>
-      <Footer />
     </>
   );
 };
