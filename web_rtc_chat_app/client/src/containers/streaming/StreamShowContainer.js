@@ -7,8 +7,15 @@ import {
   showStreamingByLnum,
   updateStreaming,
 } from "../../modules/streaming";
+
 import "../../lib/styles/Modal.css";
+
+import { Avatar, Grid, TextField, Typography } from "@material-ui/core";
 import ChatContainer from "./ChatContainer";
+import Footer from "../../components/common/Footer";
+import { CenterFocusStrong } from "../../../node_modules/@mui/icons-material/index";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
 // 2021 1125 이태훈 streaming show page 방송 정보,편집,종료
 const StreamShow = () => {
@@ -80,29 +87,41 @@ const StreamShow = () => {
     const { name, value } = e.target;
     name === "l_title" && setL_title(value);
     name === "l_description" && setL_description(value);
-    if(name === "l_title" && value !== ""){
+    if (name === "l_title" && value !== "") {
       setIsValid(false);
-    }else{
+    } else {
       setIsValid(true);
     }
   };
   // 완료 클릭시
   const handleEdit = () => {
-    if(l_title === ""){
+    if (l_title === "") {
       setIsValid(true);
-    }else{
-      dispatch(updateStreaming(u_id, streamInfo.l_code, l_title, l_description));
+    } else {
+      dispatch(
+        updateStreaming(u_id, streamInfo.l_code, l_title, l_description)
+      );
       setShow(false);
     }
   };
 
   return (
-    <div>
-      <video ref={videoRef} style={{ width: "70%" }} controls />
-      <div>
+    <>
+      <Grid container style={{ marginTop: 100 }}>
+        {/* 실시간 영상 */}
+        <Grid item xs={10}>
+          <video
+            ref={videoRef}
+            style={{ width: 1570, height: 600, marginLeft: 30 }}
+            controls
+          />
+        </Grid>
+        <Grid item xs={2}>
+          <ChatContainer />
+        </Grid>
         <div hidden={!show}>
-          <div className="modal-background" onClick={handleModalClose}>
-            <div className="modal-card">
+          <Grid item className="modal-background" onClick={handleModalClose}>
+            <Grid item className="modal-card">
               <p className="modal-item">
                 방송제목:
                 <input
@@ -113,7 +132,7 @@ const StreamShow = () => {
                   onChange={handleEditItem}
                 ></input>
               </p>
-              {isValid && <p className="modal-item" >방송제목을 입력해주세요</p>}
+              {isValid && <p className="modal-item">방송제목을 입력해주세요</p>}
               <p className="modal-item">
                 방송설명:
                 <input
@@ -125,29 +144,39 @@ const StreamShow = () => {
                 ></input>
               </p>
               <input type="button" value="취소" />
-              <input className="modal-item" type="button" value="완료" onClick={handleEdit} />
-            </div>
-          </div>
+              <input
+                className="modal-item"
+                type="button"
+                value="완료"
+                onClick={handleEdit}
+              />
+            </Grid>
+          </Grid>
         </div>
-        {u_id && u_id === streamInfo.u_id && (
-          <>
-            <input
-              className="button"
-              type="button"
-              value="방송종료"
-              onClick={offStreamingbtn}
-            />
-            <button className="button" onClick={handleModalOpen}>
-              방송정보편집
-            </button>
-          </>
-        )}
-        <h1>{streamInfo.u_id}</h1>
-        <h1>{streamInfo.l_title}</h1>
-        <h3>{streamInfo.l_description}</h3>
-        <ChatContainer />
-      </div>
-    </div>
+        <Box sx={{ marginLeft:"30px", color:"white" }}>
+          <Box>
+            <h1>{streamInfo.u_id}님의 방송</h1>
+          </Box>
+          <Box>
+            <h2> {streamInfo.l_title}</h2>
+          </Box>
+          <h3>  {streamInfo.l_description}</h3>
+          <Box xs={{marginTop:"20px"}}>
+            {u_id && u_id === streamInfo.u_id && (
+              <>
+                <Button variant="contained" className="button" onClick={offStreamingbtn} >
+                  방송종료
+                </Button>
+
+                <Button variant="contained" className="button" onClick={handleModalOpen} style={{marginLeft:"20px"}}>
+                  방송정보편집
+                </Button>
+              </>
+            )}
+          </Box>
+        </Box>
+      </Grid>
+    </>
   );
 };
 
