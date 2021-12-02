@@ -43,7 +43,7 @@ const MyContainer = () => {
   useEffect(() => {
     myVideoViews();
   }, []);
-
+  // 2021-12-01 강동하 차트 색 수정
   useEffect(() => {
     f1();
     console.log(resultname);
@@ -52,26 +52,32 @@ const MyContainer = () => {
         labels: resultname,
         datasets: [
           {
-            label: "My First Dataset",
+            label: "My Top Video",
             data: resultviews,
             fill: false,
             backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-              "rgba(255, 205, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(201, 203, 207, 0.2)",
+              "rgb(255,000,000, 0.6)",
+              "rgb(255,119,000, 0.6)",
+              "rgb(255,230,000, 0.6)",
+              "rgb(171,255,000, 0.6)",
+              "rgb(009,255,000, 0.6)",
+              "rgb(000,255,230, 0.6)",
+              "rgb(000,196,255, 0.6)",
+              "rgb(000,051,255, 0.6)",
+              "rgb(188,000,255, 0.6)",
+              "rgb(247,000,255, 0.6)",
             ],
             borderColor: [
-              "rgb(255, 99, 132)",
-              "rgb(255, 159, 64)",
-              "rgb(255, 205, 86)",
-              "rgb(75, 192, 192)",
-              "rgb(54, 162, 235)",
-              "rgb(153, 102, 255)",
-              "rgb(201, 203, 207)",
+              "rgb(255,000,000)",
+              "rgb(255,119,000)",
+              "rgb(255,230,000)",
+              "rgb(171,255,000)",
+              "rgb(009,255,000)",
+              "rgb(000,255,230)",
+              "rgb(000,196,255)",
+              "rgb(000,051,255)",
+              "rgb(188,000,255)",
+              "rgb(247,000,255)",
             ],
             borderWidth: 1,
           },
@@ -166,13 +172,81 @@ const MyContainer = () => {
             </Slider>
           </div>
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
+          {/* 2021-12-01 강동하 차트 색 수정 */}
         </div>
         <div className="container" style={{ marginTop: 25 }}>
           <p />
           {data2.labels == undefined && test != 1 ? null : (
             <MDBContainer>
               <Grid item>
-                <Typography variant="h4" style={{ color:'white' }}>내 영상 조회수</Typography>
+                <Typography variant="h4" style={{ color: "white" }}>
+                  내 영상 조회수
+                </Typography>
+                <Bar
+                  data={data2.dataHorizontal}
+                  options={{ 
+                    
+                    responsive: true,
+                    indexAxis: "y",
+                    // 막대 두께
+                    maxBarThickness: 40,
+                    scales: { // x축과 y축에 대한 설정을 할 수 있습니다.
+                      x: { // 여기서 x는 이 축의 id인데요, 이 안에서 axis 속성만 x로 지정해놓으시면 id를 x가 아니라 다른 이름으로 설정해도 무관합니다.
+                        grid: { // x축을 기준으로 그려지는 선(세로선)에 대한 설정입니다.
+                          display: true, // 선이 아예 안 그려지게 됩니다.
+                          color: '#C9AFAF', // 눈금 및 선의 색상을 지정합니다.
+                        },
+                        title: { // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
+                          display: true,
+                          color: '#ffffff',
+                          font: {
+                            size: 17,
+                          },
+                          text: '조회수'
+                        },
+                        ticks: {
+                          color: "#ffffff",
+                          font:{
+                            size: 16,
+                          },
+                        }
+                      },
+                      y: { // 'y'라는 id를 가진 y축에 대한 설정
+                        grid: { // 가로선 설정
+                          color: '#C9AFAF',
+                        },
+                        axis: 'y', // 이 축이 y축임을 명시해줍니다.
+                        display: true, // 축의 가시성 여부도 설정할 수 있습니다.
+                        title: { // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
+                          display: true,
+                          color: '#ffffff',
+                          font: {
+                            size: 17,
+                          },
+                          text: '영상 제목'
+                        },
+                        ticks: {
+                          color: "#ffffff",
+                          font:{
+                            size: 16,
+                          },
+                        }
+                      },
+                    },
+                    plugins: {
+                      legend: { // 범례 스타일링
+                        labels: {
+                          color: '#ffffff',
+                          font: { // 범례의 폰트 스타일도 지정할 수 있습니다.
+                            family: "'Noto Sans KR', 'serif'",
+                            lineHeight: 1,
+                            size: 17,
+                          },
+                        }
+                      },
+                    },
+                  }}
+                />
               </Grid>
               <Bar
                 data={data2.dataHorizontal}
