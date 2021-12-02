@@ -132,7 +132,7 @@ const StreamShow = () => {
   }
   return (
     <>
-    <Grid container style={{ marginTop: 67 }}>
+    <Grid container style={{ marginTop: 70 }}>
         {/* 실시간 영상 */}
         <Grid item xs={12} sm={9}>
           <video
@@ -156,7 +156,7 @@ const StreamShow = () => {
             <h2> {streamInfo.l_title}</h2>
           </Box>
           <h3>  {streamInfo.l_description}</h3>
-          <Box xs={{marginTop:"20px"}}>
+          <Box sx={{marginTop:"10px"}}>
             {u_id && u_id === streamInfo.u_id && (
               <>
                 <Button variant="contained" color="secondary" endIcon={<ExitToAppOutlinedIcon />} className={classes.button} onClick={offStreamingbtn} >

@@ -9,6 +9,8 @@ import MainStreamingListContainer from "./MainStreamingListContainer";
 
 // 2021 1125 이태훈 streaming list
 const StreamListContainer = ({streamRes}) => {
+  console.log(streamRes);
+  
   const u_id = localStorage.getItem("u_id")
   const history = useHistory();
   const dispatch = useDispatch();
@@ -30,19 +32,19 @@ const StreamListContainer = ({streamRes}) => {
 
   const dbRenderList = () => {
     console.log(streamRes);
-    return streamRes.map((value,i) => {
-      return (
-        <div key={i}>
-           <MainStreamingListContainer l_code={value.l_code}/>
+    // return streamRes.map((value,i) => {
+    //   return (
+    //     <div key={i}>
+    //        <MainStreamingListContainer l_code={value.l_code}/>
 
-            <div onClick={handleJoinRoom} className={value.l_code}>
-              {value.l_title}
-              <div className={value.l_code}>{value.l_description}</div>
-            </div>
+    //         <div onClick={handleJoinRoom} className={value.l_code}>
+    //           {value.l_title}
+    //           <div className={value.l_code}>{value.l_description}</div>
+    //         </div>
             
-        </div>
-      );
-    });
+    //     </div>
+    //   );
+    // });
   };
 
   const liveRenderList = () => {

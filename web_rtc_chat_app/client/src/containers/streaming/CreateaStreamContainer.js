@@ -58,6 +58,7 @@ const CreateaStreamContainer = () => {
           background: "#FFFFFF",
           borderRadius: 5,
           marginTop: 170,
+          height: "100%",
         }}
       >
         <h2 style={{ textAlign: "center", marginBottom: 20 }}>실시간 방 만들기</h2>

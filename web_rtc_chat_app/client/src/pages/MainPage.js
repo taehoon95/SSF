@@ -17,11 +17,10 @@ import Header from "../components/common/Header";
 import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
 
-
 import { config } from "react-spring";
 import Carousel from "react-spring-3d-carousel";
-import uuidv4 from "uuid";
-
+import { nanoid } from "nanoid";
+import { PlayArrow, PlayCircleOutline } from "../../node_modules/@mui/icons-material/index";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
@@ -84,30 +83,64 @@ const MainPage = () => {
 
   let slides = [
     {
-      key: uuidv4(),
+      key: nanoid(),
       content: (
-        <img
-          src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
-          alt="1"
-        />
+        <div style={{ position: "relative" }}>
+          <img
+            src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
+            alt="1"
+            className="mainSliderImg"
+            style={{ verticalAlign: "middle", opacity: 0.7 }}
+          />
+          <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+            <div style={{ position: "absolute", top: -270, right: -340 }}>
+              <PlayArrow
+                style={{ width: 160, height: 160, color: "white" }}
+              />
+            </div>
+          </Button>
+        </div>
       ),
     },
     {
-      key: uuidv4(),
+      key: nanoid(),
       content: (
-        <img
-          src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
-          alt="2"
-        />
+        <div style={{ position: "relative" }}>
+          <img
+            src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
+            alt="1"
+            className="mainSliderImg"
+            opacity= "10px"
+            style={{ verticalAlign: "middle", opacity: 0.7 }}
+          />
+          <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+            <div style={{ position: "absolute", top: -270, right: -340 }}>
+              <PlayArrow
+                style={{ width: 160, height: 160, color: "white" }}
+              />
+            </div>
+          </Button>
+        </div>
       ),
     },
     {
-      key: uuidv4(),
+      key: nanoid(),
       content: (
-        <img
-          src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
-          alt="3"
-        />
+        <div style={{ position: "relative" }}>
+          <img
+            src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
+            alt="1"
+            className="mainSliderImg"
+            style={{ verticalAlign: "middle", opacity: 0.7 }}
+          />
+          <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+            <div style={{ position: "absolute", top: -270, right: -340 }}>
+              <PlayArrow
+                style={{ width: 160, height: 160, color: "white" }}
+              />
+            </div>
+          </Button>
+        </div>
       ),
     },
   ].map((slide, index) => {
@@ -190,12 +223,11 @@ const MainPage = () => {
             <Grid container xs={12}>
               {/* 실시간 방송 영상 뷰 */}
               <Grid item xs={12}>
-                
                 {/* <StreamListContainer streamRes={showStreamRes} /> */}
 
                 {/* 메인페이지 3D 슬라이더 테스트 */}
                 <div
-                  style={{ width: "80%", height: "500px", margin: "0 auto" }}
+                  style={{ width: "70%", height: "400px", margin: "0 auto" }}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                 >
@@ -207,14 +239,17 @@ const MainPage = () => {
                     animationConfig={state.config}
                   />
                 </div>
-
               </Grid>
             </Grid>
 
-             {/* Top4 영상 뷰 */}
+            {/* Top4 영상 뷰 */}
             <Grid container>
               {/* Top4 영상 */}
-              <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+              <Grid
+                item
+                xs={12}
+                style={{ marginLeft: 30, marginBottom: -30, marginTop: 30 }}
+              >
                 <Typography variant="h5" style={{ color: "white" }}>
                   Top 4 영상
                 </Typography>

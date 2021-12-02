@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Bar } from "react-chartjs-2";
-import { Legend } from "chart.js";
 import { MDBContainer } from "mdbreact";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
@@ -49,9 +48,6 @@ const MyContainer = () => {
     f1();
     console.log(resultname);
     setData2({
-
-
-
       dataHorizontal: {
         labels: resultname,
         datasets: [
@@ -60,33 +56,27 @@ const MyContainer = () => {
             data: resultviews,
             fill: false,
             backgroundColor: [
-              "rgb(255,99,132)",
-              "rgb(000,000,255)",
-              "rgb(153,102,255)",
-              "rgb(255,000,051)",
-              "rgb(153,051,255)",
-              "rgb(051,204,255)",
-              "rgb(153,255,204)",
-              "rgb(102,204,255)",
-              "rgb(153,153,255)",
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+              "rgba(255, 205, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(201, 203, 207, 0.2)",
             ],
             borderColor: [
               "rgb(255, 99, 132)",
-              "rgb(000,000,255)",
-              "rgb(153,102,255)",
-              "rgb(255,000,051)",
-              "rgb(153,051,255)",
-              "rgb(051,204,255)",
-              "rgb(153,255,204)",
-              "rgb(102,204,255)",
-              "rgb(153,153,255)",
+              "rgb(255, 159, 64)",
+              "rgb(255, 205, 86)",
+              "rgb(75, 192, 192)",
+              "rgb(54, 162, 235)",
+              "rgb(153, 102, 255)",
+              "rgb(201, 203, 207)",
             ],
             borderWidth: 1,
           },
         ],
       },
-     
-     
     });
     setTest(1);
   }, [myViews]);
@@ -126,7 +116,7 @@ const MyContainer = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container >
         <div className="container" style={{ marginTop: 65 }}>
           <Link
             rel="stylesheet"
@@ -142,18 +132,13 @@ const MyContainer = () => {
           <style>{cssstyle}</style>
           <div>
             <Grid item>
-              <Typography
-                variant="h4"
-                style={{ color: "white", marginLeft: " 35px" }}
-              >
-                내 영상 리스트
-              </Typography>
+              <Typography variant="h4" style={{ color:'white' }}>내 영상 리스트</Typography>
             </Grid>
             <br />
             <Slider {...settings}>
               {myList.map((data, idx) => (
                 <div key={idx}>
-                  <Grid item style={{ marginTop: 10 }}>
+                  <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
                     <Link
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
@@ -182,19 +167,17 @@ const MyContainer = () => {
           </div>
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
         </div>
-        <div className="back" style={{ marginTop: 25 }}>
+        <div className="container" style={{ marginTop: 25 }}>
           <p />
           {data2.labels == undefined && test != 1 ? null : (
-            <MDBContainer >
+            <MDBContainer>
               <Grid item>
-                <Typography variant="h4" style={{ color: "white" }}>
-                  내 영상 조회수
-                </Typography>
-                <Bar
-                  data={data2.dataHorizontal}
-                  options={{ responsive: true, indexAxis: "y" }}
-                />
+                <Typography variant="h4" style={{ color:'white' }}>내 영상 조회수</Typography>
               </Grid>
+              <Bar
+                data={data2.dataHorizontal}
+                options={{ responsive: true, indexAxis: "y" }}
+              />
             </MDBContainer>
           )}
         </div>
@@ -208,10 +191,6 @@ const cssstyle = `
   margin: 0 auto;
   padding: 0px 40px 40px 40px;
   width: 1400px;
-}
-.back{
-  display: flex;
-  justify-content: center;
 }
 .button {
     font-size: .9rem;

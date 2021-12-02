@@ -10,3 +10,7 @@ body {
   min-height: calc(100vh - 200px);
   min-height: 100%;
 }
+
+.mainSliderImg{
+  height: 49vh;
+}
