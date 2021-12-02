@@ -17,11 +17,13 @@ import Header from "../components/common/Header";
 import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
 
-
 import { config } from "react-spring";
 import Carousel from "react-spring-3d-carousel";
-import uuidv4 from "uuid";
-
+import { nanoid } from "nanoid";
+import {
+  PlayArrow,
+  PlayCircleOutline,
+} from "../../node_modules/@mui/icons-material/index";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
@@ -74,7 +76,7 @@ const MainPage = () => {
       });
   };
 
-  // 실시간 영상 view
+  ///////// 실시간 영상 3D 이미지 시작
   const [state, setState] = useState({
     goToSlide: 0,
     offsetRadius: 2,
@@ -84,35 +86,87 @@ const MainPage = () => {
 
   let slides = [
     {
-      key: uuidv4(),
+      key: nanoid(),
       content: (
-        <img
-          src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
-          alt="1"
-        />
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
+            <img
+              src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
+              alt="1"
+              className="mainSliderImg"
+            />
+          </div>
+          <div style={{ position: "absolute" }}>
+            <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+              <PlayArrow style={{ color: "white", width:180, height: 180 }} />
+            </Button>
+          </div>
+        </div>
       ),
     },
     {
-      key: uuidv4(),
+      key: nanoid(),
       content: (
-        <img
-          src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
-          alt="2"
-        />
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
+            <img
+              src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
+              alt="1"
+              className="mainSliderImg"
+            />
+          </div>
+          <div style={{ position: "absolute" }}>
+            <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+              <PlayArrow style={{ color: "white", width:180, height: 180 }} />
+            </Button>
+          </div>
+        </div>
       ),
     },
     {
-      key: uuidv4(),
+      key: nanoid(),
       content: (
-        <img
-          src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
-          alt="3"
-        />
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
+            <img
+              src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
+              alt="1"
+              className="mainSliderImg"
+            />
+          </div>
+          <div style={{ position: "absolute" }}>
+            <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+              <PlayArrow style={{ color: "white", width:180, height: 180 }} />
+            </Button>
+          </div>
+        </div>
       ),
     },
   ].map((slide, index) => {
     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   });
+
 
   const onChangeInput = (e) => {
     setState({
@@ -166,6 +220,9 @@ const MainPage = () => {
     xDown = null;
     yDown = null;
   };
+  //////// 실시간 영상 3D 이미지 끝
+
+
 
   return (
     <>
@@ -188,14 +245,11 @@ const MainPage = () => {
             <br />
 
             <Grid container xs={12}>
-              {/* 실시간 방송 영상 뷰 */}
+              {/* 실시간 방송 영상 이미지 */}
               <Grid item xs={12}>
-                
-                {/* <StreamListContainer streamRes={showStreamRes} /> */}
-
                 {/* 메인페이지 3D 슬라이더 테스트 */}
                 <div
-                  style={{ width: "80%", height: "500px", margin: "0 auto" }}
+                  style={{ width: "80%", height: "400px", margin: "0 auto" }}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
                 >
@@ -207,14 +261,18 @@ const MainPage = () => {
                     animationConfig={state.config}
                   />
                 </div>
-
               </Grid>
             </Grid>
 
-             {/* Top4 영상 뷰 */}
+
+            {/* Top4 영상 뷰 */}
             <Grid container>
               {/* Top4 영상 */}
-              <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+              <Grid
+                item
+                xs={12}
+                style={{ marginLeft: 30,  marginTop: 30 }}
+              >
                 <Typography variant="h5" style={{ color: "white" }}>
                   Top 4 영상
                 </Typography>
@@ -226,12 +284,10 @@ const MainPage = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <video
-                        src={data.v_link}
-                        controls
-                        muted
+                      <img
+                        src={data.v_img}
                         width="320"
-                        height="250"
+                        height="200"
                       />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}
@@ -252,7 +308,7 @@ const MainPage = () => {
 
             {/* 전체 랜덤 영상 */}
             <Grid container xs={12}>
-              <Grid item xs={12} style={{ marginLeft: 30, marginBottom: -30 }}>
+              <Grid item xs={12} style={{ marginLeft: 30}}>
                 <Typography variant="h5" style={{ color: "white" }}>
                   전체 영상
                 </Typography>
@@ -264,12 +320,10 @@ const MainPage = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <video
-                        src={data.v_link}
-                        controls
-                        muted
+                      <img
+                        src={data.v_img}
                         width="320"
-                        height="250"
+                        height="200"
                       />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}

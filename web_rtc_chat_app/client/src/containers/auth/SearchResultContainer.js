@@ -140,7 +140,8 @@ const SearchResultContainer = () => {
             >
               <Grid item xs={5}>
                 <Box>
-                  <video src={data.v_link} width="50%" />
+
+                  <img src={data.v_img} width="100%" />
                 </Box>
               </Grid>
 

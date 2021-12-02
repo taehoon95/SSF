@@ -5,6 +5,7 @@
   
   .modal-background {
     position: absolute;
+    height: 100%;
     right: 0;
     top: 0;
     left: 0;
@@ -13,11 +14,17 @@
   }
   
   .modal-card {
+    position: relative;
+    align-content: center;
     margin: 0 auto;
     display: block;
     margin-top: 250px;
-    width: 300px;
-    height: 300px;
-    background-color: lightgray;
+    width: 400px;
+    height: 250px;
+    background-color: white;
     border-radius: 5px;
+  }
+
+  .modal-item{
+    text-align: -webkit-center;
   }
