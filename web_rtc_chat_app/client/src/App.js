@@ -1,7 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Route } from "react-router-dom";
 import LoginPage from './pages/LoginPage';
 import LiveSettingPage from './pages/LiveSettingPage';
 import MainPage from './pages/MainPage';
@@ -23,7 +23,6 @@ import PrivateRoute from "././components/common/PrivateRoute"
 
 
 function App() {
- 
   return (
     <>
       <Route component={MainPage} path={['/@:u_id', '/']} exact />

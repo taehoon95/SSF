@@ -1,7 +1,7 @@
 //해더 모듈
 //2021-11-15
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import {
   AppBar,
@@ -26,7 +26,6 @@ import {
 } from "@mui/icons-material";
 import { Divider, Grid, Tooltip } from "@mui/material";
 import {
-  Style,
   VideoSettings,
 } from "../../../node_modules/@mui/icons-material/index";
 
