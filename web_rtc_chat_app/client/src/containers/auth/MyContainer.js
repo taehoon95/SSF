@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Bar } from "react-chartjs-2";
-import { Legend } from "chart.js";
 import { MDBContainer } from "mdbreact";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
@@ -123,7 +122,7 @@ const MyContainer = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container >
         <div className="container" style={{ marginTop: 65 }}>
           <Link
             rel="stylesheet"
@@ -139,18 +138,13 @@ const MyContainer = () => {
           <style>{cssstyle}</style>
           <div>
             <Grid item>
-              <Typography
-                variant="h4"
-                style={{ color: "white", marginLeft: " 35px" }}
-              >
-                내 영상 리스트
-              </Typography>
+              <Typography variant="h4" style={{ color:'white' }}>내 영상 리스트</Typography>
             </Grid>
             <br />
             <Slider {...settings}>
               {myList.map((data, idx) => (
                 <div key={idx}>
-                  <Grid item style={{ marginTop: 10 }}>
+                  <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
                     <Link
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
@@ -180,10 +174,10 @@ const MyContainer = () => {
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
           {/* 2021-12-01 강동하 차트 색 수정 */}
         </div>
-        <div className="back" style={{ marginTop: 25 }}>
+        <div className="container" style={{ marginTop: 25 }}>
           <p />
           {data2.labels == undefined && test != 1 ? null : (
-            <MDBContainer >
+            <MDBContainer>
               <Grid item>
                 <Typography variant="h4" style={{ color: "white" }}>
                   내 영상 조회수
@@ -254,6 +248,10 @@ const MyContainer = () => {
                   }}
                 />
               </Grid>
+              <Bar
+                data={data2.dataHorizontal}
+                options={{ responsive: true, indexAxis: "y" }}
+              />
             </MDBContainer>
           )}
         </div>
@@ -267,10 +265,6 @@ const cssstyle = `
   margin: 0 auto;
   padding: 0px 40px 40px 40px;
   width: 1400px;
-}
-.back{
-  display: flex;
-  justify-content: center;
 }
 .button {
     font-size: .9rem;
