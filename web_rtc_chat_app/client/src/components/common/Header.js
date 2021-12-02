@@ -23,7 +23,8 @@ import {
   VideoLabel,
 } from "@mui/icons-material";
 import { Divider, Grid, Tooltip } from "@mui/material";
-import {VideoSettings,} from "../../../node_modules/@mui/icons-material/index";
+import {VideoSettings} from "../../../node_modules/@mui/icons-material/index";
+
 
 // 2021-11-25 강동하 버튼 pathname 에러 임시 수정
 import { Link, withRouter, useHistory } from "react-router-dom";
