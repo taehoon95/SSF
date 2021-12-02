@@ -11,25 +11,28 @@ import "../../lib/styles/Modal.css";
 import ChatContainer from "./ChatContainer";
 import { SocketContext } from "../../SocketContext";
 import { Grid } from "@mui/material";
-import {Button, Box, IconButton} from '@material-ui/core';
-// icon 
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
+import { Button, Box, IconButton } from "@material-ui/core";
+// icon
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import ChatBubbleOutlinedIcon from "@mui/icons-material/ChatBubbleOutlined";
 // makeStyleHook
 import { makeStyles } from "@material-ui/core/styles";
 import { WhereToVote } from "../../../node_modules/@mui/icons-material/index";
-
+import {
+  TextField,
+  Typography,
+} from "../../../node_modules/@material-ui/core/index";
 
 const useStyles = makeStyles({
   isChat: {
     color: "white",
   },
   button: {
-    color: "white",  
-  }
-})
+    color: "white",
+  },
+});
 // 2021 1125 이태훈 streaming show page 방송 정보,편집,종료
 const StreamShow = () => {
   const history = useHistory();
@@ -108,18 +111,23 @@ const StreamShow = () => {
     const { name, value } = e.target;
     name === "l_title" && setL_title(value);
     name === "l_description" && setL_description(value);
-    if(name === "l_title" && value !== ""){
+    console.log(name);
+    console.log(isValid);
+    
+    if (name === "l_title" && value !== "") {
       setIsValid(false);
-    }else{
+    }else if(name === "l_title" && value === ""){
       setIsValid(true);
-    }
+    } 
   };
   // 완료 클릭시
-  const handleEdit = () => {
-    if(l_title === ""){
+  const handleEdit = (e) => {
+    if (l_title === "") {
       setIsValid(true);
-    }else{
-      dispatch(updateStreaming(u_id, streamInfo.l_code, l_title, l_description));
+    } else {
+      dispatch(
+        updateStreaming(u_id, streamInfo.l_code, l_title, l_description)
+      );
       setShow(false);
     }
   };
@@ -128,82 +136,131 @@ const StreamShow = () => {
   // 채팅창 보였다 안보였다 설정
   const [isShowChat, setIsShowChat] = useState(false);
   const handleShowChat = () => {
-    setIsShowChat(!isShowChat)
-  }
+    setIsShowChat(!isShowChat);
+  };
   return (
     <>
-    <Grid container style={{ marginTop: 70 }}>
+      <Grid container style={{ marginTop: 70 }}>
         {/* 실시간 영상 */}
         <Grid item xs={12} sm={9}>
           <video
             ref={videoRef}
-            style={{ width: '95%',marginLeft:"30px" }}
+            style={{ width: "95%", marginLeft: "30px" }}
             controls
           />
-          <Box sx={{ marginLeft:"30px", color:"white" }}>
-          <Box>
-            <h1>
-              {streamInfo.u_id}님의 방송
-              {isShowChat ?(<IconButton onClick={handleShowChat} className={classes.isChat} aria-label="ChatBubbleOutlineOutlinedIcon">
-                <ChatBubbleOutlineOutlinedIcon/>
-              </IconButton>)
-              : <IconButton  onClick={handleShowChat} className={classes.isChat} aria-label="ChatBubbleOutlinedIcon">
-                <ChatBubbleOutlinedIcon/>
-              </IconButton>}
-            </h1>
+          <Box sx={{ marginLeft: "30px", color: "white" }}>
+            <Box>
+              <h1>
+                {streamInfo.u_id}님의 방송
+                {isShowChat ? (
+                  <IconButton
+                    onClick={handleShowChat}
+                    className={classes.isChat}
+                    aria-label="ChatBubbleOutlineOutlinedIcon"
+                  >
+                    <ChatBubbleOutlineOutlinedIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    onClick={handleShowChat}
+                    className={classes.isChat}
+                    aria-label="ChatBubbleOutlinedIcon"
+                  >
+                    <ChatBubbleOutlinedIcon />
+                  </IconButton>
+                )}
+              </h1>
+            </Box>
+            <Box>
+              <h2> {streamInfo.l_title}</h2>
+            </Box>
+            <h3> {streamInfo.l_description}</h3>
+            <Box sx={{ marginTop: "10px" }}>
+              {u_id && u_id === streamInfo.u_id && (
+                <>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<ExitToAppOutlinedIcon />}
+                    className={classes.button}
+                    onClick={offStreamingbtn}
+                  >
+                    방송종료
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<SettingsOutlinedIcon />}
+                    className={classes.button}
+                    onClick={handleModalOpen}
+                    style={{ marginLeft: "20px" }}
+                  >
+                    방송정보편집
+                  </Button>
+                </>
+              )}
+            </Box>
           </Box>
-          <Box>
-            <h2> {streamInfo.l_title}</h2>
-          </Box>
-          <h3>  {streamInfo.l_description}</h3>
-          <Box sx={{marginTop:"10px"}}>
-            {u_id && u_id === streamInfo.u_id && (
-              <>
-                <Button variant="contained" color="secondary" endIcon={<ExitToAppOutlinedIcon />} className={classes.button} onClick={offStreamingbtn} >
-                  방송종료
-                </Button>
-                <Button variant="contained" color="secondary" endIcon={<SettingsOutlinedIcon />} className={classes.button} onClick={handleModalOpen} style={{marginLeft:"20px"}}>
-                  방송정보편집
-                </Button>
-              </>
-            )}
-          </Box>
-        </Box>
         </Grid>
         <Grid item xs={12} sm={3}>
           {!isShowChat && <ChatContainer />}
         </Grid>
+
+        {/* 모달창 */}
         <div hidden={!show}>
-          <Grid item className="modal-background" onClick={handleModalClose}>
-            <Grid item className="modal-card">
-              <p className="modal-item">
-                방송제목:
-                <input
+          <Grid item className="modal-background">
+            <Grid item className="modal-card" textAlign="center" style={{ textAlign:"center", marginTop: 300, marginLeft: "37%" }}>
+
+              <Grid item >
+                <Typography variant="h6" >방송제목</Typography>
+                <TextField
+                  variant="outlined"
                   className="modal-item"
-                  type="text"
                   name="l_title"
                   value={l_title}
                   onChange={handleEditItem}
-                ></input>
-              </p>
-              {isValid && <p className="modal-item">방송제목을 입력해주세요</p>}
-              <p className="modal-item">
-                방송설명:
-                <input
+                  style={{ width: 300 }}
+                ></TextField>
+                {isValid && (
+                  <Typography variant="body2" color="error" className="modal-item">
+                    방송제목을 입력해주세요
+                  </Typography>
+                )}
+              </Grid>
+
+              <Grid item>
+                <Typography variant="h6">방송설명</Typography>
+                <TextField
+                  variant="outlined"
                   className="modal-item"
-                  type="text"
                   name="l_description"
                   value={l_description}
                   onChange={handleEditItem}
-                ></input>
-              </p>
-              <input type="button" value="취소" />
-              <input
-                className="modal-item"
-                type="button"
-                value="완료"
-                onClick={handleEdit}
-              />
+                  style={{ width: 300 }}
+                ></TextField>
+              </Grid>
+
+                  {/* 취소, 완료 버튼 */}
+              <Grid item style={{ marginTop: 10, textAlign: "center" }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleModalClose}
+                  style={{ width: "20%" }}
+                >
+                  취소
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleEdit}
+                  style={{ marginLeft: 40, width: "20%" }}
+                >
+                  완료
+                </Button>
+              </Grid>
+
+              
             </Grid>
           </Grid>
         </div>

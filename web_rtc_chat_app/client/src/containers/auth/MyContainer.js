@@ -149,12 +149,10 @@ const MyContainer = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <video
-                        src={data.v_link}
-                        controls
-                        muted
+                      <img
+                        src={data.v_img}
                         width="320"
-                        height="250"
+                        height="200"
                       />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}
