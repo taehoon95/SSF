@@ -75,7 +75,7 @@ const styleModal3 = {
   p: 4,
 };
 const Desktop = ({ children }) => {
-  const isDesktop = useMediaQuery({ minWidth: 992 })
+  const isDesktop = useMediaQuery({ minWidth: 768 })
   //console.log(isDesktop);
   return isDesktop ? children : null
 }

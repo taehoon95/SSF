@@ -12,7 +12,7 @@ import produce from "immer";
 
 
 //사가 액션 타입 
-const CHANGE ="CHANGE"
+const CHANGE ="CHANGE";
 
 
 const NUMBUR = "NUMBUR";
