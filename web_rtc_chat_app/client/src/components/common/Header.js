@@ -113,6 +113,9 @@ const Header = () => {
 
   // 검색 값 전송 버튼
   const searchContent = (e) => {
+    if(e.target.value === 0){
+      return;
+    }
     //alert(inputSearch);
     history.push(`/SearchResultPage/${inputSearch}`);
     // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
@@ -146,7 +149,13 @@ const Header = () => {
   // if (window.location.pathname === "/PwdCheckPage") return null;
   // if (window.location.pathname === "/PwdCheckViewPage") return null;
   // if (window.location.pathname === "/IdCheckViewrPage") return null;
-
+  const onkeyPress = (e) =>{
+    if(e.key == 'Enter'){
+      history.push(`/SearchResultPage/${inputSearch}`);
+      // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
+      setInputSearch("");
+    }
+  }
 
   return (
     <>
@@ -216,6 +225,8 @@ const Header = () => {
               }}
               placeholder=" 검색"
               size="small"
+              onKeyPress={onkeyPress}
+
             />
 
             <Button

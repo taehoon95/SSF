@@ -181,8 +181,8 @@ const MyContainer = () => {
             </Slider>
           </div>
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
-        </div>
-        <div className="back" style={{ marginTop: 25 }}>
+        </div >
+        <div  className="back" style={{ marginTop: 25 }}>
           <p />
           {data2.labels == undefined && test != 1 ? null : (
             <MDBContainer >
@@ -212,6 +212,7 @@ const cssstyle = `
 .back{
   display: flex;
   justify-content: center;
+  margin-left:240px;
 }
 .button {
     font-size: .9rem;

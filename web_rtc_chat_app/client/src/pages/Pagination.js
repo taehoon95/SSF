@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../../node_modules/@material-ui/core/index';
 
-const PageUl = styled.ul`
+ const PageUl = styled.ul`
   float:left;
   list-style: none;
   text-align:center;
@@ -14,7 +14,7 @@ const PageUl = styled.ul`
   background-color: rgba( 0, 0, 0, 0.4 );
 `;
 
-const PageLi = styled.li`
+ const PageLi = styled.li`
   display:inline-block;
   font-size:17px;
   font-weight:600;
@@ -32,7 +32,7 @@ const PageLi = styled.li`
   }
 `;
 
-const PageSpan = styled.span`
+ const PageSpan = styled.span`
   &:hover::after,
   &:focus::after{
     border-radius:100%;
@@ -53,7 +53,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, plusPage }) => {
           {pageNumbers.map(number => (
             <PageLi onClick={() => paginate(number)}  key={number} className="page-item">
               <PageSpan className="page-link">
-                {number}
+               {number}
               </PageSpan>
             </PageLi>
           ))}
