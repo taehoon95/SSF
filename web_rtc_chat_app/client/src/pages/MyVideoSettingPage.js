@@ -6,6 +6,7 @@
 import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import {
   Box,
   Button,
@@ -24,6 +25,46 @@ import {
 import axios from "../../node_modules/axios/index";
 import Header from "../components/common/Header";
 import Pagination from "./Pagination";
+
+
+const PageUl = styled.ul`
+  float:left;
+  list-style: none;
+  text-align:center;
+  border-radius:3px;
+  color:white;
+  padding:1px;
+  border-top:2px solid;
+  border-bottom:2px solid;
+  background-color: rgba( 0, 0, 0, 0.4 );
+`;
+
+ const PageLi = styled.li`
+  display:inline-block;
+  font-size:17px;
+  font-weight:600;
+  padding:5px 20px 5px 12px;
+  border-radius:5px;
+  width:25px;
+  &:hover{
+    cursor:pointer;
+    color:white;
+    background-color:#263A6C;
+  }
+  &:focus::after{
+    color:white;
+    background-color:#263A6C;
+  }
+`;
+
+ const PageSpan = styled.span`
+  &:hover::after,
+  &:focus::after{
+    border-radius:100%;
+    color:white;
+    background-color:#263A6C;
+  }
+`;
 
 const MyVideoSettingPage = ({ history }) => {
   const u_id = localStorage.getItem("u_id");
@@ -63,6 +104,17 @@ const MyVideoSettingPage = ({ history }) => {
         console.log(error);
       });
   };
+
+  const nextbutton = () =>{
+    if(currentPage < Math.ceil(myList.length / 3)){
+      setCurrentPage(currentPage +1 );
+    }
+  }
+  const backbutton = () =>{
+    if(currentPage > 1){
+      setCurrentPage(currentPage -1 );
+    }    
+  }
 
   // VideoList 삭제
   const deleteListLine = (u_id, v_code) => {
@@ -208,6 +260,13 @@ const MyVideoSettingPage = ({ history }) => {
       </TableContainer>
          {/* {페이징} */}
          <div style={{width:'100%',display:'flex',justifyContent:'center'}}>
+         <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
+        { currentPage > 1 &&
+          <PageLi onClick={backbutton} >
+        <PageSpan className="page-link">prev</PageSpan>
+        </PageLi>       
+        }
+      </PageUl>
               <Pagination
                 postsPerPage={postsPerPage}
                 totalPosts={myList.length}
@@ -215,6 +274,15 @@ const MyVideoSettingPage = ({ history }) => {
                 myList={currentPosts(myList)}
                 plusPage={plusPage}
               />
+       <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
+        {  currentPage < 2 &&
+        <PageLi onClick={nextbutton}>
+          <PageSpan>
+            next
+            </PageSpan>
+          </PageLi>
+        }
+        </PageUl>
             </div>
     </>
   );
