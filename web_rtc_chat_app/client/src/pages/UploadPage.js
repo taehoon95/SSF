@@ -156,6 +156,7 @@ const UploadPage = () => {
     console.log(url + selectedIFile.name);
     console.log("------------------------");
   };
+
   // 2021-11-29 강동하 정규표현식 및 중복체크
   const Click = (e) => {
     //console.log(e.currentTarget);
@@ -197,8 +198,10 @@ const UploadPage = () => {
               // 영상 파일이름, 썸네일 파일이름 중복체크
               axios.get(`/api/filename/${videoPreProcess}/${imagePreProcess}`)
               .then(response => {
-                let VNumber = response.data[0].body + 1;
-                let INumber = response.data[1].body + 1;
+                let VNumber;
+                let INumber;
+                VNumber = response.data[0].body + 1;
+                INumber = response.data[1].body + 1;
                 console.log(VNumber);
                 console.log(INumber);
                 handleFileUpload(VNumber, INumber);
@@ -327,7 +330,7 @@ const UploadPage = () => {
               <Button
                 fullWidth
                 variant="contained"
-                onClick={handleFileUpload}
+                onClick={Click}
                 style={{ width: 550, height: 40, marginBottom: 50, background: "#1565C0", color:"white" }}
                 sx={{ mt: 3, mb: 2 }}
               >

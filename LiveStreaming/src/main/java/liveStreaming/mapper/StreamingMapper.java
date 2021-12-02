@@ -13,4 +13,7 @@ public interface StreamingMapper {
 	int updateStreaming(StreamingDto streaming);
 	int insertStreaming(StreamingDto streaming);
 	StreamingDto selectStreamingbyLnum(String l_num);
+
+	// 2021-12-02 강동하 방송 시작 시 썸네일 업로드 시 파일이름 중복체크
+	int streamFileName(String l_img);
 }
