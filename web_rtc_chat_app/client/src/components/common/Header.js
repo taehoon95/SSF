@@ -1,6 +1,5 @@
 //해더 모듈
 //2021-11-15
-import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import {
@@ -15,7 +14,6 @@ import {
   Typography,
   Button,
 } from "@mui/material";
-
 import { Dehaze, Home } from "@mui/icons-material";
 import {
   LiveTv,
@@ -25,54 +23,12 @@ import {
   VideoLabel,
 } from "@mui/icons-material";
 import { Divider, Grid, Tooltip } from "@mui/material";
-import {
-  Style,
-  VideoSettings,
-} from "../../../node_modules/@mui/icons-material/index";
+import {VideoSettings,} from "../../../node_modules/@mui/icons-material/index";
 
 // 2021-11-25 강동하 버튼 pathname 에러 임시 수정
 import { Link, withRouter, useHistory } from "react-router-dom";
-
-import Responsive from "./Responsive";
 import { useSelector } from "react-redux";
 import { Search } from "../../../node_modules/@material-ui/icons/index";
-
-
-const Wrapper = styled(Responsive)`
-  height: 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .logo {
-    font-size: 1.125rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-  }
-  .right {
-    display: flex;
-    align-items: center;
-  }
-`;
-  
-// SideBar CSS
-
-// const Wrapper = styled(Responsive)`
-//   height: 4rem;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   .logo {
-//     font-size: 1.125rem;
-//     font-weight: 800;
-//     letter-spacing: 2px;
-//   }
-//   .right {
-//     display: flex;
-//     align-items: center;
-//   }
-// `;
-
-// sideBar CSS
 
 const useStyles = makeStyles((theme) => ({
   // sideBar css start
@@ -96,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
+
+
+
 
 const Header = () => {
   const classes = useStyles();
@@ -139,13 +98,6 @@ const Header = () => {
   };
 
 
-  // 로그인, 회원가입 페이지는 header, footer 제외
-  // if(window.location.pathname === '/LoginPage') return null;
-  // if(window.location.pathname === '/RegisterPage') return null;
-  // if (window.location.pathname === "/IdCheckPage") return null;
-  // if (window.location.pathname === "/PwdCheckPage") return null;
-  // if (window.location.pathname === "/PwdCheckViewPage") return null;
-  // if (window.location.pathname === "/IdCheckViewrPage") return null;
 
 
   return (
@@ -198,6 +150,7 @@ const Header = () => {
             m={1}
             justifyContent="center"
             alignItems="center"
+            style={{width:1400}}
           >
             <input
               onChange={onSearchBar}
@@ -206,7 +159,7 @@ const Header = () => {
               alignItems="center"
               position="relative"
               style={{
-                width: 500,
+                width: "100%",
                 height: 36,
                 background: "black",
                 borderRadius: 2,
@@ -241,9 +194,9 @@ const Header = () => {
             direction="row"
             justifyContent="right"
           >
-            <Grid item>
+            <Grid item className="loginbuttin">
               {tokenlled ? (
-                <Typography variant="body1">
+                <Typography variant="body1" >
                   {/* 로그아웃 버튼 */}
                   {localStorage.getItem("u_id")} 님 어서오세요 &nbsp;
                   <Button
@@ -282,7 +235,7 @@ const Header = () => {
 
             {/* 알림버튼 */}
             <Grid item>
-              <Tooltip title="Alerts • No alerts">
+              <Tooltip  title="Alerts • No alerts">
                 <IconButton color="inherit">
                   <NotificationsNone />
                 </IconButton>
