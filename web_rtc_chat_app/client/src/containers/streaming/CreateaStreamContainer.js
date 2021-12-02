@@ -162,8 +162,9 @@ const CreateaStreamContainer = () => {
       <Container
         component="main"
         maxWidth="xs"
+        
         style={{
-          background: "#FFFFFF",
+          background: "#FFFF",
           borderRadius: 5,
           marginTop: 170,
           height: "100%",

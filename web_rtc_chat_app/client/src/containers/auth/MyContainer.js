@@ -149,12 +149,10 @@ const MyContainer = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <video
-                        src={data.v_link}
-                        controls
-                        muted
+                      <img
+                        src={data.v_img}
                         width="320"
-                        height="250"
+                        height="200"
                       />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}
@@ -172,6 +170,7 @@ const MyContainer = () => {
             </Slider>
           </div>
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
+
           {/* 2021-12-01 강동하 차트 색 수정 */}
         </div>
         <div className="container" style={{ marginTop: 25 }}>
@@ -262,6 +261,7 @@ const cssstyle = `
   padding: 0px 40px 40px 40px;
   width: 1400px;
 }
+
 .button {
     font-size: .9rem;
     display: inline-block;
