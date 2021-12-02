@@ -170,6 +170,7 @@ const MyContainer = () => {
             </Slider>
           </div>
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
+
           {/* 2021-12-01 강동하 차트 색 수정 */}
         </div>
         <div className="container" style={{ marginTop: 25 }}>
@@ -264,6 +265,7 @@ const cssstyle = `
   padding: 0px 40px 40px 40px;
   width: 1400px;
 }
+
 .button {
     font-size: .9rem;
     display: inline-block;
