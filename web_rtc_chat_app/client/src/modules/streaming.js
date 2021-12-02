@@ -4,8 +4,12 @@ import createRequestSaga, {
 } from "../lib/createRequestSaga";
 import * as streamingAPI from "../lib/api/StreamingAPI";
 import { takeLatest } from "redux-saga/effects";
+import { nanoid } from "nanoid";
+import produce from "immer";
 
 const CHANGE = "streaming/CHANGE";
+
+const CUT = "streaming/CUT";
 
 const [SHOWSTREAMING, SHOWSTREAMING_SUCCESS, SHOWSTREAMING_FAILURE] =
   createRequestActionTypes("showstreaming");
@@ -42,25 +46,51 @@ export function* streamingSaga() {
   yield takeLatest(SHOWSTREAMINGBYLNUM, showStreamingByLnumSaga);
 }
 
-
+// 2021-12-02 강동하 리덕스 수정
 const init = {
   searchInfo:"", 
   condition:"",
-  streamInfo: null,
+  streamInfo : {},
   streamRes: [],
   showStreamRes: [],
   streamError: null,
+
+  l_code: nanoid(),
+  u_id: localStorage.getItem("u_id"),
+  l_title: "",
+  l_description: "",
+  l_img:"",
 };
 
-export const change = createAction(CHANGE, ({ streamInfo }) => ({
-  streamInfo,
-}));
+// export const change = createAction(CHANGE, ({ streamInfo }) => 
+// {
+//   console.log(streamInfo);
+// return{
+//   streamInfo,
+// }});
+
+export const change = createAction(CHANGE, ({ name, value }) => 
+{
+  console.log(name, value);
+  return {
+    name,
+    value,
+  }
+});
+
+// 2021-12-02 강동하 방송 종료 시 값 초기화
+export const cut = createAction(CUT, () => 
+  ({
+    l_title: "",
+    l_description: "",
+    l_img: "",
+  }));
 
 export const showstreaming = createAction(SHOWSTREAMING, (streamInfo ) => ({
     streamInfo
 }));
 
-export const insertStreaming = createAction(INSERTSTREAMING, ( streamInfo ) => ({
+export const insertStreaming = createAction(INSERTSTREAMING, ( streamInfo) => ({
     streamInfo
 }));
 
@@ -81,10 +111,22 @@ export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( l_code ) 
 
 const streaming = handleActions(
   {
-    [CHANGE]: (state, { payload: streamInfo }) => ({
+    // [CHANGE]: (state, { payload: streamInfo }) => ({
+    //   ...state,
+    //   streamInfo
+    // }),
+    [CHANGE]: (state, { payload: { name, value} }) =>
+    produce(state, (draft) => {
+        draft[name] = value;
+      }),
+
+    [CUT]: (state, { payload: showStreamRes }) => ({
       ...state,
-      streamInfo
+      l_title: "",
+      l_description: "",
+      l_img: "",
     }),
+
     [SHOWSTREAMING_SUCCESS]: (state, { payload: showStreamRes }) => ({
       ...state,
       streamError: null,

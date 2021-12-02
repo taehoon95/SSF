@@ -3,6 +3,7 @@ import flv from "flv.js";
 import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  cut,
   deleteStreaming,
   showStreamingByLnum,
   updateStreaming,
@@ -75,6 +76,11 @@ const StreamShow = () => {
   // 방송 종료
   const offStreamingbtn = () => {
     if (window.confirm(`방송종료 하시겠습니까?`)) {
+
+      //console.log("성공");
+      //alert("성공");
+      dispatch(cut())
+
       setOffStreaming(true);
       return;
     } else {

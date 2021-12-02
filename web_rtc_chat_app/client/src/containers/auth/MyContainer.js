@@ -248,10 +248,6 @@ const MyContainer = () => {
                   }}
                 />
               </Grid>
-              <Bar
-                data={data2.dataHorizontal}
-                options={{ responsive: true, indexAxis: "y" }}
-              />
             </MDBContainer>
           )}
         </div>

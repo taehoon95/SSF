@@ -28,6 +28,7 @@ public class StreamingService {
 	
     // 2021-11-23 이태훈 스트리밍 방 만들기
 	public StreamingDto insertStreaming(StreamingDto streaming) {
+		System.out.println(streaming);
 		mapper.insertStreaming(streaming);
 		return streaming;
 	}
@@ -47,5 +48,10 @@ public class StreamingService {
 	// 2021-11-23 이태훈
 	public StreamingDto showStreamingByLnum(String l_num) {
 		return mapper.selectStreamingbyLnum(l_num);
+	}
+
+	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
+	public int streamFileName(String l_img) {
+		return mapper.streamFileName(l_img);
 	}
 }
