@@ -29,5 +29,7 @@ public interface UserMapper {
 	//비밀번호 변경
 	int pwdupdate(UserDto user);
 
+	//비밀번호 변경 아이디 체크
+	UserDto pwdidcheck(UserDto user);
 
 }

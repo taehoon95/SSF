@@ -100,16 +100,19 @@ const Header = () => {
   };
 
   // 2021-11-25 강동하 홈 버튼 에러 수정
+  // 2021-12-02 강동하 홈 버튼 > 새로고침으로 수정
   const home = () => {
-    history.push("/");
+   //history.push("/");
+    window.location.replace("/");
   };
 
-  const onkeyPress = (e) => {
-    if (e.key == "Enter") {
+  const onkeyPress = (e) =>{
+    if(e.key == 'Enter'){
       history.push(`/SearchResultPage/${inputSearch}`);
       setInputSearch("");
     }
-  };
+  }
+
 
   return (
     <>
@@ -303,9 +306,10 @@ const Header = () => {
             <Divider variant="middle" style={{ background: "gray" }} />
 
             {/* Home 버튼 */}
+            {/* 2021-12-02 강동하 홈버튼 > 새로고침 수정 */}
             <ListItem
-              component={Link}
-              to={"/"}
+              component={Button}
+              onClick={home}
               className={classes.ListItem}
               style={{ marginTop: 10 }}
             >

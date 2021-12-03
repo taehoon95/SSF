@@ -24,4 +24,5 @@ public class StreamingDto {
 	String l_description;
 	String u_id;
 	Date l_date;
+	String l_img;
 }

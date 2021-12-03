@@ -17,6 +17,7 @@ import {
   Container,
   TextField,
 } from "../../../node_modules/@material-ui/core/index";
+import { useHistory } from "react-router";
 const ListChangeContainer = () => {
   const [selectList, setSelectList] = useState([]);
   const [selectCategory, setSelectCategory] = useState(""); // 카테고리
@@ -26,6 +27,8 @@ const ListChangeContainer = () => {
   const [c_code, setC_code] = useState("");
   const [v_descript, setV_descript] = useState("");
   const [c_name, setC_name] = useState("");
+
+  const history = useHistory();
 
   // 바꾸는 부분
   const onChange = (e) => {
@@ -53,6 +56,7 @@ const ListChangeContainer = () => {
       .then((response) => {
         console.log(response);
         alert("업로드 성공");
+        history.push('/MyVideoSettingPage');
       })
       .catch((error) => {
         alert("업로드 실패");

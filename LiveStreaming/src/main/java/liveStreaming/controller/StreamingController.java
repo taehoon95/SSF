@@ -62,6 +62,10 @@ public class StreamingController {
 	public ResponseEntity<Object> showStreaming(@PathVariable String l_code){
 		return ResponseEntity.ok(service.showStreamingByLnum(l_code));
 	}
-	
-	
+
+	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
+	@GetMapping("/streamfilename/{l_img}")
+	public ResponseEntity<Object> streamFileName(@PathVariable String l_img){
+		return ResponseEntity.ok(service.streamFileName(l_img));
+	}
 }
