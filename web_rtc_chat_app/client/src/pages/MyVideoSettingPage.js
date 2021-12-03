@@ -71,10 +71,9 @@ const MyVideoSettingPage = ({ history }) => {
       .post(`/api/videoDelete`, { u_id, v_code })
       //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id, v_code})
       .then((response) => {
-        console.log(response);
         // videorecord(u_id)
-        myVideoList();
-        alert("삭제 성공");
+        setMyList(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         alert("삭제 실패");
@@ -84,9 +83,6 @@ const MyVideoSettingPage = ({ history }) => {
 
   // VideoList 삭제
   const deleteListLine2 = (e) => {
-    e.preventDefault();
-    console.log(e.target.name);
-    // deleteListLine(u_id,e.target.name);
     deleteListLine(u_id, e.target.name);
   };
 

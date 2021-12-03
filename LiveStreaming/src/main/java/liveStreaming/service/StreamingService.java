@@ -1,6 +1,7 @@
 package liveStreaming.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,5 +48,10 @@ public class StreamingService {
 	// 2021-11-23 이태훈
 	public StreamingDto showStreamingByLnum(String l_num) {
 		return mapper.selectStreamingbyLnum(l_num);
+	}
+	
+	// 2021-12-02 이태훈 검색시 스트리밍 리스트 추가
+	public List<StreamingDto> showSearchStreaming(Map<String,Object> map){
+		return mapper.streamingSearchList(map);
 	}
 }

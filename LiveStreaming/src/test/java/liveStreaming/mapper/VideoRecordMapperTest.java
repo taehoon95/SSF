@@ -3,6 +3,8 @@ package liveStreaming.mapper;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -22,7 +24,7 @@ public class VideoRecordMapperTest {
 	@Autowired
 	VideoRecordMapper mapper;
 	
-	@Test
+	//@Test
 	public void testVideoUpload() {
 		VideoRecordDto video = new VideoRecordDto();
 		video.setV_code("avi09");
@@ -39,4 +41,15 @@ public class VideoRecordMapperTest {
 		Assertions.assertEquals(1, res);
 	}
 
+	@Test
+	public void test06StreamingInfiniteSearchList() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", "롤");
+		map.put("pageNum", 0);
+		List<VideoRecordDto> res = mapper.videoInfiniteSearch(map);
+		for(VideoRecordDto r : res) {
+			System.out.println(r);
+		}
+		Assertions.assertNotNull(res);
+	}
 }

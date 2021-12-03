@@ -108,7 +108,6 @@ const Header = () => {
   // 영상 검색
   const onSearchBar = (e) => {
     setInputSearch(e.target.value);
-    console.log(e.target.value);
   };
 
   // 검색 값 전송 버튼
@@ -116,7 +115,7 @@ const Header = () => {
     //alert(inputSearch);
     history.push(`/SearchResultPage/${inputSearch}`);
     // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
-    setInputSearch("");
+    // setInputSearch("");
   };
 
   const { u_id, tokenlled, token } = useSelector((state) => {

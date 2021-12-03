@@ -1,4 +1,6 @@
 package liveStreaming.controller;
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,10 +59,19 @@ public class StreamingController {
 		return ResponseEntity.ok(service.showStreaming(stream));
 	}
 	
-	// 2021 1125 이태훈 l_num으로 방검색
+	// 2021-11-25 이태훈 l_num으로 방검색
 	@GetMapping("/showStreamingByLnum/{l_code}")
 	public ResponseEntity<Object> showStreaming(@PathVariable String l_code){
 		return ResponseEntity.ok(service.showStreamingByLnum(l_code));
+	}
+
+	// 2021-12-02  이태훈 search으로 방검색
+	@GetMapping("/streamingInfiniteSearch/{search}/{pageNum}")
+	public ResponseEntity<Object> streamingInfiniteSearch(@PathVariable String search,@PathVariable int pageNum){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("pageNum", pageNum);
+		return ResponseEntity.ok(service.showSearchStreaming(map));
 	}
 	
 	
