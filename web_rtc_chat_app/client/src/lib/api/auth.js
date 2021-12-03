@@ -21,10 +21,6 @@ axios.post('api/pwdfind',{u_id,u_name,u_email})
 export const pwdupdate = ({ u_id,u_pwd}) => 
  axios.patch('api/pwdupdate',{ u_id,u_pwd} )
 
- //비밀번호찾기 아이디체크
- export const pwdidcheck = ({u_id}) =>
- axios.post('api/pwdidcheck',{u_id})
- 
  
 //  .then( (response) =>  {
 //     console.log(response.data);

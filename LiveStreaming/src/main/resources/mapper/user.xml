@@ -34,8 +34,5 @@
     <update id="pwdupdate" >
         update ssf_schema.users set u_pwd=#{u_pwd} where u_id=#{u_id} ;
     </update>
-    <select id="pwdidcheck" resultType="liveStreaming.dto.UserDto">
-        select * from ssf_schema.users where u_id=#{u_id}
-    </select>
 
 </mapper>

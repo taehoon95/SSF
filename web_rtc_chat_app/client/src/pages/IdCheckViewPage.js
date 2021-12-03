@@ -7,6 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Avatar,
   Box,
+  Button,
   Container,
   CssBaseline,
   Grid,
@@ -15,11 +16,8 @@ import {
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
 
-
-
-const IdCheckViewPage = () => {
+const IdCheckViewrPage = () => {
   const { u_name, u_id, check, auth } = useSelector((state) => {
     return {
       u_id: state.auth.check.u_id,
@@ -82,9 +80,7 @@ const IdCheckViewPage = () => {
                 component={Link}
                 to={"/LoginPage"}
                 variant="contained"
-                
-
-                style={{ width: 190 }}
+                style={{ background: "gray", width: 190 }}
               >
                 <Typography variant="h6">로그인</Typography>
               </Button>
@@ -92,8 +88,7 @@ const IdCheckViewPage = () => {
                 component={Link}
                 to={"/PwdCheckPage"}
                 variant="contained"
-
-                style={{  marginLeft: 10, width: 190 }}
+                style={{ background: "gray", marginLeft: 10, width: 190 }}
               >
                 <Typography variant="h6">비밀번호 찾기</Typography>
               </Button>
@@ -103,7 +98,7 @@ const IdCheckViewPage = () => {
                 component={Link}
                 to={"/"}
                 variant="contained"
-                style={{  width: 390, marginTop: 10 }}
+                style={{ background: "gray", width: 390, marginTop: 10 }}
               >
                 <Typography variant="h6">홈으로 이동</Typography>
               </Button>
@@ -116,4 +111,4 @@ const IdCheckViewPage = () => {
   );
 };
 
-export default IdCheckViewPage;
+export default IdCheckViewrPage;

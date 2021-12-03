@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
-import { change, pwdcheck, numberAuth,pwdidcheck } from "../../modules/auth";
+import { change, pwdcheck, numberAuth } from "../../modules/auth";
 import { withRouter } from "react-router";
 import axios from "axios";
 import { Box, Container } from "../../../node_modules/@material-ui/core/index";
@@ -27,14 +27,9 @@ const PwdCheckContainer = ({ history }) => {
   const [resultemailcheck, setResultEmailCheck] = useState(0); // 이메일 인증 결과
   const [emailcheckcheck, setEmailCheckCheck] = useState("");
   const [emailcheck, setEmailCheck] = useState("이메일을 입력 해주세요.");
-  const [idcheck, setIdcheck] = useState(0);
-  const [namecheck,setNameCheck] = useState(0);
-  const [namecheckerror,setNameCheckError] = useState("");
-  const [idcheckerror,setIdcheckError] = useState("");
-
 
   const dispatch = useDispatch();
-  const { u_name, u_email, u_id, pwd, pwdError, number, u_emailcheck,pwdidError,pwdid } =
+  const { u_name, u_email, u_id, pwd, pwdError, number, u_emailcheck } =
     useSelector((state) => {
       console.log(state);
 
@@ -44,30 +39,15 @@ const PwdCheckContainer = ({ history }) => {
         u_email: state.auth.u_email,
         pwd: state.auth.pwd,
         pwdError: state.auth.pwdError,
-        u_emailcheck:state.auth.u_emailcheck,
         number: state.auth.number,
-        pwdidError:state.auth.pwdidError,
-        pwdid:state.auth.pwdid
       };
     });
-    const onKeyUpName = (e) =>{
-      if(setNameCheck !== 1){
-        setNameCheckError("");
-      }
-      setNameCheck(1);
-    }
-
-    const onKeyUpId = (e) =>{
-      if(setIdcheck !== 1){
-        setIdcheckError("");
-      }
-      setIdcheck(1);
-    }
   const onChange = (e) => {
     console.log("이건 체인지");
 
-    const { name, value } = e.currentTarget;
-   
+    const { name, value } = e.target;
+    console.log(value);
+
     dispatch(
       change({
         name,
@@ -76,40 +56,17 @@ const PwdCheckContainer = ({ history }) => {
     );
   };
   const onsubmit = (e) => {
-    e.preventDefault();        
+    e.preventDefault();
     console.log("비밀번호찾기");
-    console.log(idcheck);
-    
-    if(resultemailcheck !== 1) {
-       if(namecheck == 0)
-      {
-        setNameCheckError("이름을 입력해주세요");
-      }
-      else if(idcheck == 0){      
-        setIdcheckError("아이디를 입력해주세요");
-      }
-      return;
-    }
-    dispatch(      
+
+    dispatch(
       pwdcheck({
         u_name,
         u_email,
         u_id,
       })
     );
-    
   };
-
-  // const onPwdidcheck = (e) =>{
-  //   e.preventDefault();
-  //   console.log('여기는 인증 ');
-    
-  //   dispatch(pwdidcheck({
-  //     u_id
-  //     })
-  //   );
-
-  // }
 
   useEffect(() => {
     if (pwdError) {
@@ -122,59 +79,9 @@ const PwdCheckContainer = ({ history }) => {
     }
   }, [pwd, pwdError]);
 
-
-
   useEffect(() => {
     setNumberTest(number);
   }, [number]);
-
-  // //아이디 찾기
-  // useEffect(() => {
-  //   if (pwdidError) {
-  //     setError("존재하지 않는 아이디");
-  //     return;
-  //   }
-  //   if (pwdid) {
-  //     setError("존재 하는 아이디 입니다.")
-  //   }
-  // }, [pwdid, pwdidError]);
-
-
-  useEffect(() => {
-    onKeyUpEmailCheck();
-  }, [u_emailcheck]);
-
-
-  useEffect(() => {
-  }, [test]);
-  const emailchecked = (
-    <>
-      <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
-        <Typography variant="h6" style={{ color: "303030" }}>
-          이메일 인증 번호를 입력하세요
-        </Typography>
-      </Grid>
-      <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
-        <TextField
-          //onKeyUp={onKeyUpEmailCheck}
-          onChange={onChange}
-          style={{
-            background: "#FFFFFF",
-            marginTop: 2,
-            borderRadius: 3,
-          }}
-          margin="normal"
-          required
-          fullWidth
-          type="text"
-          id="u_emailcheck"
-          autoComplete="current-password"
-        />
-      </Grid>
-      
-      {/* <label style={{ color: "red" }}>{emailcheckcheck}</label> */}
-    </>
-  );
 
   // 인증 이메일 전송
   const onEmailClick = (e) => {
@@ -195,8 +102,6 @@ const PwdCheckContainer = ({ history }) => {
           .catch((error) => {
             console.log(error);
           });
-
-        setEmailData(emailchecked);
         setTest(true);
       } catch (error) {
         console.log(error);
@@ -205,7 +110,16 @@ const PwdCheckContainer = ({ history }) => {
       alert("메일전송 실패. \n이메일을 올바르게 입력해주세요.");
     }
   };
-  
+  useEffect(() => {
+    if (pwdError) {
+      setError("비밀번호 찾기 실패");
+      return;
+    }
+    if (pwd) {
+      console.log("비밀번호 찾기 성공");
+      history.push("/PwdCheckViewPage");
+    }
+  }, [pwd, pwdError, dispatch]);
 
   // email 유효성 검증
   // 알파벳,숫자 + @ + 알바벳 + . + 알파벳
@@ -242,7 +156,9 @@ const PwdCheckContainer = ({ history }) => {
       setResultEmailCheck(0);
     }
   };
-
+  useEffect(() => {
+    onKeyUpEmailCheck();
+  }, [u_emailcheck]);
 
   const theme = createTheme();
 
@@ -303,7 +219,7 @@ const PwdCheckContainer = ({ history }) => {
                     marginTop: 2,
                     borderRadius: 3,
                   }}
-                  placeholder="이름"
+                  placeholder="  이름"
                   margin="normal"
                   required
                   fullWidth
@@ -311,11 +227,8 @@ const PwdCheckContainer = ({ history }) => {
                   id="u_name"
                   name="u_name"
                   autoComplete="current-password"
-                  onKeyUp={onKeyUpName}
-
                 />
               </Grid>
-              <span style={{color:"red"}}>{namecheckerror}</span>
             </Grid>
             <Grid container>
 
@@ -338,10 +251,8 @@ const PwdCheckContainer = ({ history }) => {
                   id="u_id"
                   name="u_id"
                   autoComplete="current-password"
-                  onKeyUp={onKeyUpId}
                 />
               </Grid>
-                <span style={{color:"red"}}>{idcheckerror}</span>
             </Grid>
 
             <Grid container>
@@ -379,8 +290,9 @@ const PwdCheckContainer = ({ history }) => {
                 >
                   이메일인증
                 </Button>
-                
                 </Grid>
+
+
               </Grid>
               <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
                 <Typography variant="h6" style={{ color: "black" }}>
@@ -404,11 +316,11 @@ const PwdCheckContainer = ({ history }) => {
                 />
               </Grid>
             </Grid>
-         
+
             <Grid>
               <Grid item>
                 <Typography variant="22">
-                  <span style={{color:"red"}}>{error}</span>
+                  <span>{error}</span>
                 </Typography>
               </Grid>
             </Grid>

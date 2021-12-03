@@ -47,18 +47,6 @@ const LoginContainer = ({ history }) => {
     );
   };
 
-  const onkeyPress = e =>{
-    if(e.key == 'Enter'){
-      //history.push('/');
-      dispatch(
-        login({
-          u_id,
-          u_pwd,
-        })
-      );
-    }
-  }
-
   // 사가 핸들러
   const onsubmit = (e) => {
     e.preventDefault();
@@ -170,8 +158,6 @@ const LoginContainer = ({ history }) => {
                 name="u_id"
                 id="u_id"
                 autoComplete="id"
-                onKeyPress={onkeyPress}
-
               />
             </Grid>
           </Grid>
@@ -199,8 +185,6 @@ const LoginContainer = ({ history }) => {
                 id="u_pwd"
                 name="u_pwd"
                 autoComplete="current-password"
-                onKeyPress={onkeyPress}
-
               />
             </Grid>
           </Grid>
@@ -251,7 +235,6 @@ const LoginContainer = ({ history }) => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             onClick={onsubmit}
-            on
           >
             로그인
           </Button>

@@ -35,10 +35,6 @@ createRequestActionTypes("auth/PWDCHECK")
 const [PWDUPDATECHECK,PWDUPDATECHECK_SUCCESS,PWDUPDATECHECK_FAILURE] =
 createRequestActionTypes("auth/PWDUPDATECHECK")
 
-const [PWDIDCHECK,PWDIDCHECK_SUCCESS,PWDIDCHECK_FAILURE] =
-createRequestActionTypes("auth/PWDIDCHECK")
-
-
 
 // input change 값 
 export const change = createAction(CHANGE,({name, value}) =>({
@@ -72,11 +68,6 @@ export const idcheck = createAction(IDCHECK,({u_name,u_email}) =>{
     }
 })
 
-// 비밀번호 아이디 체크 확인
-export const pwdidcheck = createAction(PWDIDCHECK,({u_id}) =>({
-    u_id
-}))
-
 //비밀번호 액션 정의
 export const pwdcheck = createAction(PWDCHECK,({u_id,u_email,u_name}) =>({
     u_id,
@@ -109,8 +100,6 @@ const init =
   pwdError:null,
   pwdupdate:null,
   pwdupdateError:null,
-  pwdidError:null,
-  pwdid:null,
   tokenlled:tokenlled
 }
 
@@ -126,13 +115,9 @@ export const pwdchecksaga = createRequestSaga(PWDCHECK,authAPI.pwdfind);
 //pwdupdatesaga 생성
 export const pwdupdatesaga = createRequestSaga(PWDUPDATECHECK,authAPI.pwdupdate);
 
-//pwdidchecksaga 생성
-export const pwdidchecksaga = createRequestSaga(PWDIDCHECK,authAPI.pwdidcheck);
-
 
 //제네레이터 함수 
 export function* authSaga() {
-    yield takeLatest(PWDIDCHECK, pwdidchecksaga);
     yield takeLatest(PWDUPDATECHECK, pwdupdatesaga);
     yield takeLatest(PWDCHECK, pwdchecksaga);
     yield takeLatest(IDCHECK, idchecksaga);
@@ -145,6 +130,7 @@ const auth = handleActions(
     {                        
         [CHANGE]: (state, { payload : { name , value }}) =>                        
             produce(state,(draft)=>{
+                console.log(state + "2");
                 draft[name] =value;
             }),      
             [NUMBUR]: (state, { payload: { number } }) =>
@@ -182,8 +168,7 @@ const auth = handleActions(
         },
         //아이디 찾기 성공
         [IDCHECK_SUCCESS] : (state,{payload: check}) =>{
-            console.log('여기는 성공' + 'auth');       
-            console.log(check);          
+            console.log('여기는 성공' + 'auth');                 
             console.log(auth);
             
             return{
@@ -195,7 +180,8 @@ const auth = handleActions(
         },             
         //비밀번호 찾기 실패
         [PWDCHECK_FAILURE] : (state,{ payload:error }) =>{   
-            console.log('여기는 pwdcheck 실패');                           
+            console.log('여기는 pwdcheck 실패');
+                           
             return{                
              ...state,
              pwdError:error,                              
@@ -203,7 +189,8 @@ const auth = handleActions(
         },
         //비밀번호 찾기 성공        
          [PWDCHECK_SUCCESS] : (state,{ payload:pwd }) =>{                  
-            console.log('여기는 pwdcheck 성공');            
+            console.log('여기는 pwdcheck 성공');
+            
           return{                
                  ...state,
                 pwdError:null,                              
@@ -228,25 +215,7 @@ const auth = handleActions(
                   pwdupdateError:null,                              
                   pwdupdate
               };
-           }, 
-               //아이디 체크 성공
-          [PWDIDCHECK_SUCCESS] : (state,{ payload:pwdid }) =>{                  
-            console.log('성공');
-            return{                
-                   ...state,
-                   pwdidError:null,
-                   pwdid
-              };
-           },  
-               //아이디 체크 실패
-          [PWDIDCHECK_FAILURE] : (state,{ payload:error }) =>{                  
-            console.log('실패');
-            return{                
-                   ...state,
-                  pwdidError:error,                              
-                  
-              };
-           },                         
+           }                              
         },
     init     
 )
