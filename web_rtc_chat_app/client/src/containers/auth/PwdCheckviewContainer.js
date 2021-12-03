@@ -8,7 +8,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Avatar,
   Box,
-  Button,
   Container,
   CssBaseline,
   Grid,
@@ -19,6 +18,8 @@ import { LockOutlined } from "@material-ui/icons";
 import { change, pwdupdatecheck } from "../../modules/auth";
 import { withRouter } from "react-router";
 import { useBeforeunload } from "react-beforeunload";
+import Button from "@mui/material/Button";
+
 
 const PwdCheckViewContainer = ({ history }) => {
   const [error, setError] = useState("");
