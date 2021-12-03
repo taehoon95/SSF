@@ -24,45 +24,45 @@ import {
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 import Header from "../components/common/Header";
+import { videorecord } from "../lib/api/videoRecord";
 import Pagination from "./Pagination";
 
-
 const PageUl = styled.ul`
-  float:left;
+  float: left;
   list-style: none;
-  text-align:center;
-  border-radius:3px;
-  color:white;
-  padding:1px;
-  border-top:2px solid;
-  border-bottom:2px solid;
-  background-color: rgba( 0, 0, 0, 0.4 );
+  text-align: center;
+  border-radius: 3px;
+  color: white;
+  padding: 1px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  background-color: rgba(0, 0, 0, 0.4);
 `;
 
- const PageLi = styled.li`
-  display:inline-block;
-  font-size:17px;
-  font-weight:600;
-  padding:5px 20px 5px 12px;
-  border-radius:5px;
-  width:25px;
-  &:hover{
-    cursor:pointer;
-    color:white;
-    background-color:#263A6C;
+const PageLi = styled.li`
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 600;
+  padding: 5px 20px 5px 12px;
+  border-radius: 5px;
+  width: 25px;
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background-color: #263a6c;
   }
-  &:focus::after{
-    color:white;
-    background-color:#263A6C;
+  &:focus::after {
+    color: white;
+    background-color: #263a6c;
   }
 `;
 
- const PageSpan = styled.span`
+const PageSpan = styled.span`
   &:hover::after,
-  &:focus::after{
-    border-radius:100%;
-    color:white;
-    background-color:#263A6C;
+  &:focus::after {
+    border-radius: 100%;
+    color: white;
+    background-color: #263a6c;
   }
 `;
 
@@ -86,6 +86,17 @@ const MyVideoSettingPage = ({ history }) => {
     setCurrentPage(currentPage + 1);
   };
 
+  const nextbutton = () => {
+    if (currentPage < Math.ceil(myList.length / 3)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const backbutton = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  
   useEffect(() => {
     myVideoList();
   }, []);
@@ -105,16 +116,6 @@ const MyVideoSettingPage = ({ history }) => {
       });
   };
 
-  const nextbutton = () =>{
-    if(currentPage < Math.ceil(myList.length / 3)){
-      setCurrentPage(currentPage +1 );
-    }
-  }
-  const backbutton = () =>{
-    if(currentPage > 1){
-      setCurrentPage(currentPage -1 );
-    }    
-  }
 
   // VideoList 삭제
   const deleteListLine = (u_id, v_code) => {
@@ -126,7 +127,7 @@ const MyVideoSettingPage = ({ history }) => {
         console.log(response);
         // videorecord(u_id)
         myVideoList();
-        alert("삭제 성공");
+        alert(`${v_code}가 삭제되었습니다.`);
       })
       .catch((error) => {
         alert("삭제 실패");
@@ -137,9 +138,8 @@ const MyVideoSettingPage = ({ history }) => {
   // VideoList 삭제
   const deleteListLine2 = (e) => {
     e.preventDefault();
-    console.log(e.target.name);
-    // deleteListLine(u_id,e.target.name);
-    deleteListLine(u_id, e.target.name);
+    console.log(e.currentTarget.name);
+    deleteListLine(u_id, e.currentTarget.name);
   };
 
   //수정 버튼 시 pk 값 가져가기
@@ -151,18 +151,15 @@ const MyVideoSettingPage = ({ history }) => {
   return (
     <>
       <Header />
-      <TableContainer
-        style={{ marginTop: 65, background: "#303030" }}
-        component={Paper}
-      >
-        <Table size="large">
+      <TableContainer style={{ marginTop: 65, background: "#303030" }}>
+        <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell align="center">
+              {/* <TableCell align="center">
                 <Typography variant="h5" style={{ color: "white" }}>
                   코드번호
                 </Typography>
-              </TableCell>
+              </TableCell> */}
               <TableCell align="center">
                 <Typography variant="h5" style={{ color: "white" }}>
                   이미지
@@ -197,21 +194,21 @@ const MyVideoSettingPage = ({ history }) => {
           </TableHead>
 
           {currentPosts(myList).map((data, idx) => (
-            <TableBody>
-              <TableCell align="center" style={{ color: "white" }}>
+            <TableBody style={{ borderColor: "gray" }} >
+              {/* <TableCell align="center" style={{ color: "white" }}>
                 <Typography variant="h6" style={{ color: "white" }}>
                   {data.v_code}
                 </Typography>
-              </TableCell>
-              <TableCell align="center">
+              </TableCell> */}
+              <TableCell style={{ borderColor: "gray" }} align="center" height="100">
                 <Link
                   to={`/WatchPage2/${data.v_code}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <img src={data.v_img} width="70%" />
+                  <img src={data.v_img}  width="200" />
                 </Link>
               </TableCell>
-              <TableCell align="center" style={{ color: "white" }}>
+              <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
                 <Typography
                   component={Link}
                   to={`/WatchPage2/${data.v_code}`}
@@ -221,69 +218,69 @@ const MyVideoSettingPage = ({ history }) => {
                   {data.v_name}
                 </Typography>
               </TableCell>
-              <TableCell align="center" style={{ color: "white" }}>
+              <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
                 <Typography variant="h6" style={{ color: "white" }}>
                   {data.v_date}
                 </Typography>
               </TableCell>
-              <TableCell align="center" style={{ color: "white" }}>
+              <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
                 <Typography variant="h6" style={{ color: "white" }}>
-                  {data.v_views}
+                  {data.v_views} 회
                 </Typography>
               </TableCell>
-              <TableCell align="center">
+              <TableCell style={{ borderColor: "gray" }} align="center">
                 <Button
                   type="button"
                   onClick={onUpdate}
                   variant="contained"
                   name={data.v_code}
+                  color="primary"
                 >
                   수정
                 </Button>
 
                 {/* <input type="button" onClick={onUpdate} value="수정" name={data.v_code} /> */}
               </TableCell>
-              <TableCell align="center">
+              <TableCell style={{ borderColor: "gray" }} align="center">
                 <Button
                   type="button"
                   onClick={deleteListLine2}
                   name={data.v_code}
                   variant="contained"
+                  color="secondary"
                 >
                   삭제
                 </Button>
               </TableCell>
             </TableBody>
           ))}
-       
         </Table>
       </TableContainer>
-         {/* {페이징} */}
-         <div style={{width:'100%',display:'flex',justifyContent:'center'}}>
-         <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
-        { currentPage > 1 &&
-          <PageLi onClick={backbutton} >
-        <PageSpan className="page-link">prev</PageSpan>
-        </PageLi>       
-        }
-      </PageUl>
-              <Pagination
-                postsPerPage={postsPerPage}
-                totalPosts={myList.length}
-                paginate={setCurrentPage}
-                myList={currentPosts(myList)}
-                plusPage={plusPage}
-              />
-       <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
-        {  currentPage < 2 &&
-        <PageLi onClick={nextbutton}>
-          <PageSpan>
-            next
-            </PageSpan>
-          </PageLi>
-        }
+      
+      {/* {페이징} */}
+      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
+          {currentPage > 1 && (
+            <PageLi onClick={backbutton}>
+              <PageSpan className="page-link">prev</PageSpan>
+            </PageLi>
+          )}
         </PageUl>
-            </div>
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={myList.length}
+          paginate={setCurrentPage}
+          myList={currentPosts(myList)}
+          plusPage={plusPage}
+        />
+        <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
+          {currentPage < 2 && (
+            <PageLi onClick={nextbutton}>
+              <PageSpan>next</PageSpan>
+            </PageLi>
+          )}
+        </PageUl>
+      </div>
     </>
   );
 };
