@@ -23,12 +23,20 @@ const [UPDATESTREAMING, UPDATESTREAMING_SUCCESS, UPDATESTREAMING_FAILURE] =
 const [DELETESTREAMING, DELETESTREAMING_SUCCESS, DELETESTREAMING_FAILURE] =
   createRequestActionTypes("deleteStreaming");
 
-
 const [
   SHOWSTREAMINGBYLNUM,
   SHOWSTREAMINGBYLNUM_SUCCESS,
   SHOWSTREAMINGBYLNUM_FAILURE,
 ] = createRequestActionTypes("showStreamingByLnum");
+
+const [
+  SHOWSEARCHSTREAMING,
+  SHOWSEARCHSTREAMING_SUCCESS,
+  SHOWSEARCHSTREAMING_FAILURE,
+] = createRequestActionTypes("showSearchStreaming");
+
+// 2021-12-02 이태훈 검색시 무한 스크롤 비디오 
+
 
 
 
@@ -37,6 +45,7 @@ const insertStreamingSaga = createRequestSaga(INSERTSTREAMING, streamingAPI.inse
 const updateStreamingSaga = createRequestSaga(UPDATESTREAMING, streamingAPI.updateStreaming);
 const deleteStreamingSaga = createRequestSaga(DELETESTREAMING, streamingAPI.deleteStreaming);
 const showStreamingByLnumSaga = createRequestSaga(SHOWSTREAMINGBYLNUM, streamingAPI.showStreamingByLnum);
+const showSearchStreamingSaga = createRequestSaga(SHOWSEARCHSTREAMING, streamingAPI.showSearchStreaming);
 
 export function* streamingSaga() {
   yield takeLatest(SHOWSTREAMING, showstreamingSaga);
@@ -44,6 +53,7 @@ export function* streamingSaga() {
   yield takeLatest(UPDATESTREAMING, updateStreamingSaga);
   yield takeLatest(DELETESTREAMING, deleteStreamingSaga);
   yield takeLatest(SHOWSTREAMINGBYLNUM, showStreamingByLnumSaga);
+  yield takeLatest(SHOWSEARCHSTREAMING, showSearchStreamingSaga );
 }
 
 // 2021-12-02 강동하 리덕스 수정
@@ -54,12 +64,12 @@ const init = {
   streamRes: [],
   showStreamRes: [],
   streamError: null,
-
   l_code: nanoid(),
   u_id: localStorage.getItem("u_id"),
   l_title: "",
   l_description: "",
   l_img:"",
+
 };
 
 // export const change = createAction(CHANGE, ({ streamInfo }) => 
@@ -106,6 +116,9 @@ export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( l_code ) 
   l_code,
 }));
 
+export const showSearchStreaming = createAction(SHOWSEARCHSTREAMING, ( search) => ({
+  search,
+}));
 
 
 
@@ -177,7 +190,16 @@ const streaming = handleActions(
       ...state,
       streamError: error,
     }),
-     
+    [SHOWSEARCHSTREAMING_SUCCESS]: (state, { payload: showSearchStreamRes }) => ({
+      ...state,
+      streamError: null,
+      showSearchStreamRes,
+    }),
+
+    [SHOWSEARCHSTREAMING_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      streamError: error,
+    }),
   },
   init
 );

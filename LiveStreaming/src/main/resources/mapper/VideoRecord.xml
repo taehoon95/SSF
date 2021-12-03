@@ -90,5 +90,17 @@
                 where v_img like concat('%/', #{v_img}, '.%')
                 or v_img like concat('%/', #{v_img}, ' (%');
     </select>
+    
+    <!-- 2021-12-02 이태훈 비디오 검색시 무한 스크롤 페이징 -->
+    <select id="videoInfiniteSearch" parameterType="Map" resultType="liveStreaming.dto.VideoRecordDto">
+    	select * 
+  		  from ssf_schema.video_upload
+ 		 where v_state = 1 and 
+ 		       v_name like CONCAT('%',#{search},'%') or 
+ 		       v_descript like CONCAT('%',#{search},'%')
+ 	     order by v_date desc
+ 		 limit 5
+	    offset #{pageNum}*5;
+    </select>
 
 </mapper>

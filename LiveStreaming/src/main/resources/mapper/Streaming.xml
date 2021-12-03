@@ -28,7 +28,7 @@
     
     <update id="updateStreaming">
 	    update ssf_schema.streaming
-	   	   set l_title = #{l_title} , l_description = #{l_description}
+	   	   set l_title = #{l_title} , l_description = #{l_description}, l_img = #{l_img}
 	     where l_code = #{l_code} and u_id = #{u_id};
     </update>
     
@@ -43,6 +43,19 @@
     	  from ssf_schema.streaming
     	 where l_code = #{l_code}
     </select>
+
+
+	<!-- 2021-12-02 이태훈 스트리밍 검색시 무한 스크롤 페이징 -->
+	<select id="streamingSearchList" parameterType="Map" resultType="liveStreaming.dto.StreamingDto">
+	    select * 
+  		  from ssf_schema.streaming
+         where l_title like CONCAT('%',#{search},'%') or
+               u_id like CONCAT('%',#{search},'%') or 
+               l_description like CONCAT('%',#{search},'%')
+         order by l_date desc
+         limit 5
+		    offset #{pageNum}*5
+	</select>
 
 	<!-- 2021-12-02 강동하 방송 방송 시작 썸네일 업로드 시 파일이름 중복체크 -->
     <select id="streamFileName" resultType="int">
