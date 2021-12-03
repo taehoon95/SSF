@@ -105,16 +105,19 @@ const CreateaStreamContainer = () => {
           // 썸네일 파일이름 중복체크
           axios.get(`/api/streamfilename/${imagePreProcess}`)
           .then(response => {
-            let INumber = response.data + 1;
+            let INumber = response.data;
             //console.log(INumber);
             //handleFileUpload(INumber);
-            
+            console.log(INumber);
             if(INumber != 0) {
+              INumber = INumber + 1;
               let IFileSplit = selectedIFile.name.split('.');
                 // for ( let i in IFileSplit ) {
                 //   console.log(IFileSplit[i]);
                 // }
               var IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
+            } else {
+              var IResult = selectedIFile.name;
             }
             console.log(IResult);
             setImg(IResult);

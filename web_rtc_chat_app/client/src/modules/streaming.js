@@ -59,7 +59,7 @@ const init = {
   u_id: localStorage.getItem("u_id"),
   l_title: "",
   l_description: "",
-  l_img:"",
+  l_img: "",
 };
 
 // export const change = createAction(CHANGE, ({ streamInfo }) => 
@@ -98,8 +98,8 @@ export const updateStreaming = createAction(UPDATESTREAMING, ( u_id, l_code, l_t
   u_id, l_code, l_title, l_description
 }));
 
-export const deleteStreaming = createAction(DELETESTREAMING, ( u_id,l_code ) => ({
-  u_id, l_code,
+export const deleteStreaming = createAction(DELETESTREAMING, ( u_id, l_code ) => ({
+  u_id, l_code
 }));
 
 export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( l_code ) => ({

@@ -75,14 +75,20 @@ const UploadPage = () => {
     // console.log(selectedVFile.name);
     // console.log(selectedIFile.name);
 
+    var VResult;
+    var IResult;
+
     if(VNumber != 0) {
       let VFileSplit = selectedVFile.name.split('.');
         for ( let i in VFileSplit ) {
           console.log(VFileSplit[i]);
         }
       
-      var VResult = VFileSplit[0].concat(` (${VNumber}).${VFileSplit[1]}`);
+      VResult = VFileSplit[0].concat(` (${VNumber}).${VFileSplit[1]}`);
+    } else {
+      VResult = selectedVFile.name;
     }
+
     console.log(VResult);
 
     if(INumber != 0) {
@@ -91,7 +97,9 @@ const UploadPage = () => {
           console.log(IFileSplit[i]);
         }
       
-      var IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
+      IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
+    } else {
+      IResult = selectedIFile.name;
     }
     console.log(IResult);
 
@@ -198,10 +206,14 @@ const UploadPage = () => {
               // 영상 파일이름, 썸네일 파일이름 중복체크
               axios.get(`/api/filename/${videoPreProcess}/${imagePreProcess}`)
               .then(response => {
-                let VNumber;
-                let INumber;
-                VNumber = response.data[0].body + 1;
-                INumber = response.data[1].body + 1;
+                let VNumber = response.data[0].body;
+                let INumber = response.data[1].body;
+                if(VNumber != 0){
+                  VNumber = VNumber + 1;
+                }
+                if(INumber != 0){
+                  INumber = INumber + 1;
+                }
                 console.log(VNumber);
                 console.log(INumber);
                 handleFileUpload(VNumber, INumber);

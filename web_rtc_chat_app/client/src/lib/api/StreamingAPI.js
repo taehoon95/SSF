@@ -14,7 +14,7 @@ export const updateStreaming = ({ u_id, l_code, l_title, l_description }) =>
 
 // 2021 1125 이태훈 방송종료 후 스트리밍 방 삭제
 // delete는 data로 값을 감싸자
-export const deleteStreaming = ( {u_id, l_code} ) =>
+export const deleteStreaming = ( { u_id, l_code } ) =>
   axios.delete("/api/deleteStreaming", {data:{ u_id, l_code }});
 
 // 2021 1125 이태훈 l_num으로 스트리밍 방 상세 검색

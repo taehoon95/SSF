@@ -12,20 +12,34 @@
           </trim>
     </select>
     
-    <!-- 2021-12-02 강동하 l_img 추가 -->
+    <!-- 2021-12-02 강동하 l_img 추가, 다시 삭제 -->
     <insert id="insertStreaming">
     	insert
-            <if test='l_img != ""'> 
+        <if test='l_img != ""'> 
             into ssf_schema.streaming (l_code, l_title, l_description, u_id, l_img)
 		        values (#{l_code},#{l_title},#{l_description}, #{u_id}, #{l_img});
-            </if>
+        </if>
 
-            <if test='l_img == ""'> 
+        <if test='l_img == ""'> 
             into ssf_schema.streaming (l_code, l_title, l_description, u_id)
 		        values (#{l_code},#{l_title},#{l_description}, #{u_id});
-            </if>
+        </if>    
     </insert>
-    
+
+    <!-- 2021-12-03 강동하 streaming_management insert -->
+    <insert id="insertStreamingManagement">
+    	insert
+        <if test='l_img != ""'> 
+            into ssf_schema.streaming_management (l_title, u_id, l_img)
+		        values (#{l_title}, #{u_id}, #{l_img});
+        </if>
+
+        <if test='l_img == ""'> 
+            into ssf_schema.streaming_management (l_title, u_id)
+		        values (#{l_title}, #{u_id});
+        </if>
+    </insert>
+
     <update id="updateStreaming">
 	    update ssf_schema.streaming
 	   	   set l_title = #{l_title} , l_description = #{l_description}
@@ -44,10 +58,11 @@
     	 where l_code = #{l_code}
     </select>
 
-	<!-- 2021-12-02 강동하 방송 방송 시작 썸네일 업로드 시 파일이름 중복체크 -->
+	<!-- 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크 -->
     <select id="streamFileName" resultType="int">
-        select count(*) from ssf_schema.streaming
+        select count(*) from ssf_schema.streaming_management
                 where l_img like concat('%/', #{l_img}, '.%')
                 or l_img like concat('%/', #{l_img}, ' (%');
     </select>
+
 </mapper>
