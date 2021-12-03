@@ -1,6 +1,7 @@
 package liveStreaming.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,9 @@ public class VideoRecordService {
 	}
 
 	// 20211122 윤성준 게시물 삭제 
-	public int videoDelete(VideoRecordDto videoRecordDto){
-		return mapper.videoDelete(videoRecordDto);
+	public List<VideoRecordDto> videoDelete(VideoRecordDto videoRecordDto){
+		mapper.videoDelete(videoRecordDto);
+		return mapper.videoRecord(videoRecordDto.getU_id());
 	}
 
 	// 20211123 윤성준 Main video 전체 리스트 검색문
@@ -71,5 +73,10 @@ public class VideoRecordService {
 	// 2021-11-30 강동하 영상 업로드 시 영상썸네일이름 중복체크
 	public int videoIfileCheck(String v_img){
 		return mapper.videoIfileCheck(v_img);
+	}
+	
+	// 2021-12-02 이태훈 비디오 무한 스크롤 검색
+	public List<VideoRecordDto> videoInfiniteSearch(Map videoInfo){
+		return mapper.videoInfiniteSearch(videoInfo);
 	}
 }

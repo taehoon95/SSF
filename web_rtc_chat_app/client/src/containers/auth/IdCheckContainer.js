@@ -17,11 +17,14 @@ import {
 } from "../../../node_modules/@material-ui/core/index";
 import { LockOutlined } from "../../../node_modules/@mui/icons-material/index";
 import Button from "@mui/material/Button";
+import { Link,useHistory } from "react-router-dom";
 
 
-const IdCheckContainer = ({ history }) => {
+
+const IdCheckContainer = () => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const history = useHistory();
   const { u_name, u_email, check, checkError } = useSelector((state) => {
     return {
       u_name: state.auth.u_name,
@@ -45,7 +48,6 @@ const IdCheckContainer = ({ history }) => {
   };
   const onsubmit = (e) => {
     e.preventDefault();
-    console.log("아이디찾기");
     dispatch(
       idcheck({
         u_name,
@@ -60,7 +62,7 @@ const IdCheckContainer = ({ history }) => {
     }
     if (check) {
       console.log("아이디 찾기 성공");
-      history.push("/IdCheckViewrPage");
+      history.push("/IdCheckViewPage");
     }
   }, [check, checkError]);
 
@@ -186,9 +188,11 @@ const IdCheckContainer = ({ history }) => {
             {/* </Box> */}
           </form>
         </Container>
+        
+     
       </ThemeProvider>
     </div>
   );
 };
 
-export default withRouter(IdCheckContainer);
+export default IdCheckContainer;

@@ -474,6 +474,7 @@ const RegisterContainer = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                color="primary"
               >
                 중복 체크
               </Button>
@@ -690,6 +691,7 @@ const RegisterContainer = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                color="primary"
               >
                 전송
               </Button>
@@ -737,7 +739,7 @@ const RegisterContainer = () => {
           >
             {/* 취소 버튼 */}
             <Grid item xs={12} sm={6}>
-              <Button variant="contained" href="/" fullWidth>
+              <Button variant="contained" href="/" fullWidth color="primary">
                 취소
               </Button>
             </Grid>
@@ -749,6 +751,7 @@ const RegisterContainer = () => {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                color="primary"
               >
                 회원가입
               </Button>

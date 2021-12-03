@@ -310,7 +310,7 @@ const MainPage = () => {
             <Grid container xs={12}>
               <Grid item xs={12} style={{ marginLeft: 30}}>
                 <Typography variant="h5" style={{ color: "white" }}>
-                  전체 영상
+                  추천 영상
                 </Typography>
               </Grid>
               {myList.map((data, idx) => (

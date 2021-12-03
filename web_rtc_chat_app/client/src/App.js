@@ -12,7 +12,7 @@ import WatchPage from './pages/WatchPage';
 import WatchPage2 from './pages/WatchPage2';
 import MyVideoSettingPage from './pages/MyVideoSettingPage';
 import IdCheckPage from './pages/IdCheckPage';
-import IdCheckViewrPage from './pages/IdCheckViewPage';
+import IdCheckViewPage from './pages/IdCheckViewPage';
 import PwdCheckPage from './pages/PwdCheckPage';
 import StreamingListPage from './pages/StreamingListPage';
 import SearchResultPage from './pages/SearchResultPage';
@@ -35,12 +35,14 @@ function App() {
       <PrivateRoute component={MyVideoSettingPage} path={["/MyVideoSettingPage/@:u_id", '/MyVideoSettingPage']}  />
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
       <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
-      <PrivateRoute component={IdCheckViewrPage} path={["/IdCheckViewrPage"]} />
+      <Route component={IdCheckViewPage} path={["/IdCheckViewPage"]} />
       <Route component={StreamingListPage} path={"/StreamingListPage"} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />
+
       <Route component={SearchResultPage} path={["/SearchResultPage/:v_name", "/SearchResultPage" ]} />
-      <PrivateRoute component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
+      <Route component={PwdCheckViewPage} path={["/PwdCheckViewPage"]} />
+
       {/*2021-11-25 영상관리 수정 페이지*/}
       <PrivateRoute component={ListChangePage} path={["/ListChangePage/:v_code", '/ListChangePage']} />
       {/* 20211115 이태훈 스트리밍 방만들기 페이지*/}      
