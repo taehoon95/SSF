@@ -31,7 +31,6 @@ export default function createRequestSaga(type, request) {
                 
       });
     }
-
     yield put(finishLoading(type)); // 로딩 끝
   };
 }

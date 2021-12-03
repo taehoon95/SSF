@@ -96,6 +96,9 @@ public class UserController {
 		System.out.println("여기는 pwdfind");
 		System.out.println(user + "1111111");
 		UserDto pwdfindUser = mapper.pwdFind(user);
+		if(pwdfindUser == null ){
+			return ResponseEntity.badRequest().body("에러");
+		}
 		System.out.println("user "+user);
 		System.out.println("pwdfindUser "+pwdfindUser);
 		return ResponseEntity.ok(pwdfindUser);
@@ -108,5 +111,15 @@ public class UserController {
 		int pwdupdateUser = mapper.pwdupdate(user);
 		System.out.println(pwdupdateUser);
 		return ResponseEntity.ok(pwdupdateUser);
+	}
+	//비밀번호 찾기 페이지 아이디 여부 확인
+	@PostMapping("/pwdidcheck")
+	public ResponseEntity<Object> pwdidcheck(@RequestBody UserDto user) {
+		System.out.println("여기는 아이디 체크");
+		UserDto pwdidcheckUser = mapper.pwdidcheck(user);
+		if(pwdidcheckUser == null){
+			return ResponseEntity.badRequest().body("메세지");
+		}
+		return ResponseEntity.ok(pwdidcheckUser);
 	}
 }
