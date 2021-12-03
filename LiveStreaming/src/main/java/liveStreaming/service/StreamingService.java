@@ -42,7 +42,10 @@ public class StreamingService {
 	}
 	
 	// 2021-11-23 이태훈 방송 종료시 스트리밍 삭제
+	// 2021-12-03 강동하 방송 종료시 l_length 업데이트 추가
+	@Transactional
 	public int deleteStreaming(StreamingDto streaming) {
+		System.out.println(streaming);
 		return mapper.deleteStreaming(streaming);
 	}
 	
@@ -60,4 +63,17 @@ public class StreamingService {
 		return mapper.streamFileName(l_img);
 
 	}
+
+	// 2021-12-03 강동하 스트리밍 streaming_management insert
+	public StreamingDto insertStreamingManagement(StreamingDto streaming) {
+		mapper.insertStreamingManagement(streaming);
+		return streaming;
+	}
+
+	// // 2021-12-03 강동하 방송 종료 시 streaming_management l_length update
+	// public StreamingDto updateEndLength(StreamingDto streaming) {
+	// 	System.out.println(streaming.getS_code());
+	// 	mapper.updateEndLength(streaming);
+	// 	return streaming;
+	// }
 }

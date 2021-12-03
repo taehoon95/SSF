@@ -21,9 +21,12 @@ public class StreamingController {
     StreamingService service;
 
     // 2021-11-23 이태훈 스트리밍 insert
+	// 2021-12-03 강동하 스트리밍 insert + streaming_management insert
 	@PostMapping("/insertStreaming")
 	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming){
 		System.out.println(streaming);
+		service.insertStreamingManagement(streaming);
+		// management에서 s_code 받아와서 get
 		return ResponseEntity.ok(service.insertStreaming(streaming));
 	}
 	
@@ -32,7 +35,8 @@ public class StreamingController {
 		System.out.println(streaming);
 		return ResponseEntity.ok(service.updateStreaming(streaming));
 	}
-	
+
+	// 2021-11-23 이태훈 스트리밍 delete
 	@DeleteMapping("/deleteStreaming")
 	public ResponseEntity<Object> deleteStreaming(@RequestBody StreamingDto streaming){
 		System.out.println("=================");

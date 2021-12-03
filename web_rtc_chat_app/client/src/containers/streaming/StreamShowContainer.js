@@ -49,6 +49,10 @@ const StreamShow = () => {
   }));
 
   const { socketRef } = useContext(SocketContext);
+  const { s_code } = useSelector((state) => ({
+    s_code : state.streaming.streamRes.s_code,
+  }))
+
 
   // 주소창으로 들어오면
   // 1. 방에 입장하는 것을 소켓에 알려주고
@@ -61,6 +65,7 @@ const StreamShow = () => {
   }, [offStreaming]);
 
   // 방송 실행 메서드
+  // 2021-12-03 강동하 방송 종료 시 s_code 전송
   const buildPlayer = () => {
     const player = flv.createPlayer({
       type: "flv",
@@ -71,6 +76,7 @@ const StreamShow = () => {
     player.load();
     if (offStreaming) {
       player.destroy();
+      //alert(s_code);
       dispatch(deleteStreaming(u_id, l_code));
       history.push("/");
     }
