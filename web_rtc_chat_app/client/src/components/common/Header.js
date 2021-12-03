@@ -23,8 +23,8 @@ import {
   VideoLabel,
 } from "@mui/icons-material";
 import { Divider, Grid, Tooltip } from "@mui/material";
-import {VideoSettings} from "../../../node_modules/@mui/icons-material/index";
-
+import { VideoSettings } from "../../../node_modules/@mui/icons-material/index";
+import { useMediaQuery } from "react-responsive";
 
 // 2021-11-25 강동하 버튼 pathname 에러 임시 수정
 import { Link, withRouter, useHistory } from "react-router-dom";
@@ -50,15 +50,18 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(9),
   },
   // sideBar css end
+  // moblie: {
+  //   display: "none",
+  // },
 }));
 
-const lightColor = "rgba(255, 255, 255, 0.7)";
-
-
-
-
 const Header = () => {
+  const isMobile = useMediaQuery({
+    query: "(min-width: 1130px)",
+  });
+
   const classes = useStyles();
+
   const history = useHistory();
   // SideBar On/Off 상태 설정
   const [opens, setOpens] = useState(false);
@@ -73,7 +76,7 @@ const Header = () => {
 
   // 검색 값 전송 버튼
   const searchContent = (e) => {
-    if(e.target.value === 0){
+    if (e.target.value === 0) {
       return;
     }
     //alert(inputSearch);
@@ -101,16 +104,12 @@ const Header = () => {
     history.push("/");
   };
 
-
-
-  const onkeyPress = (e) =>{
-    if(e.key == 'Enter'){
+  const onkeyPress = (e) => {
+    if (e.key == "Enter") {
       history.push(`/SearchResultPage/${inputSearch}`);
       setInputSearch("");
     }
-  }
-
-
+  };
 
   return (
     <>
@@ -126,7 +125,7 @@ const Header = () => {
           {/* 사이드바  */}
           {true && (
             <IconButton
-              style={{ marginRight:10 }}
+              style={{ marginRight: 10 }}
               edge="start"
               className={classes.menuButton}
               color="inherit"
@@ -139,15 +138,15 @@ const Header = () => {
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
           <Grid container>
-            <Grid item style={{ marginLeft: -10 }}>
+            <Grid item style={{ marginLeft: -10}}>
               <Button
                 onClick={home}
                 variant="inherit"
                 sx={{
                   textDecoration: "none",
-                  color: lightColor,
                 }}
                 rel="noopener noreferrer"
+                style={{ color: "white" }}
               >
                 <VideoLabel />
                 <Typography variant="h6">SSF</Typography>
@@ -162,7 +161,7 @@ const Header = () => {
             m={1}
             justifyContent="center"
             alignItems="center"
-            style={{width:1400}}
+            style={{ width: 1400 }}
           >
             <input
               onChange={onSearchBar}
@@ -182,7 +181,6 @@ const Header = () => {
               placeholder=" 검색"
               size="small"
               onKeyPress={onkeyPress}
-
             />
 
             <Button
@@ -195,6 +193,7 @@ const Header = () => {
                 marginLeft: 1,
                 height: 40,
                 width: 70,
+                color: "white"
               }}
             >
               <Search />
@@ -202,65 +201,67 @@ const Header = () => {
           </Box>
 
           {/* 로그인, 로그아웃 버튼 감쌈 */}
-          <Grid
-            container
-            alignItems="center"
-            direction="row"
-            justifyContent="right"
-          >
-            <Grid item className="loginbuttin">
-              {tokenlled ? (
-                <Typography variant="body1" >
-                  {/* 로그아웃 버튼 */}
-                  {localStorage.getItem("u_id")} 님 어서오세요 &nbsp;
-                  <Button
-                    variant="inherit"
-                    onClick={onLogout}
-                    style={{ color: "white" }}
-                  >
-                    <Typography variant="body1" color="#d30000">
-                      로그아웃
-                    </Typography>
-                  </Button>
-                </Typography>
-              ) : (
-                <>
-                  {/* // 로그인 버튼 */}
-                  <Button
-                    component={Link}
-                    to={"/LoginPage"}
-                    variant="inherit"
-                    style={{ color: "white" }}
-                  >
-                    <Typography variant="body1">로그인</Typography>
-                  </Button>
-                  {/* // 회원가입 버튼 */}
-                  <Button
-                    component={Link}
-                    to={"/RegisterPage"}
-                    variant="inherit"
-                    style={{ color: "white" }}
-                  >
-                    <Typography variant="body1">회원가입</Typography>
-                  </Button>
-                </>
-              )}
-            </Grid>
+          {isMobile && (
+            <Grid
+              container
+              alignItems="center"
+              direction="row"
+              justifyContent="right"
+            >
+              <Grid item className="loginbuttin">
+                {tokenlled ? (
+                  <Typography variant="body1">
+                    {/* 로그아웃 버튼 */}
+                    {localStorage.getItem("u_id")} 님 어서오세요 &nbsp;
+                    <Button
+                      variant="inherit"
+                      onClick={onLogout}
+                      style={{ color: "white" }}
+                    >
+                      <Typography variant="body1" color="#d30000">
+                        로그아웃
+                      </Typography>
+                    </Button>
+                  </Typography>
+                ) : (
+                  <>
+                    {/* // 로그인 버튼 */}
+                    <Button
+                      component={Link}
+                      to={"/LoginPage"}
+                      variant="inherit"
+                      style={{ color: "white" }}
+                    >
+                      <Typography variant="body1">로그인</Typography>
+                    </Button>
+                    {/* // 회원가입 버튼 */}
+                    <Button
+                      component={Link}
+                      to={"/RegisterPage"}
+                      variant="inherit"
+                      style={{ color: "white" }}
+                    >
+                      <Typography variant="body1">회원가입</Typography>
+                    </Button>
+                  </>
+                )}
+              </Grid>
 
-            {/* 알림버튼 */}
-            <Grid item>
-              <Tooltip  title="Alerts • No alerts">
-                <IconButton color="inherit">
-                  <NotificationsNone />
-                </IconButton>
-              </Tooltip>
-            </Grid>
+              {/* 알림버튼 */}
+              <Grid item>
+                <Tooltip title="Alerts • No alerts">
+                  <IconButton color="inherit">
+                    <NotificationsNone />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
 
-            {/*개인 이미지 버튼*/}
-            {/* <Grid item>
+              {/*개인 이미지 버튼*/}
+              {/* <Grid item>
               <IconButton color="inherit" sx={{ p: 0.5 }}></IconButton>
             </Grid> */}
-          </Grid>
+            </Grid>
+          )}
         </Toolbar>
       </AppBar>
 
@@ -269,9 +270,9 @@ const Header = () => {
         <Drawer open={opens} onClose={() => setOpens(false)}>
           <List className={classes.drawer} style={{ background: "#303030" }}>
             {/* SideBar안의 메뉴 버튼 */}
-            <ListItem className={classes.ListItem}>
+            <ListItem className={classes.ListItem} style={{ color: "white" }}>
               <IconButton
-                style={{ marginLeft: -8, color: "white" }}
+                style={{  color: "white" }}
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
@@ -282,15 +283,15 @@ const Header = () => {
               </IconButton>
               {/* SSF 로고 */}
               <Grid container>
-                <Grid item style={{ marginLeft: 0 }}>
+                <Grid item style={{ }}>
                   <Button
                     onClick={home}
                     variant="inherit"
                     sx={{
                       textDecoration: "none",
-                      color: lightColor,
                     }}
                     rel="noopener noreferrer"
+                    style={{ color: "white"}}
                   >
                     <VideoLabel />
                     <Typography variant="h6">SSF</Typography>

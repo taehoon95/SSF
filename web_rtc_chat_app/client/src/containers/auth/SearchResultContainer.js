@@ -169,7 +169,7 @@ const SearchResultContainer = () => {
             </Grid>
           ))
         ) : (
-          <div  style={{width:'100%',height:'100%',alignItems:'center'}}>
+          <div  style={{width:'100%', marginTop: "17vh",alignItems:'center'}}>
             {/* 검색 결과가 없을 경우 */}
               <div style={{display:'flex', justifyContent:'center',alignItems:'center',color:'white'}}>
                 <HelpOutline style={{ width: 300, height: 300 }} />
