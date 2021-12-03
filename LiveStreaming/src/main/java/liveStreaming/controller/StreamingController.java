@@ -65,6 +65,7 @@ public class StreamingController {
 		return ResponseEntity.ok(service.showStreamingByLnum(l_code));
 	}
 
+
 	// 2021-12-02  이태훈 search으로 방검색
 	@GetMapping("/streamingInfiniteSearch/{search}/{pageNum}")
 	public ResponseEntity<Object> streamingInfiniteSearch(@PathVariable String search,@PathVariable int pageNum){
@@ -75,4 +76,11 @@ public class StreamingController {
 	}
 	
 	
+
+	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
+	@GetMapping("/streamfilename/{l_img}")
+	public ResponseEntity<Object> streamFileName(@PathVariable String l_img){
+		return ResponseEntity.ok(service.streamFileName(l_img));
+	}
+
 }

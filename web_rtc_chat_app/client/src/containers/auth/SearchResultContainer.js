@@ -2,9 +2,18 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../scroll/Loader";
 import InfiniteScroll from "react-infinite-scroll-component";
+
+// 2021-11-25
+// 윤성준
+// 검색기능 페이지 추가
+
+// 2021-11-29 강동하 로딩 추가
+import styled from 'styled-components';
+
 import {
   Box,
   Grid,
+
   Typography,
 } from "../../../node_modules/@material-ui/core/index";
 import {
@@ -95,7 +104,9 @@ const SearchResultContainer = () => {
     setItems([]);
   }, [search]);
 
+
   return (
+    <>
     <InfiniteScroll
       dataLength={items.length}
       next={fetchData}
@@ -107,6 +118,7 @@ const SearchResultContainer = () => {
         <h1>관련 동영상</h1>
         <div className="row m-2">
           {items.map((data, idx) => (
+
             <Grid
               container
               component={Link}
@@ -122,11 +134,13 @@ const SearchResultContainer = () => {
             >
               <Grid item xs={5}>
                 <Box>
+
                   <img
                     src={data.l_img || data.v_img}
                     width="100%"
                     alt={data.l_code || data.v_name}
                   />
+
                 </Box>
               </Grid>
 
@@ -157,7 +171,18 @@ const SearchResultContainer = () => {
         </div>
       </div>
     </InfiniteScroll>
-  );
+    <div  style={{width:'100%', marginTop: "17vh",alignItems:'center'}}>
+      {/* 검색 결과가 없을 경우 */}
+        <div style={{display:'flex', justifyContent:'center',alignItems:'center',color:'white'}}>
+          {/* <HelpOutline style={{ width: 300, height: 300 }} /> */}
+        </div>
+        <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center', color:'white'}}>
+          <Typography variant="h3">검색 결과가 없습니다.</Typography>             
+        </div>
+    </div>
+    </>
+    )
+    
 };
 
 export default SearchResultContainer;

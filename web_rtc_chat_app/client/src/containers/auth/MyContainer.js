@@ -43,6 +43,7 @@ const MyContainer = () => {
   useEffect(() => {
     myVideoViews();
   }, []);
+  
   // 2021-12-01 강동하 차트 색 수정
   useEffect(() => {
     f1();
@@ -122,7 +123,7 @@ const MyContainer = () => {
 
   return (
     <>
-      <Grid container >
+      <Grid container>
         <div className="container" style={{ marginTop: 65 }}>
           <Link
             rel="stylesheet"
@@ -136,9 +137,11 @@ const MyContainer = () => {
             to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
           />
           <style>{cssstyle}</style>
-          <div>
+
             <Grid item>
-              <Typography variant="h4" style={{ color:'white' }}>내 영상 리스트</Typography>
+              <Typography variant="h4" style={{ color: "white" }}>
+                내 영상 리스트
+              </Typography>
             </Grid>
             <br />
             <Slider {...settings}>
@@ -149,13 +152,7 @@ const MyContainer = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <video
-                        src={data.v_link}
-                        controls
-                        muted
-                        width="320"
-                        height="250"
-                      />
+                      <img src={data.v_img} width="320" height="200" />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}
                       </h3>
@@ -170,88 +167,96 @@ const MyContainer = () => {
                 </div>
               ))}
             </Slider>
-          </div>
+
           {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
+
           {/* 2021-12-01 강동하 차트 색 수정 */}
         </div>
         <div className="container" style={{ marginTop: 25 }}>
           <p />
-          {data2.labels == undefined && test != 1 ? null : (
-            <MDBContainer>
               <Grid item>
                 <Typography variant="h4" style={{ color: "white" }}>
                   내 영상 조회수
                 </Typography>
+              </Grid>
+              <br />
+          {data2.labels == undefined && test != 1 ? null : (
+            <MDBContainer>
+              <Grid item style={{ marginLeft: -50}}>
                 <Bar
                   data={data2.dataHorizontal}
-                  options={{ 
-                    
+                  options={{
                     responsive: true,
                     indexAxis: "y",
                     // 막대 두께
                     maxBarThickness: 40,
-                    scales: { // x축과 y축에 대한 설정을 할 수 있습니다.
-                      x: { // 여기서 x는 이 축의 id인데요, 이 안에서 axis 속성만 x로 지정해놓으시면 id를 x가 아니라 다른 이름으로 설정해도 무관합니다.
-                        grid: { // x축을 기준으로 그려지는 선(세로선)에 대한 설정입니다.
+                    scales: {
+                      // x축과 y축에 대한 설정을 할 수 있습니다.
+                      x: {
+                        // 여기서 x는 이 축의 id인데요, 이 안에서 axis 속성만 x로 지정해놓으시면 id를 x가 아니라 다른 이름으로 설정해도 무관합니다.
+                        grid: {
+                          // x축을 기준으로 그려지는 선(세로선)에 대한 설정입니다.
                           display: true, // 선이 아예 안 그려지게 됩니다.
-                          color: '#C9AFAF', // 눈금 및 선의 색상을 지정합니다.
+                          color: "#C9AFAF", // 눈금 및 선의 색상을 지정합니다.
                         },
-                        title: { // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
+                        title: {
+                          // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
                           display: true,
-                          color: '#ffffff',
+                          color: "#ffffff",
                           font: {
                             size: 17,
                           },
-                          text: '조회수'
+                          text: "조회수",
                         },
                         ticks: {
                           color: "#ffffff",
-                          font:{
+                          font: {
                             size: 16,
                           },
-                        }
+                        },
                       },
-                      y: { // 'y'라는 id를 가진 y축에 대한 설정
-                        grid: { // 가로선 설정
-                          color: '#C9AFAF',
+                      y: {
+                        // 'y'라는 id를 가진 y축에 대한 설정
+                        grid: {
+                          // 가로선 설정
+                          color: "#C9AFAF",
                         },
-                        axis: 'y', // 이 축이 y축임을 명시해줍니다.
+                        axis: "y", // 이 축이 y축임을 명시해줍니다.
                         display: true, // 축의 가시성 여부도 설정할 수 있습니다.
-                        title: { // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
+                        title: {
+                          // 이 축의 단위 또는 이름도 title 속성을 이용하여 표시할 수 있습니다.
                           display: true,
-                          color: '#ffffff',
+                          color: "#ffffff",
                           font: {
                             size: 17,
                           },
-                          text: '영상 제목'
+                          text: "영상 제목",
                         },
                         ticks: {
                           color: "#ffffff",
-                          font:{
+                          font: {
                             size: 16,
                           },
-                        }
+                        },
                       },
                     },
                     plugins: {
-                      legend: { // 범례 스타일링
+                      legend: {
+                        // 범례 스타일링
                         labels: {
-                          color: '#ffffff',
-                          font: { // 범례의 폰트 스타일도 지정할 수 있습니다.
+                          color: "#ffffff",
+                          font: {
+                            // 범례의 폰트 스타일도 지정할 수 있습니다.
                             family: "'Noto Sans KR', 'serif'",
                             lineHeight: 1,
                             size: 17,
                           },
-                        }
+                        },
                       },
                     },
                   }}
                 />
               </Grid>
-              <Bar
-                data={data2.dataHorizontal}
-                options={{ responsive: true, indexAxis: "y" }}
-              />
             </MDBContainer>
           )}
         </div>
@@ -266,6 +271,7 @@ const cssstyle = `
   padding: 0px 40px 40px 40px;
   width: 1400px;
 }
+
 .button {
     font-size: .9rem;
     display: inline-block;
