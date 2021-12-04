@@ -123,8 +123,8 @@ const StreamShow = () => {
     const { name, value } = e.target;
     name === "l_title" && setL_title(value);
     name === "l_description" && setL_description(value);
-    console.log(name);
-    console.log(isValid);
+    // console.log(name);
+    // console.log(isValid);
     
     if (name === "l_title" && value !== "") {
       setIsValid(false);

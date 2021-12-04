@@ -17,7 +17,6 @@ import {
 import { LockOutlined } from "@material-ui/icons";
 import { change, pwdupdatecheck } from "../../modules/auth";
 import { withRouter } from "react-router";
-import { useBeforeunload } from "react-beforeunload";
 import Button from "@mui/material/Button";
 
 
@@ -40,7 +39,6 @@ const PwdCheckViewContainer = ({ history }) => {
     pwdupdateError,
     pwdupdate,
   } = useSelector((state) => {
-    console.log(state);
     return {
       u_id: state.auth.u_id,
       u_name: state.auth.u_name,
@@ -55,12 +53,10 @@ const PwdCheckViewContainer = ({ history }) => {
     const { name, value } = e.target;
     dispatch(change({ name, value }));
 
-    console.log(e.target.value);
   };
 
   const onsubmit = (e) => {
     e.preventDefault();
-    console.log("비밀번호 변경");
 
     dispatch(
       pwdupdatecheck({
@@ -82,7 +78,6 @@ const PwdCheckViewContainer = ({ history }) => {
       return;
     }
     if (pwdupdate == 1) {
-      console.log("비밀번호 변경 성공");
       history.push("/PwdCheckViewPage");
       alert("비밀번호 변경에 성공하였습니다.");
       window.location.href = "/";
@@ -155,7 +150,7 @@ const PwdCheckViewContainer = ({ history }) => {
               variant="h4"
               style={{ marginTop: 20, color: "black" }}
             >
-              비밀번호 찾기
+              비밀번호 변경
             </Typography>
           </Box>
 
@@ -173,6 +168,7 @@ const PwdCheckViewContainer = ({ history }) => {
                 style={{ background: "#FFFFFF", borderRadius: 3 }}
                 placeholder="비밀번호"
                 margin="normal"
+                type="password"
                 required
                 fullWidth
                 autoFocus
@@ -196,6 +192,7 @@ const PwdCheckViewContainer = ({ history }) => {
                 style={{ background: "#FFFFFF", borderRadius: 3 }}
                 placeholder="비밀번호확인"
                 margin="normal"
+                type="password"
                 required
                 fullWidth
                 autoFocus

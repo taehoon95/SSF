@@ -36,8 +36,6 @@ const PwdCheckContainer = ({ history }) => {
   const dispatch = useDispatch();
   const { u_name, u_email, u_id, pwd, pwdError, number, u_emailcheck,pwdidError,pwdid } =
     useSelector((state) => {
-      console.log(state);
-
       return {
         u_name: state.auth.u_name,
         u_id: state.auth.u_id,
@@ -64,7 +62,6 @@ const PwdCheckContainer = ({ history }) => {
       setIdcheck(1);
     }
   const onChange = (e) => {
-    console.log("이건 체인지");
 
     const { name, value } = e.currentTarget;
    
@@ -77,9 +74,8 @@ const PwdCheckContainer = ({ history }) => {
   };
   const onsubmit = (e) => {
     e.preventDefault();        
-    console.log("비밀번호찾기");
-    console.log(idcheck);
-    
+    // console.log("비밀번호찾기");
+    // console.log(idcheck);
     if(resultemailcheck !== 1) {
        if(namecheck == 0)
       {
@@ -100,16 +96,7 @@ const PwdCheckContainer = ({ history }) => {
     
   };
 
-  // const onPwdidcheck = (e) =>{
-  //   e.preventDefault();
-  //   console.log('여기는 인증 ');
-    
-  //   dispatch(pwdidcheck({
-  //     u_id
-  //     })
-  //   );
 
-  // }
 
   useEffect(() => {
     if (pwdError) {
@@ -117,7 +104,7 @@ const PwdCheckContainer = ({ history }) => {
       return;
     }
     if (pwd) {
-      console.log("비밀번호 찾기 성공");
+      // console.log("비밀번호 찾기 성공");
       history.push("/PwdCheckViewPage");
     }
   }, [pwd, pwdError]);
@@ -178,31 +165,31 @@ const PwdCheckContainer = ({ history }) => {
 
   // 인증 이메일 전송
   const onEmailClick = (e) => {
-    console.log(u_email);
+    // console.log(u_email);
     if (resultemail == 1) {
-      alert("email 전송");
+      // alert("Email 전송 완료");
       try {
         axios
           .post("https://localhost:5000/api/email", { u_email })
           .then((response) => {
-            console.log(response.data.number);
+            // console.log(response.data.number);
             const a = response.data.number;
-            console.log(a);
+            // console.log(a);
             //setNumber({ ...response.data.number, number : response.data.number });
             //setNumber(number => [...number, response.data.number]);
             dispatch(numberAuth({ a }));
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
           });
 
         setEmailData(emailchecked);
         setTest(true);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     } else {
-      alert("메일전송 실패. \n이메일을 올바르게 입력해주세요.");
+      // alert("메일전송 실패. \n이메일을 올바르게 입력해주세요.");
     }
   };
   
@@ -226,8 +213,8 @@ const PwdCheckContainer = ({ history }) => {
   // 인증 값 맞으면 ok
   //
   const onKeyUpEmailCheck = () => {
-    console.log(number);
-    console.log(numbertest);
+    // console.log(number);
+    // console.log(numbertest);
     let emailcheckPattern = /^[0-9]{6}$/;
     if (emailcheckPattern.test(u_emailcheck) === true) {
       if (number == u_emailcheck) {
@@ -370,6 +357,7 @@ const PwdCheckContainer = ({ history }) => {
                   name="u_email"
                   autoComplete="current-password"
                 />
+                <span style={{color:"red"}}>{emailcheckcheck}</span>
                 <Button
                   onClick={onEmailClick}
                   style={{ marginTop: 10, marginBottom: 20, height: 40 }}

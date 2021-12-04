@@ -66,6 +66,7 @@ io.on("connection", (socket) => {
   // clientCreateRoom 방 만들기(스트리머)
   socket.on("clientCreateRoom", (roomInfo) => {
     
+    
     const l_code = roomInfo.l_code;
     const l_title = roomInfo.l_title;
     const l_description = roomInfo.l_description;
@@ -76,6 +77,7 @@ io.on("connection", (socket) => {
       l_description,
       u_id,
     };
+    console.log(rooms);
     socket.join(l_code);
     // 서버에 있는 rooms객체를 socket을 가진 client에게 전송
     socket.broadcast.emit("serverRooms", rooms);

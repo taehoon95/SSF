@@ -1,8 +1,11 @@
 package liveStreaming.mapper;
 
+import liveStreaming.dto.VideoRecordDto;
 import org.springframework.stereotype.Repository;
 
 import liveStreaming.dto.UserDto;
+
+import java.util.List;
 
 @Repository
 public interface UserMapper {
@@ -20,7 +23,7 @@ public interface UserMapper {
 
 	// 2021 1123 박진현
 	// 아이디 찾기
-	UserDto idfind(UserDto user);
+	List<UserDto> idfind(UserDto user);
 
 	//2021 1124 박진현
 	// 비밀번호 찾기

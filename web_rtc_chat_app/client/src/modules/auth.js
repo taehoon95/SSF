@@ -64,7 +64,6 @@ export const numberAuth = createAction(NUMBUR, (number) => ({
 
 //아이디 액션 정의
 export const idcheck = createAction(IDCHECK,({u_name,u_email}) =>{
-    console.log('여기 액션');
     
     return{
     u_name,
@@ -153,7 +152,6 @@ const auth = handleActions(
             }),      
             //로그인 실패
         [LOGIN_FAILURE] : (state,{ payload:error }) =>{
-            alert("로그인 실패");
             return{                
                 ...state,
                 authError:error,                              
@@ -161,7 +159,6 @@ const auth = handleActions(
         },
         //로그인 성공
         [LOGIN_SUCCESS] : (state,{payload: auth}) =>{
-            console.log('여기는 성공'); 
                    
             return{
                 ...state,
@@ -172,20 +169,13 @@ const auth = handleActions(
         },
                 //아이디 찾기 실패
         [IDCHECK_FAILURE] : (state,{ payload:error }) =>{
-            console.log(state);
-            
-            console.log('실패' + 'auth');            
             return{                
                 ...state,
                 checkError:error,                              
             };
         },
         //아이디 찾기 성공
-        [IDCHECK_SUCCESS] : (state,{payload: check}) =>{
-            console.log('여기는 성공' + 'auth');       
-            console.log(check);          
-            console.log(auth);
-            
+        [IDCHECK_SUCCESS] : (state,{payload: check}) =>{                        
             return{
                 ...state,
                 checkError:null,
@@ -195,7 +185,6 @@ const auth = handleActions(
         },             
         //비밀번호 찾기 실패
         [PWDCHECK_FAILURE] : (state,{ payload:error }) =>{   
-            console.log('여기는 pwdcheck 실패');                           
             return{                
              ...state,
              pwdError:error,                              
@@ -203,7 +192,6 @@ const auth = handleActions(
         },
         //비밀번호 찾기 성공        
          [PWDCHECK_SUCCESS] : (state,{ payload:pwd }) =>{                  
-            console.log('여기는 pwdcheck 성공');            
           return{                
                  ...state,
                 pwdError:null,                              
@@ -212,8 +200,6 @@ const auth = handleActions(
          },
          //비밀번호 변경 실패
          [PWDUPDATECHECK_FAILURE] : (state,{ payload:error }) =>{ 
-            console.log(error);                              
-            console.log('여기는 pwdupdate 실패');
             return{                
              ...state,
              pwdupdateError:error,                              
@@ -221,8 +207,6 @@ const auth = handleActions(
         },
           //비밀번호 변경 성공
           [PWDUPDATECHECK_SUCCESS] : (state,{ payload:pwdupdate }) =>{                  
-            console.log('여기는 pwdupdate 성공' + pwdupdate);
-            console.log(state);
             return{                
                    ...state,
                   pwdupdateError:null,                              
@@ -231,7 +215,6 @@ const auth = handleActions(
            }, 
                //아이디 체크 성공
           [PWDIDCHECK_SUCCESS] : (state,{ payload:pwdid }) =>{                  
-            console.log('성공');
             return{                
                    ...state,
                    pwdidError:null,
@@ -240,7 +223,6 @@ const auth = handleActions(
            },  
                //아이디 체크 실패
           [PWDIDCHECK_FAILURE] : (state,{ payload:error }) =>{                  
-            console.log('실패');
             return{                
                    ...state,
                   pwdidError:error,                              

@@ -33,7 +33,6 @@ public class VideoRecordController {
 	// 20211119 윤성준 로그인 후 마이페이지 영상 조회
 	@GetMapping("/videorecord/{u_id}")
 	public ResponseEntity<Object> showVideoRecord(@PathVariable String u_id) {
-		System.out.println(1);
 		return ResponseEntity.ok(service.videoRecord(u_id));
 	}
 
@@ -47,7 +46,6 @@ public class VideoRecordController {
 	// 20211123 윤성준 Main video 전체 리스트검색문
 	@GetMapping("/videoView")
 	public ResponseEntity<Object> showMainVideo() {
-		System.out.println(22);
 		return ResponseEntity.ok(service.mainVideo());
 	}
 
@@ -60,15 +58,12 @@ public class VideoRecordController {
 	// 20211125 윤성준 All Video Search 전체에서 영상 조회
 	@GetMapping("/videoSearch/{v_name}")
 	public ResponseEntity<Object> searchVideoAll(@PathVariable String v_name) {
-		System.out.println(55);
-		System.out.println(v_name);
 		return ResponseEntity.ok(service.videoSearch(v_name));
 	}
 
 	// 2021 11-21 이태훈 비디오 업로드
 	@PostMapping("/videoUpload")
 	public ResponseEntity<Object> videoVidImgUpload(@RequestBody VideoRecordDto video) {
-		System.out.println(video);
 		return ResponseEntity.ok(service.videoUpload(video));
 	}
 
@@ -76,9 +71,7 @@ public class VideoRecordController {
 	// 2021-11-30 강동하 수정 영상파일이름, 썸네일이름 중복체크
 	@GetMapping("/filename/{v_link}/{v_img}")
 	public LinkedList<Object> fileName(@PathVariable String v_link, @PathVariable String v_img) {
-		// System.out.println(v_link);
-		// System.out.println(v_img);
-		// System.out.println("================");
+
 		LinkedList<Object> result = new LinkedList<Object>();
 		result.add(ResponseEntity.ok(service.videoVfileCheck(v_link)));
 		result.add(ResponseEntity.ok(service.videoIfileCheck(v_img)));
@@ -87,17 +80,13 @@ public class VideoRecordController {
 	//2021 11-26 박진현 비디오 수정
 	@PatchMapping("/videoupdate")
 	public ResponseEntity<Object> videoupdate(@RequestBody VideoRecordDto video) {
-		System.out.println("여기는 변경이다.");
-		System.out.println(video);
 		int videoUpdate = mapper.videoupdate(video);
-		System.out.println(videoUpdate);
 		return ResponseEntity.ok(videoUpdate);
 	}
 
 	//2021 11-26 박진현 비디오 검색
 	@GetMapping("/videochangeserch/{v_code}")
 		public ResponseEntity<Object> videochangeserch(@PathVariable String v_code) {
-		System.out.println("여기는 검색이다.");
 		return ResponseEntity.ok(mapper.videochangeserch(v_code));
 
 	}
@@ -117,8 +106,6 @@ public class VideoRecordController {
 	// 2021-11-25 강동하 영상 조회수 + 1
 	@PatchMapping("/viewsinc")
 	public ResponseEntity<Object> viewsInc(@RequestBody VideoRecordDto video) {
-		System.out.println("================");
-		System.out.println(video);
 		return ResponseEntity.ok(service.viewsInc(video));
 	}
 
@@ -126,8 +113,6 @@ public class VideoRecordController {
 	// 2021-11-29 강동하 영상 업로드 시 영상제목 중복체크
 	@GetMapping("/videonamecheck/{v_name}")
 	public ResponseEntity<Object> videoNameCheck(@PathVariable String v_name) {
-		System.out.println("================");
-		System.out.println(v_name);
 		return ResponseEntity.ok(service.videoNameCheck(v_name));
 	}
 	
@@ -135,8 +120,6 @@ public class VideoRecordController {
 	@GetMapping("/videoInfiniteSearch/{search}/{pageNum}")
 	public ResponseEntity<Object> videoInfiniteSearch(@PathVariable String search, @PathVariable int pageNum) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("search", search);
-		map.put("pageNum", pageNum);
 		return ResponseEntity.ok(service.videoInfiniteSearch(map));
 	}
 }

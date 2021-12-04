@@ -38,7 +38,6 @@ const LoginContainer = ({ history }) => {
   // input text 체인지
   const onChange = (e) => {
     const { name, value } = e.target;
-
     dispatch(
       change({
         name,
@@ -82,14 +81,14 @@ const LoginContainer = ({ history }) => {
 
   useEffect(() => {
     if (auth) {
-      console.log(auth);
+      // console.log(auth);
        //history.push("/");
       try {
         localStorage.setItem("auth", JSON.stringify(auth));
         localStorage.setItem("u_id", auth.u_id);
         history.goBack();                         
       } catch (e) {
-        console.log("localStorage is not working");
+        // console.log("localStorage is not working");
       }
     }
   }, [history, auth]);
@@ -240,7 +239,7 @@ const LoginContainer = ({ history }) => {
           <Grid>
             <Grid item>
               <Typography variant="22">
-                <span>{error}</span>
+                <span style={{color:"red"}}>{error}</span>
               </Typography>
             </Grid>
           </Grid>

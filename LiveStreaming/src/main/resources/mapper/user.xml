@@ -24,8 +24,9 @@
     </select>
     <select id="idfind" resultType="liveStreaming.dto.UserDto">
     select * from
-        ssf_schema.users where u_name= #{u_name} and u_email=#{u_email};
+        ssf_schema.users where u_name= #{u_name} and u_email=#{u_email} limit 3;
     </select>
+
     <select id="pwdFind" resultType="liveStreaming.dto.UserDto">
         select * from
             ssf_schema.users where u_name= #{u_name} and u_email=#{u_email} and u_id=#{u_id};

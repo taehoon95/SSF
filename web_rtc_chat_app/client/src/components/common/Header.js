@@ -103,8 +103,10 @@ const Header = () => {
   // 2021-12-02 강동하 홈 버튼 > 새로고침으로 수정
   const home = () => {
    //history.push("/");
-    window.location.replace("/");
+    window.location.replace("/");      
   };
+
+ 
 
   const onkeyPress = (e) =>{
     if(e.key == 'Enter'){
@@ -221,8 +223,8 @@ const Header = () => {
                       onClick={onLogout}
                       style={{ color: "white" }}
                     >
-                      <Typography variant="body1" color="#d30000">
-                        로그아웃
+                      <Typography variant="body1" color="#C51162">
+                        <b>로그아웃</b>
                       </Typography>
                     </Button>
                   </Typography>

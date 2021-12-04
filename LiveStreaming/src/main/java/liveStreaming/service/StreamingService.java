@@ -26,10 +26,10 @@ public class StreamingService {
 	public List<StreamingDto> showStreaming(StreamingDto streaming) {
 		return mapper.streamingList(streaming);
 	}
-	
-    // 2021-11-23 이태훈 스트리밍 방 만들기
+
+	// 2021-11-23 이태훈 스트리밍 방 만들기
 	public StreamingDto insertStreaming(StreamingDto streaming) {
-		System.out.println(streaming);
+		// System.out.println(streaming);
 		mapper.insertStreaming(streaming);
 		return streaming;
 	}
@@ -40,20 +40,20 @@ public class StreamingService {
 		mapper.updateStreaming(streaming);
 		return mapper.selectStreamingbyLnum(streaming.getL_code());
 	}
-	
+
 	// 2021-11-23 이태훈 방송 종료시 스트리밍 삭제
 	// 2021-12-03 강동하 방송 종료시 l_length 업데이트 추가
 	@Transactional
 	public int deleteStreaming(StreamingDto streaming) {
-		System.out.println(streaming);
+		// System.out.println(streaming);
 		return mapper.deleteStreaming(streaming);
 	}
-	
+
 	// 2021-11-23 이태훈
 	public StreamingDto showStreamingByLnum(String l_num) {
 		return mapper.selectStreamingbyLnum(l_num);
 	}
-	
+
 	// 2021-12-02 이태훈 검색시 스트리밍 리스트 추가
 	public List<StreamingDto> showSearchStreaming(Map<String,Object> map){
 		return mapper.streamingSearchList(map);
@@ -65,16 +65,22 @@ public class StreamingService {
 
 	}
 
+	// 2021-12-03 윤성준 MainPage 실시간 영상 랜덤 조회
+	public List<StreamingDto> liveVideo() {
+		return mapper.liveVideo();
+	}
+
 	// 2021-12-03 강동하 스트리밍 streaming_management insert
 	public StreamingDto insertStreamingManagement(StreamingDto streaming) {
 		mapper.insertStreamingManagement(streaming);
 		return streaming;
-	}
 
-	// // 2021-12-03 강동하 방송 종료 시 streaming_management l_length update
-	// public StreamingDto updateEndLength(StreamingDto streaming) {
-	// 	System.out.println(streaming.getS_code());
-	// 	mapper.updateEndLength(streaming);
-	// 	return streaming;
-	// }
+		// // 2021-12-03 강동하 방송 종료 시 streaming_management l_length update
+		// public StreamingDto updateEndLength(StreamingDto streaming) {
+		// System.out.println(streaming.getS_code());
+		// mapper.updateEndLength(streaming);
+		// return streaming;
+		// }
+	}
 }
+
