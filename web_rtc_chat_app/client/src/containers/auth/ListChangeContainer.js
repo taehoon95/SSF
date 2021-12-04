@@ -32,8 +32,7 @@ const ListChangeContainer = () => {
 
   // 바꾸는 부분
   const onChange = (e) => {
-    console.log(e.target.id);
-
+    // console.log(e.target.id);
     setV_descript(e.target.value);
   };
   const onChange1 = (e) => {
@@ -54,19 +53,19 @@ const ListChangeContainer = () => {
         v_descript: v_descript,
       })
       .then((response) => {
-        console.log(response);
-        alert("업로드 성공");
+        // console.log(response);
+        // alert("업로드 성공");
         history.push('/MyVideoSettingPage');
       })
       .catch((error) => {
-        alert("업로드 실패");
-        console.log(error);
+        // alert("업로드 실패");
+        // console.log(error);
       });
   };
 
   useEffect(() => {
     myVideoListchange();
-    console.log(selectList);
+    // console.log(selectList);
   }, [selectList]);
 
   const myVideoListchange = () => {
@@ -79,8 +78,8 @@ const ListChangeContainer = () => {
         setC_name(response.data[0].c_name);
       })
       .catch((error) => {
-        alert("실패");
-        console.log(error);
+        // alert("실패");
+        // console.log(error);
       });
   };
 

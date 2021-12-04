@@ -155,7 +155,7 @@ const PwdCheckViewContainer = ({ history }) => {
               variant="h4"
               style={{ marginTop: 20, color: "black" }}
             >
-              비밀번호 찾기
+              비밀번호 변경
             </Typography>
           </Box>
 
@@ -173,6 +173,7 @@ const PwdCheckViewContainer = ({ history }) => {
                 style={{ background: "#FFFFFF", borderRadius: 3 }}
                 placeholder="비밀번호"
                 margin="normal"
+                type="password"
                 required
                 fullWidth
                 autoFocus
@@ -196,6 +197,7 @@ const PwdCheckViewContainer = ({ history }) => {
                 style={{ background: "#FFFFFF", borderRadius: 3 }}
                 placeholder="비밀번호확인"
                 margin="normal"
+                type="password"
                 required
                 fullWidth
                 autoFocus

@@ -220,8 +220,8 @@ const Header = () => {
                       onClick={onLogout}
                       style={{ color: "white" }}
                     >
-                      <Typography variant="body1" color="#d30000">
-                        로그아웃
+                      <Typography variant="body1" color="#C51162">
+                        <b>로그아웃</b>
                       </Typography>
                     </Button>
                   </Typography>
