@@ -114,6 +114,22 @@ const SearchResultContainer = () => {
       loader={loading && <Loader />}
       endMessage={<p>End!</p>}
     >
+
+        {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
+        {/* 2021-11-29 강동하 로딩 추가 */}
+        {load === 0 ? (
+          // 검색 로딩중일 때
+          <Grid container justifyContent="center">
+            <Grid item >
+              <Typography variant="h4" justifyContent="center"  style={{ textAlign: "center", color:"white" }}>
+                검색중 입니다. <CircularProgress />{" "}
+              </Typography>
+            </Grid>
+          </Grid>
+        ) : selectList.length !== 0 ? (
+          // 검색 결과 창
+          currentPosts(selectList).map((data, idx) => (
+
       <div className="container">
         <h1>관련 동영상</h1>
         <div className="row m-2">
