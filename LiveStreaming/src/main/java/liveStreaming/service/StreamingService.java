@@ -57,6 +57,7 @@ public class StreamingService {
 	// 2021-12-02 이태훈 검색시 스트리밍 리스트 추가
 	public List<StreamingDto> showSearchStreaming(Map<String,Object> map){
 		return mapper.streamingSearchList(map);
+	}
 
 	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
 	public int streamFileName(String l_img) {
