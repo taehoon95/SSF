@@ -36,7 +36,6 @@ const PwdCheckContainer = ({ history }) => {
   const dispatch = useDispatch();
   const { u_name, u_email, u_id, pwd, pwdError, number, u_emailcheck,pwdidError,pwdid } =
     useSelector((state) => {
-      // console.log(state);
       return {
         u_name: state.auth.u_name,
         u_id: state.auth.u_id,
@@ -63,7 +62,6 @@ const PwdCheckContainer = ({ history }) => {
       setIdcheck(1);
     }
   const onChange = (e) => {
-    console.log("이건 체인지");
 
     const { name, value } = e.currentTarget;
    
@@ -78,7 +76,6 @@ const PwdCheckContainer = ({ history }) => {
     e.preventDefault();        
     // console.log("비밀번호찾기");
     // console.log(idcheck);
-    
     if(resultemailcheck !== 1) {
        if(namecheck == 0)
       {
@@ -99,16 +96,7 @@ const PwdCheckContainer = ({ history }) => {
     
   };
 
-  // const onPwdidcheck = (e) =>{
-  //   e.preventDefault();
-  //   console.log('여기는 인증 ');
-    
-  //   dispatch(pwdidcheck({
-  //     u_id
-  //     })
-  //   );
 
-  // }
 
   useEffect(() => {
     if (pwdError) {
@@ -369,6 +357,7 @@ const PwdCheckContainer = ({ history }) => {
                   name="u_email"
                   autoComplete="current-password"
                 />
+                <span style={{color:"red"}}>{emailcheckcheck}</span>
                 <Button
                   onClick={onEmailClick}
                   style={{ marginTop: 10, marginBottom: 20, height: 40 }}

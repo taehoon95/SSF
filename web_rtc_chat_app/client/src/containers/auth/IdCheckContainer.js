@@ -54,12 +54,15 @@ const IdCheckContainer = () => {
       })
     );
   };
+
   useEffect(() => {
     if (checkError) {
+      
       setError("아이디 찾기 실패");
       return;
     }
     if (check) {
+
       // console.log("아이디 찾기 성공");
       history.push("/IdCheckViewPage");
     }
@@ -167,7 +170,7 @@ const IdCheckContainer = () => {
             <Grid>
               <Grid item>
                 <Typography variant="22">
-                  <span>{error}</span>
+                  <span style={{color:"red"}}>{error}</span>
                 </Typography>
               </Grid>
             </Grid>

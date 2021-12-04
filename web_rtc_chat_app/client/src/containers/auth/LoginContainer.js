@@ -239,7 +239,7 @@ const LoginContainer = ({ history }) => {
           <Grid>
             <Grid item>
               <Typography variant="22">
-                <span>{error}</span>
+                <span style={{color:"red"}}>{error}</span>
               </Typography>
             </Grid>
           </Grid>
