@@ -20,37 +20,50 @@ import {
   showInfiniteVideoSearch,
   showInfiniteStreamingSearch,
 } from "../../lib/api/StreamingAPI";
+import { HelpOutline } from "../../../node_modules/@material-ui/icons/index";
 
 // 2021-12-03 이태훈 검색시 비디오, 스트리밍 무한 스크롤,
 const SearchResultContainer = () => {
-  const { search } = useParams();
+  const { v_name } = useParams();
   const [items, setItems] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [streamEnd, setStreamEnd] = useState(false);
+  const [noSearch, setNoSearch] = useState(false);
+  const [searchLength, setSearchLength] = useState(1);
+  const [searchLength2, setSearchLength2] = useState(1);
 
+  //console.log(v_name);
   // 스크롤이 어느정도 내려오면 감지 해서 fetchData함수 실행
+  console.log(pageNum);
   const fetchData = () => {
     setPageNum(pageNum + 1);
     if (!streamEnd && pageNum !== 0) {
-      showInfiniteStreamingSearch(search, pageNum).then((res) => {
+      showInfiniteStreamingSearch(v_name, pageNum).then((res) => {
         if (res.data.length === 0) {
           // console.log(22222); 
           setHasMore(false);
           setLoading(false);
           setStreamEnd(true);
-          // console.log(items);
-          getVideos(items, search);
+
+          console.log(items);
+          getVideos(items, v_name);
+
           return;
         }
         return setItems([...items, ...res.data]);
       });
+      console.log(items);
+      console.log(items.length);
     }
-
+    console.log(pageNum);
     if(streamEnd && pageNum !== 0){
-      // console.log(222);
-        showInfiniteVideoSearch(search, pageNum).then((res) => {
+
+      console.log(pageNum);
+      console.log(222);
+        showInfiniteVideoSearch(v_name, pageNum).then((res) => {
+
             setPageNum(pageNum + 1);
             // console.log(pageNum);
             if (res.data.length === 0) {
@@ -59,40 +72,53 @@ const SearchResultContainer = () => {
               return;
             }
             return setItems([...items, ...res.data])
-        });
-    }
+          });
+        }
+        console.log(items);
+        console.log(items.length);
   };
 
   // 비디오 값 받아오기
-  const getVideos = useCallback((items,search) => {
-    // console.log(items);
-    // console.log(items.length === 0);
+
+  const getVideos = useCallback((items, v_name) => {
+    console.log(items);
+    console.log(items.length === 0);
+    setSearchLength(items.length);
+    console.log(items.length);
+
     setLoading(true);
     setHasMore(true);
     setPageNum(0);
-    
-    showInfiniteVideoSearch(search, 0).then((res) => {
+    showInfiniteVideoSearch(v_name, 0).then((res) => {
       setPageNum(pageNum + 1);
-      if (res.data.length === 0) {
+      if(res.data.length === 0 || res.data.length < 5){
         setLoading(false);
         setHasMore(false);
+        setItems([...items, ...res.data])
         return;
       }
-      return setItems((items) => [ ...items, ...res.data])
+      return setItems([...items, ...res.data]);
     });
+    console.log(items);
+    console.log(items.length);
   }, []);
 
   // 첫 스트리밍 값 받아오기
-  const getStreams = useCallback((search) => {
+  const getStreams = useCallback((v_name) => {
     setLoading(true);
     setHasMore(true);
-    showInfiniteStreamingSearch(search, 0).then((res) => {
+    showInfiniteStreamingSearch(v_name, 0).then((res) => {
       if (res.data.length < 5) {
-        getVideos(res.data,search);
+        setSearchLength2(res.data.length);
+        getVideos(res.data,v_name);
+        console.log(res.data.length);
+        setStreamEnd(true);
       }
       setPageNum(pageNum + 1);
       return setItems([...items, ...res.data]);
     });
+    console.log(items);
+    console.log(items.length);
   }, []);
 
   // 검색 후 초기화
@@ -100,9 +126,9 @@ const SearchResultContainer = () => {
     setStreamEnd(false);
     setLoading(true);
     setPageNum(0);
-    getStreams(search);
+    getStreams(v_name);
     setItems([]);
-  }, [search]);
+  }, [v_name]);
 
 
   return (
@@ -191,18 +217,19 @@ const SearchResultContainer = () => {
         </div>
       </div>
     </InfiniteScroll>
+    {/* 2021-12-04 강동하 검색 결과가 없을 경우 */}
+    {(loading === false) && (items.length == 0) && (
     <div  style={{width:'100%', marginTop: "17vh",alignItems:'center'}}>
-      {/* 검색 결과가 없을 경우 */}
         <div style={{display:'flex', justifyContent:'center',alignItems:'center',color:'white'}}>
-          {/* <HelpOutline style={{ width: 300, height: 300 }} /> */}
+          <HelpOutline style={{ width: 300, height: 300 }} />
         </div>
         <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center', color:'white'}}>
           <Typography variant="h3">검색 결과가 없습니다.</Typography>             
         </div>
-    </div>
+    </div> )}
     </>
+
     )
-    
 };
 
 export default SearchResultContainer;

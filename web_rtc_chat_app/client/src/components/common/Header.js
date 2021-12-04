@@ -78,10 +78,11 @@ const Header = () => {
     if (e.target.value === 0) {
       return;
     }
-    //alert(inputSearch);
+    // alert(inputSearch);
     history.push(`/SearchResultPage/${inputSearch}`);
     // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
-    // setInputSearch("");
+    // 2021-12-04 강동하 주석 되잇길래 품
+    setInputSearch("");
   };
 
   const { u_id, tokenlled, token } = useSelector((state) => {
