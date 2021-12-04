@@ -162,13 +162,13 @@ const WatchPage2 = (props) => {
       .get(`/api/thisvideo/${props.match.params.v_code}`)
       //.get(`https://18.219.234.0:8080/api/thisvideo/${props.match.params.v_code}`)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setVideo(response.data);
         setV_code(response.data[0].v_code);
       })
       .catch((error) => {
-        alert("record 가져오기 실패");
-        console.log(error);
+        // alert("record 가져오기 실패");
+        // console.log(error);
       });
   };
 
@@ -209,7 +209,7 @@ const WatchPage2 = (props) => {
         setCommentSelectResult(1);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
       });
   };
 

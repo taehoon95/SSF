@@ -117,7 +117,7 @@ const SearchResultContainer = () => {
 
         {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
         {/* 2021-11-29 강동하 로딩 추가 */}
-        {load === 0 ? (
+        {/* {load === 0 ? (
           // 검색 로딩중일 때
           <Grid container justifyContent="center">
             <Grid item >
@@ -128,7 +128,7 @@ const SearchResultContainer = () => {
           </Grid>
         ) : selectList.length !== 0 ? (
           // 검색 결과 창
-          currentPosts(selectList).map((data, idx) => (
+          currentPosts(selectList).map((data, idx) => ( */}
 
       <div className="container">
         <h1>관련 동영상</h1>

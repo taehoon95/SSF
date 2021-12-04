@@ -31,7 +31,6 @@ const IdCheckViewPage = () => {
   });
 
   useEffect(()=>{
-    console.log(check);
     
       setMyList(check);
 

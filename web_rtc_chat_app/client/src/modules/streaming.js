@@ -35,17 +35,30 @@ const [
   SHOWSEARCHSTREAMING_FAILURE,
 ] = createRequestActionTypes("showSearchStreaming");
 
-// 2021-12-02 이태훈 검색시 무한 스크롤 비디오 
-
-
-
-
-const showstreamingSaga = createRequestSaga(SHOWSTREAMING, streamingAPI.showStreaming);
-const insertStreamingSaga = createRequestSaga(INSERTSTREAMING, streamingAPI.insertStreaming);
-const updateStreamingSaga = createRequestSaga(UPDATESTREAMING, streamingAPI.updateStreaming);
-const deleteStreamingSaga = createRequestSaga(DELETESTREAMING, streamingAPI.deleteStreaming);
-const showStreamingByLnumSaga = createRequestSaga(SHOWSTREAMINGBYLNUM, streamingAPI.showStreamingByLnum);
-const showSearchStreamingSaga = createRequestSaga(SHOWSEARCHSTREAMING, streamingAPI.showSearchStreaming);
+const showstreamingSaga = createRequestSaga(
+  SHOWSTREAMING,
+  streamingAPI.showStreaming
+);
+const insertStreamingSaga = createRequestSaga(
+  INSERTSTREAMING,
+  streamingAPI.insertStreaming
+);
+const updateStreamingSaga = createRequestSaga(
+  UPDATESTREAMING,
+  streamingAPI.updateStreaming
+);
+const deleteStreamingSaga = createRequestSaga(
+  DELETESTREAMING,
+  streamingAPI.deleteStreaming
+);
+const showStreamingByLnumSaga = createRequestSaga(
+  SHOWSTREAMINGBYLNUM,
+  streamingAPI.showStreamingByLnum
+);
+const showSearchStreamingSaga = createRequestSaga(
+  SHOWSEARCHSTREAMING,
+  streamingAPI.showSearchStreaming
+);
 
 export function* streamingSaga() {
   yield takeLatest(SHOWSTREAMING, showstreamingSaga);
@@ -53,72 +66,86 @@ export function* streamingSaga() {
   yield takeLatest(UPDATESTREAMING, updateStreamingSaga);
   yield takeLatest(DELETESTREAMING, deleteStreamingSaga);
   yield takeLatest(SHOWSTREAMINGBYLNUM, showStreamingByLnumSaga);
-  yield takeLatest(SHOWSEARCHSTREAMING, showSearchStreamingSaga );
+  yield takeLatest(SHOWSEARCHSTREAMING, showSearchStreamingSaga);
 }
 
 // 2021-12-02 강동하 리덕스 수정
 const init = {
-  searchInfo:"", 
-  condition:"",
-  streamInfo : {},
+  searchInfo: "",
+  condition: "",
+  streamInfo: {},
   streamRes: [],
   showStreamRes: [],
   streamError: null,
+
   l_code: nanoid(),
   u_id: localStorage.getItem("u_id"),
   l_title: "",
   l_description: "",
   l_img: "",
+};
 
-// export const change = createAction(CHANGE, ({ streamInfo }) => 
+// export const change = createAction(CHANGE, ({ streamInfo }) =>
 // {
 //   console.log(streamInfo);
 // return{
 //   streamInfo,
 // }});
 
-export const change = createAction(CHANGE, ({ name, value }) => 
-{
+export const change = createAction(CHANGE, ({ name, value }) => {
   console.log(name, value);
   return {
     name,
     value,
-  }
+  };
 });
 
 // 2021-12-02 강동하 방송 종료 시 값 초기화
-export const cut = createAction(CUT, () => 
-  ({
-    l_title: "",
-    l_description: "",
-    l_img: "",
-  }));
-
-export const showstreaming = createAction(SHOWSTREAMING, (streamInfo ) => ({
-    streamInfo
+export const cut = createAction(CUT, () => ({
+  l_title: "",
+  l_description: "",
+  l_img: "",
 }));
 
-export const insertStreaming = createAction(INSERTSTREAMING, ( streamInfo) => ({
-    streamInfo
+export const showstreaming = createAction(SHOWSTREAMING, (streamInfo) => ({
+  streamInfo,
 }));
 
-export const updateStreaming = createAction(UPDATESTREAMING, ( u_id, l_code, l_title, l_description ) => ({
-  u_id, l_code, l_title, l_description
+export const insertStreaming = createAction(INSERTSTREAMING, (streamInfo) => ({
+  streamInfo,
 }));
 
-export const deleteStreaming = createAction(DELETESTREAMING, ( u_id, l_code ) => ({
-  u_id, l_code
-}));
+export const updateStreaming = createAction(
+  UPDATESTREAMING,
+  (u_id, l_code, l_title, l_description) => ({
+    u_id,
+    l_code,
+    l_title,
+    l_description,
+  })
+);
 
-export const showStreamingByLnum = createAction(SHOWSTREAMINGBYLNUM, ( l_code ) => ({
-  l_code,
-}));
+export const deleteStreaming = createAction(
+  DELETESTREAMING,
+  (u_id, l_code) => ({
+    u_id,
+    l_code,
+  })
+);
 
-export const showSearchStreaming = createAction(SHOWSEARCHSTREAMING, ( search) => ({
-  search,
-}));
+export const showStreamingByLnum = createAction(
+  SHOWSTREAMINGBYLNUM,
+  (l_code) => ({
+    l_code,
+  })
+);
 
-
+export const showSearchStreaming = createAction(
+  SHOWSEARCHSTREAMING,
+  (search) => ({
+    search,
+  })
+);
 
 const streaming = handleActions(
   {
@@ -126,8 +153,8 @@ const streaming = handleActions(
     //   ...state,
     //   streamInfo
     // }),
-    [CHANGE]: (state, { payload: { name, value} }) =>
-    produce(state, (draft) => {
+    [CHANGE]: (state, { payload: { name, value } }) =>
+      produce(state, (draft) => {
         draft[name] = value;
       }),
 
@@ -188,7 +215,10 @@ const streaming = handleActions(
       ...state,
       streamError: error,
     }),
-    [SHOWSEARCHSTREAMING_SUCCESS]: (state, { payload: showSearchStreamRes }) => ({
+    [SHOWSEARCHSTREAMING_SUCCESS]: (
+      state,
+      { payload: showSearchStreamRes }
+    ) => ({
       ...state,
       streamError: null,
       showSearchStreamRes,
