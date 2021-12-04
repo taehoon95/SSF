@@ -29,8 +29,8 @@ const MyContainer = () => {
         setMyList(response.data);
       })
       .catch((error) => {
-        alert("record 가져오기 실패");
-        console.log(error);
+        // alert("record 가져오기 실패");
+        // console.log(error);
       });
   };
 
@@ -47,7 +47,7 @@ const MyContainer = () => {
   // 2021-12-01 강동하 차트 색 수정
   useEffect(() => {
     f1();
-    console.log(resultname);
+    // console.log(resultname);
     setData2({
       dataHorizontal: {
         labels: resultname,
@@ -93,8 +93,8 @@ const MyContainer = () => {
   const f1 = () => {
     resultname = myViews.map((x) => x.v_name);
     resultviews = myViews.map((x) => x.v_views);
-    console.log(resultname);
-    console.log(resultviews);
+    // console.log(resultname);
+    // console.log(resultviews);
   };
 
   const myVideoViews = () => {
@@ -103,12 +103,12 @@ const MyContainer = () => {
       .get(`/api/videoviews/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
-        console.log(response.data);
+        // console.log(response.data);
         setMyViews(response.data);
       })
       .catch((error) => {
-        alert("record 가져오기 실패");
-        console.log(error);
+        // alert("record 가져오기 실패");
+        // console.log(error);
       });
   };
 

@@ -34,8 +34,9 @@ const IdCheckContainer = () => {
     };
   });
   const onChange = (e) => {
-
+    // console.log("이건 체인지");
     const { name, value } = e.target;
+    // console.log(value);
 
     dispatch(
       change({
@@ -61,7 +62,8 @@ const IdCheckContainer = () => {
       return;
     }
     if (check) {
-      console.log(check);
+
+      // console.log("아이디 찾기 성공");
       history.push("/IdCheckViewPage");
     }
   }, [check, checkError]);
@@ -86,10 +88,7 @@ const IdCheckContainer = () => {
             //   maxWidth="xs"
             //   style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
           >
-
-
             {/* <Box
-
           sx={{
             marginTop: 8,
             display: "flex",

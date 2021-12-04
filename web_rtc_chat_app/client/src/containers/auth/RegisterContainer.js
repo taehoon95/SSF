@@ -165,16 +165,16 @@ const RegisterContainer = () => {
 
   useEffect(() => {
     if (authError) {
-      alert(authError + " 에러발생");
-      console.log("오류");
-      console.log(authError);
+      // alert(authError + " 에러발생");
+      // console.log("오류");
+      // console.log(authError);
       return;
     }
     if (auth) {
       alert("회원가입이 되었습니다.");
-      console.log("회원가입 성공");
+      // console.log("회원가입 성공");
       history.push("/");
-      console.log(auth);
+      // console.log(auth);
     }
   }, [auth, authError]);
 
@@ -205,26 +205,26 @@ const RegisterContainer = () => {
   const onEmailClick = (e) => {
     console.log(u_email);
     if(resultemail == 1) {
-      alert("email 전송");
+      alert("email 전송 완료");
       try {
         axios
           //.post("https://18.219.234.0:5000/api/email", { u_email })
           .post("https://localhost:5000/api/email", { u_email })
           .then((response) => {
-            console.log(response.data.number);
+            // console.log(response.data.number);
             const a = response.data.number;
-            console.log(a);
+            // console.log(a);
             //setNumber({ ...response.data.number, number : response.data.number });
             //setNumber(number => [...number, response.data.number]);
             dispatch(numberAuth({ a }));
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
           });
         setEmailData(emailchecked);
         setTest(true);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
     else {
@@ -238,8 +238,8 @@ const RegisterContainer = () => {
     if(u_id != ""){
       let idPattern = /^[a-zA-z0-9]{4,25}$/;
       if (idPattern.test(u_id) === true) {
-        console.log(idcheck2);
-        console.log(resultid);
+        // console.log(idcheck2);
+        // console.log(resultid);
         if ((idcheck2 != null) && (idcheckError == null)) {
           alert("사용 가능한 아이디입니다.")
           setIdCheck("사용 가능한 아이디입니다.");
@@ -256,7 +256,7 @@ const RegisterContainer = () => {
         }
       } else {
         setIdCheck("아이디는 알파벳 4자에서 25자 사이어야 합니다.");
-        console.log("들어와????????");
+        // console.log("들어와????????");
         setResultId(0);
       }
     }
@@ -343,8 +343,8 @@ const RegisterContainer = () => {
   // 인증 값 맞으면 ok
   //
   const onKeyUpEmailCheck = () => {
-    console.log(number);
-    console.log(numbertest);
+    // console.log(number);
+    // console.log(numbertest);
     let emailcheckPattern = /^[0-9]{6}$/;
     if (emailcheckPattern.test(u_emailcheck) === true) {
       if (number == u_emailcheck) {

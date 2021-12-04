@@ -29,7 +29,7 @@ public class StreamingService {
 
 	// 2021-11-23 이태훈 스트리밍 방 만들기
 	public StreamingDto insertStreaming(StreamingDto streaming) {
-		System.out.println(streaming);
+		// System.out.println(streaming);
 		mapper.insertStreaming(streaming);
 		return streaming;
 	}
@@ -45,7 +45,7 @@ public class StreamingService {
 	// 2021-12-03 강동하 방송 종료시 l_length 업데이트 추가
 	@Transactional
 	public int deleteStreaming(StreamingDto streaming) {
-		System.out.println(streaming);
+		// System.out.println(streaming);
 		return mapper.deleteStreaming(streaming);
 	}
 
@@ -83,3 +83,4 @@ public class StreamingService {
 		// }
 	}
 }
+
