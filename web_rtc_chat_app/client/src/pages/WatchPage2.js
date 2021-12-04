@@ -11,6 +11,7 @@
 
 // 2021-11-24 강동하 댓글 delete, update 구현
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import Stack from '@mui/material/Stack';
 import {
   Button,
   Grid,
@@ -42,7 +43,7 @@ const styleModal = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 500,
-  height: 150,
+  height: 120,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -151,9 +152,9 @@ const WatchPage2 = (props) => {
   useEffect(() => {
     selectVideo();
     selectComment();
-    comment_INSERT === true && alert("댓글이 작성되었습니다.");
-    comment_UPDATE === true && alert("댓글이 수정되었습니다.");
-    comment_DELETE === true && alert("댓글이 삭제되었습니다.");
+    // comment_INSERT === true && alert("댓글이 작성되었습니다.");
+    // comment_UPDATE === true && alert("댓글이 수정되었습니다.");
+    // comment_DELETE === true && alert("댓글이 삭제되었습니다.");
   }, [comment_INSERT, comment_UPDATE, comment_DELETE]);
 
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
@@ -243,32 +244,57 @@ const WatchPage2 = (props) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        <Grid container xs={12} display="grid">
         <Box sx={styleModal}>
+          
+        <div style={{display:'flex', justifyContent:"flex-end"}}> 
+          <div style={{display:'flex', justifyContent:"flex-start",width:'80%'}}>
           <Typography
             id="modal-modal-title"
             variant="h6"
             component="h2"
             marginBottom="50"
+            display="inline"
           >
-            댓글 수정
+            <b>댓글 수정</b>
           </Typography>
-          <p />
-          <Typography
-            id="modal-modal-subtitle"
-            variant="h6"
-            component="h4"
-            marginBottom="50"
-          >
-            댓글을 입력하세요.
-          </Typography>
-          <p />
+          </div>
+
+            <Button
+              id={`${UpdateId}`}
+              onClick={handleClose}
+              color={'primary'}
+              type="submit"
+              variant="contained"
+              display="inline"
+              style={{ marginBottom: 10, marginRight: 10 }}
+              >
+              취소
+            </Button>
+            <Button
+              id={`${UpdateId}`}
+              onClick={commentUpdate}
+              color={'primary'}
+              type="submit"
+              variant="contained"
+              display="inline"
+              style={{ marginBottom: 10 }}
+            >
+              수정
+            </Button>
+
+          </div>
+
+          <Grid item xs={12} >
           <TextField
             //onKeyUp={onKeyUpEmailCheck}
             style={{
               background: "#FFFFFF",
               marginTop: 2,
               borderRadius: 3,
+              width: "100%"
             }}
+            variant="outlined"
             onChange={onChange}
             margin="normal"
             required
@@ -277,25 +303,11 @@ const WatchPage2 = (props) => {
             id="comment"
             value={`${changeUpdate}`}
           />
-          <Button
-            id={`${UpdateId}`}
-            onClick={commentUpdate}
-            color={'primary'}
-            type="submit"
-            variant="contained"
-          >
-            수정
-          </Button>
-          <Button
-            id={`${UpdateId}`}
-            onClick={handleClose}
-            color={'primary'}
-            type="submit"
-            variant="contained"
-          >
-            취소
-          </Button>
+          </Grid>
+
+
         </Box>
+      </Grid>
       </Modal>
       
       {/* 댓글 삭제 Modal */}
@@ -511,20 +523,20 @@ const WatchPage2 = (props) => {
                     id={`${data.m_num}`}
                     onClick={handleOpen}
                     type="submit"
-                    //variant="contained"
+                    //variant="outlined"
                     value={data.m_text}
-                    style={{color:"white", fontSize:17, marginLeft:20}}
+                    style={{ fontSize:17, marginLeft:20, color:"#3F51B5" }}
                   >
-                    수정
+                    <b>수정</b>
                   </Button>
                   <Button
                     id={`${data.m_num}`}
                     onClick={handleOpen2}
                     type="submit"
                     //variant="contained"
-                    style={{color:"white", fontSize:17, marginLeft:5}}
+                    style={{ fontSize:17, marginLeft:5, color:"#C51162" }}
                   >
-                    삭제
+                    <b>삭제</b>
                   </Button>
                   </>
                 }

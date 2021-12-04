@@ -29,7 +29,7 @@ public class StreamingService {
 
 	// 2021-11-23 이태훈 스트리밍 방 만들기
 	public StreamingDto insertStreaming(StreamingDto streaming) {
-		System.out.println(streaming);
+		// System.out.println(streaming);
 		mapper.insertStreaming(streaming);
 		return streaming;
 	}
@@ -45,7 +45,7 @@ public class StreamingService {
 	// 2021-12-03 강동하 방송 종료시 l_length 업데이트 추가
 	@Transactional
 	public int deleteStreaming(StreamingDto streaming) {
-		System.out.println(streaming);
+		// System.out.println(streaming);
 		return mapper.deleteStreaming(streaming);
 	}
 
@@ -53,10 +53,11 @@ public class StreamingService {
 	public StreamingDto showStreamingByLnum(String l_num) {
 		return mapper.selectStreamingbyLnum(l_num);
 	}
-	
+
 	// 2021-12-02 이태훈 검색시 스트리밍 리스트 추가
 	public List<StreamingDto> showSearchStreaming(Map<String,Object> map){
 		return mapper.streamingSearchList(map);
+	}
 
 	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
 	public int streamFileName(String l_img) {
@@ -74,10 +75,11 @@ public class StreamingService {
 		mapper.insertStreamingManagement(streaming);
 		return streaming;
 
-	// // 2021-12-03 강동하 방송 종료 시 streaming_management l_length update
-	// public StreamingDto updateEndLength(StreamingDto streaming) {
-	// 	System.out.println(streaming.getS_code());
-	// 	mapper.updateEndLength(streaming);
-	// 	return streaming;
-	// }
+		// // 2021-12-03 강동하 방송 종료 시 streaming_management l_length update
+		// public StreamingDto updateEndLength(StreamingDto streaming) {
+		// System.out.println(streaming.getS_code());
+		// mapper.updateEndLength(streaming);
+		// return streaming;
+		// }
+	}
 }

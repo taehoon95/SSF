@@ -60,7 +60,7 @@ const CreateaStreamContainer = () => {
   };
 
   const createStreaming = () => {
-    console.log('방만들기');
+    // console.log('방만들기');
 
     // 방만들기
     if (streamInfo.l_title === "") {
@@ -79,7 +79,7 @@ const CreateaStreamContainer = () => {
   // 2021-12-02 강동하 썸네일 이미지 업로드
   // 2021-12-02 강동하 썸네일 이미지 onChange
   const handleImgChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     setSelectedIFile(e.target.files[0]);
   };
 
@@ -108,7 +108,7 @@ const CreateaStreamContainer = () => {
             let INumber = response.data;
             //console.log(INumber);
             //handleFileUpload(INumber);
-            console.log(INumber);
+            // console.log(INumber);
             if(INumber != 0) {
               INumber = INumber + 1;
               let IFileSplit = selectedIFile.name.split('.');
@@ -119,7 +119,7 @@ const CreateaStreamContainer = () => {
             } else {
               var IResult = selectedIFile.name;
             }
-            console.log(IResult);
+            // console.log(IResult);
             setImg(IResult);
             const url = "https://ssfupload.s3.ap-northeast-2.amazonaws.com/streaming/";
             const l_imgURL = url + IResult;
@@ -128,7 +128,7 @@ const CreateaStreamContainer = () => {
             dispatch(change({ name: 'l_img', value: l_imgURL }));
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
           })
         }
       } 

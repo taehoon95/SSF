@@ -9,7 +9,7 @@ import MainStreamingListContainer from "./MainStreamingListContainer";
 
 // 2021 1125 이태훈 streaming list
 const StreamListContainer = ({streamRes}) => {
-  console.log(streamRes);
+  // console.log(streamRes);
   
   const u_id = localStorage.getItem("u_id")
   const history = useHistory();
@@ -31,7 +31,7 @@ const StreamListContainer = ({streamRes}) => {
   };
 
   const dbRenderList = () => {
-    console.log(streamRes);
+    // console.log(streamRes);
     // return streamRes.map((value,i) => {
     //   return (
     //     <div key={i}>
