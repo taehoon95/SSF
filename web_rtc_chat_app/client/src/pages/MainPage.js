@@ -29,6 +29,7 @@ const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
   const [sendData, setSendData] = useState([]);
+  const [liveVideoShow, setLiveVideoShow] = useState([]);
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -44,6 +45,11 @@ const MainPage = () => {
 
   useEffect(() => {
     myTopVideoList();
+  }, []);
+
+  // 실시간 영상 랜덤 조회
+  useEffect(() => {
+    myLiveVideoList();
   }, []);
 
   // 20211123 윤성준 전체 영상 List api
@@ -76,7 +82,20 @@ const MainPage = () => {
       });
   };
 
-  ///////// 실시간 영상 3D 이미지 시작
+  // 2021-12-03 윤성준 실시간 영상 랜덤 5
+  const myLiveVideoList = () => {
+    axios
+      .get(`/api/liveVideo`)
+      .then((response) => {
+        //alert("record 가져오기 성공ㅎㅎ");
+        setLiveVideoShow(response.data);
+      })
+      .catch((error) => {
+        alert("실시간 영상 가져오기 실패");
+        console.log(error);
+      });
+  };
+
   const [state, setState] = useState({
     goToSlide: 0,
     offsetRadius: 2,
@@ -84,7 +103,90 @@ const MainPage = () => {
     config: config.gentle,
   });
 
+  ///////// 실시간 영상 3D 이미지 시작
+  // let slides = [
+  //   {
+  //     key: nanoid(),
+  //     content: (
+  //       <div
+  //         style={{
+  //           position: "relative",
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+  //         <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
+  //           <img
+  //             src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
+  //             alt="1"
+  //             className="mainSliderImg"
+  //           />
+  //         </div>
+  //         <div style={{ position: "absolute" }}>
+  //           <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+  //             <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
+  //           </Button>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     key: nanoid(),
+  //     content: (
+  //       <div
+  //         style={{
+  //           position: "relative",
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+  //         <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
+  //           <img
+  //             src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
+  //             alt="2"
+  //             className="mainSliderImg"
+  //           />
+  //         </div>
+  //         <div style={{ position: "absolute" }}>
+  //           <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+  //             <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
+  //           </Button>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  //   {
+  //     key: nanoid(),
+  //     content: (
+  //       <div
+  //         style={{
+  //           position: "relative",
+  //           display: "flex",
+  //           justifyContent: "center",
+  //           alignItems: "center",
+  //         }}
+  //       >
+  //         <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
+  //           <img
+  //             src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
+  //             alt="3"
+  //             className="mainSliderImg"
+  //           />
+  //         </div>
+  //         <div style={{ position: "absolute" }}>
+  //           <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
+  //             <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
+  //           </Button>
+  //         </div>
+  //       </div>
+  //     ),
+  //   },
+  // ]
+
   let slides = [
+    liveVideoShow.map((data, idx) => (
     {
       key: nanoid(),
       content: (
@@ -96,77 +198,26 @@ const MainPage = () => {
             alignItems: "center",
           }}
         >
-          <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
-            <img
-              src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
-              alt="1"
-              className="mainSliderImg"
-            />
+          
+          <div style={{ verticalAlign: "middle", opacity: 1 }}>
+
+            <div key={idx}>
+            <img src={data.l_img} alt="1" width="600" height="750" />
+            </div>
           </div>
+
           <div style={{ position: "absolute" }}>
-            <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
-              <PlayArrow style={{ color: "white", width:180, height: 180 }} />
+            <Button component={Link} to={`/watchpage/${data.l_code}`}>
+              <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
             </Button>
           </div>
         </div>
       ),
-    },
-    {
-      key: nanoid(),
-      content: (
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
-            <img
-              src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
-              alt="1"
-              className="mainSliderImg"
-            />
-          </div>
-          <div style={{ position: "absolute" }}>
-            <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
-              <PlayArrow style={{ color: "white", width:180, height: 180 }} />
-            </Button>
-          </div>
-        </div>
-      ),
-    },
-    {
-      key: nanoid(),
-      content: (
-        <div
-          style={{
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
-            <img
-              src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
-              alt="1"
-              className="mainSliderImg"
-            />
-          </div>
-          <div style={{ position: "absolute" }}>
-            <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
-              <PlayArrow style={{ color: "white", width:180, height: 180 }} />
-            </Button>
-          </div>
-        </div>
-      ),
-    },
-  ].map((slide, index) => {
+    }
+    ))
+  ][0].map((slide, index) => {
     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   });
-
 
   const onChangeInput = (e) => {
     setState({
@@ -222,8 +273,6 @@ const MainPage = () => {
   };
   //////// 실시간 영상 3D 이미지 끝
 
-
-
   return (
     <>
       <Header />
@@ -264,15 +313,10 @@ const MainPage = () => {
               </Grid>
             </Grid>
 
-
             {/* Top4 영상 뷰 */}
             <Grid container>
               {/* Top4 영상 */}
-              <Grid
-                item
-                xs={12}
-                style={{ marginLeft: 30,  marginTop: 30 }}
-              >
+              <Grid item xs={12} style={{ marginLeft: 30, marginTop: 30 }}>
                 <Typography variant="h5" style={{ color: "white" }}>
                   Top 4 영상
                 </Typography>
@@ -284,11 +328,7 @@ const MainPage = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <img
-                        src={data.v_img}
-                        width="320"
-                        height="200"
-                      />
+                      <img src={data.v_img} width="320" height="200" />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}
                       </h3>
@@ -308,7 +348,7 @@ const MainPage = () => {
 
             {/* 전체 랜덤 영상 */}
             <Grid container xs={12}>
-              <Grid item xs={12} style={{ marginLeft: 30}}>
+              <Grid item xs={12} style={{ marginLeft: 30 }}>
                 <Typography variant="h5" style={{ color: "white" }}>
                   추천 영상
                 </Typography>
@@ -320,11 +360,7 @@ const MainPage = () => {
                       to={`/WatchPage2/${data.v_code}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <img
-                        src={data.v_img}
-                        width="320"
-                        height="200"
-                      />
+                      <img src={data.v_img} width="320" height="200" />
                       <h3 style={{ color: "white", marginTop: 3 }}>
                         {data.v_name}
                       </h3>

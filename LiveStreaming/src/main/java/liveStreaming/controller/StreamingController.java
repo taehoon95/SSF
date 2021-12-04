@@ -1,4 +1,5 @@
 package liveStreaming.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,35 +16,35 @@ import liveStreaming.dto.StreamingDto;
 @RestController
 @RequestMapping("/api")
 public class StreamingController {
-    @Autowired
-    StreamingService service;
+	@Autowired
+	StreamingService service;
 
-    // 2021-11-23 이태훈 스트리밍 insert
+	// 2021-11-23 이태훈 스트리밍 insert
 	@PostMapping("/insertStreaming")
-	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming){
+	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming) {
 		System.out.println(streaming);
 		return ResponseEntity.ok(service.insertStreaming(streaming));
 	}
-	
+
 	@PatchMapping("/updateStreaming")
-	public ResponseEntity<Object> updateStreaming(@RequestBody StreamingDto streaming){
+	public ResponseEntity<Object> updateStreaming(@RequestBody StreamingDto streaming) {
 		System.out.println(streaming);
 		return ResponseEntity.ok(service.updateStreaming(streaming));
 	}
-	
+
 	@DeleteMapping("/deleteStreaming")
-	public ResponseEntity<Object> deleteStreaming(@RequestBody StreamingDto streaming){
+	public ResponseEntity<Object> deleteStreaming(@RequestBody StreamingDto streaming) {
 		System.out.println("=================");
 		System.out.println(streaming);
 		System.out.println("=================");
 		return ResponseEntity.ok(service.deleteStreaming(streaming));
 	}
 
-    // 2021-11-23 이태훈 스트리밍 select
+	// 2021-11-23 이태훈 스트리밍 select
 	@GetMapping("/showStreaming/{streaming}/{condition}")
-	public ResponseEntity<Object> showStreaming(@PathVariable String streaming,@PathVariable String condition){
+	public ResponseEntity<Object> showStreaming(@PathVariable String streaming, @PathVariable String condition) {
 		StreamingDto stream = new StreamingDto();
-		switch(condition) {
+		switch (condition) {
 			case "l_title":
 				stream.setL_title(streaming);
 				break;
@@ -56,16 +57,23 @@ public class StreamingController {
 		}
 		return ResponseEntity.ok(service.showStreaming(stream));
 	}
-	
+
 	// 2021 1125 이태훈 l_num으로 방검색
 	@GetMapping("/showStreamingByLnum/{l_code}")
-	public ResponseEntity<Object> showStreaming(@PathVariable String l_code){
+	public ResponseEntity<Object> showStreaming(@PathVariable String l_code) {
 		return ResponseEntity.ok(service.showStreamingByLnum(l_code));
 	}
 
 	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
 	@GetMapping("/streamfilename/{l_img}")
-	public ResponseEntity<Object> streamFileName(@PathVariable String l_img){
+	public ResponseEntity<Object> streamFileName(@PathVariable String l_img) {
 		return ResponseEntity.ok(service.streamFileName(l_img));
+	}
+
+	// 2021-12-03 윤성준 MainPage 실시간 방송 랜덤 조회
+	@GetMapping("/liveVideo")
+	public ResponseEntity<Object> showliveVideo() {
+		System.out.println("실시간 가져오기 성공");
+		return ResponseEntity.ok(service.liveVideo());
 	}
 }

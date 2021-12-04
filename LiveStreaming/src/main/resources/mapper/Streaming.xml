@@ -50,4 +50,12 @@
                 where l_img like concat('%/', #{l_img}, '.%')
                 or l_img like concat('%/', #{l_img}, ' (%');
     </select>
+
+    
+    <!-- 2021-12-03 윤성준 MainPage View(랜덤으로 실시간 영상 5개 호출) -->
+    <select id="liveVideo" resultType="liveStreaming.dto.StreamingDto">
+        select * from ssf_schema.streaming group by l_code ORDER BY RANDOM() limit 5;
+    </select>
+
+
 </mapper>

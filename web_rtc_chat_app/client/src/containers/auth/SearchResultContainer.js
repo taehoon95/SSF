@@ -118,9 +118,9 @@ const SearchResultContainer = () => {
         {/* 2021-11-29 강동하 로딩 추가 */}
         {load === 0 ? (
           // 검색 로딩중일 때
-          <Grid container>
-            <Grid item>
-              <Typography variant="h3" style={{ textAlign: "center" }}>
+          <Grid container justifyContent="center">
+            <Grid item >
+              <Typography variant="h4" justifyContent="center"  style={{ textAlign: "center", color:"white" }}>
                 검색중 입니다. <CircularProgress />{" "}
               </Typography>
             </Grid>

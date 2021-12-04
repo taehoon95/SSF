@@ -25,8 +25,8 @@ public class StreamingService {
 	public List<StreamingDto> showStreaming(StreamingDto streaming) {
 		return mapper.streamingList(streaming);
 	}
-	
-    // 2021-11-23 이태훈 스트리밍 방 만들기
+
+	// 2021-11-23 이태훈 스트리밍 방 만들기
 	public StreamingDto insertStreaming(StreamingDto streaming) {
 		System.out.println(streaming);
 		mapper.insertStreaming(streaming);
@@ -39,12 +39,12 @@ public class StreamingService {
 		mapper.updateStreaming(streaming);
 		return mapper.selectStreamingbyLnum(streaming.getL_code());
 	}
-	
+
 	// 2021-11-23 이태훈 방송 종료시 스트리밍 삭제
 	public int deleteStreaming(StreamingDto streaming) {
 		return mapper.deleteStreaming(streaming);
 	}
-	
+
 	// 2021-11-23 이태훈
 	public StreamingDto showStreamingByLnum(String l_num) {
 		return mapper.selectStreamingbyLnum(l_num);
@@ -54,4 +54,10 @@ public class StreamingService {
 	public int streamFileName(String l_img) {
 		return mapper.streamFileName(l_img);
 	}
+
+	// 2021-12-03 윤성준 MainPage 실시간 영상 랜덤 조회
+	public List<StreamingDto> liveVideo() {
+		return mapper.liveVideo();
+	}
+
 }
