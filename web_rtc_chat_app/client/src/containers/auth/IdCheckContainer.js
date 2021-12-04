@@ -34,10 +34,8 @@ const IdCheckContainer = () => {
     };
   });
   const onChange = (e) => {
-    console.log("이건 체인지");
 
     const { name, value } = e.target;
-    console.log(value);
 
     dispatch(
       change({
@@ -55,13 +53,15 @@ const IdCheckContainer = () => {
       })
     );
   };
+
   useEffect(() => {
     if (checkError) {
+      
       setError("아이디 찾기 실패");
       return;
     }
     if (check) {
-      console.log("아이디 찾기 성공");
+      console.log(check);
       history.push("/IdCheckViewPage");
     }
   }, [check, checkError]);
@@ -171,7 +171,7 @@ const IdCheckContainer = () => {
             <Grid>
               <Grid item>
                 <Typography variant="22">
-                  <span>{error}</span>
+                  <span style={{color:"red"}}>{error}</span>
                 </Typography>
               </Grid>
             </Grid>

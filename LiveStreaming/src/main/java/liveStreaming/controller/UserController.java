@@ -4,6 +4,7 @@
 
 package liveStreaming.controller;
 
+import liveStreaming.dto.VideoRecordDto;
 import liveStreaming.mapper.UserMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import liveStreaming.dto.UserDto;
 import liveStreaming.security.TokenProvider;
 import liveStreaming.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -62,8 +65,7 @@ public class UserController {
 			//토큰 생성
 			 final String token = tokenProvider.create(user);
 			 user.setToken(token);
-			 System.out.println("토큰생성" + "11111");
-			 System.out.println(user.getToken() + "111");
+			 log.info("안녕하세요");
 			return ResponseEntity.ok().body(user);
 		}else{
 			 System.out.println("실패");
@@ -83,13 +85,12 @@ public class UserController {
 		}
 	}
 	@PostMapping("/idfind")
-	public ResponseEntity<Object> idfind(@RequestBody UserDto user){
-		System.out.println("여기는 idfind");
-		System.out.println(user + "1111111");
-		UserDto idfindUser = mapper.idfind(user);
-		System.out.println("user "+user);
-		System.out.println("idfindUser "+idfindUser);
-		return ResponseEntity.ok(idfindUser);
+	public List<UserDto> idfind(@RequestBody UserDto user){
+		if(user == null){
+			return mapper.idfind(null);
+		}
+
+		return mapper.idfind(user);
 	}
 	@PostMapping("/pwdfind")
 	public ResponseEntity<Object> pwdFind(@RequestBody UserDto user){

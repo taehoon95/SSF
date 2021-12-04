@@ -1,7 +1,7 @@
 //2021-11-23
 //아이디 찾기 후 아이디 값 전달
 //박진현
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
@@ -20,13 +20,23 @@ import Button from "@mui/material/Button";
 
 
 const IdCheckViewPage = () => {
+  const [myList,setMyList] = useState([]);
   const { u_name, u_id, check, auth } = useSelector((state) => {
     return {
       u_id: state.auth.check.u_id,
       u_name: state.auth.u_name,
       u_email: state.auth.u_email,
+      check: state.auth.check
     };
   });
+
+  useEffect(()=>{
+    console.log(check);
+    
+      setMyList(check);
+
+
+  },[])
   const theme = createTheme();
 
   return (
@@ -72,10 +82,11 @@ const IdCheckViewPage = () => {
             >
               아이디찾기
             </Typography>
-            <Typography variant="h6" style={{ marginTop: 60 }}>
-              {u_name} 님의 아이디는 {u_id} 입니다.
+            {myList.map((data,idx)=>(                          
+            <Typography variant="h6" >
+              <span style={{color:"red"}}>{data.u_name}</span> 님의 아이디는 <span style={{color:"red"}}>{data.u_id}</span> 입니다.
             </Typography>
-
+            ))}
             {/* 버튼 안먹어 ㅅㅂ */}
             <Box style={{ marginTop: 70 }}>
               <Button
