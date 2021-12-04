@@ -52,5 +52,8 @@ public interface VideoRecordMapper {
     //2021-11-26 박진현 비디오 업데이트
     int videoupdate(VideoRecordDto video);
     List<Map<String,Object>> videochangeserch(String v_code);
+    
+    // 2021-12-02 이태훈 비디오 무한 스크롤 검색
+    List<VideoRecordDto> videoInfiniteSearch(Map<String, Object> videoInfo);
 
 }

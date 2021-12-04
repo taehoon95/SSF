@@ -2,6 +2,7 @@ package liveStreaming.mapper;
 
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -29,7 +30,7 @@ public class StreamingMapperTest {
 	StreamingMapper mapper;
 
 	
-	@Test
+	//@Test
 	public void test01StreamingList() {
 		StreamingDto streaming = new StreamingDto();
 		List<StreamingDto> list = mapper.streamingList(streaming);
@@ -69,7 +70,19 @@ public class StreamingMapperTest {
 		Assertions.assertEquals(1, res);
 	}
 
-
+	@Test
+	public void test05StreamingSearchList() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", "2");
+		map.put("pageNum", 0);
+		List<StreamingDto> list = mapper.streamingSearchList(map);
+		for (StreamingDto t : list) {
+			System.out.println(t);
+		}
+		Assertions.assertNotNull(list);
+	}
+	
+	
 	
 
 }

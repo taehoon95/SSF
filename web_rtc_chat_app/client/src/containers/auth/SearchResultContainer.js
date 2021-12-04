@@ -1,119 +1,120 @@
+import React, { useCallback, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import Loader from "../scroll/Loader";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 // 2021-11-25
 // 윤성준
 // 검색기능 페이지 추가
 
 // 2021-11-29 강동하 로딩 추가
-
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import Pagination from "../../pages/Pagination";
 import styled from 'styled-components';
 
 import {
   Box,
-  CircularProgress,
   Grid,
-  
+
   Typography,
 } from "../../../node_modules/@material-ui/core/index";
-import { HelpOutline } from "../../../node_modules/@material-ui/icons/index";
-import axios from "../../../node_modules/axios/index";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
-const PageUl = styled.ul`
-  float:left;
-  list-style: none;
-  text-align:center;
-  border-radius:3px;
-  color:white;
-  padding:1px;
-  border-top:2px solid;
-  border-bottom:2px solid;
-  background-color: rgba( 0, 0, 0, 0.4 );
-`;
+import {
+  showInfiniteVideoSearch,
+  showInfiniteStreamingSearch,
+} from "../../lib/api/StreamingAPI";
 
- const PageLi = styled.li`
-  display:inline-block;
-  font-size:17px;
-  font-weight:600;
-  padding:5px 10px 0.5px 12px;
-  border-radius:5px;
-  width:25px;
-  &:hover{
-    cursor:pointer;
-    color:white;
-    background-color:#263A6C;
-  }
-  &:focus::after{
-    color:white;
-    background-color:#263A6C;
-  }
-`;
-
- const PageSpan = styled.span`
-  &:hover::after,
-  &:focus::after{
-    border-radius:100%;
-    color:white;
-    background-color:#263A6C;
-  }
-`;
-
+// 2021-12-03 이태훈 검색시 비디오, 스트리밍 무한 스크롤,
 const SearchResultContainer = () => {
-  const [selectList, setSelectList] = useState([]);
-  const { v_name } = useParams();
-  const [load, setLoad] = useState(0);
+  const { search } = useParams();
+  const [items, setItems] = useState([]);
+  const [pageNum, setPageNum] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [streamEnd, setStreamEnd] = useState(false);
 
-  // 2021-12-01 윤성준 pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(3); // 한 페이지당 보여줄 게시물 수
-
-  const indexOfLast = currentPage * postsPerPage; // 비디오 뽑아오기
-  const indexOfFirst = indexOfLast - postsPerPage;
-  function currentPosts(tmp) {
-    let currentPosts = 0;
-    currentPosts = tmp.slice(indexOfFirst, indexOfLast);
-    return currentPosts;
-  }
-
-  useEffect(() => {
-    setLoad(0);
-    myVideoList();
-    console.log(v_name);
-  }, [v_name]);
-
-  // 검색 결과 가져오기
-  const myVideoList = () => {
-    axios
-      .get(`/api/videoSearch/${v_name}`)
-      .then((response) => {
-        setSelectList(response.data);
-        console.log(load);
-        setLoad(1);
-      })
-      .catch((error) => {
-        alert("record 가져오기 실패");
-        console.log(error);
+  // 스크롤이 어느정도 내려오면 감지 해서 fetchData함수 실행
+  const fetchData = () => {
+    setPageNum(pageNum + 1);
+    if (!streamEnd && pageNum !== 0) {
+      showInfiniteStreamingSearch(search, pageNum).then((res) => {
+        if (res.data.length === 0) {
+          console.log(22222); 
+          setHasMore(false);
+          setLoading(false);
+          setStreamEnd(true);
+          console.log(items);
+          getVideos(items, search);
+          return;
+        }
+        return setItems([...items, ...res.data]);
       });
+    }
+
+    if(streamEnd && pageNum !== 0){
+      console.log(222);
+        showInfiniteVideoSearch(search, pageNum).then((res) => {
+            setPageNum(pageNum + 1);
+            console.log(pageNum);
+            if (res.data.length === 0) {
+              setHasMore(false);
+              setLoading(false);
+              return;
+            }
+            return setItems([...items, ...res.data])
+        });
+    }
   };
 
-  const nextbutton = () =>{
-    if(currentPage < Math.ceil(selectList.length / 3)){
-      setCurrentPage(currentPage +1 );
-    }
-  }
-  const backbutton = () =>{
-    if(currentPage > 1){
-      setCurrentPage(currentPage -1 );
-    }    
-  }
+  // 비디오 값 받아오기
+  const getVideos = useCallback((items,search) => {
+    console.log(items);
+    console.log(items.length === 0);
+    setLoading(true);
+    setHasMore(true);
+    setPageNum(0);
+    
+    showInfiniteVideoSearch(search, 0).then((res) => {
+      setPageNum(pageNum + 1);
+      if (res.data.length === 0) {
+        setLoading(false);
+        setHasMore(false);
+        return;
+      }
+      return setItems((items) => [ ...items, ...res.data])
+    });
+  }, []);
+
+  // 첫 스트리밍 값 받아오기
+  const getStreams = useCallback((search) => {
+    setLoading(true);
+    setHasMore(true);
+    showInfiniteStreamingSearch(search, 0).then((res) => {
+      if (res.data.length < 5) {
+        getVideos(res.data,search);
+      }
+      setPageNum(pageNum + 1);
+      return setItems([...items, ...res.data]);
+    });
+  }, []);
+
+  // 검색 후 초기화
+  useEffect(() => {
+    setStreamEnd(false);
+    setLoading(true);
+    setPageNum(0);
+    getStreams(search);
+    setItems([]);
+  }, [search]);
+
+
   return (
     <>
-    <Grid
-      container
-      style={{  marginTop: 80, background: "#303030", postion: "relative" }}
-    
+    <InfiniteScroll
+      dataLength={items.length}
+      next={fetchData}
+      hasMore={hasMore}
+      loader={loading && <Loader />}
+      endMessage={<p>End!</p>}
     >
+
         {/* 2021-11-25 강동하 결과 없음 안뜨는 거 수정 */}
         {/* 2021-11-29 강동하 로딩 추가 */}
         {load === 0 ? (
@@ -128,36 +129,51 @@ const SearchResultContainer = () => {
         ) : selectList.length !== 0 ? (
           // 검색 결과 창
           currentPosts(selectList).map((data, idx) => (
+
+      <div className="container">
+        <h1>관련 동영상</h1>
+        <div className="row m-2">
+          {items.map((data, idx) => (
+
             <Grid
               container
               component={Link}
-              to={`/WatchPage2/${data.v_code}`}
+              to={
+                (data.v_code && `/WatchPage2/${data.v_code}`) ||
+                (data.l_code && `/WatchPage/${data.l_code}`)
+              }
               style={{
                 textDecoration: "none",
                 marginBottom: 10,
-                marginLeft: 30,
               }}
+              key={idx}
             >
               <Grid item xs={5}>
                 <Box>
 
-                  <img src={data.v_img} width="100%" />
+                  <img
+                    src={data.l_img || data.v_img}
+                    width="100%"
+                    alt={data.l_code || data.v_name}
+                  />
+
                 </Box>
               </Grid>
 
               <Grid item xs={4} style={{ marginLeft: 10 }}>
                 <Box style={{ width: "800px" }}>
                   <Typography variant="h5" style={{ color: "white" }}>
-                    {data.v_name}
+                    {data.v_name || data.l_title}
                   </Typography>
                   <br />
 
                   <Typography variant="body1" style={{ color: "gray" }}>
-                    {data.v_date}
+                    {data.v_date || data.l_date}
                   </Typography>
 
                   <Typography variant="body1" style={{ color: "gray" }}>
-                    조회수 {data.v_views} 회
+                    {data.v_views && `조회수 ${data.v_views} 회`}
+                    {data.l_code && `실시간`}
                   </Typography>
                   <br />
 
@@ -167,52 +183,22 @@ const SearchResultContainer = () => {
                 </Box>
               </Grid>
             </Grid>
-          ))
-        ) : (
-          <div  style={{width:'100%', marginTop: "17vh",alignItems:'center'}}>
-            {/* 검색 결과가 없을 경우 */}
-              <div style={{display:'flex', justifyContent:'center',alignItems:'center',color:'white'}}>
-                <HelpOutline style={{ width: 300, height: 300 }} />
-              </div>
-              <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center', color:'white'}}>
-                <Typography variant="h3">검색 결과가 없습니다.</Typography>             
-              </div>
-          </div>
-        )}
-       {/* 페이징 */}
-       {load !== 0 && selectList.length !== 0 && 
-       <div style={{ width:'100%',justifyContent:'center',display:'flex',position:'fixed', bottom:0}}>        
-      <PageUl style={{ marginTop: 20, marginBottom: 20, justifyContent:'center',display:'flex' }}>
-        { currentPage > 1 &&
-          <PageLi onClick={backbutton} >
-        <PageSpan>
-          <NavigateBeforeIcon/>
-          </PageSpan>
-        </PageLi>       
-        }
-      </PageUl>
-      
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPosts={selectList.length}
-          paginate={setCurrentPage}
-          myList={currentPosts(selectList)}
-        ></Pagination>
-        <PageUl style={{ marginTop: 20, marginBottom: 20,justifyContent:'center',display:'flex' }}>
-        {  currentPage < 1 &&
-        <PageLi onClick={nextbutton}>
-          <PageSpan>
-            <NavigateNextIcon/>
-            </PageSpan>
-          </PageLi>
-          } 
-        </PageUl>
-      </div>}
-    </Grid>
-
-   
-      </>
-  );
+          ))}
+        </div>
+      </div>
+    </InfiniteScroll>
+    <div  style={{width:'100%', marginTop: "17vh",alignItems:'center'}}>
+      {/* 검색 결과가 없을 경우 */}
+        <div style={{display:'flex', justifyContent:'center',alignItems:'center',color:'white'}}>
+          {/* <HelpOutline style={{ width: 300, height: 300 }} /> */}
+        </div>
+        <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center', color:'white'}}>
+          <Typography variant="h3">검색 결과가 없습니다.</Typography>             
+        </div>
+    </div>
+    </>
+    )
+    
 };
 
 export default SearchResultContainer;

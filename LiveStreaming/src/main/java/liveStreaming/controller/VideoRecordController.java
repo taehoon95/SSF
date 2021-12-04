@@ -1,8 +1,9 @@
 package liveStreaming.controller;
 
 
+import java.util.HashMap;
 import java.util.LinkedList;
-
+import java.util.List;
 
 import liveStreaming.mapper.VideoRecordMapper;
 
@@ -39,9 +40,7 @@ public class VideoRecordController {
 	// 20211122 윤성준 게시물 삭제
 	@PostMapping("/videoDelete")
 	public ResponseEntity<Object> deleteVideoRecord(@RequestBody VideoRecordDto videoRecordDto) {
-		System.out.println(2);
-		int res = service.videoDelete(videoRecordDto);
-		System.out.println(res);
+		List<VideoRecordDto> res = service.videoDelete(videoRecordDto);
 		return ResponseEntity.ok(res);
 	}
 
@@ -130,5 +129,14 @@ public class VideoRecordController {
 		System.out.println("================");
 		System.out.println(v_name);
 		return ResponseEntity.ok(service.videoNameCheck(v_name));
+	}
+	
+	// 2021-12-02 이태훈 비디오 무한 스크롤 검색
+	@GetMapping("/videoInfiniteSearch/{search}/{pageNum}")
+	public ResponseEntity<Object> videoInfiniteSearch(@PathVariable String search, @PathVariable int pageNum) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("pageNum", pageNum);
+		return ResponseEntity.ok(service.videoInfiniteSearch(map));
 	}
 }

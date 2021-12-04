@@ -124,8 +124,9 @@ const MyVideoSettingPage = ({ history }) => {
       .post(`/api/videoDelete`, { u_id, v_code })
       //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id, v_code})
       .then((response) => {
-        console.log(response);
         // videorecord(u_id)
+        setMyList(response.data);
+        console.log(response.data);
         myVideoList();
         alert(`${v_code}가 삭제되었습니다.`);
       })

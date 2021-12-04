@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 // 2021 1123 이태훈
+// 2021-12-03 강동하 s_code 추가
 @Getter
 @Setter
 @ToString

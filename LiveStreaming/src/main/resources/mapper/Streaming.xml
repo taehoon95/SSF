@@ -12,23 +12,37 @@
           </trim>
     </select>
     
-    <!-- 2021-12-02 강동하 l_img 추가 -->
+    <!-- 2021-12-02 강동하 l_img 추가, 다시 삭제 -->
     <insert id="insertStreaming">
     	insert
-            <if test='l_img != ""'> 
+        <if test='l_img != ""'> 
             into ssf_schema.streaming (l_code, l_title, l_description, u_id, l_img)
 		        values (#{l_code},#{l_title},#{l_description}, #{u_id}, #{l_img});
-            </if>
+        </if>
 
-            <if test='l_img == ""'> 
+        <if test='l_img == ""'> 
             into ssf_schema.streaming (l_code, l_title, l_description, u_id)
 		        values (#{l_code},#{l_title},#{l_description}, #{u_id});
-            </if>
+        </if>    
     </insert>
-    
+
+    <!-- 2021-12-03 강동하 streaming_management insert -->
+    <insert id="insertStreamingManagement">
+    	insert
+        <if test='l_img != ""'> 
+            into ssf_schema.streaming_management (l_title, u_id, l_img)
+		        values (#{l_title}, #{u_id}, #{l_img});
+        </if>
+
+        <if test='l_img == ""'> 
+            into ssf_schema.streaming_management (l_title, u_id)
+		        values (#{l_title}, #{u_id});
+        </if>
+    </insert>
+
     <update id="updateStreaming">
 	    update ssf_schema.streaming
-	   	   set l_title = #{l_title} , l_description = #{l_description}
+	   	   set l_title = #{l_title} , l_description = #{l_description}, l_img = #{l_img}
 	     where l_code = #{l_code} and u_id = #{u_id};
     </update>
     
@@ -44,18 +58,28 @@
     	 where l_code = #{l_code}
     </select>
 
+	<!-- 2021-12-02 이태훈 스트리밍 검색시 무한 스크롤 페이징 -->
+	<select id="streamingSearchList" parameterType="Map" resultType="liveStreaming.dto.StreamingDto">
+	    select * 
+  		  from ssf_schema.streaming
+         where l_title like CONCAT('%',#{search},'%') or
+               u_id like CONCAT('%',#{search},'%') or 
+               l_description like CONCAT('%',#{search},'%')
+         order by l_date desc
+         limit 5
+		    offset #{pageNum}*5
+	</select>
+
 	<!-- 2021-12-02 강동하 방송 방송 시작 썸네일 업로드 시 파일이름 중복체크 -->
     <select id="streamFileName" resultType="int">
-        select count(*) from ssf_schema.streaming
+        select count(*) from ssf_schema.streaming_management
                 where l_img like concat('%/', #{l_img}, '.%')
                 or l_img like concat('%/', #{l_img}, ' (%');
     </select>
-
     
     <!-- 2021-12-03 윤성준 MainPage View(랜덤으로 실시간 영상 5개 호출) -->
     <select id="liveVideo" resultType="liveStreaming.dto.StreamingDto">
         select * from ssf_schema.streaming group by l_code ORDER BY RANDOM() limit 5;
     </select>
-
 
 </mapper>
