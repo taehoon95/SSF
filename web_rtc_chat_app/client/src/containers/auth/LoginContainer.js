@@ -82,7 +82,6 @@ const LoginContainer = ({ history }) => {
 
   useEffect(() => {
     if (auth) {
-      console.log(auth);
        //history.push("/");
       try {
         localStorage.setItem("auth", JSON.stringify(auth));
@@ -240,7 +239,7 @@ const LoginContainer = ({ history }) => {
           <Grid>
             <Grid item>
               <Typography variant="22">
-                <span>{error}</span>
+                <span style={{color:"red"}}>{error}</span>
               </Typography>
             </Grid>
           </Grid>
