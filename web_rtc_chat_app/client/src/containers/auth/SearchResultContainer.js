@@ -131,6 +131,7 @@ const SearchResultContainer = () => {
         ) : selectList.length !== 0 ? (
           // 검색 결과 창
           currentPosts(selectList).map((data, idx) => ( */}
+
           {/* 삭제해도됨? */}
 
       <div className="container">

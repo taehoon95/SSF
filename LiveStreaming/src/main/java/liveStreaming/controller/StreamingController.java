@@ -24,7 +24,6 @@ public class StreamingController {
 	// 2021-12-03 강동하 스트리밍 insert + streaming_management insert
 	@PostMapping("/insertStreaming")
 	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming) {
-		System.out.println(streaming);
 		service.insertStreamingManagement(streaming);
 		// management에서 s_code 받아와서 get
 		return ResponseEntity.ok(service.insertStreaming(streaming));
@@ -32,16 +31,13 @@ public class StreamingController {
 
 	@PatchMapping("/updateStreaming")
 	public ResponseEntity<Object> updateStreaming(@RequestBody StreamingDto streaming) {
-		System.out.println(streaming);
 		return ResponseEntity.ok(service.updateStreaming(streaming));
 	}
 
 	// 2021-11-23 이태훈 스트리밍 delete
 	@DeleteMapping("/deleteStreaming")
 	public ResponseEntity<Object> deleteStreaming(@RequestBody StreamingDto streaming) {
-		System.out.println("=================");
-		System.out.println(streaming);
-		System.out.println("=================");
+
 		return ResponseEntity.ok(service.deleteStreaming(streaming));
 	}
 
@@ -90,7 +86,6 @@ public class StreamingController {
 	// 2021-12-03 윤성준 MainPage 실시간 방송 랜덤 조회
 	@GetMapping("/liveVideo")
 	public ResponseEntity<Object> showliveVideo() {
-		System.out.println("실시간 가져오기 성공");
 		return ResponseEntity.ok(service.liveVideo());
 	}
 

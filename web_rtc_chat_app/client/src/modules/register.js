@@ -68,7 +68,6 @@ const register = handleActions(
   {
     [CHANGE]: (state, { payload: { id, value} }) =>
       produce(state, (draft) => {
-        //console.log(draft);
         draft[id] = value;
         if(id == "u_id"){
           draft["idcheck"] = null;

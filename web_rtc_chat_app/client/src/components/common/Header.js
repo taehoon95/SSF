@@ -102,8 +102,10 @@ const Header = () => {
   // 2021-12-02 강동하 홈 버튼 > 새로고침으로 수정
   const home = () => {
    //history.push("/");
-    window.location.replace("/");
+    window.location.replace("/");      
   };
+
+ 
 
   const onkeyPress = (e) =>{
     if(e.key == 'Enter'){

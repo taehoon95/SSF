@@ -62,7 +62,7 @@ const MainPage = () => {
         setMyList(response.data);
       })
       .catch((error) => {
-        alert("record 가져오기 실패");
+        //alert("record 가져오기 실패");
         console.log(error);
       });
   };
@@ -91,7 +91,7 @@ const MainPage = () => {
         setLiveVideoShow(response.data);
       })
       .catch((error) => {
-        alert("실시간 영상 가져오기 실패");
+        //alert("실시간 영상 가져오기 실패");
         console.log(error);
       });
   };
