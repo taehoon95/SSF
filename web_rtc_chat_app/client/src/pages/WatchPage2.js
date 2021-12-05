@@ -56,7 +56,7 @@ const styleModal2 = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 320,
-  height: 100,
+  height: 80,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -342,6 +342,7 @@ const WatchPage2 = (props) => {
             color={'primary'}
             type="submit"
             variant="contained"
+            style={{ marginLeft: 30 }}
           >
             취소
           </Button>
