@@ -10,9 +10,8 @@
 // 2021-11-23 강동하 댓글 select, insert 구현
 
 // 2021-11-24 강동하 댓글 delete, update 구현
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import Stack from '@mui/material/Stack';
-import {
+import React, { useEffect, useState} from "react";
+import { 
   Button,
   Grid,
   TextField,
@@ -20,7 +19,6 @@ import {
   Box,
   Typography,
   Divider,
-  makeStyles,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,9 +29,7 @@ import {
   commentUpdate_Action,
 } from "../modules/watchpage2";
 import { useHistory } from "react-router";
-import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
-import { styled } from '@mui/material/styles';
 import { CssTextField } from "../lib/styles/CssTextField";
 import { useMediaQuery } from 'react-responsive'
 // 수정모달

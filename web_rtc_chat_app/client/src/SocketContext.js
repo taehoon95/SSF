@@ -23,25 +23,41 @@ const ContextProvider = ({ children }) => {
   const [msgs, setMsgs] = useState([]);
   // joinRoom: 현재 참여하고 있는 room정보
   const [joinRoom, setJoinRoom] = useState("");
+  // 시청자 수
+  const [viewers ,setViewers] = useState(0);
 
     // rooms 객체 설정
     socketRef.on("serverRooms", (value) => {
       setRooms(value)
     })
-
     // 현재 참여하고 있는 방
-    socketRef.on("serverJoinRoom", (roomInfo) => {
+    socketRef.on("serverJoinRoom", (roomInfo,total) => {
       setJoinRoom(roomInfo)
       setMsgs([]);
+      setViewers(total);
     })
     
     useEffect(() => {
-      socketRef.on("serverRoomMessage",({message,username})=> {
+      socketRef.on("serverRoomMessage",({message,username,usersocket})=> {
+        console.log(usersocket);
+        console.log(username);
         setMsgs((msgs) => [...msgs, {message,username}]);
       })
-    },[socketRef])
+      
+      socketRef.on("enterRoom",({total, u_id})=> {
+        console.log(total);
+        console.log(u_id);
+        setViewers(total);
+        setMsgs((msgs) => [...msgs, {message:`${u_id} 입장`,u_id}]);
+      })
 
-   
+      socketRef.on("exitRoom",({total, u_id})=> {
+        console.log(total);
+        console.log(u_id);
+        setViewers(total);
+        setMsgs((msgs) => [...msgs, {message:`${u_id} 퇴장`,u_id}]);
+      })
+    },[socketRef])
  
   return (
     <SocketContext.Provider
@@ -53,6 +69,8 @@ const ContextProvider = ({ children }) => {
         setUserName,
         msgs,
         setMsgs,
+        setViewers,
+        viewers
       }}
     >
       {children}

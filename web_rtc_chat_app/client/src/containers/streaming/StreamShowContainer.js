@@ -58,8 +58,9 @@ const StreamShow = () => {
   // 1. 방에 입장하는 것을 소켓에 알려주고
   // 2. l_code로 검색후 방정보들을 store에 저장
   // 3. buildPlayer로 방송 실행
+  const usersocket = socketRef.id;
   useEffect(() => {
-    socketRef.emit("clientJoinRoom", l_code, u_id);
+    socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
     buildPlayer();
   }, [offStreaming]);
@@ -76,7 +77,6 @@ const StreamShow = () => {
     player.load();
     if (offStreaming) {
       player.destroy();
-      //alert(s_code);
       dispatch(deleteStreaming(u_id, l_code));
       history.push("/");
     }
@@ -85,15 +85,22 @@ const StreamShow = () => {
   // 방송 종료
   const offStreamingbtn = () => {
     if (window.confirm(`방송종료 하시겠습니까?`)) {
-
-      //console.log("성공");
-      //alert("성공");
       dispatch(cut())
-
       setOffStreaming(true);
       return;
     } else {
       alert("방송종료를 취소 하셨습니다.");
+      return;
+    }
+  };
+  // 방송 나가기
+  const exitStreamingbtn = () => {
+    if (window.confirm(`이 방송에서 나가시겠습니까?`)) {
+      socketRef.emit("exitRoom", socketRef.id, u_id, l_code);
+      history.push("/");
+      return;
+    } else {
+      alert("시청을 계속 합니다.");
       return;
     }
   };
@@ -188,7 +195,7 @@ const StreamShow = () => {
             </Box>
             <h3> {streamInfo.l_description}</h3>
             <Box sx={{ marginTop: "10px" }}>
-              {u_id && u_id === streamInfo.u_id && (
+              {u_id && u_id === streamInfo.u_id ? (
                 <>
                   <Button
                     variant="contained"
@@ -210,6 +217,16 @@ const StreamShow = () => {
                     방송정보편집
                   </Button>
                 </>
+              ):(
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<ExitToAppOutlinedIcon />}
+                    className={classes.button}
+                    onClick={exitStreamingbtn}
+                  >
+                    방송나가기
+                  </Button>
               )}
             </Box>
           </Box>
