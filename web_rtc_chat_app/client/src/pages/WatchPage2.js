@@ -366,8 +366,9 @@ const WatchPage2 = (props) => {
             <br />
             로그인 페이지로 이동하시겠습니까?
           </Typography>
-          <br />
+          
           <Button
+            style={{ marginTop: 10 }}
             id={`${UpdateId}`}
             onClick={login_Auth}
             color={'primary'}
@@ -377,6 +378,7 @@ const WatchPage2 = (props) => {
             이동
           </Button>
           <Button
+          style={{ marginTop: 10, marginLeft: 30 }}
             id={`${UpdateId}`}
             onClick={handleClose3}
             color={'primary'}
