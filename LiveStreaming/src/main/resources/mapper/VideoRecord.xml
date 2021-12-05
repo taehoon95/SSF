@@ -96,8 +96,8 @@
     	select * 
   		  from ssf_schema.video_upload
  		 where v_state = 1 and 
- 		       v_name like CONCAT('%',#{search},'%') or 
- 		       v_descript like CONCAT('%',#{search},'%')
+ 		       v_name like CONCAT('%',#{v_name},'%') or 
+ 		       v_descript like CONCAT('%',#{v_name},'%')
  	     order by v_date desc
  		 limit 5
 	    offset #{pageNum}*5;

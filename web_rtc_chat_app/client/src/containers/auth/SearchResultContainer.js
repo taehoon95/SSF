@@ -30,7 +30,6 @@ const SearchResultContainer = () => {
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
   const [streamEnd, setStreamEnd] = useState(false);
-  const [noSearch, setNoSearch] = useState(false);
   const [searchLength, setSearchLength] = useState(1);
   const [searchLength2, setSearchLength2] = useState(1);
 
@@ -49,7 +48,6 @@ const SearchResultContainer = () => {
 
           console.log(items);
           getVideos(items, v_name);
-
           return;
         }
         return setItems([...items, ...res.data]);
@@ -63,7 +61,6 @@ const SearchResultContainer = () => {
       console.log(pageNum);
       console.log(222);
         showInfiniteVideoSearch(v_name, pageNum).then((res) => {
-
             setPageNum(pageNum + 1);
             // console.log(pageNum);
             if (res.data.length === 0) {
@@ -113,6 +110,7 @@ const SearchResultContainer = () => {
         getVideos(res.data,v_name);
         console.log(res.data.length);
         setStreamEnd(true);
+        return
       }
       setPageNum(pageNum + 1);
       return setItems([...items, ...res.data]);

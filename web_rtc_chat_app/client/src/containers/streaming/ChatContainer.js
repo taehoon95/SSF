@@ -103,7 +103,7 @@ const ChatContainer = () => {
                 </>)
                 :
                 (<>
-                <span className="msgviewer">{username} :</span>
+                <span className="msgviewer">{username && `${username}:`}</span>
                 <span className="msgviewer"> {message}</span>
                 </>)
                 }
