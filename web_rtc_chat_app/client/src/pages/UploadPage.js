@@ -333,6 +333,18 @@ const UploadPage = () => {
                 <MenuItem value="AM001">동물</MenuItem>
                 <MenuItem value="HH001">운동</MenuItem>
                 <MenuItem value="CK001">요리</MenuItem>
+                <MenuItem value="ED001" id="ED001">
+                교육
+              </MenuItem>
+              <MenuItem value="AN001" id="AN001">
+                만화
+              </MenuItem>
+              <MenuItem value="ME001" id="ME001">
+                의료
+              </MenuItem>
+              <MenuItem value="CM001" id="CM001">
+                컴퓨터공학
+              </MenuItem>
               </Select>
             </Grid>
 
