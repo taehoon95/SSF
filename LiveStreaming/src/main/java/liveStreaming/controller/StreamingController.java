@@ -67,10 +67,10 @@ public class StreamingController {
 
 
 	// 2021-12-02  이태훈 search으로 방검색
-	@GetMapping("/streamingInfiniteSearch/{search}/{pageNum}")
-	public ResponseEntity<Object> streamingInfiniteSearch(@PathVariable String search,@PathVariable int pageNum){
+	@GetMapping("/streamingInfiniteSearch/{v_name}/{pageNum}")
+	public ResponseEntity<Object> streamingInfiniteSearch(@PathVariable String v_name,@PathVariable int pageNum){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("search", search);
+		map.put("v_name", v_name);
 		map.put("pageNum", pageNum);
 		return ResponseEntity.ok(service.showSearchStreaming(map));
 	}

@@ -62,9 +62,9 @@
 	<select id="streamingSearchList" parameterType="Map" resultType="liveStreaming.dto.StreamingDto">
 	    select * 
   		  from ssf_schema.streaming
-         where l_title like CONCAT('%',#{search},'%') or
-               u_id like CONCAT('%',#{search},'%') or 
-               l_description like CONCAT('%',#{search},'%')
+         where l_title like CONCAT('%',#{v_name},'%') or
+               u_id like CONCAT('%',#{v_name},'%') or 
+               l_description like CONCAT('%',#{v_name},'%')
          order by l_date desc
          limit 5
 		    offset #{pageNum}*5

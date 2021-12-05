@@ -5,7 +5,7 @@ import { Typography } from "../../../node_modules/@material-ui/core/index";
 
 const LoaderWrap = styled.div`
   width: 100%;
-  height: 80%;
+  height: 100%;
   display: flex;
   justify-content: center;
   text-align: center;
@@ -16,10 +16,12 @@ const LoaderWrap = styled.div`
 const Loader = () => {
   return (
     <LoaderWrap>
+      <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center', color:'white', marginTop:300}}>
       <Typography variant="h3" style={{ textAlign: "center", color: "white" }}>
         로딩 중 입니다.
       </Typography>
       <ReactLoading type="spin" color="#A593E0" />
+      </div>
     </LoaderWrap>
   );
 };

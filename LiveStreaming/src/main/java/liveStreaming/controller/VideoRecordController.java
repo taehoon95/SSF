@@ -117,9 +117,11 @@ public class VideoRecordController {
 	}
 	
 	// 2021-12-02 이태훈 비디오 무한 스크롤 검색
-	@GetMapping("/videoInfiniteSearch/{search}/{pageNum}")
-	public ResponseEntity<Object> videoInfiniteSearch(@PathVariable String search, @PathVariable int pageNum) {
+	@GetMapping("/videoInfiniteSearch/{v_name}/{pageNum}")
+	public ResponseEntity<Object> videoInfiniteSearch(@PathVariable String v_name, @PathVariable int pageNum) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("v_name", v_name);
+		map.put("pageNum", pageNum);
 		return ResponseEntity.ok(service.videoInfiniteSearch(map));
 	}
 }
