@@ -88,7 +88,6 @@ const ChatContainer = () => {
 
   return (
     <>
-      <h1 className="viewrs">{viewers-1}</h1>
       <div className="chat">
         <div className="messages" ref={messageEl}>
           {msgs.map(({ message, username }, index) => {
