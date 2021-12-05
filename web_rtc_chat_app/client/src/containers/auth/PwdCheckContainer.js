@@ -184,6 +184,7 @@ const PwdCheckContainer = ({ history }) => {
     // console.log(u_email);
     if (resultemail == 1) {
        alert("Email 전송 완료");
+
       try {
         axios
           .post("https://localhost:5000/api/email", { u_email })
