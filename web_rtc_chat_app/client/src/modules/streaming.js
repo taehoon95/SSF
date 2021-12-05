@@ -289,22 +289,15 @@ const init = {
   l_title: "",
   l_description: "",
   l_img: "",
-};
 
-// export const change = createAction(CHANGE, ({ streamInfo }) =>
-// {
-//   console.log(streamInfo);
-// return{
-//   streamInfo,
-// }});
+}
 
-export const change = createAction(CHANGE, ({ name, value }) => {
-  console.log(name, value);
-  return {
-    name,
-    value,
-  };
-});
+
+export const change = createAction(CHANGE, ({ name, value }) => ({
+  name,
+  value,
+}));
+
 
 // 2021-12-02 강동하 방송 종료 시 값 초기화
 export const cut = createAction(CUT, () => ({

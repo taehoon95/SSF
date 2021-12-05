@@ -21,6 +21,7 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  Modal
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 import Header from "../components/common/Header";
@@ -66,6 +67,20 @@ const PageSpan = styled.span`
   }
 `;
 
+// 삭제모달
+const styleModal2 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 320,
+  height: 100,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const MyVideoSettingPage = ({ history }) => {
   const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
@@ -73,6 +88,10 @@ const MyVideoSettingPage = ({ history }) => {
   // 2021-12-01 윤성준 pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5); // 한 페이지당 보여줄 게시물 수
+  const [DeleteId, setDeleteId] = useState("");
+  const [DeleteName, setDeleteName] = useState("");
+
+  const [open, setOpen] = useState(false);
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
@@ -96,7 +115,16 @@ const MyVideoSettingPage = ({ history }) => {
       setCurrentPage(currentPage - 1);
     }
   };
-  
+
+  const handleOpen = (e) => { 
+    setDeleteId(u_id);
+    setDeleteName(e.currentTarget.name);
+    setOpen(true);        
+  };
+  const handleClose = (e) => {
+    setOpen(false);
+  };
+
   useEffect(() => {
     myVideoList();
   }, []);
@@ -111,7 +139,7 @@ const MyVideoSettingPage = ({ history }) => {
         // console.log(11111);
       })
       .catch((error) => {
-        alert("record 가져오기 실패");
+       //alert("record 가져오기 실패");
         // console.log(error);
       });
   };
@@ -136,11 +164,16 @@ const MyVideoSettingPage = ({ history }) => {
       });
   };
 
+  
+
   // VideoList 삭제
   const deleteListLine2 = (e) => {
     e.preventDefault();
     // console.log(e.currentTarget.name);
     deleteListLine(u_id, e.currentTarget.name);
+    
+    //deleteListLine(DeleteId,DeleteName);
+    setOpen(false);
   };
 
   //수정 버튼 시 pk 값 가져가기
@@ -152,6 +185,40 @@ const MyVideoSettingPage = ({ history }) => {
   return (
     <>
       <Header />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={styleModal2} align="center">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            marginBottom="50"
+          >
+            정말로 영상을 삭제하시겠습니까?
+          </Typography>
+          <br />
+          <Button
+            onClick={deleteListLine2}
+            color={'primary'}
+            type="submit"
+            variant="contained"
+          >
+            삭제
+          </Button>
+          <Button
+            onClick={handleClose}
+            color={'primary'}
+            type="submit"
+            variant="contained"
+          >
+            취소
+          </Button>
+        </Box>
+      </Modal>
       <TableContainer style={{ marginTop: 65, background: "#303030" }}>
         <Table size="small">
           <TableHead>
@@ -245,10 +312,10 @@ const MyVideoSettingPage = ({ history }) => {
               <TableCell style={{ borderColor: "gray" }} align="center">
                 <Button
                   type="button"
-                  onClick={deleteListLine2}
                   name={data.v_code}
                   variant="contained"
                   color="secondary"
+                  onClick={handleOpen}
                 >
                   삭제
                 </Button>

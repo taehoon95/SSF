@@ -22,16 +22,14 @@ public class CommentController {
     // 2021-11-22 강동하 댓글 insert
 	@PostMapping("/comment")
 	public ResponseEntity<Object> commentInsert(@RequestBody CommentDto comment){
-		System.out.println("===================");
-		System.out.println(comment.getM_text());
+
 		return ResponseEntity.ok(service.commentInsert(comment));
 	}
 
     // 2021-11-23 강동하 댓글 select
 	@GetMapping("/commentselect/{v_code}")
 	public ResponseEntity<Object> commentSelect(@PathVariable String v_code){
-		System.out.println("===================");
-		System.out.println(v_code);
+
 		System.out.println(ResponseEntity.ok(service.commentSelect(v_code)));
 		return ResponseEntity.ok(service.commentSelect(v_code));
 	}
@@ -39,17 +37,14 @@ public class CommentController {
     // 2021-11-24 강동하 댓글 update
 	@PatchMapping("/commentupdate")
 	public ResponseEntity<Object> commentUpdate(@RequestBody CommentDto comment){
-		System.out.println("===================");
-		System.out.println(comment.getM_num());
-		System.out.println(comment.getM_text());
+
 		return ResponseEntity.ok(service.commentUpdate(comment));
 	}
 
     // 2021-11-23 강동하 댓글 delete
 	@DeleteMapping("/commentdelete")
 	public ResponseEntity<Object> commentDelete(@RequestBody CommentDto comment){
-		System.out.println("===================");
-		System.out.println(comment.getM_num());
+
 		return ResponseEntity.ok(service.commentDelete(comment));
 	}
 }

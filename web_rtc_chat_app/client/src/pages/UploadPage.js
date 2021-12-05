@@ -22,7 +22,6 @@ import axios from "../../node_modules/axios/index";
 import { useHistory } from "react-router-dom";
 import { Container, Grid } from "../../node_modules/@material-ui/core/index";
 import Header from "../components/common/Header";
-import Footer from "../components/common/Footer";
 
 
 const UploadPage = () => {
@@ -38,40 +37,40 @@ const UploadPage = () => {
   // 제목 입력
   const handleTitle = (e) => {
     setInputTitle(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   // 내용 입력
   const handleContent = (e) => {
     setInputContent(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   // S3에 동영상 올리기
   const handleVideoChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     setSelectedVFile(e.target.files[0]);
   };
 
   // S3에 이미지 올리기
   const handleImgChange = (e) => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     setSelectedIFile(e.target.files[0]);
   };
 
   // 카테고리 선택
   const selectChange = (e) => {
     setSelectCategory(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   // 20211123 이태훈 동영상, 이미지 업로드 api
   // 20211124 윤성준 동영상, 이미지, 제목, 내용, 카테로그 api
   // 2021-11-29 강동하 영상 파일이름, 썸네일 파일이름 중복 로직
   const handleFileUpload = (VNumber, INumber) => {
-    console.log("저장");
-    console.log(VNumber);
-    console.log(INumber);
+    // console.log("저장");
+    // console.log(VNumber);
+    // console.log(INumber);
     // console.log(selectedVFile.name);
     // console.log(selectedIFile.name);
 
@@ -81,7 +80,7 @@ const UploadPage = () => {
     if(VNumber != 0) {
       let VFileSplit = selectedVFile.name.split('.');
         for ( let i in VFileSplit ) {
-          console.log(VFileSplit[i]);
+          // console.log(VFileSplit[i]);
         }
       
       VResult = VFileSplit[0].concat(` (${VNumber}).${VFileSplit[1]}`);
@@ -89,28 +88,28 @@ const UploadPage = () => {
       VResult = selectedVFile.name;
     }
 
-    console.log(VResult);
+    // console.log(VResult);
 
     if(INumber != 0) {
       let IFileSplit = selectedIFile.name.split('.');
         for ( let i in IFileSplit ) {
-          console.log(IFileSplit[i]);
+          // console.log(IFileSplit[i]);
         }
       
       IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
     } else {
       IResult = selectedIFile.name;
     }
-    console.log(IResult);
+    // console.log(IResult);
 
     const videoData = new FormData();
     const imgData = new FormData();
 
     videoData.append("file", selectedVFile, VResult);
     imgData.append("file", selectedIFile, IResult);
-    console.log(selectedVFile);
-    console.log("-----------------");
-    console.log(selectedIFile);
+    // console.log(selectedVFile);
+    // console.log("-----------------");
+    // console.log(selectedIFile);
     const url = "https://ssfupload.s3.ap-northeast-2.amazonaws.com/static/";
     const v_link = url + VResult;
     const v_img = url + IResult;
@@ -126,12 +125,12 @@ const UploadPage = () => {
       })
       .then((response) => {
         console.log(response);
-        alert("업로드 성공");
+        // alert("업로드 성공");
         history.push('/MyPage');
       })
       .catch((error) => {
-        alert("업로드 실패");
-        console.log(error);
+        // alert("업로드 실패");
+        // console.log(error);
       });
 
     // upload(formData)
@@ -155,14 +154,14 @@ const UploadPage = () => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
-    console.log(selectCategory);
-    console.log(inputTitle);
-    console.log(inputContent);
+    // console.log(selectCategory);
+    // console.log(inputTitle);
+    // console.log(inputContent);
 
-    console.log("------------------------");
-    console.log(url + selectedVFile.name);
-    console.log(url + selectedIFile.name);
-    console.log("------------------------");
+    // console.log("------------------------");
+    // console.log(url + selectedVFile.name);
+    // console.log(url + selectedIFile.name);
+    // console.log("------------------------");
   };
 
   // 2021-11-29 강동하 정규표현식 및 중복체크
@@ -219,7 +218,7 @@ const UploadPage = () => {
                 handleFileUpload(VNumber, INumber);
               })
               .catch(error => {
-                console.log(error);
+                // console.log(error);
               })
             }
             else{
@@ -227,7 +226,7 @@ const UploadPage = () => {
             }
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
           });
       }
     }

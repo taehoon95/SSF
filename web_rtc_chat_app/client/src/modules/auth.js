@@ -64,7 +64,6 @@ export const numberAuth = createAction(NUMBUR, (number) => ({
 
 //아이디 액션 정의
 export const idcheck = createAction(IDCHECK,({u_name,u_email}) =>{
-    console.log('여기 액션');
     
     return{
     u_name,
