@@ -31,6 +31,8 @@ const PwdCheckContainer = ({ history }) => {
   const [namecheck,setNameCheck] = useState(0);
   const [namecheckerror,setNameCheckError] = useState("");
   const [idcheckerror,setIdcheckError] = useState("");
+  const [emailcodecheck,setEmailcodecheck] = useState("");
+  const [emailcodecheckerror,setEmailcodecheckError] = useState("");
 
 
   const dispatch = useDispatch();
@@ -61,6 +63,11 @@ const PwdCheckContainer = ({ history }) => {
       }
       setIdcheck(1);
     }
+
+    const onkeyemailcode = e =>{
+      
+      setEmailcodecheck(1);
+    }
   const onChange = (e) => {
 
     const { name, value } = e.currentTarget;
@@ -84,8 +91,11 @@ const PwdCheckContainer = ({ history }) => {
       else if(idcheck == 0){      
         setIdcheckError("아이디를 입력해주세요");
       }
+      else if(emailcodecheck == ""){
+        setEmailcodecheckError("이메일 인증 코드를 입력해주세요");
+      }
       return;
-    }
+    } 
     dispatch(      
       pwdcheck({
         u_name,
@@ -110,6 +120,12 @@ const PwdCheckContainer = ({ history }) => {
   }, [pwd, pwdError]);
 
 
+
+  useEffect(() => {
+    if(emailcodecheck == 1){
+        setEmailcodecheckError("");
+    }
+  }, [emailcodecheck]);
 
   useEffect(() => {
     setNumberTest(number);
@@ -167,7 +183,8 @@ const PwdCheckContainer = ({ history }) => {
   const onEmailClick = (e) => {
     // console.log(u_email);
     if (resultemail == 1) {
-      alert("Email 전송 완료");
+       alert("Email 전송 완료");
+
       try {
         axios
           .post("https://localhost:5000/api/email", { u_email })
@@ -381,7 +398,7 @@ const PwdCheckContainer = ({ history }) => {
                     marginTop: 2,
                     borderRadius: 3,
                   }}
-                  placeholder="  이메일"
+                  placeholder="  이메일 인증 코드"
                   margin="normal"
                   required
                   fullWidth
@@ -389,8 +406,10 @@ const PwdCheckContainer = ({ history }) => {
                   id="u_emailcheck"
                   name="u_emailcheck"
                   autoComplete="current-password"
+                  onKeyUp={onkeyemailcode}
                 />
               </Grid>
+              <span style={{color:"red"}}>{emailcodecheckerror}</span>
             </Grid>
          
             <Grid>
