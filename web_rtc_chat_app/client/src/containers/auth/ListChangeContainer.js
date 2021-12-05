@@ -27,7 +27,8 @@ const ListChangeContainer = () => {
   const [c_code, setC_code] = useState("");
   const [v_descript, setV_descript] = useState("");
   const [c_name, setC_name] = useState("");
-
+  const [selectchangevalue,setSelectChangevalue] = useState("");
+  const [selectchangevalueerror,setSelectChangevalueError] = useState("");
   const history = useHistory();
 
   // 바꾸는 부분
@@ -42,9 +43,11 @@ const ListChangeContainer = () => {
   // 카테고리 선택
   const selectChange = (e) => {
     setSelectCategory(e.target.value);
+    setSelectChangevalue(1);
   };
   //수정 버튼
   const onUpdate = (e) => {
+    if(selectchangevalue == 1){
     axios
       .patch(`/api/videoupdate`, {
         v_code,
@@ -61,6 +64,10 @@ const ListChangeContainer = () => {
         // alert("업로드 실패");
         // console.log(error);
       });
+    }
+    else{
+      setSelectChangevalueError("카테고리를 선택해주세요")
+    }
   };
 
   useEffect(() => {
@@ -92,7 +99,7 @@ const ListChangeContainer = () => {
           borderRadius: 5,
           marginTop: 100,
           width: 600,
-          height: 715,
+          height: 730,
           marginBottom: 45,
         }}
       >
@@ -168,8 +175,21 @@ const ListChangeContainer = () => {
               <MenuItem value="CK001" id="CK001">
                 요리
               </MenuItem>
+              <MenuItem value="ED001" id="ED001">
+                교육
+              </MenuItem>
+              <MenuItem value="AN001" id="AN001">
+                만화
+              </MenuItem>
+              <MenuItem value="ME001" id="ME001">
+                의료
+              </MenuItem>
+              <MenuItem value="CM001" id="CM001">
+                컴퓨터공학
+              </MenuItem>
             </Select>
           </Grid>
+          <span style={{color:"red"}}>{selectchangevalueerror}</span>
           {/* 수정 버튼 */}
           <Grid item xs={12} align="center" style={{ marginTop: 30 }}>
             <Button

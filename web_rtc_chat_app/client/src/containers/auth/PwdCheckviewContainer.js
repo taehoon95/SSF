@@ -27,6 +27,10 @@ const PwdCheckViewContainer = ({ history }) => {
   const [pwdcheck, setPwdCheck] = useState("비밀번호를 입력 해주세요.");
   const [pwdcheckcheck, setPwdCheckCheck] =
     useState("비밀번호를 재입력 해주세요.");
+  const [pwdchecktext,setPwdcheckText]  = useState("");
+  const [pwdcheckchecktext,setPwdcheckcheckTest] = useState("");
+  const [pwdcheckError,setPwdCheckError] = useState("");
+
   const dispatch = useDispatch();
 
   const {
@@ -56,14 +60,25 @@ const PwdCheckViewContainer = ({ history }) => {
   };
 
   const onsubmit = (e) => {
+    console.log('123');
     e.preventDefault();
-
-    dispatch(
-      pwdupdatecheck({
-        u_id,
-        u_pwd,
-      })
-    );
+    if(pwdcheckchecktext == ""){
+      console.log('return');
+      return;
+    }
+   if(pwdchecktext == pwdcheckchecktext){
+     console.log('return1');
+     
+        dispatch(
+          pwdupdatecheck({
+            u_id,
+            u_pwd,
+            })
+          );
+        }
+     if(pwdcheck !== pwdcheckchecktext)  {
+       setPwdCheckError("비밀번호가 맞지 않습니다.");
+     }
   };
 
   useEffect(() => {
@@ -84,9 +99,11 @@ const PwdCheckViewContainer = ({ history }) => {
     }
   }, [pwdupdate, pwdupdateError]);
 
+
+
   // pwd 유효성 검증
   // 알파벳, 특수문자, 숫자 포함 8 ~ 16 글자
-  const onKeyUpPWD = () => {
+  const onKeyUpPWD = (e) => {
     let pwdPattern = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
     if (pwdPattern.test(u_pwd) === true) {
       setPwdCheck("사용가능한 비밀번호입니다.");
@@ -95,10 +112,11 @@ const PwdCheckViewContainer = ({ history }) => {
       setPwdCheck("비밀번호는 알파벳, 숫자, 특수문자를 포함해야 합니다.");
       setResultPwd(0);
     }
+    setPwdcheckText(e.target.value);
   };
 
   // pwd 확인 유효성 검증
-  const onKeyUpPWDCheck = () => {
+  const onKeyUpPWDCheck = (e) => {
     if (u_pwd === u_pwdcheck) {
       setPwdCheckCheck(null);
       setResultPwdCheck(1);
@@ -106,6 +124,7 @@ const PwdCheckViewContainer = ({ history }) => {
       setPwdCheckCheck("비밀번호가 맞지 않습니다.");
       setResultPwdCheck(0);
     }
+    setPwdcheckcheckTest(e.target.value);
   };
   const theme = createTheme();
 
@@ -202,7 +221,7 @@ const PwdCheckViewContainer = ({ history }) => {
               />
             </Grid>
           </Grid>
-
+            <span style={{color:"red"}}>{pwdcheckError}</span>
           <Button
             style={{ marginTop: 10, marginBottom: 40 }}
             fullWidth

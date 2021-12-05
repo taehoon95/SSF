@@ -18,11 +18,16 @@ import {
 import { LockOutlined } from "../../../node_modules/@mui/icons-material/index";
 import Button from "@mui/material/Button";
 import { Link,useHistory } from "react-router-dom";
+import { name } from "faker";
 
 
 
 const IdCheckContainer = () => {
   const [error, setError] = useState(null);
+  const [nameTEXT,setNameText ] = useState("");
+  const [emailTEXT,setEmailText ] = useState("");
+  const [nameTexterror,setNameTextError] = useState("");
+  const [emailTexterror,setEmailTextError] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const { u_name, u_email, check, checkError } = useSelector((state) => {
@@ -36,8 +41,12 @@ const IdCheckContainer = () => {
   const onChange = (e) => {
     // console.log("이건 체인지");
     const { name, value } = e.target;
-    // console.log(value);
+    console.log(e.target.id);
+    console.log(e.target.id);
 
+
+  
+    // console.log(value);
     dispatch(
       change({
         name,
@@ -45,8 +54,23 @@ const IdCheckContainer = () => {
       })
     );
   };
+
+  const onkeyup = e =>{
+    setNameText(1);
+  }
+  const onkeyup2 = e=>{
+    setEmailText(1);
+  }
   const onsubmit = (e) => {
     e.preventDefault();
+    if(nameTEXT == ""){
+      setNameTextError("이름을 입력하세요")     
+      return;
+    }else if(emailTEXT == ""){
+      setEmailTextError("이메일을 입력하세요")
+      return;
+    }
+
     dispatch(
       idcheck({
         u_name,
@@ -54,6 +78,19 @@ const IdCheckContainer = () => {
       })
     );
   };
+
+  useEffect(()=>{
+    if(nameTEXT == 1){
+      setNameTextError("");
+    }
+  },[nameTEXT])
+
+
+  useEffect(()=>{
+    if(emailTEXT == 1){
+      setEmailTextError("");
+    }
+  },[emailTEXT])
 
   useEffect(() => {
     if (checkError) {
@@ -140,8 +177,10 @@ const IdCheckContainer = () => {
                   id="u_name"
                   name="u_name"
                   autoComplete="current-password"
+                  onKeyUp={onkeyup}
                 />
               </Grid>
+              <span style={{color:"red"}}>{nameTexterror}</span>
             </Grid>
             <Grid container>
               <Grid item style={{ marginTop: 5, width: "100%" }}>
@@ -163,8 +202,10 @@ const IdCheckContainer = () => {
                   id="u_email"
                   name="u_email"
                   autoComplete="current-password"
+                  onKeyUp={onkeyup2}
                 />
               </Grid>
+              <span style={{color:"red"}}>{emailTexterror}</span>
             </Grid>
 
             <Grid>

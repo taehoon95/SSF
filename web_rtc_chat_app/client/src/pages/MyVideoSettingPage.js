@@ -27,6 +27,8 @@ import axios from "../../node_modules/axios/index";
 import Header from "../components/common/Header";
 import { videorecord } from "../lib/api/videoRecord";
 import Pagination from "./Pagination";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 const PageUl = styled.ul`
   float: left;
@@ -44,7 +46,7 @@ const PageLi = styled.li`
   display: inline-block;
   font-size: 17px;
   font-weight: 600;
-  padding: 5px 20px 5px 12px;
+  padding: 6px 2px 0px 0px;
   border-radius: 5px;
   width: 25px;
   &:hover {
@@ -90,7 +92,7 @@ const MyVideoSettingPage = ({ history }) => {
   const [postsPerPage, setPostsPerPage] = useState(5); // 한 페이지당 보여줄 게시물 수
   const [DeleteId, setDeleteId] = useState("");
   const [DeleteName, setDeleteName] = useState("");
-
+  const [nextPagevalue,setNextPageValue] = useState("");
   const [open, setOpen] = useState(false);
 
   const indexOfLast = currentPage * postsPerPage;
@@ -101,13 +103,24 @@ const MyVideoSettingPage = ({ history }) => {
     return currentPosts;
   }
 
-  const plusPage = () => {
+  const plusPage = () => {    
+    
     setCurrentPage(currentPage + 1);
+    
   };
 
+  useEffect(()=>{
+    setNextPageValue(currentPage);
+    console.log(nextPagevalue);
+    console.log(currentPage);
+    
+  },[currentPage])
+
   const nextbutton = () => {
-    if (currentPage < Math.ceil(myList.length / 3)) {
-      setCurrentPage(currentPage + 1);
+    if (currentPage < Math.ceil(myList.length / 5) ) {
+      setCurrentPage(currentPage + 1);     
+    } else if(currentPage === nextPagevalue){
+      return;
     }
   };
   const backbutton = () => {
@@ -320,13 +333,11 @@ const MyVideoSettingPage = ({ history }) => {
       </TableContainer>
       
       {/* {페이징} */}
-      <div style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <div style={{ width: "100%", display: "flex", justifyContent: "center",position:'fixed',bottom:0 }}>
         <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
-          {currentPage > 1 && (
-            <PageLi onClick={backbutton}>
-              <PageSpan className="page-link">prev</PageSpan>
-            </PageLi>
-          )}
+          <PageLi onClick={backbutton}>
+              <PageSpan className="page-link"><NavigateBeforeIcon/></PageSpan>         
+        </PageLi>
         </PageUl>
         <Pagination
           postsPerPage={postsPerPage}
@@ -336,11 +347,10 @@ const MyVideoSettingPage = ({ history }) => {
           plusPage={plusPage}
         />
         <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
-          {currentPage < 2 && (
             <PageLi onClick={nextbutton}>
-              <PageSpan>next</PageSpan>
+              <PageSpan><NavigateNextIcon/></PageSpan>
             </PageLi>
-          )}
+      
         </PageUl>
       </div>
     </>
