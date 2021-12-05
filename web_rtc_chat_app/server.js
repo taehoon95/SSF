@@ -50,23 +50,21 @@ Signaling Server
 
 // rooms객체 생성(스트리밍중인 방들이 저장될 예정)
 let rooms = {};
-// room에 있는 user들 정보
-let users = {};
-
+// login한 사람들 채팅에 들어오면
+const loginSet = new Set();
 io.on("connection", (socket) => {
-  
   // clientSendMessage: chatting 에서 message보내기
-  socket.on("clientSendMessage", (message, username, l_code) => {
+  socket.on("clientSendMessage", (message, username, l_code, usersocket) => {
+    console.log(username);
     socket.to(l_code).emit("serverRoomMessage", {
       message,
       username,
+      usersocket,
     });
   });
 
   // clientCreateRoom 방 만들기(스트리머)
   socket.on("clientCreateRoom", (roomInfo) => {
-    
-    
     const l_code = roomInfo.l_code;
     const l_title = roomInfo.l_title;
     const l_description = roomInfo.l_description;
@@ -86,10 +84,23 @@ io.on("connection", (socket) => {
   });
 
   // 방 입장하기
-  socket.on("clientJoinRoom", (l_code, u_id) => {
-    console.log(111111);
+  
+  socket.on("clientJoinRoom", (l_code, u_id, usersocket) => {
     socket.join(l_code);
-    socket.emit("serverJoinRoom", rooms[l_code]);
+    loginSet.add(usersocket);
+    const total = loginSet.size;
+    socket.emit("serverJoinRoom", rooms[l_code], total);
+    socket.to(l_code).emit("enterRoom", {total, u_id});
+  });
+
+  socket.on("exitRoom", (socketId, u_id, l_code) => {
+    socket.join(socketId);
+    socket.join(u_id);
+    socket.join(l_code);
+    loginSet.delete(socketId);
+    const total = loginSet.size;
+    socket.emit("serverJoinRoom", rooms[l_code], total);
+    socket.to(l_code).emit("exitRoom", {total, u_id});
   });
 
   // 소켓 연결 해제

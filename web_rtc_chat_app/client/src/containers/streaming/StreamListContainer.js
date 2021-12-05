@@ -26,7 +26,9 @@ const StreamListContainer = ({streamRes}) => {
     // const l_code = e.target.classname;
     const {className} = e.target;
     const l_code = className;
-    socketRef.emit("clientJoinRoom", l_code, u_id);
+    const usersocket = socketRef.id;
+    console.log(usersocket);
+    socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     history.push(`/WatchPage/${e.target.className}`);
   };
 
