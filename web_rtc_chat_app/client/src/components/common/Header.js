@@ -242,7 +242,7 @@ const Header = () => {
                       variant="inherit"
                       style={{ color: "white" }}
                     >
-                      <Typography variant="body1">로그인</Typography>
+                      <Typography variant="body1"><b>로그인</b></Typography>
                     </Button>
                     {/* // 회원가입 버튼 */}
                     <Button
@@ -251,7 +251,7 @@ const Header = () => {
                       variant="inherit"
                       style={{ color: "white" }}
                     >
-                      <Typography variant="body1">회원가입</Typography>
+                      <Typography variant="body1"><b>회원가입</b></Typography>
                     </Button>
                   </>
                 )}
