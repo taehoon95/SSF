@@ -136,16 +136,18 @@ const MyVideoSettingPage = ({ history }) => {
       //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
       .then((response) => {
         setMyList(response.data);
+        // console.log(11111);
       })
       .catch((error) => {
-        //alert("record 가져오기 실패");
+       //alert("record 가져오기 실패");
         // console.log(error);
       });
   };
 
 
   // VideoList 삭제
-  const deleteListLine = (u_id, v_code) => {      
+  const deleteListLine = (u_id, v_code) => {
+    // console.log(v_code);
     axios
       .post(`/api/videoDelete`, { u_id, v_code })
       //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id, v_code})
@@ -157,7 +159,7 @@ const MyVideoSettingPage = ({ history }) => {
         alert(`삭제되었습니다.`);
       })
       .catch((error) => {
-        //alert("삭제 실패");
+        // alert("삭제 실패");
         // console.log(error);
       });
   };
@@ -167,12 +169,16 @@ const MyVideoSettingPage = ({ history }) => {
   // VideoList 삭제
   const deleteListLine2 = (e) => {
     e.preventDefault();
-    deleteListLine(DeleteId,DeleteName);
+    // console.log(e.currentTarget.name);
+    deleteListLine(u_id, e.currentTarget.name);
+    
+    //deleteListLine(DeleteId,DeleteName);
     setOpen(false);
   };
 
   //수정 버튼 시 pk 값 가져가기
   const onUpdate = (e) => {
+    // alert(e.currentTarget.name);
     history.push(`/ListChangePage/${e.currentTarget.name}`);
   };
 
@@ -267,7 +273,7 @@ const MyVideoSettingPage = ({ history }) => {
                   to={`/WatchPage2/${data.v_code}`}
                   style={{ textDecoration: "none" }}
                 >
-                  <img src={data.v_img}  width="200" />
+                  <img src={data.v_img}  width="200" style={{ marginTop: 7 }} />
                 </Link>
               </TableCell>
               <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
