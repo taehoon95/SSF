@@ -170,9 +170,9 @@ const MyVideoSettingPage = ({ history }) => {
   const deleteListLine2 = (e) => {
     e.preventDefault();
     // console.log(e.currentTarget.name);
-    deleteListLine(u_id, e.currentTarget.name);
-    
-    //deleteListLine(DeleteId,DeleteName);
+    // deleteListLine(u_id, e.currentTarget.name);
+    deleteListLine(DeleteId, DeleteName);
+    // console.log(DeleteId, DeleteName);
     setOpen(false);
   };
 
@@ -214,6 +214,7 @@ const MyVideoSettingPage = ({ history }) => {
             color={'primary'}
             type="submit"
             variant="contained"
+            style={{ marginLeft: 30 }}
           >
             취소
           </Button>
