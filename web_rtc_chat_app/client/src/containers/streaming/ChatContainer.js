@@ -41,7 +41,7 @@ const ChatContainer = () => {
     setMsgs([
       ...msgs,
       {
-        username: "You",
+        username: "ME",
         message,
       },
     ]);
@@ -61,8 +61,18 @@ const ChatContainer = () => {
           {msgs.map(({ message, username }, index) => {
             return (
               <div key={index}>
+                {/* 2021-12-05 강동하 내 채팅 노란색 */}
+                {username == "ME" ? 
+                (<>
                 <span className="msg">{username} :</span>
                 <span className="msg"> {message}</span>
+                </>)
+                :
+                (<>
+                <span className="msgviewer">{username} :</span>
+                <span className="msgviewer"> {message}</span>
+                </>)
+                }
               </div>
             );
           })}

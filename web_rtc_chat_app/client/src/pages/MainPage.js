@@ -4,15 +4,14 @@
 //헤더,푸터 추가
 
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import {
   Button,
   Grid,
   Typography,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
-import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
@@ -22,35 +21,43 @@ import Carousel from "react-spring-3d-carousel";
 import { nanoid } from "nanoid";
 import {
   PlayArrow,
-  PlayCircleOutline,
 } from "../../node_modules/@mui/icons-material/index";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
-  const [sendData, setSendData] = useState([]);
   const [liveVideoShow, setLiveVideoShow] = useState([]);
-  const history = useHistory();
+
+  // 2021-12-05 강동하 홈 버튼 리렌더링
+  const [time, setTime] = useState(1);
+
+  // 2021-12-05 강동하 로딩 끝난 후 스트리밍 없을 때 이미지 출력을 위한 LiveLoad
+  const [liveLoad, setLiveLoad] = useState(false);
 
   const dispatch = useDispatch();
 
-  const { showStreamRes } = useSelector((state) => ({
-    showStreamRes: state.streaming.showStreamRes,
-  }));
+  // 2021-12-05 강동하 홈 버튼 리렌더링
+  const location = useLocation();
+  //console.log(location.state);
+
+  useEffect(()=>{
+    setTime(location.state);
+    console.log(time);
+  }, [location])
 
   useEffect(() => {
     dispatch(showstreaming("noSearch", "noCondition"));
     myVideoList();
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     myTopVideoList();
-  }, []);
+  }, [location]);
 
   // 실시간 영상 랜덤 조회
   useEffect(() => {
     myLiveVideoList();
-  }, []);
+  }, [location]);
 
   // 20211123 윤성준 전체 영상 List api
   const myVideoList = () => {
@@ -89,6 +96,8 @@ const MainPage = () => {
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setLiveVideoShow(response.data);
+        // 2021-12-05 강동하 로딩 끝난 후 스트리밍 없을 때 이미지 출력을 위한 LiveLoad
+        setLiveLoad(true);
       })
       .catch((error) => {
         //alert("실시간 영상 가져오기 실패");
@@ -102,88 +111,6 @@ const MainPage = () => {
     showNavigation: true,
     config: config.gentle,
   });
-
-  ///////// 실시간 영상 3D 이미지 시작
-  // let slides = [
-  //   {
-  //     key: nanoid(),
-  //     content: (
-  //       <div
-  //         style={{
-  //           position: "relative",
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //         }}
-  //       >
-  //         <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
-  //           <img
-  //             src="https://miricanvas.zendesk.com/hc/article_attachments/360049546931/__________._5.png"
-  //             alt="1"
-  //             className="mainSliderImg"
-  //           />
-  //         </div>
-  //         <div style={{ position: "absolute" }}>
-  //           <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
-  //             <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
-  //           </Button>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     key: nanoid(),
-  //     content: (
-  //       <div
-  //         style={{
-  //           position: "relative",
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //         }}
-  //       >
-  //         <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
-  //           <img
-  //             src="https://ncache.ilbe.com/files/attach/new/20191128/28622079/9666962285/11216349718/f512995cdc74d10b4b1b41060b12a423_11216349903.png"
-  //             alt="2"
-  //             className="mainSliderImg"
-  //           />
-  //         </div>
-  //         <div style={{ position: "absolute" }}>
-  //           <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
-  //             <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
-  //           </Button>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     key: nanoid(),
-  //     content: (
-  //       <div
-  //         style={{
-  //           position: "relative",
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //         }}
-  //       >
-  //         <div style={{ verticalAlign: "middle", opacity: 0.7 }}>
-  //           <img
-  //             src="https://cdn.imweb.me/thumbnail/20200715/8239662608a5c.png"
-  //             alt="3"
-  //             className="mainSliderImg"
-  //           />
-  //         </div>
-  //         <div style={{ position: "absolute" }}>
-  //           <Button component={Link} to={"/watchpage/O-hFhz43urlu4qaHozsRT"}>
-  //             <PlayArrow style={{ color: "white", width: 180, height: 180 }} />
-  //           </Button>
-  //         </div>
-  //       </div>
-  //     ),
-  //   },
-  // ]
 
   let slides = [
     liveVideoShow.map((data, idx) => (
@@ -219,11 +146,6 @@ const MainPage = () => {
     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   });
 
-  const onChangeInput = (e) => {
-    setState({
-      [e.target.name]: parseInt(e.target.value, 10) || 0,
-    });
-  };
 
   let xDown = null;
   let yDown = null;
@@ -296,8 +218,18 @@ const MainPage = () => {
             <Grid container xs={12}>
               {/* 실시간 방송 영상 이미지 */}
               <Grid item xs={12}>
-                {/* 메인페이지 3D 슬라이더 테스트 */}
-                <div
+                {liveLoad && liveVideoShow.length === 0 ?
+                // {/* 2021-12-05 강동하 실시간 스트리밍 없을 때 이미지 */}
+                (<div style={{width: '100%', height: '100%', display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
+                    <img
+                      src="https://ssfupload.s3.ap-northeast-2.amazonaws.com/streaming/NoStreaming.png"
+                      alt="대체 이미지"
+                      style={{ height: '80%' }}
+                      />
+                </div>)
+                :
+                // {/* 메인페이지 3D 슬라이더 테스트 */}
+                (<div
                   style={{ width: "80%", height: "400px", margin: "0 auto" }}
                   onTouchStart={handleTouchStart}
                   onTouchMove={handleTouchMove}
@@ -309,10 +241,10 @@ const MainPage = () => {
                     showNavigation={state.showNavigation}
                     animationConfig={state.config}
                   />
-                </div>
+                </div>)
+                }
               </Grid>
             </Grid>
-
             {/* Top4 영상 뷰 */}
             <Grid container>
               {/* Top4 영상 */}
@@ -377,6 +309,7 @@ const MainPage = () => {
             </Grid>
           </div>
         </div>
+
       </ContextProvider>
     </>
   );
