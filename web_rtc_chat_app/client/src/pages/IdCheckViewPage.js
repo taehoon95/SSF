@@ -77,13 +77,13 @@ const IdCheckViewPage = () => {
             <Typography
               component="h1"
               variant="h4"
-              style={{ marginTop: 20, color: "black" }}
+              style={{ marginTop: 20, color: "black",fontFamily:'Noto Sans KR' }}
             >
               아이디찾기
             </Typography>
             {myList.map((data,idx)=>(                          
             <Typography variant="h6" >
-              <span style={{color:"red"}}>{data.u_name}</span> 님의 아이디는 <span style={{color:"red"}}>{data.u_id}</span> 입니다.
+              <span style={{color:"red" , fontFamily:'Noto Sans KR'}}>{data.u_name}</span> 님의 아이디는 <span style={{color:"red",fontFamily:'Noto Sans KR'}}>{data.u_id}</span> 입니다.
             </Typography>
             ))}
             {/* 버튼 안먹어 ㅅㅂ */}
@@ -96,7 +96,7 @@ const IdCheckViewPage = () => {
 
                 style={{ width: 190 }}
               >
-                <Typography variant="h6">로그인</Typography>
+                <Typography variant="h6" style={{fontFamily:'Noto Sans KR'}}>로그인</Typography>
               </Button>
               <Button
                 component={Link}
@@ -105,7 +105,7 @@ const IdCheckViewPage = () => {
 
                 style={{  marginLeft: 10, width: 190 }}
               >
-                <Typography variant="h6">비밀번호 찾기</Typography>
+                <Typography variant="h6" style={{fontFamily:'Noto Sans KR'}}>비밀번호 찾기</Typography>
               </Button>
             </Box>
 
@@ -115,7 +115,7 @@ const IdCheckViewPage = () => {
                 variant="contained"
                 style={{  width: 390, marginTop: 10 }}
               >
-                <Typography variant="h6">홈으로 이동</Typography>
+                <Typography variant="h6" style={{fontFamily:'Noto Sans KR'}}>홈으로 이동</Typography>
               </Button>
 
           </Box>

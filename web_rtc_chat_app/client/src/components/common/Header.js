@@ -57,7 +57,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({socket,userid,l_code}) => {
   const isMobile = useMediaQuery({
-    query: "(min-width: 1130px)",
+    query: "(min-width: 1076px)",
+  });
+
+  const headerMobile = useMediaQuery({
+    query: "(min-width: 1076px)",
   });
 
   const classes = useStyles();
@@ -148,6 +152,7 @@ const Header = ({socket,userid,l_code}) => {
 
           {/* 로고 */}
           {/* 2021-11-25 강동하 로고 버튼 에러 수정 */}
+          {headerMobile && (
           <Grid container>
             <Grid item style={{ marginLeft: -10}}>
               <Button
@@ -164,6 +169,7 @@ const Header = ({socket,userid,l_code}) => {
               </Button>
             </Grid>
           </Grid>
+          )}
 
           {/* 검색바 */}
           <Box

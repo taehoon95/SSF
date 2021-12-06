@@ -210,6 +210,7 @@ const MyVideoSettingPage = ({ history }) => {
             variant="h6"
             component="h2"
             marginBottom="50"
+            style={{fontFamily:'Noto Sans KR'}}
           >
             정말로 영상을 삭제하시겠습니까?
           </Typography>
@@ -243,32 +244,32 @@ const MyVideoSettingPage = ({ history }) => {
                 </Typography>
               </TableCell> */}
               <TableCell align="center">
-                <Typography variant="h5" style={{ color: "white" }}>
+                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   이미지
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white" }}>
+                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   영상 제목
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white" }}>
+                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   등록 날짜
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white" }}>
+                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   조회수
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white" }}>
+                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   수정
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white" }}>
+                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   삭제
                 </Typography>
               </TableCell>
@@ -295,18 +296,18 @@ const MyVideoSettingPage = ({ history }) => {
                   component={Link}
                   to={`/WatchPage2/${data.v_code}`}
                   variant="h6"
-                  style={{ color: "white", textDecoration: "none" }}
+                  style={{ color: "white", textDecoration: "none",fontFamily:'Noto Sans KR' }}
                 >
                   {data.v_name}
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
-                <Typography variant="h6" style={{ color: "white" }}>
+                <Typography variant="h6" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   {data.v_date}
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
-                <Typography variant="h6" style={{ color: "white" }}>
+                <Typography variant="h6" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
                   {data.v_views} 회
                 </Typography>
               </TableCell>
@@ -317,6 +318,7 @@ const MyVideoSettingPage = ({ history }) => {
                   variant="contained"
                   name={data.v_code}
                   color="primary"
+                  style={{fontFamily:'Noto Sans KR'}}
                 >
                   수정
                 </Button>
@@ -330,6 +332,7 @@ const MyVideoSettingPage = ({ history }) => {
                   variant="contained"
                   color="secondary"
                   onClick={handleOpen}
+                  style={{fontFamily:'Noto Sans KR'}}
                 >
                   삭제
                 </Button>
@@ -341,7 +344,7 @@ const MyVideoSettingPage = ({ history }) => {
       
       {/* {페이징} */}
       <div style={{ width: "100%", display: "flex", justifyContent: "center",position:'fixed',bottom:0 }}>
-        <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
+        <PageUl style={{ marginTop: 20, marginBottom: 20,fontFamily:'Noto Sans KR' }}>
           <PageLi onClick={backbutton}>
               <PageSpan className="page-link"><NavigateBeforeIcon/></PageSpan>         
         </PageLi>

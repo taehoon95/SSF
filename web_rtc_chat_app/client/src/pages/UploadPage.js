@@ -255,7 +255,7 @@ const UploadPage = () => {
           >
             {/* 제목 입력 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
-              <Typography textAlign="left" variant="h5">
+              <Typography textAlign="left" variant="h5" style={{fontFamily:'Noto Sans KR'}}>
                 제목
               </Typography>
             </Grid>
@@ -273,7 +273,7 @@ const UploadPage = () => {
 
             {/* 내용 입력 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
-              <Typography variant="h5">내용</Typography>
+              <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>내용</Typography>
             </Grid>
             <Grid itme xs={12}>
               <TextField
@@ -291,7 +291,7 @@ const UploadPage = () => {
 
             {/* 비디오 선택 */}
             <Grid item xs={12} style={{ marginTop: 30 }}>
-              <Typography variant="h5">동영상 파일 선택</Typography>
+              <Typography variant="h5"  style={{fontFamily:'Noto Sans KR'}}>동영상 파일 선택</Typography>
             </Grid>
             <Grid item xs={12}>
               <Input
@@ -304,7 +304,7 @@ const UploadPage = () => {
 
             {/* 이미지 선택 */}
             <Grid item xs={12} style={{ marginTop: 30 }}>
-              <Typography variant="h5">썸네일 파일 선택</Typography>
+              <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>썸네일 파일 선택</Typography>
             </Grid>
             <Grid item xs={12}>
               <Input
@@ -317,11 +317,11 @@ const UploadPage = () => {
 
             {/* 카테고리 선택 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
-              <Typography variant="h5">카테고리 선택</Typography>
+              <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>카테고리 선택</Typography>
             </Grid>
             <Grid item xs={12}>
               <Select
-                style={{ width: 550, height: 40 }}
+                style={{ width: 550, height: 40,fontFamily:'Noto Sans KR' }}
                 onChange={selectChange}
                 value={selectCategory}
               >
@@ -354,7 +354,7 @@ const UploadPage = () => {
                 fullWidth
                 variant="contained"
                 onClick={Click}
-                style={{ width: 550, height: 40, marginBottom: 50, background: "#1565C0", color:"white" }}
+                style={{ width: 550, height: 40, marginBottom: 50, background: "#1565C0", color:"white",fontFamily:'Noto Sans KR' }}
                 sx={{ mt: 3, mb: 2 }}
               >
                 업로드

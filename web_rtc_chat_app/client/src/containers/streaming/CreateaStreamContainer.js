@@ -194,7 +194,7 @@ const CreateaStreamContainer = () => {
           height: "100%",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: 20 }}>실시간 방 만들기</h2>
+        <h2 style={{ textAlign: "center", marginBottom: 20,fontFamily:'Noto Sans KR' }}>실시간 방 만들기</h2>
         <div>
           <p>스트림 키</p>
           <TextField
@@ -225,10 +225,10 @@ const CreateaStreamContainer = () => {
         </div>
         <div>
           {isValidCheck && (
-            <label style={{ color: "red" }}>방 제목을 입력 해주세요</label>
+            <label style={{ color: "red",fontFamily:'Noto Sans KR' }}>방 제목을 입력 해주세요</label>
           )}
         </div>
-        <p style={{ marginTop: 20 }}>방 설명</p>
+        <p style={{ marginTop: 20,fontFamily:'Noto Sans KR' }}>방 설명</p>
         <TextField
           name="l_description"
           onChange={handleStreamInfo}
@@ -238,7 +238,7 @@ const CreateaStreamContainer = () => {
             {/* 이미지 선택 */}
             {/* 2021-12-02 강동하 방송중 썸네일 업로드 */}
             <Grid style={{ marginTop: 30 }}>
-              <Typography >썸네일 파일 선택</Typography>
+              <Typography style={{fontFamily:'Noto Sans KR'}}>썸네일 파일 선택</Typography>
             </Grid>
             <Grid>
               
@@ -254,7 +254,7 @@ const CreateaStreamContainer = () => {
 
         <div style={{ textAlign: "center" }}>
           <Button
-            style={{ marginTop: 30, marginBottom: 20 }}
+            style={{ marginTop: 30, marginBottom: 20,fontFamily:'Noto Sans KR' }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
