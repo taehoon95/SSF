@@ -19,9 +19,8 @@ import { ContextProvider } from "../SocketContext";
 import { config } from "react-spring";
 import Carousel from "react-spring-3d-carousel";
 import { nanoid } from "nanoid";
-import {
-  PlayArrow,
-} from "../../node_modules/@mui/icons-material/index";
+import { PlayArrow } from "../../node_modules/@mui/icons-material/index";
+import { Desktop, Mobile } from "./WatchPage2";
 
 const MainPage = () => {
   const [myList, setMyList] = useState([]);
@@ -40,10 +39,10 @@ const MainPage = () => {
   const location = useLocation();
   //console.log(location.state);
 
-  useEffect(()=>{
+  useEffect(() => {
     setTime(location.state);
     console.log(time);
-  }, [location])
+  }, [location]);
 
   useEffect(() => {
     dispatch(showstreaming("noSearch", "noCondition"));
@@ -112,9 +111,9 @@ const MainPage = () => {
     config: config.gentle,
   });
 
+  // 데스크탑 전용
   let slides = [
-    liveVideoShow.map((data, idx) => (
-    {
+    liveVideoShow.map((data, idx) => ({
       key: nanoid(),
       content: (
         <div
@@ -126,11 +125,9 @@ const MainPage = () => {
             fontFamily:'Noto Sans KR'
           }}
         >
-          
           <div style={{ verticalAlign: "middle", opacity: 1 }}>
-
             <div key={idx}>
-            <img src={data.l_img} alt="1" width="600" height="750" />
+              <img src={data.l_img} alt="1" width="600" height="750" />
             </div>
           </div>
 
@@ -141,11 +138,42 @@ const MainPage = () => {
           </div>
         </div>
       ),
-    }
-    ))
+    })),
   ][0].map((slide, index) => {
     return { ...slide, onClick: () => setState({ goToSlide: index }) };
   });
+
+ // 모바일 전용 실시간 방송 사이즈 설정
+ let slides2 = [
+  liveVideoShow.map((data, idx) => ({
+    key: nanoid(),
+    content: (
+      <div
+        style={{
+          position: "relative",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "20vw",
+        }}
+      >
+        <div style={{ verticalAlign: "middle", opacity: 1 }}>
+          <div key={idx}>
+            <img src={data.l_img} alt="1" style={{width:"80vw", height:"25vh"}} />
+          </div>
+        </div>
+
+        <div style={{ position: "absolute" }}>
+          <Button component={Link} to={`/watchpage/${data.l_code}`}>
+            <PlayArrow style={{ color: "white", width: "10vw", height: "10vh" }} />
+          </Button>
+        </div>
+      </div>
+    ),
+  })),
+][0].map((slide, index) => {
+  return { ...slide, onClick: () => setState({ goToSlide: index }) };
+});
 
 
   let xDown = null;
@@ -199,6 +227,8 @@ const MainPage = () => {
   return (
     <>
       <Header />
+      <Desktop>
+      <ContextProvider>
         <div className="container" style={{ marginTop: 65 }}>
           <Link
             rel="stylesheet"
@@ -218,31 +248,39 @@ const MainPage = () => {
             <Grid container xs={12}>
               {/* 실시간 방송 영상 이미지 */}
               <Grid item xs={12}>
-                {liveLoad && liveVideoShow.length === 0 ?
-                // {/* 2021-12-05 강동하 실시간 스트리밍 없을 때 이미지 */}
-                (<div style={{width: '100%', height: '100%', display: 'flex', 'align-items': 'center', 'justify-content': 'center'}}>
+                {liveLoad && liveVideoShow.length === 0 ? (
+                  // {/* 2021-12-05 강동하 실시간 스트리밍 없을 때 이미지 */}
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      "align-items": "center",
+                      "justify-content": "center",
+                    }}
+                  >
                     <img
                       src="https://ssfupload.s3.ap-northeast-2.amazonaws.com/streaming/NoStreaming.png"
                       alt="대체 이미지"
-                      style={{ height: '80%' }}
-                      />
-                </div>)
-                :
-                // {/* 메인페이지 3D 슬라이더 테스트 */}
-                (<div
-                  style={{ width: "80%", height: "400px", margin: "0 auto" }}
-                  onTouchStart={handleTouchStart}
-                  onTouchMove={handleTouchMove}
-                >
-                  <Carousel
-                    slides={slides}
-                    goToSlide={state.goToSlide}
-                    offsetRadius={state.offsetRadius}
-                    showNavigation={state.showNavigation}
-                    animationConfig={state.config}
-                  />
-                </div>)
-                }
+                      style={{ height: "80%" }}
+                    />
+                  </div>
+                ) : (
+                  // {/* 메인페이지 3D 슬라이더 테스트 */}
+                  <div
+                    style={{ width: "80%", height: "400px", margin: "0 auto" }}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                  >
+                    <Carousel
+                      slides={slides}
+                      goToSlide={state.goToSlide}
+                      offsetRadius={state.offsetRadius}
+                      showNavigation={state.showNavigation}
+                      animationConfig={state.config}
+                    />
+                  </div>
+                )}
               </Grid>
             </Grid>
             {/* Top4 영상 뷰 */}
@@ -309,6 +347,141 @@ const MainPage = () => {
             </Grid>
           </div>
         </div>
+      </ContextProvider>
+      </Desktop>
+
+
+
+
+      <Mobile>
+      <ContextProvider>
+        <div className="container" style={{ marginTop: 65 }}>
+          <Link
+            rel="stylesheet"
+            type="text/css"
+            charset="UTF-8"
+            to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+          />
+          <Link
+            rel="stylesheet"
+            type="text/css"
+            to="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+          />
+          {/* <style>{cssstyle}</style> */}
+          <div>
+            <br />
+
+            <Grid container xs={12}>
+              {/* 실시간 방송 영상 이미지 */}
+              <Grid item xs={12}>
+                {liveLoad && liveVideoShow.length === 0 ? (
+                  // {/* 2021-12-05 강동하 실시간 스트리밍 없을 때 이미지 */}
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      "align-items": "center",
+                      "justify-content": "center",
+                    }}
+                  >
+                    <img
+                      src="https://ssfupload.s3.ap-northeast-2.amazonaws.com/streaming/NoStreaming.png"
+                      alt="대체 이미지"
+                      style={{ height: "80%" }}
+                    />
+                  </div>
+                ) : (
+                  // {/* 메인페이지 3D 슬라이더 테스트 */}
+                  <div
+                    style={{ width: "70%", height: "30vh", margin: "0 auto" }}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                  >
+                    <Carousel
+                      slides={slides2}
+                      goToSlide={state.goToSlide}
+                      offsetRadius={state.offsetRadius}
+                      showNavigation={state.showNavigation}
+                      animationConfig={state.config}
+                    />
+                  </div>
+                )}
+              </Grid>
+            </Grid>
+
+            
+            {/* Top4 영상 뷰 */}
+            <Grid container>
+              {/* Top4 영상 */}
+              <Grid item xs={12} style={{ marginTop: 30 }}>
+                <Typography variant="h5" style={{ color: "white" }}>
+                  Top 4 영상
+                </Typography>
+              </Grid>
+              {myTopList.map((data, idx) => (
+                <div key={idx}>
+                  <Grid item style={{ width:"100vw" }}>
+                    <Link
+                      to={`/WatchPage2/${data.v_code}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img src={data.v_img} style={{width: "100vw", height: "35vh"}} />
+                      <h3 style={{ color: "white", marginTop: 3 }}>
+                        {data.v_name}
+                      </h3>
+                      <h4 style={{ color: "gray", marginTop: 2 }}>
+                        조회수 : &nbsp;
+                        {data.v_views}
+                        &nbsp; - &nbsp;
+                        {data.v_date}
+                      </h4>
+                    </Link>
+                  </Grid>
+                </div>
+              ))}
+            </Grid>
+            <br />
+            <br />
+
+
+            {/* 전체 랜덤 영상 */}
+            <Grid container xs={12} >
+              <Grid item xs={12} style={{width: "100vw"}}>
+                <Typography variant="h5" style={{ color: "white" }}>
+                  추천 영상
+                </Typography>
+              </Grid>
+              {myList.map((data, idx) => (
+                <div key={idx}>
+                  <Grid item style={{width: "100vw"}}>
+                    <Link
+                      to={`/WatchPage2/${data.v_code}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img src={data.v_img} style={{width: "100vw", height: "35vh"}}  />
+                      <h3 style={{ color: "white", marginTop: 3 }}>
+                        {data.v_name}
+                      </h3>
+                      <h4 style={{ color: "gray", marginTop: 2 }}>
+                        조회수 : &nbsp;
+                        {data.v_views}
+                        &nbsp; - &nbsp;
+                        {data.v_date}
+                      </h4>
+                    </Link>
+                  </Grid>
+                </div>
+              ))}
+            </Grid>
+
+
+
+          </div>
+        </div>
+      </ContextProvider>
+      </Mobile>
+
     </>
   );
 };
