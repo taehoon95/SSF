@@ -32,3 +32,4 @@ export const showInfiniteVideoSearch = (search, pageNum) =>
 // 2021-12-03 이태훈 스트리밍 무한 스크롤
 export const showInfiniteStreamingSearch = (search, pageNum) => 
   axios.get(`/api/streamingInfiniteSearch/${search}/${pageNum}`)
+

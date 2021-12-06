@@ -106,7 +106,7 @@ const ListChangeContainer = () => {
         <Grid container justify="left" align="left" style={{ marginTop: 100 }}>
           {/* 제목 입력 */}
           <Grid item xs={12} style={{ marginTop: 30 }}>
-            <Typography textAlign="left" variant="h5">
+            <Typography textAlign="left" variant="h5" style={{fontFamily:'Noto Sans KR'}}>
               제목
             </Typography>
             <Grid item xs={12} style={{ marginTop: 7 }}>
@@ -125,7 +125,7 @@ const ListChangeContainer = () => {
 
           {/* 내용 입력 */}
           <Grid item xs={12} style={{ marginTop: 20 }}>
-            <Typography variant="h5">내용</Typography>
+            <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>내용</Typography>
           </Grid>
           <Grid itme xs={12} style={{ marginTop: 7 }}>
             <TextField
@@ -143,13 +143,14 @@ const ListChangeContainer = () => {
 
           {/* 카테고리 선택 */}
           <Grid item xs={12} style={{ marginTop: 20 }}>
-            <Typography variant="h5">카테고리 선택</Typography>
+            <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>카테고리 선택</Typography>
           </Grid>
           <Grid item xs={12} style={{ marginTop: 7 }}>
             <Select
-              style={{ width: 550 }}
+              style={{ width: 550,fontFamily:'Noto Sans KR' }}
               onChange={selectChange}
               value={selectCategory}
+              
             >
               <MenuItem value="NT001" id="NT001">
                 자연
@@ -199,6 +200,7 @@ const ListChangeContainer = () => {
                 marginTop: 260,
                 background: "#1565C0",
                 color: "white",
+                fontFamily:'Noto Sans KR'
               }}
               sx={{ mt: 3, mb: 2 }}
               fullWidth

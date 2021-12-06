@@ -122,6 +122,7 @@ const MainPage = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            fontFamily:'Noto Sans KR'
           }}
         >
           <div style={{ verticalAlign: "middle", opacity: 1 }}>
@@ -348,9 +349,6 @@ const MainPage = () => {
         </div>
       </ContextProvider>
       </Desktop>
-
-
-
 
 
 

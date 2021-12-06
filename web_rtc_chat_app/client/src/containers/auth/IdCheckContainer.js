@@ -151,7 +151,7 @@ const IdCheckContainer = () => {
               <Typography
                 component="h1"
                 variant="h4"
-                style={{ marginTop: 20, color: "black" }}
+                style={{ marginTop: 20, color: "black",fontFamily:'Noto Sans KR' }}
               >
                 아이디찾기
               </Typography>
@@ -159,7 +159,7 @@ const IdCheckContainer = () => {
 
             <Grid container>
               <Grid item style={{ marginTop: 5, width: "100%" }}>
-                <Typography variant="h6" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                   이름
                 </Typography>
                 <TextField
@@ -184,7 +184,7 @@ const IdCheckContainer = () => {
             </Grid>
             <Grid container>
               <Grid item style={{ marginTop: 5, width: "100%" }}>
-                <Typography variant="h6" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                   이메일
                 </Typography>
                 <TextField
@@ -211,13 +211,13 @@ const IdCheckContainer = () => {
             <Grid>
               <Grid item>
                 <Typography variant="22">
-                  <span style={{color:"red"}}>{error}</span>
+                  <span style={{color:"red",fontFamily:'Noto Sans KR'}}>{error}</span>
                 </Typography>
               </Grid>
             </Grid>
 
             <Button
-              style={{ marginTop: 10, marginBottom: 40 }}
+              style={{ marginTop: 10, marginBottom: 40,fontFamily:'Noto Sans KR' }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
