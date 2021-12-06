@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   // },
 }));
 
-const Header = () => {
+const Header = ({socket,userid,l_code}) => {
   const isMobile = useMediaQuery({
     query: "(min-width: 1130px)",
   });
@@ -75,11 +75,9 @@ const Header = () => {
 
   // 검색 값 전송 버튼
   const searchContent = (e) => {
-    if (e.target.value === 0) {
-      return;
-    }
+    socket && socket.emit("exitRoom", socket.id, userid, l_code);
     // alert(inputSearch);
-    history.push(`/SearchResultPage/${inputSearch}`);
+    inputSearch && history.push(`/SearchResultPage/${inputSearch}`);
     // 2021-11-25 강동하 버튼 눌렀을 때 초기화 안되서 검색 두 번 못하는거 수정
     // 2021-12-04 강동하 주석 되잇길래 품
     setInputSearch("");
@@ -103,7 +101,8 @@ const Header = () => {
   // 2021-12-02 강동하 홈 버튼 > 새로고침으로 수정
   const home = () => {
    //history.push("/");
-   //window.location.replace("/");      
+   //window.location.replace("/");
+   socket && socket.emit("exitRoom", socket.id, userid, l_code);      
    console.log(new Date());
    history.push({
      pathname: '/',
@@ -111,15 +110,17 @@ const Header = () => {
    });
   };
 
- 
-
   const onkeyPress = (e) =>{
-    if(e.key == 'Enter'){
-      history.push(`/SearchResultPage/${inputSearch}`);
+    console.log(e.target.value === "");
+    if(e.target.value && e.key === 'Enter'){
+      searchContent();
       setInputSearch("");
     }
   }
 
+  const exitCheck = () => {
+    socket && socket.emit("exitRoom", socket.id, userid, l_code);
+  }
 
   return (
     <>
@@ -237,6 +238,7 @@ const Header = () => {
                   <>
                     {/* // 로그인 버튼 */}
                     <Button
+                      onClick={exitCheck}
                       component={Link}
                       to={"/LoginPage"}
                       variant="inherit"
@@ -328,6 +330,7 @@ const Header = () => {
 
             {/* 마이 페이지 버튼 */}
             <ListItem
+              onClick={exitCheck}
               component={Link}
               to={"/MyPage"}
               className={classes.ListItem}
@@ -339,7 +342,7 @@ const Header = () => {
             </ListItem>
 
             {/* 방송 하기 버튼 */}
-            <ListItem component={Link} to={"/LiveSettingPage"}>
+            <ListItem  onClick={exitCheck} component={Link} to={"/LiveSettingPage"}>
               <LiveTv style={{ color: "white" }} />
               <Box pl={3} type="paragraph" color="white">
                 방송 하기
@@ -347,7 +350,7 @@ const Header = () => {
             </ListItem>
 
             {/* 동영상 업로드 버튼 */}
-            <ListItem component={Link} to={"/UploadPage"}>
+            <ListItem  onClick={exitCheck} component={Link} to={"/UploadPage"}>
               <Upload style={{ color: "white" }} />
               <Box pl={3} type="paragraph" color="white">
                 동영상 업로드
@@ -355,7 +358,7 @@ const Header = () => {
             </ListItem>
 
             {/* 내 영상 관리 버튼 */}
-            <ListItem component={Link} to={"/MyVideoSettingPage"}>
+            <ListItem onClick={exitCheck} component={Link} to={"/MyVideoSettingPage"}>
               <VideoSettings style={{ color: "white" }} />
               <Box pl={3} type="paragraph" color="white">
                 내 영상 관리

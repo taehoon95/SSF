@@ -6,7 +6,7 @@
 //2021-11-18
 //로그인 기능구현
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { change, login } from "../../modules/auth";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -47,20 +47,15 @@ const LoginContainer = ({ history }) => {
   };
 
   const onkeyPress = e =>{
-    if(e.key == 'Enter'){
+    if(e.key === 'Enter'){
       //history.push('/');
-      dispatch(
-        login({
-          u_id,
-          u_pwd,
-        })
-      );
+      onsubmit();
+      console.log(222);
     }
   }
 
   // 사가 핸들러
   const onsubmit = (e) => {
-    e.preventDefault();
     dispatch(
       login({
         u_id,
@@ -76,6 +71,7 @@ const LoginContainer = ({ history }) => {
     }
     if (auth) {
       dispatch(check());
+      
     }
   }, [auth, authError, dispatch]);
 
@@ -86,6 +82,7 @@ const LoginContainer = ({ history }) => {
       try {
         localStorage.setItem("auth", JSON.stringify(auth));
         localStorage.setItem("u_id", auth.u_id);
+        // 로그인 시
         history.goBack();                         
       } catch (e) {
         // console.log("localStorage is not working");
@@ -142,7 +139,6 @@ const LoginContainer = ({ history }) => {
         </Box>
 
         <form
-          onSubmit={onsubmit}
           // component="main"
           // maxWidth="xs"
           // style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
@@ -250,7 +246,6 @@ const LoginContainer = ({ history }) => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             onClick={onsubmit}
-            on
           >
             로그인
           </Button>

@@ -48,14 +48,19 @@ const ContextProvider = ({ children }) => {
         console.log(total);
         console.log(u_id);
         setViewers(total);
-        setMsgs((msgs) => [...msgs, {message:`${u_id} 입장`,u_id}]);
+        // u_id 
+        //     ? setMsgs((msgs) => [...msgs, { message:`${u_id} 입장하셧습니다.`,u_id}]) 
+        //     : setMsgs((msgs) => [...msgs, { message:`비회원이 입장하셧습니다.`,u_id}])
+        
       })
 
       socketRef.on("exitRoom",({total, u_id})=> {
         console.log(total);
         console.log(u_id);
         setViewers(total);
-        setMsgs((msgs) => [...msgs, {message:`${u_id} 퇴장`,u_id}]);
+        // u_id
+        //  ? setMsgs((msgs) => [...msgs, {message:`${u_id} 퇴장하셧습니다.`,u_id}])
+        //  : setMsgs((msgs) => [...msgs, { message:`비회원이 퇴장하셧습니다.`,u_id}])
       })
     },[socketRef])
  
