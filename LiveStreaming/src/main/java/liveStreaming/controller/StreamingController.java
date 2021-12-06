@@ -24,6 +24,7 @@ public class StreamingController {
 	// 2021-12-03 강동하 스트리밍 insert + streaming_management insert
 	@PostMapping("/insertStreaming")
 	public ResponseEntity<Object> insertStreaming(@RequestBody StreamingDto streaming) {
+		System.out.println("insertStreaming: " + streaming);
 		service.insertStreamingManagement(streaming);
 		// management에서 s_code 받아와서 get
 		return ResponseEntity.ok(service.insertStreaming(streaming));
@@ -59,10 +60,12 @@ public class StreamingController {
 		return ResponseEntity.ok(service.showStreaming(stream));
 	}
 
-	// 2021-11-25 이태훈 l_num으로 방검색
+	// 2021-11-25 이태훈 l_code으로 방검색, 스트리밍 l_code 중복 체크
 	@GetMapping("/showStreamingByLnum/{l_code}")
 	public ResponseEntity<Object> showStreaming(@PathVariable String l_code) {
-		return ResponseEntity.ok(service.showStreamingByLnum(l_code));
+		StreamingDto res = service.showStreamingByLnum(l_code);
+		System.out.println(res);
+		return res == null ? ResponseEntity.ok("방 만들기 가능"): ResponseEntity.ok(res);  
 	}
 
 

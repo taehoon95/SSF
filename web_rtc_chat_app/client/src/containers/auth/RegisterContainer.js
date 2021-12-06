@@ -8,7 +8,7 @@
 //2021-11-19 강동하 이메일 인증 구현
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { change, numberAuth, register_Action, id_check } from "../../modules/register";
+import { change, numberAuth, register_Action, id_check, cut } from "../../modules/register";
 import { ThemeProvider } from "styled-components";
 import { createTheme } from "@mui/material/styles";
 import {
@@ -173,6 +173,7 @@ const RegisterContainer = () => {
     if (auth) {
       alert("회원가입이 되었습니다.");
       // console.log("회원가입 성공");
+      dispatch(cut())
       history.push("/");
       // console.log(auth);
     }

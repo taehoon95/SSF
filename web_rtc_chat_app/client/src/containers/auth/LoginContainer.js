@@ -6,7 +6,7 @@
 //2021-11-18
 //로그인 기능구현
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { change, login } from "../../modules/auth";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -47,20 +47,15 @@ const LoginContainer = ({ history }) => {
   };
 
   const onkeyPress = e =>{
-    if(e.key == 'Enter'){
+    if(e.key === 'Enter'){
       //history.push('/');
-      dispatch(
-        login({
-          u_id,
-          u_pwd,
-        })
-      );
+      onsubmit();
+      console.log(222);
     }
   }
 
   // 사가 핸들러
   const onsubmit = (e) => {
-    e.preventDefault();
     dispatch(
       login({
         u_id,
@@ -76,6 +71,7 @@ const LoginContainer = ({ history }) => {
     }
     if (auth) {
       dispatch(check());
+      
     }
   }, [auth, authError, dispatch]);
 
@@ -86,6 +82,7 @@ const LoginContainer = ({ history }) => {
       try {
         localStorage.setItem("auth", JSON.stringify(auth));
         localStorage.setItem("u_id", auth.u_id);
+
         history.goBack();                         
       } catch (e) {
         // console.log("localStorage is not working");
@@ -135,14 +132,13 @@ const LoginContainer = ({ history }) => {
           <Typography
             component="h1"
             variant="h4"
-            style={{ marginTop: 20, color: "black" }}
+            style={{ marginTop: 20, color: "black",fontFamily:'Noto Sans KR' }}
           >
             로그인
           </Typography>
         </Box>
 
         <form
-          onSubmit={onsubmit}
           // component="main"
           // maxWidth="xs"
           // style={{ background: "#303030", borderRadius: 5, marginTop: 150 }}
@@ -152,7 +148,7 @@ const LoginContainer = ({ history }) => {
               {/* 아이디 글자 */}
               <Typography
                 variant="h6"
-                style={{ color: "black", marginBottom: -15, marginTop: 10 }}
+                style={{ color: "black", marginBottom: -15, marginTop: 10,fontFamily:'Noto Sans KR' }}
               >
                 아이디
               </Typography>
@@ -178,7 +174,7 @@ const LoginContainer = ({ history }) => {
           <Grid container>
             <Grid item style={{ marginTop: 5, width: "100%" }}>
               {/* 비밀번호 글자 */}
-              <Typography variant="h6" style={{ color: "black" }}>
+              <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                 비밀번호
               </Typography>
 
@@ -211,7 +207,7 @@ const LoginContainer = ({ history }) => {
                 component={Link}
                 to={"/IdCheckPage"}
                 variant="body2"
-                style={{ marginLeft: -15, color: "black" }}
+                style={{ marginLeft: -15, color: "black",fontFamily:'Noto Sans KR' }}
               >
                 아이디
               </Button>
@@ -220,7 +216,7 @@ const LoginContainer = ({ history }) => {
                 component={Link}
                 to={"/PwdCheckPage"}
                 variant="body2"
-                style={{ marginLeft: -15, color: "black" }}
+                style={{ marginLeft: -15, color: "black",fontFamily:'Noto Sans KR' }}
               >
                 비밀번호 찾기
               </Button>
@@ -230,7 +226,7 @@ const LoginContainer = ({ history }) => {
                 component={Link}
                 to={"/RegisterPage"}
                 variant="body2"
-                style={{ marginRight: -15, color: "black" }}
+                style={{ marginRight: -15, color: "black",fontFamily:'Noto Sans KR' }}
               >
                 회원가입
               </Button>
@@ -245,12 +241,11 @@ const LoginContainer = ({ history }) => {
           </Grid>
 
           <Button
-            style={{ marginTop: 10, marginBottom: 40 }}
+            style={{ marginTop: 10, marginBottom: 40,fontFamily:'Noto Sans KR' }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             onClick={onsubmit}
-            on
           >
             로그인
           </Button>

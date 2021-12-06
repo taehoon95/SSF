@@ -25,8 +25,12 @@ import {
   TextField,
   Typography,
 } from "../../../node_modules/@material-ui/core/index";
+
+import Header from "../../components/common/Header";
+
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import { Desktop, Mobile } from "../../pages/WatchPage2"
+
 
 const useStyles = makeStyles({
   isChat: {
@@ -61,10 +65,20 @@ const StreamShow = () => {
   // 3. buildPlayer로 방송 실행
   const usersocket = socketRef.id;
   useEffect(() => {
+    console.log(1111111111111111);
+    setOffStreaming(false);
     socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
     buildPlayer();
   }, [offStreaming]);
+  
+  useEffect(() => {
+    console.log(33333333333);
+    setOffStreaming(false);
+    socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
+    dispatch(showStreamingByLnum(l_code));
+    buildPlayer();
+  }, [u_id]);
 
   // 방송 실행 메서드
   // 2021-12-03 강동하 방송 종료 시 s_code 전송
@@ -105,6 +119,11 @@ const StreamShow = () => {
       return;
     }
   };
+
+  // 뒤로 가기 버튼 클릭 감지
+  window.onpopstate = (e) => {
+    socketRef.emit("exitRoom", socketRef.id, u_id, l_code);
+  }
 
   // 방설정 편집
   const [l_title, setL_title] = useState("");
@@ -160,7 +179,9 @@ const StreamShow = () => {
   };
   return (
     <>
+
     {/* 2021-12-06 강동하 반응형 */}
+      <Header socket={socketRef} userid={u_id} l_code={l_code}/>
       <Desktop>
       <Grid container style={{ marginTop: 70 }}>
         {/* 실시간 영상 */}
@@ -172,8 +193,9 @@ const StreamShow = () => {
           />
           <Box sx={{ marginLeft: "30px", color: "white", witdh:"100%"}} >
             <Box display="flex" justifyContent="space-between" width="98%" alignItems="center">
+
               <h1>
-                {streamInfo.u_id}님의 방송
+                {streamInfo.u_id}님의 방송                
                 {isShowChat ? (
                   <IconButton
                     onClick={handleShowChat}
@@ -190,7 +212,7 @@ const StreamShow = () => {
                   >
                     <ChatBubbleOutlinedIcon />
                   </IconButton>
-                )}
+                )}                
               </h1>
               <Box display="flex" style={{ marginRight: 12 }} >
                 <PeopleAltRoundedIcon style={{ marginRight: 5, marginTop: 6 }}/>

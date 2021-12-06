@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { change, cut, insertStreaming } from "../../modules/streaming";
+import { change, cut, insertStreaming, showStreamingByLnum } from "../../modules/streaming";
 import { nanoid } from "nanoid";
 import { useHistory } from "react-router";
 import { SocketContext } from "../../SocketContext";
@@ -17,13 +17,13 @@ const CreateaStreamContainer = () => {
   const { socketRef } = useContext(SocketContext);
   //const u_id = localStorage.getItem("u_id");
   const dispatch = useDispatch();
-  //const l_code = nanoid();
+  const nano = nanoid();
 
   //const [u_id, setU_id] = useState(localStorage.getItem("u_id"));
   //const [l_code, setL_code] = useState(nanoid());
-  // useEffect(()=>{
-    
-  // })
+  useEffect(()=>{
+    dispatch(showStreamingByLnum(streamInfo.l_code));
+  },[])
   const history = useHistory();
 
   // const streamingInfo = {
@@ -39,6 +39,7 @@ const CreateaStreamContainer = () => {
   const [isValidCheck, setIsValidCheck] = useState(false);
   const [selectedIFile, setSelectedIFile] = useState(null); // 이미지
   const [img, setImg] = useState(""); // 이미지
+  const [streamKey, setStreamKey] = useState(nano); // 스트림키인 l_code 재발급용
   const [setting, setSetting] = useState("");
 
   const {streamInfo, l_code, u_id, l_title, l_description, l_img } = useSelector((state) => ({
@@ -62,15 +63,28 @@ const CreateaStreamContainer = () => {
   const createStreaming = () => {
     // console.log('방만들기');
 
+    dispatch(showStreamingByLnum(streamInfo.l_code));
+
+    console.log(streamInfo.streamRes);
+    if(streamInfo.streamRes !== "방 만들기 가능"){
+      alert("사용중인 스트림키 입니다.")
+      return;
+    }
+    console.log(streamInfo.u_id);
+    if(streamInfo.u_id === ""){
+      alert("로그인이 필요한 작업입니다.")
+      return;
+    }
     // 방만들기
     if (streamInfo.l_title === "") {
       setIsValidCheck(true);
       return;
     }
+  
     if (window.confirm(`스트림키는 ${streamInfo.l_code}입니다.`)) {
       socketRef.emit("clientCreateRoom", streamInfo);
       dispatch(insertStreaming(streamInfo));
-      history.push(`/WatchPage/${streamInfo.l_code}`);
+      history.push(`/WatchPage/${streamInfo.l_code}`)
     } else {
       alert("방만들기를 취소 하셨습니다.");
     }
@@ -160,6 +174,13 @@ const CreateaStreamContainer = () => {
       createStreaming();
     };
 
+    const handleStreamKey = () => {
+      setStreamKey(nano);
+      console.log(streamKey);
+      console.log(streamKey === "");
+      streamKey && dispatch(change({ name:"l_code", value:streamKey }));
+    }
+
   return (
     <div>
       <Container
@@ -173,7 +194,26 @@ const CreateaStreamContainer = () => {
           height: "100%",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: 20 }}>실시간 방 만들기</h2>
+        <h2 style={{ textAlign: "center", marginBottom: 20,fontFamily:'Noto Sans KR' }}>실시간 방 만들기</h2>
+        <div>
+          <p>스트림 키</p>
+          <TextField
+            fullWidth
+            name="l_code"
+            value={l_code}
+          />
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <Button
+            style={{ marginTop: 30, marginBottom: 20 }}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleStreamKey}
+          >
+            스트림키 재발급
+          </Button>
+        </div>
         <div>
           <p>방 제목</p>
           <TextField
@@ -185,10 +225,10 @@ const CreateaStreamContainer = () => {
         </div>
         <div>
           {isValidCheck && (
-            <label style={{ color: "red" }}>방 제목을 입력 해주세요</label>
+            <label style={{ color: "red",fontFamily:'Noto Sans KR' }}>방 제목을 입력 해주세요</label>
           )}
         </div>
-        <p style={{ marginTop: 20 }}>방 설명</p>
+        <p style={{ marginTop: 20,fontFamily:'Noto Sans KR' }}>방 설명</p>
         <TextField
           name="l_description"
           onChange={handleStreamInfo}
@@ -198,7 +238,7 @@ const CreateaStreamContainer = () => {
             {/* 이미지 선택 */}
             {/* 2021-12-02 강동하 방송중 썸네일 업로드 */}
             <Grid style={{ marginTop: 30 }}>
-              <Typography >썸네일 파일 선택</Typography>
+              <Typography style={{fontFamily:'Noto Sans KR'}}>썸네일 파일 선택</Typography>
             </Grid>
             <Grid>
               
@@ -214,7 +254,7 @@ const CreateaStreamContainer = () => {
 
         <div style={{ textAlign: "center" }}>
           <Button
-            style={{ marginTop: 30, marginBottom: 20 }}
+            style={{ marginTop: 30, marginBottom: 20,fontFamily:'Noto Sans KR' }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}

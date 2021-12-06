@@ -153,7 +153,7 @@ const PwdCheckContainer = ({ history }) => {
   const emailchecked = (
     <>
       <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
-        <Typography variant="h6" style={{ color: "303030" }}>
+        <Typography variant="h6" style={{ color: "303030",fontFamily:'Noto Sans KR' }}>
           이메일 인증 번호를 입력하세요
         </Typography>
       </Grid>
@@ -289,7 +289,7 @@ const PwdCheckContainer = ({ history }) => {
               <Typography
                 component="h1"
                 variant="h4"
-                style={{ marginTop: 20, color: "black" }}
+                style={{ marginTop: 20, color: "black",fontFamily:'Noto Sans KR' }}
               >
                 비밀번호찾기
               </Typography>
@@ -297,7 +297,7 @@ const PwdCheckContainer = ({ history }) => {
 
             <Grid container>
               <Grid item style={{ marginTop: 5, width: "100%" }}>
-                <Typography variant="h6" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                   이름
                 </Typography>
                 <TextField
@@ -324,7 +324,7 @@ const PwdCheckContainer = ({ history }) => {
             <Grid container>
 
               <Grid item style={{ marginTop: 5, width: "100%" }}>
-                <Typography variant="h6" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                   아이디
                 </Typography>
                 <TextField
@@ -351,7 +351,7 @@ const PwdCheckContainer = ({ history }) => {
             <Grid container>
               <Grid item  style={{ marginTop: 5, width: "100%" }}>
 
-                <Typography variant="h6" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                   본인 확인 이메일
                 </Typography>
 
@@ -377,7 +377,7 @@ const PwdCheckContainer = ({ history }) => {
                 <span style={{color:"red"}}>{emailcheckcheck}</span>
                 <Button
                   onClick={onEmailClick}
-                  style={{ marginTop: 10, marginBottom: 20, height: 40 }}
+                  style={{ marginTop: 10, marginBottom: 20, height: 40,fontFamily:'Noto Sans KR' }}
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
@@ -388,7 +388,7 @@ const PwdCheckContainer = ({ history }) => {
                 </Grid>
               </Grid>
               <Grid item xs={12} style={{ marginTop: 5, width: "100%" }}>
-                <Typography variant="h6" style={{ color: "black" }}>
+                <Typography variant="h6" style={{ color: "black",fontFamily:'Noto Sans KR' }}>
                   이메일 인증 코드
                 </Typography>
                 <TextField
@@ -414,14 +414,14 @@ const PwdCheckContainer = ({ history }) => {
          
             <Grid>
               <Grid item>
-                <Typography variant="22">
+                <Typography variant="22 " style={{fontFamily:'Noto Sans KR'}}>
                   <span style={{color:"red"}}>{error}</span>
                 </Typography>
               </Grid>
             </Grid>
 
             <Button
-              style={{ marginTop: 10, marginBottom: 40 }}
+              style={{ marginTop: 10, marginBottom: 40 ,fontFamily:'Noto Sans KR' }}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

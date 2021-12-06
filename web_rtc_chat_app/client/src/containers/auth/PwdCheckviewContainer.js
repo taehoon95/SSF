@@ -167,7 +167,7 @@ const PwdCheckViewContainer = ({ history }) => {
             <Typography
               component="h1"
               variant="h4"
-              style={{ marginTop: 20, color: "black" }}
+              style={{ marginTop: 20, color: "black",fontFamily:'Noto Sans KR' }}
             >
               비밀번호 변경
             </Typography>
@@ -177,7 +177,7 @@ const PwdCheckViewContainer = ({ history }) => {
             <Grid item style={{ width: "100%" }}>
               <Typography
                 variant="h6"
-                style={{ color: "black", marginBottom: -15, marginTop: 10 }}
+                style={{ color: "black", marginBottom: -15, marginTop: 10,fontFamily:'Noto Sans KR' }}
               >
                 비밀번호
               </Typography>
@@ -201,7 +201,7 @@ const PwdCheckViewContainer = ({ history }) => {
             <Grid item style={{ width: "100%" }}>
               <Typography
                 variant="h6"
-                style={{ color: "black", marginBottom: -15, marginTop: 10 }}
+                style={{ color: "black", marginBottom: -15, marginTop: 10,fontFamily:'Noto Sans KR' }}
               >
                 비밀번호 확인
               </Typography>
@@ -223,7 +223,7 @@ const PwdCheckViewContainer = ({ history }) => {
           </Grid>
             <span style={{color:"red"}}>{pwdcheckError}</span>
           <Button
-            style={{ marginTop: 10, marginBottom: 40 }}
+            style={{ marginTop: 10, marginBottom: 40,fontFamily:'Noto Sans KR' }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
