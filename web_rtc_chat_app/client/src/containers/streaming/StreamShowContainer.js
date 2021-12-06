@@ -26,6 +26,7 @@ import {
   Typography,
 } from "../../../node_modules/@material-ui/core/index";
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import { Desktop, Mobile } from "../../pages/WatchPage2"
 
 const useStyles = makeStyles({
   isChat: {
@@ -159,6 +160,8 @@ const StreamShow = () => {
   };
   return (
     <>
+    {/* 2021-12-06 강동하 반응형 */}
+      <Desktop>
       <Grid container style={{ marginTop: 70 }}>
         {/* 실시간 영상 */}
         <Grid item xs={12} sm={9}>
@@ -304,8 +307,157 @@ const StreamShow = () => {
           </Grid>
         </div>
       </Grid>
+      </Desktop>
+      <Mobile>
+      <Grid container style={{ marginTop: 70 }}>
+        {/* 실시간 영상 */}
+        <Grid item xs={12} sm={9}>
+          <video
+            ref={videoRef}
+            style={{ width: "95%", marginLeft: "2%", marginRight: "2%"}}
+            controls
+          />
+          <Box sx={{ marginLeft: "30px", color: "white", witdh:"100%"}} >
+            <Box display="flex" justifyContent="space-between" width="98%" alignItems="center">
+              <h3>
+                {streamInfo.u_id}님의 방송
+                {isShowChat ? (
+                  <IconButton
+                    onClick={handleShowChat}
+                    className={classes.isChat}
+                    aria-label="ChatBubbleOutlineOutlinedIcon"
+                  >
+                    <ChatBubbleOutlineOutlinedIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    onClick={handleShowChat}
+                    className={classes.isChat}
+                    aria-label="ChatBubbleOutlinedIcon"
+                  >
+                    <ChatBubbleOutlinedIcon />
+                  </IconButton>
+                )}
+              </h3>
+              <Box display="flex" style={{ marginRight: 12 }} >
+                <PeopleAltRoundedIcon style={{ marginRight: 5, marginTop: 6 }}/>
+                <h4 style={{ marginTop: 4 }}>{viewers - 1}</h4>
+              </Box>
+            </Box>
+            <Box>
+              <h4> {streamInfo.l_title}</h4>
+            </Box>
+            <h5> {streamInfo.l_description}</h5>
+            <Box sx={{ marginTop: "10px" }}>
+              {u_id && u_id === streamInfo.u_id ? (
+                <>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<ExitToAppOutlinedIcon />}
+                    className={classes.button}
+                    onClick={offStreamingbtn}
+                  >
+                    방송종료
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<SettingsOutlinedIcon />}
+                    className={classes.button}
+                    onClick={handleModalOpen}
+                    style={{ marginLeft: "20px" }}
+                  >
+                    방송정보편집
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  endIcon={<ExitToAppOutlinedIcon />}
+                  className={classes.button}
+                  onClick={exitStreamingbtn}
+                >
+                  방송나가기
+                </Button>
+              )}
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          {!isShowChat && <ChatContainer />}
+        </Grid>
+
+        {/* 모달창 */}
+        <div hidden={!show}>
+          <Grid item className="modal-background">
+            <Grid
+              item
+              className="modal-card"
+              textAlign="center"
+              style={{ textAlign: "center", marginTop: 300, marginLeft: "37%" }}
+            >
+              <Grid item>
+                <Typography variant="h6">방송제목</Typography>
+                <TextField
+                  variant="outlined"
+                  className="modal-item"
+                  name="l_title"
+                  value={l_title}
+                  onChange={handleEditItem}
+                  style={{ width: 300 }}
+                ></TextField>
+                {isValid && (
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    className="modal-item"
+                  >
+                    방송제목을 입력해주세요
+                  </Typography>
+                )}
+              </Grid>
+
+              <Grid item>
+                <Typography variant="h6">방송설명</Typography>
+                <TextField
+                  variant="outlined"
+                  className="modal-item"
+                  name="l_description"
+                  value={l_description}
+                  onChange={handleEditItem}
+                  style={{ width: 300 }}
+                ></TextField>
+              </Grid>
+
+              {/* 취소, 완료 버튼 */}
+              <Grid item style={{ marginTop: 10, textAlign: "center" }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleModalClose}
+                  style={{ width: "20%" }}
+                >
+                  취소
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  onClick={handleEdit}
+                  style={{ marginLeft: 40, width: "20%" }}
+                >
+                  완료
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </div>
+      </Grid>
+      </Mobile>
+
     </>
   );
 };
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 export default StreamShow;

@@ -97,7 +97,6 @@ const ChatContainer = () => {
                 {username == "ME" ? 
                 (<>
                 <span className="msg">{username && `${username}:`} </span>
-
                 <span className="msg"> {message}</span>
                 </>)
                 :

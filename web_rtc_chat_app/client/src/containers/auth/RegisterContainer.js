@@ -125,7 +125,7 @@ const RegisterContainer = () => {
     } else if(resulttell != 1) {
       alert("전화번호를 확인해주세요.")
     } else {
-      alert("회원가입 시도");
+      //alert("회원가입 시도");
       dispatch(
         register_Action({
           u_id,

@@ -71,12 +71,12 @@ const styleModal3 = {
   boxShadow: 24,
   p: 4,
 };
-const Desktop = ({ children }) => {
+export const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   //console.log(isDesktop);
   return isDesktop ? children : null
 }
-const Mobile = ({ children }) => {
+export const Mobile = ({ children }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 })
   //console.log(isMobile);
   return isMobile ? children : null
@@ -390,7 +390,7 @@ const WatchPage2 = (props) => {
       {video !== 0 && (
         <Grid container style={{}}> 
         {/* 비디오 영상  */}
-          <Grid item style={{ marginTop: '4%', marginLeft: '5%', marginBottom: '2%' }}>
+          <Grid item style={{ marginTop: '4%', marginLeft: '5%', marginRight: '5%', marginBottom: '2%' }}>
             <Desktop>
             <video className='video' controls autoPlay loop muted style={{ width:'88vw', height:'80vh'}}>
               <source src={video[0].v_link} type="video/mp4"/>
@@ -404,7 +404,7 @@ const WatchPage2 = (props) => {
           </Grid>
 
           {/* 상세정보 */}
-          <Grid item style={{ marginLeft: '10%', width:'100vw', height: '100vh' }}>
+          <Grid item style={{ marginLeft: '10%', width:'100vw', height: '61vh', marginRight: '5%'}}>
             {/* 영상 제목 */}
             <Typography variant="h4" style={{ color: "white", marginBottom: 10 }}>
               {video[0].v_name}
@@ -431,7 +431,8 @@ const WatchPage2 = (props) => {
             {comment_INSERT !== true &&
               (auth_Id === null ? (
                 <>
-                  <Grid>
+                  <Grid item style={{ marginBottom:20, marginRight: '5%' }}>
+                    <Desktop>
                     <CssTextField
                       style={{
                         width: "80%",
@@ -441,13 +442,32 @@ const WatchPage2 = (props) => {
                         padding:'2.5%',
                       }}
                       placeholder="로그인 후 이용해주세요."
-                      fullwidth="true"
+                      fullwidth
                       autoComplete='off'
                       autoFocus={false}
                       onClick={handleOpen3}
                       onChange={onChange}
                       value={""}
                     />
+                    </Desktop>
+                    <Mobile>
+                    <CssTextField
+                      style={{
+                        width: "70%",
+                        height: "100%",
+                        borderRadius: 3,
+                        fontSize: 22,
+                        padding:'2.5%',
+                      }}
+                      placeholder="로그인 후 이용해주세요."
+                      fullwidth
+                      autoComplete='off'
+                      autoFocus={false}
+                      onClick={handleOpen3}
+                      onChange={onChange}
+                      value={""}
+                    />
+                    </Mobile>
                     <Button
                       disabled={true}
                       onClick={commentInsert}
@@ -476,7 +496,7 @@ const WatchPage2 = (props) => {
                     fullWidth
                     autoFocus={false}
                     id="comment"
-                    autoComplete='false'
+                    autoComplete='off'
                     onChange={onChange}
                   />
                   </Desktop>
@@ -494,7 +514,7 @@ const WatchPage2 = (props) => {
                     fullWidth
                     autoFocus={false}
                     id="comment"
-                    autoComplete='false'
+                    autoComplete="off"
                     onChange={onChange}
                   />
                   </Mobile>
@@ -550,6 +570,16 @@ const WatchPage2 = (props) => {
                   
                 </Grid>
               ))}
+            {commentSelectResult === 1 && commentInfo.length === 0 &&
+            <>
+              <Desktop>
+                <Typography style={{ color: "white", width: "75%"}}>작성된 댓글이 없습니다. 댓글을 작성해주세요.</Typography>
+              </Desktop>
+              <Mobile>
+                <Typography style={{ color: "white", width: "75%"}}>작성된 댓글이 없습니다.<p/>댓글을 작성해주세요.</Typography>
+              </Mobile>
+            </>
+            }
           </Grid>
         </Grid>
       )}
