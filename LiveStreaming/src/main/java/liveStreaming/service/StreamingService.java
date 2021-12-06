@@ -4,13 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import liveStreaming.dto.CommentDto;
 import liveStreaming.dto.StreamingDto;
-import liveStreaming.mapper.CommentMapper;
 import liveStreaming.mapper.StreamingMapper;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,7 +59,6 @@ public class StreamingService {
 	// 2021-12-02 강동하 방송 시작 썸네일 업로드 시 파일이름 중복체크
 	public int streamFileName(String l_img) {
 		return mapper.streamFileName(l_img);
-
 	}
 
 	// 2021-12-03 윤성준 MainPage 실시간 영상 랜덤 조회

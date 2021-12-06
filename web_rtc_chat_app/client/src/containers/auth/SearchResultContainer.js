@@ -137,6 +137,7 @@ const SearchResultContainer = () => {
       hasMore={hasMore}
       loader={loading && <Loader />}
       endMessage={<p>End!</p>}
+      style={{marginTop: 100}}
     >
 
       <div className="container">

@@ -70,7 +70,7 @@ public class StreamingMapperTest {
 		Assertions.assertEquals(1, res);
 	}
 
-	@Test
+	//@Test
 	public void test05StreamingSearchList() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("search", "2");
@@ -80,6 +80,12 @@ public class StreamingMapperTest {
 			System.out.println(t);
 		}
 		Assertions.assertNotNull(list);
+	}
+	@Test
+	public void test06SelectByLcode() {
+		StreamingDto res = mapper.selectStreamingBylcode("ezBqnFMEcELeld9x5BK5f");
+		System.out.println(res);
+		Assertions.assertNotNull(res);
 	}
 	
 	
