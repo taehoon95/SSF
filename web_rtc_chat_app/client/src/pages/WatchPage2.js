@@ -71,12 +71,12 @@ const styleModal3 = {
   boxShadow: 24,
   p: 4,
 };
-const Desktop = ({ children }) => {
+export const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 768 })
   //console.log(isDesktop);
   return isDesktop ? children : null
 }
-const Mobile = ({ children }) => {
+export const Mobile = ({ children }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 })
   //console.log(isMobile);
   return isMobile ? children : null

@@ -36,7 +36,6 @@ const MyContainer = () => {
 
   //2021-11-21 강동하 마이페이지 탑5 영상 조회
   const [data2, setData2] = useState([]);
-
   const [myViews, setMyViews] = useState([]);
   const [test, setTest] = useState([]);
 
