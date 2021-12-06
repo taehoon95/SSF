@@ -14,10 +14,10 @@ public interface StreamingMapper {
 	int deleteStreaming(StreamingDto u_id);
 	int updateStreaming(StreamingDto streaming);
 	int insertStreaming(StreamingDto streaming);
-	// 스트리밍 방송 들어갈 경우 세팅 값 얻기
+	// 2021-12-03 이태훈 스트리밍 방송 들어갈 경우 세팅 값 얻기,  l_code 중복 체크
 	StreamingDto selectStreamingbyLnum(String l_num);
 
-	// 스트리밍 검색시 사용 u_id, l_title, l_description전부 검색
+	// 2021-12-03 이태훈 스트리밍 검색시 사용 u_id, l_title, l_description전부 검색
 	List<StreamingDto> streamingSearchList(Map<String, Object> map);
 
 	// 2021-12-02 강동하 방송 시작 시 썸네일 업로드 시 파일이름 중복체크
@@ -31,5 +31,4 @@ public interface StreamingMapper {
 
 	// 2021-12-03 강동하 방송 종료 시 streaming_management l_length update
 	int updateEndLength(StreamingDto streaming);
-
 }

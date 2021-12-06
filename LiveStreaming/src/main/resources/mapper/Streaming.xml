@@ -81,5 +81,5 @@
     <select id="liveVideo" resultType="liveStreaming.dto.StreamingDto">
         select * from ssf_schema.streaming group by l_code ORDER BY RANDOM() limit 5;
     </select>
-
+    
 </mapper>

@@ -87,10 +87,13 @@ const init = {
 }
 
 
-export const change = createAction(CHANGE, ({ name, value }) => ({
+export const change = createAction(CHANGE, ({ name, value }) => {
+  console.log(name);
+  console.log(value);
+  return({
   name,
   value,
-}));
+})});
 
 
 // 2021-12-02 강동하 방송 종료 시 값 초기화

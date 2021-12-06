@@ -50,12 +50,16 @@ Signaling Server
 
 // rooms객체 생성(스트리밍중인 방들이 저장될 예정)
 let rooms = {};
-// login한 사람들 채팅에 들어오면
-const loginSet = new Set();
+// login한 사람들 채팅에 들어오면 SET
+
+// login한 사람들 채팅에 들어오면 MAP
+const loginMap = new Map();
+// login한 사람들 중 방에 따라 분류
+let watchers = null;
+const userMap = new Map();
 io.on("connection", (socket) => {
   // clientSendMessage: chatting 에서 message보내기
   socket.on("clientSendMessage", (message, username, l_code, usersocket) => {
-    console.log(username);
     socket.to(l_code).emit("serverRoomMessage", {
       message,
       username,
@@ -75,7 +79,6 @@ io.on("connection", (socket) => {
       l_description,
       u_id,
     };
-    console.log(rooms);
     socket.join(l_code);
     // 서버에 있는 rooms객체를 socket을 가진 client에게 전송
     socket.broadcast.emit("serverRooms", rooms);
@@ -84,30 +87,46 @@ io.on("connection", (socket) => {
   });
 
   // 방 입장하기
-  
   socket.on("clientJoinRoom", (l_code, u_id, usersocket) => {
+    console.log("2222222222222222222");
     socket.join(l_code);
-    loginSet.add(usersocket);
-    const total = loginSet.size;
+    loginMap.set(usersocket,l_code);
+    userMap.set(usersocket,u_id);
+    console.log("------------------------");
+    watchers = new Map([...loginMap].filter(([k,v]) => v === l_code));
+    console.log("watchers   " ,watchers);
+    console.log(watchers.size);
+    console.log(loginMap.values());
+    console.log("------------------------");
+    const total = watchers.size;
     socket.emit("serverJoinRoom", rooms[l_code], total);
     socket.to(l_code).emit("enterRoom", {total, u_id});
   });
 
   socket.on("exitRoom", (socketId, u_id, l_code) => {
-    socket.join(socketId);
-    socket.join(u_id);
-    socket.join(l_code);
-    loginSet.delete(socketId);
-    const total = loginSet.size;
-    socket.emit("serverJoinRoom", rooms[l_code], total);
+    loginMap.delete(socketId);
+    userMap.delete(socketId);
+    watchers = new Map([...loginMap].filter(([k,v]) => v === l_code));
+    const total = watchers.size;
     socket.to(l_code).emit("exitRoom", {total, u_id});
   });
 
-  // 소켓 연결 해제
-  socket.on("disconnect", () => {
+  console.log(socket.id);
+
+  // 비정상적인 종료(닫기 버튼, 새로고침 시 소켓 연결 해제
+  socket.on("disconnect", (e) => {
+    console.log(11111);
+    console.log(e);
+    console.log(socket.id);
+    let u_id = userMap.get(socket.id);
+    let l_code = loginMap.get(socket.id);
+    loginMap.delete(socket.id);
+    watchers = new Map([...loginMap].filter(([k,v]) => v === l_code));
+    const total = watchers.size;
+    socket.to(l_code).emit("exitRoom", {total, u_id});
   });
 });
-
+// 
 // steaming 서버 포트 번호 및 http, https에서 사용할 포트번호
 const NodeMediaServer = require("node-media-server");
 

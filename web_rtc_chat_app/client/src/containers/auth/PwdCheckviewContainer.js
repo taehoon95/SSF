@@ -18,7 +18,7 @@ import { LockOutlined } from "@material-ui/icons";
 import { change, pwdupdatecheck } from "../../modules/auth";
 import { withRouter } from "react-router";
 import Button from "@mui/material/Button";
-
+ 
 
 const PwdCheckViewContainer = ({ history }) => {
   const [error, setError] = useState("");

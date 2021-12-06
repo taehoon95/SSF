@@ -42,7 +42,6 @@ const ChatContainer = () => {
         target.scroll({ top: target.scrollHeight, behavior: "smooth" });
       });
     }
-    console.log(viewers);
     setViewers(viewers);
   }, []);
 
@@ -77,6 +76,7 @@ const ChatContainer = () => {
   const [open3, setOpen3] = useState(false);
   
   const login_Auth = () => {
+    socketRef.emit("exitRoom", socketRef.id, u_id, l_code);
     history.push("/LoginPage");
   };
   const handleOpen3 = (e) => {
@@ -88,7 +88,6 @@ const ChatContainer = () => {
 
   return (
     <>
-     
       <div className="chat">
         <div className="messages" ref={messageEl}>
           {msgs.map(({ message, username }, index) => {
@@ -98,7 +97,6 @@ const ChatContainer = () => {
                 {username == "ME" ? 
                 (<>
                 <span className="msg">{username && `${username}:`} </span>
-
                 <span className="msg"> {message}</span>
                 </>)
                 :

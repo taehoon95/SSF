@@ -199,7 +199,6 @@ const MainPage = () => {
   return (
     <>
       <Header />
-      <ContextProvider>
         <div className="container" style={{ marginTop: 65 }}>
           <Link
             rel="stylesheet"
@@ -310,8 +309,6 @@ const MainPage = () => {
             </Grid>
           </div>
         </div>
-
-      </ContextProvider>
     </>
   );
 };

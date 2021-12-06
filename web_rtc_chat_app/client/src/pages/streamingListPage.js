@@ -11,7 +11,6 @@ const StreamingListPage = () => {
             <ContextProvider>
             <StreamListContainer/>
             </ContextProvider>
-
         </>
     );
 };

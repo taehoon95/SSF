@@ -26,6 +26,11 @@ import {
   Typography,
 } from "../../../node_modules/@material-ui/core/index";
 
+import Header from "../../components/common/Header";
+
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+
+
 const useStyles = makeStyles({
   isChat: {
     color: "white",
@@ -48,11 +53,10 @@ const StreamShow = () => {
     streamInfo: state.streaming.streamRes,
   }));
 
-  const { socketRef } = useContext(SocketContext);
+  const { socketRef, viewers } = useContext(SocketContext);
   const { s_code } = useSelector((state) => ({
-    s_code : state.streaming.streamRes.s_code,
-  }))
-
+    s_code: state.streaming.streamRes.s_code,
+  }));
 
   // 주소창으로 들어오면
   // 1. 방에 입장하는 것을 소켓에 알려주고
@@ -60,10 +64,20 @@ const StreamShow = () => {
   // 3. buildPlayer로 방송 실행
   const usersocket = socketRef.id;
   useEffect(() => {
+    console.log(1111111111111111);
+    setOffStreaming(false);
     socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
     buildPlayer();
   }, [offStreaming]);
+  
+  useEffect(() => {
+    console.log(33333333333);
+    setOffStreaming(false);
+    socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
+    dispatch(showStreamingByLnum(l_code));
+    buildPlayer();
+  }, [u_id]);
 
   // 방송 실행 메서드
   // 2021-12-03 강동하 방송 종료 시 s_code 전송
@@ -85,7 +99,7 @@ const StreamShow = () => {
   // 방송 종료
   const offStreamingbtn = () => {
     if (window.confirm(`방송종료 하시겠습니까?`)) {
-      dispatch(cut())
+      dispatch(cut());
       setOffStreaming(true);
       return;
     } else {
@@ -104,6 +118,11 @@ const StreamShow = () => {
       return;
     }
   };
+
+  // 뒤로 가기 버튼 클릭 감지
+  window.onpopstate = (e) => {
+    socketRef.emit("exitRoom", socketRef.id, u_id, l_code);
+  }
 
   // 방설정 편집
   const [l_title, setL_title] = useState("");
@@ -132,12 +151,12 @@ const StreamShow = () => {
     name === "l_description" && setL_description(value);
     // console.log(name);
     // console.log(isValid);
-    
+
     if (name === "l_title" && value !== "") {
       setIsValid(false);
-    }else if(name === "l_title" && value === ""){
+    } else if (name === "l_title" && value === "") {
       setIsValid(true);
-    } 
+    }
   };
   // 완료 클릭시
   const handleEdit = (e) => {
@@ -159,6 +178,7 @@ const StreamShow = () => {
   };
   return (
     <>
+      <Header socket={socketRef} userid={u_id} l_code={l_code}/>
       <Grid container style={{ marginTop: 70 }}>
         {/* 실시간 영상 */}
         <Grid item xs={12} sm={9}>
@@ -167,10 +187,11 @@ const StreamShow = () => {
             style={{ width: "95%", marginLeft: "30px" }}
             controls
           />
-          <Box sx={{ marginLeft: "30px", color: "white" }}>
-            <Box>
+          <Box sx={{ marginLeft: "30px", color: "white", witdh:"100%"}} >
+            <Box display="flex" justifyContent="space-between" width="98%" alignItems="center">
+
               <h1>
-                {streamInfo.u_id}님의 방송
+                {streamInfo.u_id}님의 방송                
                 {isShowChat ? (
                   <IconButton
                     onClick={handleShowChat}
@@ -187,8 +208,12 @@ const StreamShow = () => {
                   >
                     <ChatBubbleOutlinedIcon />
                   </IconButton>
-                )}
+                )}                
               </h1>
+              <Box display="flex" style={{ marginRight: 12 }} >
+                <PeopleAltRoundedIcon style={{ marginRight: 5, marginTop: 6 }}/>
+                <h3 style={{ marginTop: 4 }}>{viewers - 1}</h3>
+              </Box>
             </Box>
             <Box>
               <h2> {streamInfo.l_title}</h2>
@@ -217,16 +242,16 @@ const StreamShow = () => {
                     방송정보편집
                   </Button>
                 </>
-              ):(
+              ) : (
                 <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<ExitToAppOutlinedIcon />}
-                    className={classes.button}
-                    onClick={exitStreamingbtn}
-                  >
-                    방송나가기
-                  </Button>
+                  variant="contained"
+                  color="secondary"
+                  endIcon={<ExitToAppOutlinedIcon />}
+                  className={classes.button}
+                  onClick={exitStreamingbtn}
+                >
+                  방송나가기
+                </Button>
               )}
             </Box>
           </Box>
@@ -238,10 +263,14 @@ const StreamShow = () => {
         {/* 모달창 */}
         <div hidden={!show}>
           <Grid item className="modal-background">
-            <Grid item className="modal-card" textAlign="center" style={{ textAlign:"center", marginTop: 300, marginLeft: "37%" }}>
-
-              <Grid item >
-                <Typography variant="h6" >방송제목</Typography>
+            <Grid
+              item
+              className="modal-card"
+              textAlign="center"
+              style={{ textAlign: "center", marginTop: 300, marginLeft: "37%" }}
+            >
+              <Grid item>
+                <Typography variant="h6">방송제목</Typography>
                 <TextField
                   variant="outlined"
                   className="modal-item"
@@ -251,7 +280,11 @@ const StreamShow = () => {
                   style={{ width: 300 }}
                 ></TextField>
                 {isValid && (
-                  <Typography variant="body2" color="error" className="modal-item">
+                  <Typography
+                    variant="body2"
+                    color="error"
+                    className="modal-item"
+                  >
                     방송제목을 입력해주세요
                   </Typography>
                 )}
@@ -269,7 +302,7 @@ const StreamShow = () => {
                 ></TextField>
               </Grid>
 
-                  {/* 취소, 완료 버튼 */}
+              {/* 취소, 완료 버튼 */}
               <Grid item style={{ marginTop: 10, textAlign: "center" }}>
                 <Button
                   color="primary"
@@ -288,8 +321,6 @@ const StreamShow = () => {
                   완료
                 </Button>
               </Grid>
-
-              
             </Grid>
           </Grid>
         </div>
