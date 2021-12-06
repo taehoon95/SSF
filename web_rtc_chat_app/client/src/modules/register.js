@@ -13,6 +13,8 @@ const CHANGE = "CHANGE2";
 
 const NUMBUR = "NUMBUR";
 
+const CUT = "CUT";
+
 const [REGISTER, REGISTER_SUCCESS, REGISTER_FAILURE] =
   createRequestActionTypes("auth/REGISTER");
 
@@ -39,6 +41,9 @@ const init = {
 export const change = createAction(CHANGE, ({ id, value }) => ({
   id,
   value,
+}));
+
+export const cut = createAction(CUT, () => ({
 }));
 
 export const numberAuth = createAction(NUMBUR, (number) => ({
@@ -79,6 +84,24 @@ const register = handleActions(
       produce(state, (draft) => {
         draft["number"] = number.a;
       }),
+
+    [CUT]: (state, { }) => ({
+      ...state,
+      u_id: "",
+      u_pwd: "",
+      u_pwdcheck: "",
+      u_name: "",
+      u_birth: "",
+      u_gender: "",
+      u_email: "",
+      u_emailcheck: "",
+      u_tell: "",
+      number: "",
+      auth: null,
+      authError: null,
+      idcheck: null,
+      idcheckError:null,
+    }),
 
     [ID_CHECK_SUCCESS]: (state, { payload: idcheck }) => ({
       ...state,
