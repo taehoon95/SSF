@@ -35,7 +35,8 @@ function App() {
       <PrivateRoute component={MyVideoSettingPage} path={["/MyVideoSettingPage/@:u_id", '/MyVideoSettingPage']}  />
       {/* 2021-11-22 아이디 찾기 페이지 추가*/}
       <Route component={IdCheckPage} path={["/IdCheckPage"]} /> 
-      <Route component={IdCheckViewPage} path={["/IdCheckViewPage"]} />
+      <Route component={IdCheckViewPage} path={["/IdCheckViewPage"
+    ]} />
       <Route component={StreamingListPage} path={"/StreamingListPage"} />
       {/* 2021-11-23 비밀번호 찾기 페이지 추가*/}
       <Route component={PwdCheckPage} path={["/PwdCheckPage"]} />

@@ -123,6 +123,7 @@ const MainPage = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            fontFamily:'Noto Sans KR'
           }}
         >
           
