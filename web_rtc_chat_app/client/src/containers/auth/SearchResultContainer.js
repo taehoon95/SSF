@@ -145,7 +145,7 @@ const SearchResultContainer = () => {
       style={{marginTop: 100}}
     >
       <div className="container">
-        <h1>관련 동영상</h1>
+        <h1 style={{ color: "white" }}>관련 동영상</h1>
         <div className="row m-2">
           {items.map((data, idx) => (
             <Grid
@@ -220,7 +220,7 @@ const SearchResultContainer = () => {
       endMessage={<p>End!</p>}
     >
       <div className="container">
-        <h1>관련 동영상</h1>
+        <h1 style={{ color: "white" }}>관련 동영상</h1>
         <div className="row m-2">
           {items.map((data, idx) => (
 
