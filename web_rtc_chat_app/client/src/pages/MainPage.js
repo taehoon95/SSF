@@ -388,7 +388,7 @@ const MainPage = () => {
                     <img
                       src="https://ssfupload.s3.ap-northeast-2.amazonaws.com/streaming/NoStreaming.png"
                       alt="대체 이미지"
-                      style={{ height: "80%" }}
+                      style={{ height: "30vh", witdh: "20vw" }}
                     />
                   </div>
                 ) : (

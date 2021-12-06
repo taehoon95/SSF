@@ -141,11 +141,9 @@ const SearchResultContainer = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={loading && <Loader />}
-      endMessage={<p>End!</p>}
       style={{marginTop: 100}}
     >
       <div className="container">
-        <h1 style={{ color: "white" }}>관련 동영상</h1>
         <div className="row m-2">
           {items.map((data, idx) => (
             <Grid
@@ -217,10 +215,8 @@ const SearchResultContainer = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={loading && <Loader />}
-      endMessage={<p>End!</p>}
     >
       <div className="container">
-        <h1 style={{ color: "white" }}>관련 동영상</h1>
         <div className="row m-2">
           {items.map((data, idx) => (
 
