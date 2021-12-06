@@ -210,12 +210,6 @@ const StreamShow = () => {
                   </IconButton>
                 )}                
               </h1>
-// <<<<<<< chat
-//               <div>
-//                 <h1>{viewers-1}</h1> 
-//               </div>
-//             </div>
-// =======
               <Box display="flex" style={{ marginRight: 12 }} >
                 <PeopleAltRoundedIcon style={{ marginRight: 5, marginTop: 6 }}/>
                 <h3 style={{ marginTop: 4 }}>{viewers - 1}</h3>
