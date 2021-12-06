@@ -141,7 +141,6 @@ const SearchResultContainer = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={loading && <Loader />}
-      endMessage={<p>End!</p>}
       style={{marginTop: 100}}
     >
       <div className="container">
@@ -216,7 +215,6 @@ const SearchResultContainer = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={loading && <Loader />}
-      endMessage={<p>End!</p>}
     >
       <div className="container">
         <div className="row m-2">
