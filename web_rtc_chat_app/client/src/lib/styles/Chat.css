@@ -1,16 +1,42 @@
 
-.chat {
-  width: 300px;
-  height: 100vh;
-  overflow: hidden;
-}
+
 /*채팅 창 전체*/
-.messages {
-  box-sizing: border-box;
-  height: 80vh;
-  overflow-y: auto;
-  padding: 15px 10px;
-  border-left: 1px solid #464649;
+/* 2021-12-06 강동하 반응형 */
+/* Desktop */
+@media screen and (min-width: 768px) {
+  .chat {
+    width: 300px;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .messages {
+    box-sizing: border-box;
+    height: 80vh;
+    overflow-y: auto;
+    padding: 15px 10px;
+    border: 1px solid gray;
+    margin-left: 1%;
+  }
+}
+/* Mobile */
+@media screen and (max-width: 767px) {
+  .chat {
+    width: 99vw;
+    height: 48vh;
+    overflow: hidden;
+    margin-top: 1%;
+  }
+  .messages {
+    box-sizing: border-box;
+    height: 42vh;
+    overflow-y: auto;
+    /* padding: 15px 10px; */
+    /* border: 1px solid #464649; */
+    border: 1px solid gray;
+    padding-left: 1%;
+    padding-right: 1%;
+    margin-left: 1%;
+  }
 }
 
 /* 스크롤바 CSS */
@@ -33,6 +59,7 @@
 .footer {
   display: flex;
   border-radius: 5px;
+  margin-left: 1%;
 }
 
 /* 채팅 시 하얀색 */
