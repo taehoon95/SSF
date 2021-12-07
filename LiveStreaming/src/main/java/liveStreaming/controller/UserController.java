@@ -96,6 +96,7 @@ public class UserController {
 	public ResponseEntity<Object> pwdFind(@RequestBody UserDto user){
 
 		UserDto pwdfindUser = mapper.pwdFind(user);
+
 		if(pwdfindUser == null ){
 			return ResponseEntity.badRequest().body("에러");
 		}
@@ -104,7 +105,11 @@ public class UserController {
 	@PatchMapping("/pwdupdate")
 	public ResponseEntity<Object> pwdupdate(@RequestBody UserDto user) {
 
+		String pwd = passwordEncoder.encode(user.getU_pwd());
+		user.setU_pwd(pwd);
+
 		int pwdupdateUser = mapper.pwdupdate(user);
+
 		return ResponseEntity.ok(pwdupdateUser);
 	}
 	//비밀번호 찾기 페이지 아이디 여부 확인
