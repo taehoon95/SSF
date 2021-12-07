@@ -11,6 +11,7 @@ import java.util.List;
 public interface UserMapper {
 	// 2021 1116 이태훈
 	// 로그인
+	//UserDto loginUser(String u_id,String u_pwd);
 	UserDto loginUser(UserDto user);
 
 	// 2021 1118 강동하
