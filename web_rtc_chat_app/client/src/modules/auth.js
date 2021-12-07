@@ -206,7 +206,8 @@ const auth = handleActions(
             };
         },
           //비밀번호 변경 성공
-          [PWDUPDATECHECK_SUCCESS] : (state,{ payload:pwdupdate }) =>{                  
+          [PWDUPDATECHECK_SUCCESS] : (state,{ payload:pwdupdate }) =>{  
+              console.log(state);                
             return{                
                    ...state,
                   pwdupdateError:null,                              

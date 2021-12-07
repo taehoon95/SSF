@@ -60,15 +60,15 @@ const PwdCheckViewContainer = ({ history }) => {
   };
 
   const onsubmit = (e) => {
-    console.log('123');
     e.preventDefault();
+
     if(pwdcheckchecktext == ""){
       console.log('return');
       return;
     }
-   if(pwdchecktext == pwdcheckchecktext){
-     console.log('return1');
+   if(pwdchecktext == pwdcheckchecktext){    
      
+      setPwdCheckError("");
         dispatch(
           pwdupdatecheck({
             u_id,
@@ -76,7 +76,8 @@ const PwdCheckViewContainer = ({ history }) => {
             })
           );
         }
-     if(pwdcheck !== pwdcheckchecktext)  {
+     else if(pwdcheck != pwdcheckchecktext)  {
+       
        setPwdCheckError("비밀번호가 맞지 않습니다.");
      }
   };
@@ -121,7 +122,7 @@ const PwdCheckViewContainer = ({ history }) => {
       setPwdCheckCheck(null);
       setResultPwdCheck(1);
     } else {
-      setPwdCheckCheck("비밀번호가 맞지 않습니다.");
+      setPwdCheckCheck("비밀번호가 맞지 않습니다.123123");
       setResultPwdCheck(0);
     }
     setPwdcheckcheckTest(e.target.value);
