@@ -47,6 +47,7 @@ public class UserService {
 	}
 
 
+
 	public UserDto getByCredentials(final UserDto user, final PasswordEncoder encoder) {
 		final UserDto originalUser = mapper.pwdidcheck(user);
 		System.out.println(user);
@@ -55,7 +56,7 @@ public class UserService {
 //		PasswordEncoder B = originalUser.getU_pwd());
 		System.out.println(user.getU_pwd());
 		System.out.println(originalUser.getU_pwd());
-		
+
 		System.out.println(encoder.matches(user.getU_pwd(),originalUser.getU_pwd()));
 		if (originalUser != null && encoder.matches(user.getU_pwd(),originalUser.getU_pwd())) {
 			return mapper.checkUser(user);
