@@ -4,7 +4,6 @@
 
 package liveStreaming.controller;
 
-import liveStreaming.dto.VideoRecordDto;
 import liveStreaming.mapper.UserMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +40,14 @@ public class UserController {
 	//bean으로 작성해도 됨
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-	
+
 	// 20211118 강동하 회원가입 api
 	@PostMapping("/register")
 	public ResponseEntity<Object> registerUser(@RequestBody UserDto user){
-
+		String pwd = passwordEncoder.encode(user.getU_pwd());
+		log.info(pwd);
+		user.setU_pwd(pwd);
+		log.info(user.getU_pwd());
 		return ResponseEntity.ok(service.create(user));
 	}
 
@@ -58,11 +60,16 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<Object> loginUser(@RequestBody UserDto user){
-		 	user = service.getByCredentials(user, passwordEncoder);
+//				user.setU_pwd(passwordEncoder.encode(user.getU_pwd()));
+	 			user = service.getByCredentials(
+				user,
+				passwordEncoder);
+
 		 if(user != null) {
 			//토큰 생성
 			 final String token = tokenProvider.create(user);
 			 user.setToken(token);
+
 			return ResponseEntity.ok().body(user);
 		}else{
 			 return ResponseEntity.badRequest().body(user);
