@@ -22,7 +22,6 @@ public class S3Uploader {
 	private String bucket;
 
 	public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-//
 		File uploadFile = new File(multipartFile.getOriginalFilename());
 		uploadFile.createNewFile();
 		FileOutputStream fos = new FileOutputStream(uploadFile);
@@ -42,7 +41,6 @@ public class S3Uploader {
 
 		amazonS3Client.putObject(
 				new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-		System.out.println(1111);
 		return amazonS3Client.getUrl(bucket, fileName).toString();
 	}
 }

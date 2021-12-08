@@ -80,7 +80,9 @@ const LoginContainer = ({ history }) => {
       // console.log(auth);
        //history.push("/");
       try {
-        localStorage.setItem("auth", JSON.stringify(auth));
+        //localStorage.setItem("auth", JSON.stringify(auth));
+        
+        localStorage.setItem("token", auth.token);
         localStorage.setItem("u_id", auth.u_id);
 
         history.goBack();                         

@@ -66,8 +66,8 @@ const PwdCheckViewContainer = ({ history }) => {
       console.log('return');
       return;
     }
-   if(pwdchecktext == pwdcheckchecktext){    
-     
+
+   if(pwdchecktext == pwdcheckchecktext){         
       setPwdCheckError("");
         dispatch(
           pwdupdatecheck({
@@ -76,8 +76,7 @@ const PwdCheckViewContainer = ({ history }) => {
             })
           );
         }
-     else if(pwdcheck != pwdcheckchecktext)  {
-       
+     else if(pwdcheck != pwdcheckchecktext)  {       
        setPwdCheckError("비밀번호가 맞지 않습니다.");
      }
   };
