@@ -81,14 +81,6 @@ public class StreamingMapperTest {
 		}
 		Assertions.assertNotNull(list);
 	}
-	@Test
-	public void test06SelectByLcode() {
-		StreamingDto res = mapper.selectStreamingBylcode("ezBqnFMEcELeld9x5BK5f");
-		System.out.println(res);
-		Assertions.assertNotNull(res);
-	}
-	
-	
-	
+
 
 }

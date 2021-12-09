@@ -17,9 +17,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+//사용자의 정보를 받아 JWT를 생성
 public class TokenProvider {
     private static final String SECRET_KEY = "NMA8JPctFuna59f5";
-
+    // create
     public String create(UserDto user) {
         //기한은 지금부터 1일로 선정
         Date expridyDate = Date.from(
@@ -37,6 +38,7 @@ public class TokenProvider {
                 .compact();
 
     }
+
     public String validateAndGetUserId(String token){
         //parseClaimsJws 메서드가 Base64로 디코딩 및 파싱
         // 헤더와 페이로드를 setSigningKEy로 넘어온 시크릿을 이용해 서명한 후 token의 서명과 비교

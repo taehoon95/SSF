@@ -40,7 +40,7 @@ const SearchResultContainer = () => {
 
   //console.log(v_name);
   // 스크롤이 어느정도 내려오면 감지 해서 fetchData함수 실행
-  console.log(pageNum);
+  //console.log(pageNum);
   const fetchData = () => {
     setPageNum(pageNum + 1);
     if (!streamEnd && pageNum !== 0) {

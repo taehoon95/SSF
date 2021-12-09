@@ -4,7 +4,6 @@
 
 package liveStreaming.controller;
 
-import liveStreaming.dto.VideoRecordDto;
 import liveStreaming.mapper.UserMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +40,14 @@ public class UserController {
 	//bean으로 작성해도 됨
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-	
+
 	// 20211118 강동하 회원가입 api
 	@PostMapping("/register")
 	public ResponseEntity<Object> registerUser(@RequestBody UserDto user){
-
+		String pwd = passwordEncoder.encode(user.getU_pwd());
+		log.info(pwd);
+		user.setU_pwd(pwd);
+		log.info(user.getU_pwd());
 		return ResponseEntity.ok(service.create(user));
 	}
 
@@ -58,11 +60,16 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<Object> loginUser(@RequestBody UserDto user){
-		 	user = service.getByCredentials(user, passwordEncoder);
+//				user.setU_pwd(passwordEncoder.encode(user.getU_pwd()));
+	 			user = service.getByCredentials(
+				user,
+				passwordEncoder);
+
 		 if(user != null) {
 			//토큰 생성
 			 final String token = tokenProvider.create(user);
 			 user.setToken(token);
+
 			return ResponseEntity.ok().body(user);
 		}else{
 			 return ResponseEntity.badRequest().body(user);
@@ -89,6 +96,7 @@ public class UserController {
 	public ResponseEntity<Object> pwdFind(@RequestBody UserDto user){
 
 		UserDto pwdfindUser = mapper.pwdFind(user);
+
 		if(pwdfindUser == null ){
 			return ResponseEntity.badRequest().body("에러");
 		}
@@ -97,7 +105,11 @@ public class UserController {
 	@PatchMapping("/pwdupdate")
 	public ResponseEntity<Object> pwdupdate(@RequestBody UserDto user) {
 
+		String pwd = passwordEncoder.encode(user.getU_pwd());
+		user.setU_pwd(pwd);
+
 		int pwdupdateUser = mapper.pwdupdate(user);
+
 		return ResponseEntity.ok(pwdupdateUser);
 	}
 	//비밀번호 찾기 페이지 아이디 여부 확인

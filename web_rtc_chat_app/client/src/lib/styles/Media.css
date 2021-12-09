@@ -1,0 +1,10 @@
+@media screen and (min-width:600px){
+    .search{
+       font-size: 12px;
+       background-color: red;
+    }
+}
+
+.search{
+    background-color: red;
+}

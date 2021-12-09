@@ -9,6 +9,7 @@ import { Grid, Typography, Input } from "../../../node_modules/@material-ui/core
 import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 // 2021 1125 streaming 방만들기 이태훈 << 구대기
 // 2021-12-02 강동하 대규모 리팩토링2
@@ -195,6 +196,9 @@ const CreateaStreamContainer = () => {
         }}
       >
         <h2 style={{ textAlign: "center", marginBottom: 20,fontFamily:'Noto Sans KR' }}>실시간 방 만들기</h2>
+        <Button
+          onClick={() => window.open("https://fern-vanadium-ef2.notion.site/OBS-50200eb992404b39a5f9c4be906efc72", '_blank')}    
+        >OBS를 이용해 방송 키는 방법</Button>
         <div>
           <p>스트림 키</p>
           <TextField
