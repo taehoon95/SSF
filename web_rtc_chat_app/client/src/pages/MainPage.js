@@ -46,7 +46,6 @@ const MainPage = () => {
 
   useEffect(() => {
     setTime(location.state);
-    console.log(time);
   }, [location]);
 
   useEffect(() => {

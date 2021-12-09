@@ -22,6 +22,7 @@ public class S3Uploader {
 	private String bucket;
 
 	public String upload(MultipartFile multipartFile, String dirName) throws IOException {
+		// 파일을 받아와서 객체로 변환
 		File uploadFile = new File(multipartFile.getOriginalFilename());
 		uploadFile.createNewFile();
 		FileOutputStream fos = new FileOutputStream(uploadFile);

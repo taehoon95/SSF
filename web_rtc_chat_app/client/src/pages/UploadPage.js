@@ -68,19 +68,11 @@ const UploadPage = () => {
   // 20211124 윤성준 동영상, 이미지, 제목, 내용, 카테로그 api
   // 2021-11-29 강동하 영상 파일이름, 썸네일 파일이름 중복 로직
   const handleFileUpload = (VNumber, INumber) => {
-    // console.log("저장");
-    // console.log(VNumber);
-    // console.log(INumber);
-    // console.log(selectedVFile.name);
-    // console.log(selectedIFile.name);
-
     var VResult;
     var IResult;
-
     if(VNumber != 0) {
       let VFileSplit = selectedVFile.name.split('.');
         for ( let i in VFileSplit ) {
-          // console.log(VFileSplit[i]);
         }
       
       VResult = VFileSplit[0].concat(` (${VNumber}).${VFileSplit[1]}`);
@@ -88,28 +80,22 @@ const UploadPage = () => {
       VResult = selectedVFile.name;
     }
 
-    // console.log(VResult);
-
     if(INumber != 0) {
       let IFileSplit = selectedIFile.name.split('.');
         for ( let i in IFileSplit ) {
-          // console.log(IFileSplit[i]);
         }
-      
+        // 중복되는 이미지나 영상이 있으면 숫자 붙어서 올라감
       IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
     } else {
       IResult = selectedIFile.name;
     }
-    // console.log(IResult);
 
-    const videoData = new FormData();
+    // FormData() 객체 : 페이지 전환 없이 폼 데이터를 제출할 때 사용
+    const videoData = new FormData(); 
     const imgData = new FormData();
 
     videoData.append("file", selectedVFile, VResult);
     imgData.append("file", selectedIFile, IResult);
-    // console.log(selectedVFile);
-    // console.log("-----------------");
-    // console.log(selectedIFile);
     const url = "https://ssfupload.s3.ap-northeast-2.amazonaws.com/static/";
     const v_link = url + VResult;
     const v_img = url + IResult;
@@ -125,19 +111,13 @@ const UploadPage = () => {
       })
       .then((response) => {
         console.log(response);
-        // alert("업로드 성공");
         history.push('/MyPage');
       })
       .catch((error) => {
-        // alert("업로드 실패");
-        // console.log(error);
       });
 
-    // upload(formData)
-    // .then(res => console.log(res))
     axios
       .post("/api/upload", imgData, {
-        //.post("https://18.219.234.0:8080/api/upload", imgData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -146,27 +126,16 @@ const UploadPage = () => {
       .catch((err) => console.log(err));
     axios
       .post("/api/upload", videoData, {
-        //.post("https://18.219.234.0:8080/api/upload", videoData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-    // console.log(selectCategory);
-    // console.log(inputTitle);
-    // console.log(inputContent);
-
-    // console.log("------------------------");
-    // console.log(url + selectedVFile.name);
-    // console.log(url + selectedIFile.name);
-    // console.log("------------------------");
   };
 
   // 2021-11-29 강동하 정규표현식 및 중복체크
   const Click = (e) => {
-    //console.log(e.currentTarget);
     if (inputTitle == "") {
       e.preventDefault();
       alert("제목을 입력해주세요.");
