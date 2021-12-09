@@ -17,7 +17,7 @@
         select * from ssf_schema.video_upload where v_state=1 and v_name LIKE CONCAT('%',#{v_name},'%');
     </select>
 
-    <!-- List Delete -->
+    <!-- List Delete 영상 삭제 -->
     <update id="videoDelete" parameterType="liveStreaming.dto.VideoRecordDto">
         update ssf_schema.video_upload 
             set v_state = 0 

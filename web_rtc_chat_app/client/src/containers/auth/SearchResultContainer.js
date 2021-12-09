@@ -80,8 +80,8 @@ const SearchResultContainer = () => {
         console.log(items.length);
   };
 
-  // 비디오 값 받아오기
 
+  // 비디오 값 받아오기
   const getVideos = useCallback((items, v_name) => {
     console.log(items);
     console.log(items.length === 0);
