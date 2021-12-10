@@ -28,7 +28,9 @@ public class S3Controller {
 	@CrossOrigin(origins = "*")
 	@PostMapping("/upload")
 	public ResponseEntity<Object> upload(@RequestParam(value = "file") MultipartFile multipartFile) throws IOException {
-		return ResponseEntity.ok(s3Uploader.upload(multipartFile, "static"));
+		
+		return null;
+//		return ResponseEntity.ok(s3Uploader.upload(multipartFile, "static"));
 	}
 
 	@CrossOrigin(origins="*")

@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { change, cut, insertStreaming, showStreamingByLnum } from "../../modules/streaming";
+import { change, insertStreaming, showStreamingByLnum } from "../../modules/streaming";
 import { nanoid } from "nanoid";
 import { useHistory } from "react-router";
 import { SocketContext } from "../../SocketContext";
@@ -9,8 +9,9 @@ import { Grid, Typography, Input } from "../../../node_modules/@material-ui/core
 import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
+import { Alert } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import IconButton from '@material-ui/core/IconButton';
 // 2021 1125 streaming 방만들기 이태훈 << 구대기
 // 2021-12-02 강동하 대규모 리팩토링2
 
@@ -41,7 +42,7 @@ const CreateaStreamContainer = () => {
   const [selectedIFile, setSelectedIFile] = useState(null); // 이미지
   const [img, setImg] = useState(""); // 이미지
   const [streamKey, setStreamKey] = useState(nano); // 스트림키인 l_code 재발급용
-  const [setting, setSetting] = useState("");
+  const [copy, setCopy] = useState(false);
 
   const {streamInfo, l_code, u_id, l_title, l_description, l_img } = useSelector((state) => ({
     //imgTransf:state.streaming.streamInfo.l_img,
@@ -94,29 +95,35 @@ const CreateaStreamContainer = () => {
   // 2021-12-02 강동하 썸네일 이미지 업로드
   // 2021-12-02 강동하 썸네일 이미지 onChange
   const handleImgChange = (e) => {
-    // console.log(e.target.files[0]);
-    setSelectedIFile(e.target.files[0]);
+    // setSelectedIFile(e.currentTarget.files[0]);
+    // console.log(e.currentTarget.files[0]);
+    // console.log(selectedIFile);
+    if(!fileNameCheck(e.currentTarget.files[0])) {
+      console.log(222);
+      setSelectedIFile("");
+    }
   };
 
-  useEffect(()=>{
-    selectedIFile && fileNameCheck();
-    //console.log(selectedIFile);
-  }, [selectedIFile])
+  // useEffect(()=>{
+  //   selectedIFile && fileNameCheck();
+  //   //console.log(selectedIFile);
+  // }, [selectedIFile])
 
   // useEffect(()=>{
   //   console.log("바뀜");
   // }, [imgTransf])
 
     // 2021-12-02 강동하 썸네일 이미지 파일 정규표현식 및 중복체크
-    const fileNameCheck = (e) => {
-      //console.log(e.currentTarget);
-      if (selectedIFile != null) {
+    const fileNameCheck = (filename) => {
+      console.log(filename);
+      if (filename !== null) {
         let imegePattern = /(.png|.jpg|.jpeg|.gif|.bmp|.dib|.tif|.tiff)$/;
-        if(imegePattern.test(selectedIFile.name) !== true) {
+        if(imegePattern.test(filename.name) !== true) {
           alert("이미지 파일을 확인해주세요. \n\n사용가능 파일 : PNG, JPG, JPEG, GIF, BMP, DIB, TIF, TIFF");
+          return false;
         }
         else {
-          let imagePreProcess = selectedIFile.name.replace(imegePattern, "");
+          let imagePreProcess = filename.name.replace(imegePattern, "");
           // 썸네일 파일이름 중복체크
           axios.get(`/api/streamfilename/${imagePreProcess}`)
           .then(response => {
@@ -126,13 +133,13 @@ const CreateaStreamContainer = () => {
             // console.log(INumber);
             if(INumber != 0) {
               INumber = INumber + 1;
-              let IFileSplit = selectedIFile.name.split('.');
+              let IFileSplit = filename.name.split('.');
                 // for ( let i in IFileSplit ) {
                 //   console.log(IFileSplit[i]);
                 // }
               var IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
             } else {
-              var IResult = selectedIFile.name;
+              var IResult = filename.name;
             }
             // console.log(IResult);
             setImg(IResult);
@@ -146,7 +153,8 @@ const CreateaStreamContainer = () => {
             // console.log(error);
           })
         }
-      } 
+      }
+      return true; 
     }
 
     // 2021-12-02 강동하 썸네일 이미지 파일 저장
@@ -180,14 +188,21 @@ const CreateaStreamContainer = () => {
       console.log(streamKey);
       console.log(streamKey === "");
       streamKey && dispatch(change({ name:"l_code", value:streamKey }));
+      setCopy(false);
     }
-
+    const textAreaRef = useRef();
+    const keyCopy = (e) => {
+      textAreaRef.current.select();
+      document.execCommand("copy");
+      textAreaRef.current.focus();
+      setCopy(true);
+    }
+    const noPointer = {cursor: 'default'};
   return (
     <div>
       <Container
         component="main"
         maxWidth="xs"
-        
         style={{
           background: "#FFFF",
           borderRadius: 5,
@@ -195,21 +210,38 @@ const CreateaStreamContainer = () => {
           height: "100%",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: 20,fontFamily:'Noto Sans KR' }}>실시간 방 만들기</h2>
+        <div>
+          <h2 style={{ paddingTop: "5%", marginBottom: "2%",textAlign: "center", fontFamily:'Noto Sans KR' }}>실시간 방 만들기</h2>
+        </div>
         <Button
           onClick={() => window.open("https://fern-vanadium-ef2.notion.site/OBS-50200eb992404b39a5f9c4be906efc72", '_blank')}    
         >OBS를 이용해 방송 키는 방법</Button>
-        <div>
           <p>스트림 키</p>
+
+        <div style={{display: "flex",
+              justifyContent: "space-between"}}>
           <TextField
+            style={{marginTop: "3%"}}
+            InputProps={{ disableUnderline: true }}
             fullWidth
+            onClick={keyCopy}
+            id="outlined-basic"
             name="l_code"
             value={l_code}
+            inputRef={textAreaRef}
+            readOnly
           />
+          <IconButton style={noPointer} tooltip="clipboard copy">
+            <ContentCopyIcon style={noPointer} onClick={keyCopy} />
+          </IconButton>
         </div>
+          {copy &&
+          <Alert severity="success">
+            <strong>copy</strong>
+          </Alert>}
         <div style={{ textAlign: "center" }}>
           <Button
-            style={{ marginTop: 30, marginBottom: 20 }}
+            style={{ marginTop: 5, marginBottom: 20 }}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
@@ -252,8 +284,8 @@ const CreateaStreamContainer = () => {
                 required
                 onChange={handleImgChange}
                 style={{ width: '100%' }}
+                value={selectedIFile}
               />
-              
             </Grid>
 
         <div style={{ textAlign: "center" }}>
