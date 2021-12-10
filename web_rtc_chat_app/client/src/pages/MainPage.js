@@ -15,7 +15,6 @@ import axios from "../../node_modules/axios/index";
 import Header from "../components/common/Header";
 import { showstreaming } from "../modules/streaming";
 import { ContextProvider } from "../SocketContext";
-
 import { config } from "react-spring";
 import Carousel from "react-spring-3d-carousel";
 import { nanoid } from "nanoid";
@@ -26,6 +25,12 @@ const MainPage = () => {
   const [myList, setMyList] = useState([]);
   const [myTopList, setMyTopList] = useState([]);
   const [liveVideoShow, setLiveVideoShow] = useState([]);
+  const [state, setState] = useState({
+    goToSlide: 0,
+    offsetRadius: 2,
+    showNavigation: true,
+    config: config.gentle,
+  });
 
   // 2021-12-05 강동하 홈 버튼 리렌더링
   const [time, setTime] = useState(1);
@@ -41,7 +46,6 @@ const MainPage = () => {
 
   useEffect(() => {
     setTime(location.state);
-    console.log(time);
   }, [location]);
 
   useEffect(() => {
@@ -104,12 +108,6 @@ const MainPage = () => {
       });
   };
 
-  const [state, setState] = useState({
-    goToSlide: 0,
-    offsetRadius: 2,
-    showNavigation: true,
-    config: config.gentle,
-  });
 
   // 데스크탑 전용
   let slides = [

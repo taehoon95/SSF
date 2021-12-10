@@ -65,7 +65,6 @@ const StreamShow = () => {
   // 3. buildPlayer로 방송 실행
   const usersocket = socketRef.id;
   useEffect(() => {
-    console.log(1111111111111111);
     setOffStreaming(false);
     socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
@@ -73,7 +72,6 @@ const StreamShow = () => {
   }, [offStreaming]);
   
   useEffect(() => {
-    console.log(33333333333);
     setOffStreaming(false);
     socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
@@ -363,7 +361,7 @@ const StreamShow = () => {
               </h3>
               <Box display="flex" style={{ marginRight: 12 }} >
                 <PeopleAltRoundedIcon style={{ marginRight: 5, marginTop: 6 }}/>
-                <h4 style={{ marginTop: 4 }}>{viewers - 1}</h4>
+                <h4 style={{ marginTop: 4 }}>{viewers}</h4>
               </Box>
             </Box>
             <Box>

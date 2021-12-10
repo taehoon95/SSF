@@ -22,7 +22,7 @@ public class S3Uploader {
 	private String bucket;
 
 	public String upload(MultipartFile multipartFile, String dirName) throws IOException {
-//
+		// 파일을 받아와서 객체로 변환
 		File uploadFile = new File(multipartFile.getOriginalFilename());
 		uploadFile.createNewFile();
 		FileOutputStream fos = new FileOutputStream(uploadFile);
@@ -32,17 +32,14 @@ public class S3Uploader {
 	}
 
 	private String upload(File uploadFile, String dirName) {
-
 		String fileName = dirName + "/" + uploadFile.getName();
 		String uploadImageUrl = putS3(uploadFile, fileName);
 		return uploadImageUrl;
 	}
 
 	private String putS3(File uploadFile, String fileName) {
-
 		amazonS3Client.putObject(
 				new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
-		System.out.println(1111);
 		return amazonS3Client.getUrl(bucket, fileName).toString();
 	}
 }

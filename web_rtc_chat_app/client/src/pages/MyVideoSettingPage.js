@@ -4,31 +4,27 @@
 // 윤성준
 // 내 영상 관리 페이지 추가
 import { useEffect, useState } from "react";
-
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   Box,
   Button,
-  Grid,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableFooter,
   TableHead,
-  TablePagination,
   TableRow,
   Typography,
-  Modal
+  Modal,
 } from "../../node_modules/@material-ui/core/index";
 import axios from "../../node_modules/axios/index";
 import Header from "../components/common/Header";
-import { videorecord } from "../lib/api/videoRecord";
 import Pagination from "./Pagination";
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import { deletevideo } from "../modules/videodelete";
 
 const PageUl = styled.ul`
   float: left;
@@ -87,12 +83,14 @@ const MyVideoSettingPage = ({ history }) => {
   const u_id = localStorage.getItem("u_id");
   const [myList, setMyList] = useState([]);
 
+  const dispatch = useDispatch();
+
   // 2021-12-01 윤성준 pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(5); // 한 페이지당 보여줄 게시물 수
   const [DeleteId, setDeleteId] = useState("");
   const [DeleteName, setDeleteName] = useState("");
-  const [nextPagevalue,setNextPageValue] = useState("");
+  const [nextPagevalue, setNextPageValue] = useState("");
   const [open, setOpen] = useState(false);
 
   const indexOfLast = currentPage * postsPerPage;
@@ -103,23 +101,14 @@ const MyVideoSettingPage = ({ history }) => {
     return currentPosts;
   }
 
-  const plusPage = () => {    
-    
+  const plusPage = () => {
     setCurrentPage(currentPage + 1);
-    
   };
 
-  useEffect(()=>{
-    setNextPageValue(currentPage);
-    console.log(nextPagevalue);
-    console.log(currentPage);
-    
-  },[currentPage])
-
   const nextbutton = () => {
-    if (currentPage < Math.ceil(myList.length / 5) ) {
-      setCurrentPage(currentPage + 1);     
-    } else if(currentPage === nextPagevalue){
+    if (currentPage < Math.ceil(myList.length / 5)) {
+      setCurrentPage(currentPage + 1);
+    } else if (currentPage === nextPagevalue) {
       return;
     }
   };
@@ -129,14 +118,20 @@ const MyVideoSettingPage = ({ history }) => {
     }
   };
 
-  const handleOpen = (e) => { 
+  const handleOpen = (e) => {
     setDeleteId(u_id);
     setDeleteName(e.currentTarget.name);
-    setOpen(true);        
+    setOpen(true);
   };
   const handleClose = (e) => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    setNextPageValue(currentPage);
+    // console.log(nextPagevalue);
+    // console.log(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     myVideoList();
@@ -152,40 +147,16 @@ const MyVideoSettingPage = ({ history }) => {
         // console.log(11111);
       })
       .catch((error) => {
-       //alert("record 가져오기 실패");
+        //alert("record 가져오기 실패");
         // console.log(error);
       });
   };
 
-
-  // VideoList 삭제
-  const deleteListLine = (u_id, v_code) => {
-    // console.log(v_code);
-    axios
-      .post(`/api/videoDelete`, { u_id, v_code })
-      //.post(`https://18.219.234.0:8080/api/videoDelete`, { u_id, v_code})
-      .then((response) => {
-        // videorecord(u_id)
-        setMyList(response.data);
-        // console.log(response.data);
-        myVideoList();
-        alert(`삭제되었습니다.`);
-      })
-      .catch((error) => {
-        // alert("삭제 실패");
-        // console.log(error);
-      });
-  };
-
-  
-
-  // VideoList 삭제
+  // VideoList 삭제 handler
   const deleteListLine2 = (e) => {
     e.preventDefault();
-    // console.log(e.currentTarget.name);
-    // deleteListLine(u_id, e.currentTarget.name);
-    deleteListLine(DeleteId, DeleteName);
-    // console.log(DeleteId, DeleteName);
+    dispatch(deletevideo(DeleteId, DeleteName));
+    myVideoList();
     setOpen(false);
   };
 
@@ -210,14 +181,14 @@ const MyVideoSettingPage = ({ history }) => {
             variant="h6"
             component="h2"
             marginBottom="50"
-            style={{fontFamily:'Noto Sans KR'}}
+            style={{ fontFamily: "Noto Sans KR" }}
           >
             정말로 영상을 삭제하시겠습니까?
           </Typography>
           <br />
           <Button
             onClick={deleteListLine2}
-            color={'primary'}
+            color={"primary"}
             type="submit"
             variant="contained"
           >
@@ -225,7 +196,7 @@ const MyVideoSettingPage = ({ history }) => {
           </Button>
           <Button
             onClick={handleClose}
-            color={'primary'}
+            color={"primary"}
             type="submit"
             variant="contained"
             style={{ marginLeft: 30 }}
@@ -238,116 +209,165 @@ const MyVideoSettingPage = ({ history }) => {
         <Table size="small">
           <TableHead>
             <TableRow>
-              {/* <TableCell align="center">
-                <Typography variant="h5" style={{ color: "white" }}>
-                  코드번호
-                </Typography>
-              </TableCell> */}
               <TableCell align="center">
-                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
+                <Typography
+                  variant="h5"
+                  style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                >
                   이미지
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
+                <Typography
+                  variant="h5"
+                  style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                >
                   영상 제목
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
+                <Typography
+                  variant="h5"
+                  style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                >
                   등록 날짜
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
+                <Typography
+                  variant="h5"
+                  style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                >
                   조회수
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
+                <Typography
+                  variant="h5"
+                  style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                >
                   수정
                 </Typography>
               </TableCell>
               <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h5" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
+                <Typography
+                  variant="h5"
+                  style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                >
                   삭제
                 </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
 
-          {currentPosts(myList).map((data, idx) => (
-            <TableBody style={{ borderColor: "gray" }} >
-              {/* <TableCell align="center" style={{ color: "white" }}>
-                <Typography variant="h6" style={{ color: "white" }}>
-                  {data.v_code}
-                </Typography>
-              </TableCell> */}
-              <TableCell style={{ borderColor: "gray" }} align="center" height="100">
-                <Link
-                  to={`/WatchPage2/${data.v_code}`}
-                  style={{ textDecoration: "none" }}
+          {myList &&
+            currentPosts(myList).map((data, idx) => (
+              <TableBody style={{ borderColor: "gray" }}>
+                <TableCell
+                  style={{ borderColor: "gray" }}
+                  align="center"
+                  height="100"
                 >
-                  <img src={data.v_img}  width="200" style={{ marginTop: 7 }} />
-                </Link>
-              </TableCell>
-              <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
-                <Typography
-                  component={Link}
-                  to={`/WatchPage2/${data.v_code}`}
-                  variant="h6"
-                  style={{ color: "white", textDecoration: "none",fontFamily:'Noto Sans KR' }}
+                  <Link
+                    to={`/WatchPage2/${data.v_code}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <img
+                      src={data.v_img}
+                      width="200"
+                      style={{ marginTop: 7 }}
+                    />
+                  </Link>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ color: "white", borderColor: "gray" }}
                 >
-                  {data.v_name}
-                </Typography>
-              </TableCell>
-              <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
-                <Typography variant="h6" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
-                  {data.v_date}
-                </Typography>
-              </TableCell>
-              <TableCell align="center" style={{ color: "white", borderColor: "gray"  }}>
-                <Typography variant="h6" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
-                  {data.v_views} 회
-                </Typography>
-              </TableCell>
-              <TableCell style={{ borderColor: "gray" }} align="center">
-                <Button
-                  type="button"
-                  onClick={onUpdate}
-                  variant="contained"
-                  name={data.v_code}
-                  color="primary"
-                  style={{fontFamily:'Noto Sans KR'}}
+                  <Typography
+                    component={Link}
+                    to={`/WatchPage2/${data.v_code}`}
+                    variant="h6"
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                      fontFamily: "Noto Sans KR",
+                    }}
+                  >
+                    {data.v_name}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ color: "white", borderColor: "gray" }}
                 >
-                  수정
-                </Button>
-
-                {/* <input type="button" onClick={onUpdate} value="수정" name={data.v_code} /> */}
-              </TableCell>
-              <TableCell style={{ borderColor: "gray" }} align="center">
-                <Button
-                  type="button"
-                  name={data.v_code}
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleOpen}
-                  style={{fontFamily:'Noto Sans KR'}}
+                  <Typography
+                    variant="h6"
+                    style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                  >
+                    {data.v_date}
+                  </Typography>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ color: "white", borderColor: "gray" }}
                 >
-                  삭제
-                </Button>
-              </TableCell>
-            </TableBody>
-          ))}
+                  <Typography
+                    variant="h6"
+                    style={{ color: "white", fontFamily: "Noto Sans KR" }}
+                  >
+                    {data.v_views} 회
+                  </Typography>
+                </TableCell>
+                <TableCell style={{ borderColor: "gray" }} align="center">
+                  <Button
+                    type="button"
+                    onClick={onUpdate}
+                    variant="contained"
+                    name={data.v_code}
+                    color="primary"
+                    style={{ fontFamily: "Noto Sans KR" }}
+                  >
+                    수정
+                  </Button>
+                </TableCell>
+                <TableCell style={{ borderColor: "gray" }} align="center">
+                  <Button
+                    type="button"
+                    name={data.v_code}
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleOpen}
+                    style={{ fontFamily: "Noto Sans KR" }}
+                  >
+                    삭제
+                  </Button>
+                </TableCell>
+              </TableBody>
+            ))}
         </Table>
       </TableContainer>
-      
+
       {/* {페이징} */}
-      <div style={{ width: "100%", display: "flex", justifyContent: "center",position:'fixed',bottom:0 }}>
-        <PageUl style={{ marginTop: 20, marginBottom: 20,fontFamily:'Noto Sans KR' }}>
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          bottom: 0,
+        }}
+      >
+        <PageUl
+          style={{
+            marginTop: 20,
+            marginBottom: 20,
+            fontFamily: "Noto Sans KR",
+          }}
+        >
           <PageLi onClick={backbutton}>
-              <PageSpan className="page-link"><NavigateBeforeIcon/></PageSpan>         
-        </PageLi>
+            <PageSpan className="page-link">
+              <NavigateBeforeIcon />
+            </PageSpan>
+          </PageLi>
         </PageUl>
         <Pagination
           postsPerPage={postsPerPage}
@@ -357,10 +377,11 @@ const MyVideoSettingPage = ({ history }) => {
           plusPage={plusPage}
         />
         <PageUl style={{ marginTop: 20, marginBottom: 20 }}>
-            <PageLi onClick={nextbutton}>
-              <PageSpan><NavigateNextIcon/></PageSpan>
-            </PageLi>
-      
+          <PageLi onClick={nextbutton}>
+            <PageSpan>
+              <NavigateNextIcon />
+            </PageSpan>
+          </PageLi>
         </PageUl>
       </div>
     </>
