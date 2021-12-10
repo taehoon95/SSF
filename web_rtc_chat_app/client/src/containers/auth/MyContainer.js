@@ -13,26 +13,7 @@ import {
 
 const MyContainer = () => {
   const u_id = localStorage.getItem("u_id");
-
   const [myList, setMyList] = useState([]);
-
-  useEffect(() => {
-    myVideoList();
-  }, []);
-
-  const myVideoList = () => {
-    axios
-      //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
-      .get(`/api/videorecord/${u_id}`)
-      .then((response) => {
-        //alert("record 가져오기 성공ㅎㅎ");
-        setMyList(response.data);
-      })
-      .catch((error) => {
-        // alert("record 가져오기 실패");
-        // console.log(error);
-      });
-  };
 
   //2021-11-21 강동하 마이페이지 탑5 영상 조회
   const [data2, setData2] = useState([]);
@@ -40,9 +21,13 @@ const MyContainer = () => {
   const [test, setTest] = useState([]);
 
   useEffect(() => {
+    myVideoList();
+  }, []);
+
+  useEffect(() => {
     myVideoViews();
   }, []);
-  
+
   // 2021-12-01 강동하 차트 색 수정
   useEffect(() => {
     f1();
@@ -87,18 +72,23 @@ const MyContainer = () => {
     setTest(1);
   }, [myViews]);
 
-  let resultname = [];
-  let resultviews = [];
-  const f1 = () => {
-    resultname = myViews.map((x) => x.v_name);
-    resultviews = myViews.map((x) => x.v_views);
-    // console.log(resultname);
-    // console.log(resultviews);
+  // 내 영상 리스트 슬라이더 api
+  const myVideoList = () => {
+    axios
+      .get(`/api/videorecord/${u_id}`)
+      .then((response) => {
+        //alert("record 가져오기 성공ㅎㅎ");
+        setMyList(response.data);
+      })
+      .catch((error) => {
+        // alert("record 가져오기 실패");
+        // console.log(error);
+      });
   };
 
+  // 강동하 영상 조회수 차트 api
   const myVideoViews = () => {
     axios
-      //.get(`https://18.219.234.0:8080/api/videoviews/${u_id}`)
       .get(`/api/videoviews/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
@@ -109,6 +99,13 @@ const MyContainer = () => {
         // alert("record 가져오기 실패");
         // console.log(error);
       });
+  };
+
+  let resultname = [];
+  let resultviews = [];
+  const f1 = () => {
+    resultname = myViews.map((x) => x.v_name);
+    resultviews = myViews.map((x) => x.v_views);
   };
 
   // slider 속성
@@ -137,51 +134,55 @@ const MyContainer = () => {
           />
           <style>{cssstyle}</style>
 
-            <Grid item>
-              <Typography variant="h4" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
-                내 영상 리스트
-              </Typography>
-            </Grid>
-            <br />
-            <Slider {...settings}>
-              {myList.map((data, idx) => (
-                <div key={idx}>
-                  <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
-                    <Link
-                      to={`/WatchPage2/${data.v_code}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <img src={data.v_img} width="320" height="200" />
-                      <h3 style={{ color: "white", marginTop: 3 }}>
-                        {data.v_name}
-                      </h3>
-                      <h4 style={{ color: "gray", marginTop: 2 }}>
-                        조회수 : &nbsp;
-                        {data.v_views}
-                        &nbsp; - &nbsp;
-                        {data.v_date}
-                      </h4>
-                    </Link>
-                  </Grid>
-                </div>
-              ))}
-            </Slider>
-
-          {/* <p/><p/><p/><h2>내 영상 조회수 차트</h2> */}
+          <Grid item>
+            <Typography
+              variant="h4"
+              style={{ color: "white", fontFamily: "Noto Sans KR" }}
+            >
+              내 영상 리스트
+            </Typography>
+          </Grid>
+          <br />
+          <Slider {...settings}>
+            {myList.map((data, idx) => (
+              <div key={idx}>
+                <Grid item style={{ marginLeft: 30, marginTop: 10 }}>
+                  <Link
+                    to={`/WatchPage2/${data.v_code}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <img src={data.v_img} width="320" height="200" />
+                    <h3 style={{ color: "white", marginTop: 3 }}>
+                      {data.v_name}
+                    </h3>
+                    <h4 style={{ color: "gray", marginTop: 2 }}>
+                      조회수 : &nbsp;
+                      {data.v_views}
+                      &nbsp; - &nbsp;
+                      {data.v_date}
+                    </h4>
+                  </Link>
+                </Grid>
+              </div>
+            ))}
+          </Slider>
 
           {/* 2021-12-01 강동하 차트 색 수정 */}
         </div>
         <div className="container" style={{ marginTop: 25 }}>
           <p />
-              <Grid item>
-                <Typography variant="h4" style={{ color: "white",fontFamily:'Noto Sans KR' }}>
-                  내 영상 조회수
-                </Typography>
-              </Grid>
-              <br />
+          <Grid item>
+            <Typography
+              variant="h4"
+              style={{ color: "white", fontFamily: "Noto Sans KR" }}
+            >
+              내 영상 조회수
+            </Typography>
+          </Grid>
+          <br />
           {data2.labels == undefined && test != 1 ? null : (
             <MDBContainer>
-              <Grid item style={{ marginLeft: -50}}>
+              <Grid item style={{ marginLeft: -50 }}>
                 <Bar
                   data={data2.dataHorizontal}
                   options={{

@@ -23,10 +23,8 @@ import { useHistory } from "react-router-dom";
 import { Container, Grid } from "../../node_modules/@material-ui/core/index";
 import Header from "../components/common/Header";
 
-
 const UploadPage = () => {
   const history = useHistory();
-
   const u_id = localStorage.getItem("u_id");
   const [selectedVFile, setSelectedVFile] = useState(null); // 동영상
   const [selectedIFile, setSelectedIFile] = useState(null); // 이미지
@@ -70,28 +68,28 @@ const UploadPage = () => {
   const handleFileUpload = (VNumber, INumber) => {
     var VResult;
     var IResult;
-    if(VNumber != 0) {
-      let VFileSplit = selectedVFile.name.split('.');
-        for ( let i in VFileSplit ) {
-        }
-      
+    if (VNumber != 0) {
+      let VFileSplit = selectedVFile.name.split(".");
+      for (let i in VFileSplit) {
+      }
+
       VResult = VFileSplit[0].concat(` (${VNumber}).${VFileSplit[1]}`);
     } else {
       VResult = selectedVFile.name;
     }
 
-    if(INumber != 0) {
-      let IFileSplit = selectedIFile.name.split('.');
-        for ( let i in IFileSplit ) {
-        }
-        // 중복되는 이미지나 영상이 있으면 숫자 붙어서 올라감
+    if (INumber != 0) {
+      let IFileSplit = selectedIFile.name.split(".");
+      for (let i in IFileSplit) {
+      }
+      // 중복되는 이미지나 영상이 있으면 숫자 붙어서 올라감
       IResult = IFileSplit[0].concat(` (${INumber}).${IFileSplit[1]}`);
     } else {
       IResult = selectedIFile.name;
     }
 
     // FormData() 객체 : 페이지 전환 없이 폼 데이터를 제출할 때 사용
-    const videoData = new FormData(); 
+    const videoData = new FormData();
     const imgData = new FormData();
 
     videoData.append("file", selectedVFile, VResult);
@@ -111,10 +109,9 @@ const UploadPage = () => {
       })
       .then((response) => {
         console.log(response);
-        history.push('/MyPage');
+        history.push("/MyPage");
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
 
     axios
       .post("/api/upload", imgData, {
@@ -155,43 +152,47 @@ const UploadPage = () => {
       //let videoPattern = /.+(.MP4|.MOV|.WMV|.AVI|.AVCHD|.FLV|.F4V|.SWF|.MKV|.WEBM|.HTML5|.MPEG-2|.VID|.mp4|.mov|.wmv|.avi|.avchd|.flv|.f4v|.swf|.mkv|.webm|.html5|.mpeg-2|.vid)$/;
       // .+ 공백 체크
       //let videoPattern = /.+(.mp4|.mov|.wmv|.avi|.avchd|.flv|.f4v|.swf|.mkv|.webm|.html5|.mpeg-2|.vid)$/;
-      let videoPattern = /(.mp4|.mov|.wmv|.avchd|.flv|.f4v|.swf|.mkv|.webm|.html5|.mpeg-2|.vid)$/;
+      let videoPattern =
+        /(.mp4|.mov|.wmv|.avchd|.flv|.f4v|.swf|.mkv|.webm|.html5|.mpeg-2|.vid)$/;
       //let imegePattern = /.+(.PNG|.JPG|.JPEG|.GIF|.BMP|.DIB|.TIF|.TIFF)$/;
       let imegePattern = /(.png|.jpg|.jpeg|.gif|.bmp|.dib|.tif|.tiff)$/;
-      if(videoPattern.test(selectedVFile.name) !== true) {
-        alert("동영상 파일을 확인해주세요. \n\n사용가능 파일 : MP4, MOV, WMV, AVCHD, FLV, F4V, VID,\n                     SWF, MKV, WEBM, HTML5, MPEG-2");
-      }
-      else if(imegePattern.test(selectedIFile.name) !== true) {
-        alert("이미지 파일을 확인해주세요. \n\n사용가능 파일 : PNG, JPG, JPEG, GIF, BMP, DIB, TIF, TIFF");
-      }
-      else {
+      if (videoPattern.test(selectedVFile.name) !== true) {
+        alert(
+          "동영상 파일을 확인해주세요. \n\n사용가능 파일 : MP4, MOV, WMV, AVCHD, FLV, F4V, VID,\n                     SWF, MKV, WEBM, HTML5, MPEG-2"
+        );
+      } else if (imegePattern.test(selectedIFile.name) !== true) {
+        alert(
+          "이미지 파일을 확인해주세요. \n\n사용가능 파일 : PNG, JPG, JPEG, GIF, BMP, DIB, TIF, TIFF"
+        );
+      } else {
         let videoPreProcess = selectedVFile.name.replace(videoPattern, "");
         let imagePreProcess = selectedIFile.name.replace(imegePattern, "");
         // 영상 제목 중복 체크
-        axios.get(`/api/videonamecheck/${inputTitle}`)
+        axios
+          .get(`/api/videonamecheck/${inputTitle}`)
           .then((response) => {
-            if(response.data.length == 0){
+            if (response.data.length == 0) {
               // 영상 파일이름, 썸네일 파일이름 중복체크
-              axios.get(`/api/filename/${videoPreProcess}/${imagePreProcess}`)
-              .then(response => {
-                let VNumber = response.data[0].body;
-                let INumber = response.data[1].body;
-                if(VNumber != 0){
-                  VNumber = VNumber + 1;
-                }
-                if(INumber != 0){
-                  INumber = INumber + 1;
-                }
-                console.log(VNumber);
-                console.log(INumber);
-                handleFileUpload(VNumber, INumber);
-              })
-              .catch(error => {
-                // console.log(error);
-              })
-            }
-            else{
-              alert("해당 영상 제목이 존재합니다. \n영상 제목을 변경해주세요.")
+              axios
+                .get(`/api/filename/${videoPreProcess}/${imagePreProcess}`)
+                .then((response) => {
+                  let VNumber = response.data[0].body;
+                  let INumber = response.data[1].body;
+                  if (VNumber != 0) {
+                    VNumber = VNumber + 1;
+                  }
+                  if (INumber != 0) {
+                    INumber = INumber + 1;
+                  }
+                  console.log(VNumber);
+                  console.log(INumber);
+                  handleFileUpload(VNumber, INumber);
+                })
+                .catch((error) => {
+                  // console.log(error);
+                });
+            } else {
+              alert("해당 영상 제목이 존재합니다. \n영상 제목을 변경해주세요.");
             }
           })
           .catch((error) => {
@@ -199,7 +200,7 @@ const UploadPage = () => {
           });
       }
     }
-  }
+  };
 
   return (
     <>
@@ -224,7 +225,11 @@ const UploadPage = () => {
           >
             {/* 제목 입력 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
-              <Typography textAlign="left" variant="h5" style={{fontFamily:'Noto Sans KR'}}>
+              <Typography
+                textAlign="left"
+                variant="h5"
+                style={{ fontFamily: "Noto Sans KR" }}
+              >
                 제목
               </Typography>
             </Grid>
@@ -242,7 +247,9 @@ const UploadPage = () => {
 
             {/* 내용 입력 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
-              <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>내용</Typography>
+              <Typography variant="h5" style={{ fontFamily: "Noto Sans KR" }}>
+                내용
+              </Typography>
             </Grid>
             <Grid itme xs={12}>
               <TextField
@@ -260,7 +267,9 @@ const UploadPage = () => {
 
             {/* 비디오 선택 */}
             <Grid item xs={12} style={{ marginTop: 30 }}>
-              <Typography variant="h5"  style={{fontFamily:'Noto Sans KR'}}>동영상 파일 선택</Typography>
+              <Typography variant="h5" style={{ fontFamily: "Noto Sans KR" }}>
+                동영상 파일 선택
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Input
@@ -273,7 +282,9 @@ const UploadPage = () => {
 
             {/* 이미지 선택 */}
             <Grid item xs={12} style={{ marginTop: 30 }}>
-              <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>썸네일 파일 선택</Typography>
+              <Typography variant="h5" style={{ fontFamily: "Noto Sans KR" }}>
+                썸네일 파일 선택
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Input
@@ -286,11 +297,13 @@ const UploadPage = () => {
 
             {/* 카테고리 선택 */}
             <Grid item xs={12} style={{ marginTop: 20 }}>
-              <Typography variant="h5" style={{fontFamily:'Noto Sans KR'}}>카테고리 선택</Typography>
+              <Typography variant="h5" style={{ fontFamily: "Noto Sans KR" }}>
+                카테고리 선택
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Select
-                style={{ width: 550, height: 40,fontFamily:'Noto Sans KR' }}
+                style={{ width: 550, height: 40, fontFamily: "Noto Sans KR" }}
                 onChange={selectChange}
                 value={selectCategory}
               >
@@ -303,17 +316,17 @@ const UploadPage = () => {
                 <MenuItem value="HH001">운동</MenuItem>
                 <MenuItem value="CK001">요리</MenuItem>
                 <MenuItem value="ED001" id="ED001">
-                교육
-              </MenuItem>
-              <MenuItem value="AN001" id="AN001">
-                만화
-              </MenuItem>
-              <MenuItem value="ME001" id="ME001">
-                의료
-              </MenuItem>
-              <MenuItem value="CM001" id="CM001">
-                컴퓨터공학
-              </MenuItem>
+                  교육
+                </MenuItem>
+                <MenuItem value="AN001" id="AN001">
+                  만화
+                </MenuItem>
+                <MenuItem value="ME001" id="ME001">
+                  의료
+                </MenuItem>
+                <MenuItem value="CM001" id="CM001">
+                  컴퓨터공학
+                </MenuItem>
               </Select>
             </Grid>
 
@@ -323,7 +336,14 @@ const UploadPage = () => {
                 fullWidth
                 variant="contained"
                 onClick={Click}
-                style={{ width: 550, height: 40, marginBottom: 50, background: "#1565C0", color:"white",fontFamily:'Noto Sans KR' }}
+                style={{
+                  width: 550,
+                  height: 40,
+                  marginBottom: 50,
+                  background: "#1565C0",
+                  color: "white",
+                  fontFamily: "Noto Sans KR",
+                }}
                 sx={{ mt: 3, mb: 2 }}
               >
                 업로드
