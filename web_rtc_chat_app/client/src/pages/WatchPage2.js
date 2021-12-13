@@ -139,7 +139,7 @@ const WatchPage2 = (props) => {
     axios.patch('/api/viewsinc', {v_code : props.match.params.v_code})
       .then(response => {
         console.log("조회수 증가");
-        setViews(response.data);
+        setViews(1);
       })
       .catch(error => {
         console.log(error);
@@ -389,7 +389,7 @@ const WatchPage2 = (props) => {
         </Box>
       </Modal>
 
-      {(views != 0) && (video !== 0) && (
+      {(views === 1) && (video !== 0) && (
         <Grid container style={{}}> 
         {/* 비디오 영상  */}
           <Grid item style={{ marginTop: '4%', marginLeft: '5%', marginRight: '5%', marginBottom: '2%' }}>
