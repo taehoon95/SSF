@@ -4,7 +4,6 @@ import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cut,
-  deleteStreaming,
   showStreamingByLnum,
   updateStreaming,
 } from "../../modules/streaming";
@@ -30,6 +29,7 @@ import Header from "../../components/common/Header";
 
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import { Desktop, Mobile } from "../../pages/WatchPage2"
+import { deleteStreaming } from "../../lib/api/StreamingAPI";
 
 
 const useStyles = makeStyles({
@@ -90,8 +90,7 @@ const StreamShow = () => {
     player.load();
     if (offStreaming) {
       player.destroy();
-      dispatch(deleteStreaming(u_id, l_code));
-      history.push("/");
+      deleteStreaming({u_id, l_code}).then(() => (history.push('/')));
     }
   };
 
