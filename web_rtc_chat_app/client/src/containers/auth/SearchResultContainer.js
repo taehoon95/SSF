@@ -177,7 +177,10 @@ const SearchResultContainer = () => {
                     {data.v_name || data.l_title}
                   </Typography>
                   <br />
-
+                  <Typography variant="body1" style={{ color: "#E4E4E4" }}>
+                    {data.v_descript}
+                  </Typography>
+                  <br />
                   <Typography variant="body1" style={{ color: "gray" }}>
                     {data.v_date || data.l_date}
                   </Typography>
@@ -188,9 +191,6 @@ const SearchResultContainer = () => {
                   </Typography>
                   <br />
 
-                  <Typography variant="body1" style={{ color: "gray" }}>
-                    {data.v_descript}
-                  </Typography>
                 </Box>
               </Grid>
             </Grid>
@@ -215,6 +215,7 @@ const SearchResultContainer = () => {
       next={fetchData}
       hasMore={hasMore}
       loader={loading && <Loader />}
+      style={{marginTop: 50}}
     >
       <div className="container">
         <div className="row m-2">
@@ -253,11 +254,14 @@ const SearchResultContainer = () => {
 
               <Grid item xs={4} style={{ marginLeft: 10 }}>
                 <Box style={{ width: "100%"}}>
-                  <Typography variant="h5" style={{ color: "gray",width:"95vw" }}>
+                  <Typography variant="h5" style={{ color: "white",width:"95vw" }}>
                     {data.v_name || data.l_title}
                   </Typography>
                   </Box>
                   <br />
+                  <Typography variant="body1" style={{ color: "#E4E4E4",width:"95vw" }}>
+                    {data.v_descript}
+                  </Typography>
 
                   <Typography variant="body1" style={{ color: "gray",width:"95vw" }}>
                     {data.v_date || data.l_date}
@@ -267,11 +271,7 @@ const SearchResultContainer = () => {
                     {data.v_views && `조회수 ${data.v_views} 회`}
                     {data.l_code && `실시간`}
                   </Typography>
-                  <br />
 
-                  <Typography variant="body1" style={{ color: "gray",width:"95vw" }}>
-                    {data.v_descript}
-                  </Typography>
               </Grid>
             </Grid>
           ))}
