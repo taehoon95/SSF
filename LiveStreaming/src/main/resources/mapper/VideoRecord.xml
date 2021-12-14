@@ -24,7 +24,7 @@
           where u_id = #{u_id} and v_code = #{v_code};
     </update>
 
-    <!-- Video Upload-->
+    <!-- DB에 Video, Img Upload -->
 	<insert id="videoUpload" parameterType="liveStreaming.dto.VideoRecordDto">
         <selectKey resultType="String" keyProperty="v_code" order="BEFORE">
             select (select max(CAST(substring(v_code,4) as integer)) from ssf_schema.video_upload)+1; 

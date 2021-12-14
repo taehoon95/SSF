@@ -81,6 +81,7 @@
 			<artifactId>spring-cloud-aws-autoconfigure</artifactId>
 			<version>1.2.1.RELEASE</version>
 		</dependency>
+		
 		<!-- 영상업로드 시 JAVA11 에서 에러가 발생하네요 -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>

@@ -42,7 +42,7 @@ const MainPage = () => {
 
   // 2021-12-05 강동하 홈 버튼 리렌더링
   const location = useLocation();
-  //console.log(location.state);
+  // console.log(location.state);
 
   useEffect(() => {
     setTime(location.state);
@@ -172,7 +172,6 @@ const MainPage = () => {
 ][0].map((slide, index) => {
   return { ...slide, onClick: () => setState({ goToSlide: index }) };
 });
-
 
   let xDown = null;
   let yDown = null;

@@ -133,10 +133,10 @@ const UploadPage = () => {
 
   // 2021-11-29 강동하 정규표현식 및 중복체크
   const Click = (e) => {
-    if (inputTitle == "") {
+    if (inputTitle === "") {
       e.preventDefault();
       alert("제목을 입력해주세요.");
-    } else if (inputContent == "") {
+    } else if (inputContent === "") {
       e.preventDefault();
       alert("내용을 입력해주세요.");
     } else if (selectedVFile == null) {
@@ -145,7 +145,7 @@ const UploadPage = () => {
     } else if (selectedIFile == null) {
       e.preventDefault();
       alert("이미지 파일을 선택해주세요.");
-    } else if (selectCategory == "") {
+    } else if (selectCategory === "") {
       e.preventDefault();
       alert("카테고리를 선택해주세요.");
     } else {
@@ -274,6 +274,7 @@ const UploadPage = () => {
             <Grid item xs={12}>
               <Input
                 type="file"
+                inputProps={{ accept:"video/*" }}
                 required
                 onChange={handleVideoChange}
                 style={{ width: 550 }}
@@ -289,6 +290,7 @@ const UploadPage = () => {
             <Grid item xs={12}>
               <Input
                 type="file"
+                inputProps={{accept:"image/*"}}
                 required
                 onChange={handleImgChange}
                 style={{ width: 550 }}
