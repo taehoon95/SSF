@@ -16,7 +16,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const CreateaStreamContainer = () => {
   const { socketRef } = useContext(SocketContext);
-  //const u_id = localStorage.getItem("u_id");
+  const u_id = localStorage.getItem("u_id");
   const dispatch = useDispatch();
   const nano = nanoid();
 
@@ -24,19 +24,10 @@ const CreateaStreamContainer = () => {
   //const [l_code, setL_code] = useState(nanoid());
   useEffect(()=>{
     dispatch(showStreamingByLnum(streamInfo.l_code));
+    dispatch(change({ name:"u_id", value:u_id }));
   },[])
   const history = useHistory();
 
-  // const streamingInfo = {
-  //   l_code:"",
-  //   u_id:"",
-  //   l_title: "",
-  //   l_description: "",
-  //   l_img: "",
-  // };
-
-  //const [streamInfo, setStreamInfo] = useState("streamingInfo");
-  //const [streamInfo, setStreamInfo] = useState({});
   const [isValidCheck, setIsValidCheck] = useState(false);
   const [selectedIFile, setSelectedIFile] = useState(null); // 이미지
   const [img, setImg] = useState(""); // 이미지
@@ -46,11 +37,10 @@ const CreateaStreamContainer = () => {
   const maxSize = 50 * 1024 * 1024;
   const fileSize = null;
 
-  const {streamInfo, l_code, u_id, l_title, l_description, l_img } = useSelector((state) => ({
+  const {streamInfo, l_code, l_title, l_description, l_img } = useSelector((state) => ({
     //imgTransf:state.streaming.streamInfo.l_img,
     streamInfo:state.streaming,
     l_code:state.streaming.l_code,
-    u_id:state.streaming.u_id,
     l_title:state.streaming.l_title,
     l_description:state.streaming.l_description,
     l_img:state.streaming.l_img,

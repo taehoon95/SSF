@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import liveStreaming.dto.VideoRecordDto;
 import liveStreaming.mapper.VideoRecordMapper;
@@ -43,7 +44,7 @@ public class VideoRecordService {
 	// 2021 1121 이태훈 비디오 업로드
 	public int videoUpload(VideoRecordDto video) {
 		return mapper.videoUpload(video);
-  }
+	}
 
 	// 2021-11-21 강동하 마이페이지 조회수 탑5 영상 조회
 	public List<VideoRecordDto> videoViews(String u_id){
