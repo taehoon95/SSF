@@ -153,7 +153,7 @@ const WatchPage2 = (props) => {
     // comment_INSERT === true && alert("댓글이 작성되었습니다.");
     // comment_UPDATE === true && alert("댓글이 수정되었습니다.");
     // comment_DELETE === true && alert("댓글이 삭제되었습니다.");
-  }, [comment_INSERT, comment_UPDATE, comment_DELETE]);
+  }, [views, comment_INSERT, comment_UPDATE, comment_DELETE]);
 
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
   const selectVideo = () => {
