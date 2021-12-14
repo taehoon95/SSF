@@ -77,19 +77,17 @@ const init = {
   streamRes: [],
   showStreamRes: [],
   streamError: null,
-
   l_code: nanoid(),
   u_id: localStorage.getItem("u_id"),
   l_title: "",
   l_description: "",
   l_img: "",
-
 }
 
 
 export const change = createAction(CHANGE, ({ name, value }) => {
-  console.log(name);
-  console.log(value);
+  // console.log(name);
+  // console.log(value);
   return({
   name,
   value,

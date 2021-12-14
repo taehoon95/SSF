@@ -100,6 +100,7 @@ const WatchPage2 = (props) => {
   const [commentInfo, setCommentInfo] = useState([]);
   const [changeUpdate, setChangeUpdate] = useState("");
   const [UpdateId, setUpdateId] = useState("");
+  const [views, setViews] = useState(0);
 
   // 로컬스토리지에서 ID 값 갖고오기
   const auth_Id = localStorage.getItem("u_id");
@@ -137,7 +138,8 @@ const WatchPage2 = (props) => {
   useEffect(() => {
     axios.patch('/api/viewsinc', {v_code : props.match.params.v_code})
       .then(response => {
-        console.log("조회수 증가" + response);
+        console.log("조회수 증가");
+        setViews(1);
       })
       .catch(error => {
         console.log(error);
@@ -151,7 +153,7 @@ const WatchPage2 = (props) => {
     // comment_INSERT === true && alert("댓글이 작성되었습니다.");
     // comment_UPDATE === true && alert("댓글이 수정되었습니다.");
     // comment_DELETE === true && alert("댓글이 삭제되었습니다.");
-  }, [comment_INSERT, comment_UPDATE, comment_DELETE]);
+  }, [views, comment_INSERT, comment_UPDATE, comment_DELETE]);
 
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
   const selectVideo = () => {
@@ -387,7 +389,7 @@ const WatchPage2 = (props) => {
         </Box>
       </Modal>
 
-      {video !== 0 && (
+      {(views === 1) && (video !== 0) && (
         <Grid container style={{}}> 
         {/* 비디오 영상  */}
           <Grid item style={{ marginTop: '4%', marginLeft: '5%', marginRight: '5%', marginBottom: '2%' }}>

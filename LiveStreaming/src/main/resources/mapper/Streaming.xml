@@ -42,7 +42,7 @@
 
     <update id="updateStreaming">
 	    update ssf_schema.streaming
-	   	   set l_title = #{l_title} , l_description = #{l_description}, l_img = #{l_img}
+	   	   set l_title = #{l_title} , l_description = #{l_description}
 	     where l_code = #{l_code} and u_id = #{u_id};
     </update>
     

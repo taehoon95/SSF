@@ -56,6 +56,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = ({socket,userid,l_code}) => {
+  const u_id= localStorage.getItem("u_id");
+  const tokenlled= localStorage.getItem("token");
   const isMobile = useMediaQuery({
     query: "(min-width: 1076px)",
   });
@@ -87,16 +89,17 @@ const Header = ({socket,userid,l_code}) => {
     setInputSearch("");
   };
 
-  const { u_id, tokenlled, token } = useSelector((state) => {
-    return {
-      u_id: state.auth.u_id,
-      token: state.auth.token,
-      tokenlled: state.auth.tokenlled,
-    };
-  });
+  // const { u_id, tokenlled, token } = useSelector((state) => {
+  //   return {
+  //     u_id: state.auth.u_id,
+  //     token: state.auth.token,
+  //     tokenlled: state.auth.tokenlled,
+  //   };
+  // });
+
 
   const onLogout = () => {
-    localStorage.removeItem("auth");
+    localStorage.removeItem("token");
     localStorage.removeItem("u_id");
     window.location.href = "/";
   };
@@ -229,7 +232,7 @@ const Header = ({socket,userid,l_code}) => {
                 {tokenlled ? (
                   <Typography variant="body1">
                     {/* 로그아웃 버튼 */}
-                    {localStorage.getItem("u_id")} 님 어서오세요 &nbsp;
+                    {u_id} 님 어서오세요 &nbsp;
                     <Button
                       variant="inherit"
                       onClick={onLogout}

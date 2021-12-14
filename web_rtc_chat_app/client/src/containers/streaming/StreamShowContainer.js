@@ -4,7 +4,6 @@ import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   cut,
-  deleteStreaming,
   showStreamingByLnum,
   updateStreaming,
 } from "../../modules/streaming";
@@ -30,6 +29,7 @@ import Header from "../../components/common/Header";
 
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import { Desktop, Mobile } from "../../pages/WatchPage2"
+import { deleteStreaming } from "../../lib/api/StreamingAPI";
 
 
 const useStyles = makeStyles({
@@ -65,7 +65,6 @@ const StreamShow = () => {
   // 3. buildPlayer로 방송 실행
   const usersocket = socketRef.id;
   useEffect(() => {
-    console.log(1111111111111111);
     setOffStreaming(false);
     socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
@@ -73,7 +72,6 @@ const StreamShow = () => {
   }, [offStreaming]);
   
   useEffect(() => {
-    console.log(33333333333);
     setOffStreaming(false);
     socketRef.emit("clientJoinRoom", l_code, u_id, usersocket);
     dispatch(showStreamingByLnum(l_code));
@@ -92,8 +90,7 @@ const StreamShow = () => {
     player.load();
     if (offStreaming) {
       player.destroy();
-      dispatch(deleteStreaming(u_id, l_code));
-      history.push("/");
+      deleteStreaming({u_id, l_code}).then(() => (history.push('/')));
     }
   };
 
@@ -363,7 +360,7 @@ const StreamShow = () => {
               </h3>
               <Box display="flex" style={{ marginRight: 12 }} >
                 <PeopleAltRoundedIcon style={{ marginRight: 5, marginTop: 6 }}/>
-                <h4 style={{ marginTop: 4 }}>{viewers - 1}</h4>
+                <h4 style={{ marginTop: 4 }}>{viewers}</h4>
               </Box>
             </Box>
             <Box>

@@ -109,7 +109,6 @@ const UploadPage = () => {
       })
       .then((response) => {
         console.log(response);
-        history.push("/MyPage");
       })
       .catch((error) => {});
 
@@ -127,7 +126,7 @@ const UploadPage = () => {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => history.push("/MyPage"))
       .catch((err) => console.log(err));
   };
 
@@ -273,6 +272,7 @@ const UploadPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Input
+                inputProps={{ accept: "video/*" }}
                 type="file"
                 inputProps={{ accept:"video/*" }}
                 required
@@ -289,6 +289,7 @@ const UploadPage = () => {
             </Grid>
             <Grid item xs={12}>
               <Input
+                inputProps={{ accept: "image/*" }}
                 type="file"
                 inputProps={{accept:"image/*"}}
                 required

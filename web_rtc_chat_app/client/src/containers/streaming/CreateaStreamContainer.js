@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { change, cut, insertStreaming, showStreamingByLnum } from "../../modules/streaming";
 import { nanoid } from "nanoid";
 import { useHistory } from "react-router";
 import { SocketContext } from "../../SocketContext";
 import Container from "@mui/material/Container";
-import { Grid, Typography, Input } from "../../../node_modules/@material-ui/core/index";
+import { Grid, Typography, Input, IconButton } from "../../../node_modules/@material-ui/core/index";
 import Button from "@mui/material/Button";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
+import { Alert } from '@mui/material';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 // 2021 1125 streaming 방만들기 이태훈 << 구대기
 // 2021-12-02 강동하 대규모 리팩토링2
 
 const CreateaStreamContainer = () => {
   const { socketRef } = useContext(SocketContext);
-  //const u_id = localStorage.getItem("u_id");
+  const u_id = localStorage.getItem("u_id");
   const dispatch = useDispatch();
   const nano = nanoid();
 
@@ -24,30 +24,23 @@ const CreateaStreamContainer = () => {
   //const [l_code, setL_code] = useState(nanoid());
   useEffect(()=>{
     dispatch(showStreamingByLnum(streamInfo.l_code));
+    dispatch(change({ name:"u_id", value:u_id }));
   },[])
   const history = useHistory();
 
-  // const streamingInfo = {
-  //   l_code:"",
-  //   u_id:"",
-  //   l_title: "",
-  //   l_description: "",
-  //   l_img: "",
-  // };
-
-  //const [streamInfo, setStreamInfo] = useState("streamingInfo");
-  //const [streamInfo, setStreamInfo] = useState({});
   const [isValidCheck, setIsValidCheck] = useState(false);
   const [selectedIFile, setSelectedIFile] = useState(null); // 이미지
   const [img, setImg] = useState(""); // 이미지
   const [streamKey, setStreamKey] = useState(nano); // 스트림키인 l_code 재발급용
-  const [setting, setSetting] = useState("");
+  const [copy, setCopy] = useState(false);
+  // file max size
+  const maxSize = 50 * 1024 * 1024;
+  const fileSize = null;
 
-  const {streamInfo, l_code, u_id, l_title, l_description, l_img } = useSelector((state) => ({
+  const {streamInfo, l_code, l_title, l_description, l_img } = useSelector((state) => ({
     //imgTransf:state.streaming.streamInfo.l_img,
     streamInfo:state.streaming,
     l_code:state.streaming.l_code,
-    u_id:state.streaming.u_id,
     l_title:state.streaming.l_title,
     l_description:state.streaming.l_description,
     l_img:state.streaming.l_img,
@@ -93,12 +86,19 @@ const CreateaStreamContainer = () => {
 
   // 2021-12-02 강동하 썸네일 이미지 업로드
   // 2021-12-02 강동하 썸네일 이미지 onChange
+
   const handleImgChange = (e) => {
     // console.log(e.target.files[0]);
+    const file = e.currentTarget.files[0];
+    if(file.size > maxSize){
+      alert("사이즈 50MB이하 파일로 올려주세요");
+      return;
+    }    
     setSelectedIFile(e.target.files[0]);
   };
 
   useEffect(()=>{
+    console.log(222);
     selectedIFile && fileNameCheck();
     //console.log(selectedIFile);
   }, [selectedIFile])
@@ -110,12 +110,13 @@ const CreateaStreamContainer = () => {
     // 2021-12-02 강동하 썸네일 이미지 파일 정규표현식 및 중복체크
     const fileNameCheck = (e) => {
       //console.log(e.currentTarget);
-      if (selectedIFile != null) {
+      if (selectedIFile != null ) {
         let imegePattern = /(.png|.jpg|.jpeg|.gif|.bmp|.dib|.tif|.tiff)$/;
         if(imegePattern.test(selectedIFile.name) !== true) {
           alert("이미지 파일을 확인해주세요. \n\n사용가능 파일 : PNG, JPG, JPEG, GIF, BMP, DIB, TIF, TIFF");
         }
         else {
+          console.log(selectedIFile);
           let imagePreProcess = selectedIFile.name.replace(imegePattern, "");
           // 썸네일 파일이름 중복체크
           axios.get(`/api/streamfilename/${imagePreProcess}`)
@@ -146,6 +147,7 @@ const CreateaStreamContainer = () => {
             // console.log(error);
           })
         }
+        return true;
       } 
     }
 
@@ -180,7 +182,17 @@ const CreateaStreamContainer = () => {
       console.log(streamKey);
       console.log(streamKey === "");
       streamKey && dispatch(change({ name:"l_code", value:streamKey }));
+      setCopy(false);
     }
+
+    const textAreaRef = useRef();
+    const keyCopy = (e) => {
+      textAreaRef.current.select();
+      document.execCommand("copy");
+      textAreaRef.current.focus();
+      setCopy(true);
+    }
+    const noPointer = {cursor: 'default'};
 
   return (
     <div>
@@ -199,14 +211,28 @@ const CreateaStreamContainer = () => {
         <Button
           onClick={() => window.open("https://fern-vanadium-ef2.notion.site/OBS-50200eb992404b39a5f9c4be906efc72", '_blank')}    
         >OBS를 이용해 방송 키는 방법</Button>
-        <div>
-          <p>스트림 키</p>
+        <p>스트림 키</p>
+        <div style={{display: "flex",
+              justifyContent: "space-between"}}>
           <TextField
+            style={{marginTop: "3%"}}
+            InputProps={{ disableUnderline: true }}
             fullWidth
+            onClick={keyCopy}
+            id="outlined-basic"
             name="l_code"
             value={l_code}
+            inputRef={textAreaRef}
+            readOnly
           />
+          <IconButton style={noPointer} tooltip="clipboard copy">
+            <ContentCopyIcon style={noPointer} onClick={keyCopy} />
+          </IconButton>
         </div>
+        {copy &&
+          <Alert severity="success">
+            <strong>copy</strong>
+          </Alert>}
         <div style={{ textAlign: "center" }}>
           <Button
             style={{ marginTop: 30, marginBottom: 20 }}
@@ -247,7 +273,8 @@ const CreateaStreamContainer = () => {
             <Grid>
               
               <Input
-              name="l_img"
+                inputProps ={{accept:"image/*"}}
+                name="l_img"
                 type="file"
                 required
                 onChange={handleImgChange}
