@@ -4,7 +4,7 @@
 // 윤성준
 // 내 영상 관리 페이지 추가
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -92,6 +92,11 @@ const MyVideoSettingPage = ({ history }) => {
   const [DeleteName, setDeleteName] = useState("");
   const [nextPagevalue, setNextPageValue] = useState("");
   const [open, setOpen] = useState(false);
+    const { deleteRes } = useSelector((state) => {
+    return {
+      deleteRes: state.videodelete.deleteRes
+    };
+  });
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
@@ -135,6 +140,10 @@ const MyVideoSettingPage = ({ history }) => {
 
   useEffect(() => {
     myVideoList();
+  }, [deleteRes]);
+
+  useEffect(() => {
+    myVideoList();
   }, []);
 
   // VideoList 가져오기
@@ -156,7 +165,7 @@ const MyVideoSettingPage = ({ history }) => {
   const deleteListLine2 = (e) => {
     e.preventDefault();
     dispatch(deletevideo(DeleteId, DeleteName));
-    myVideoList();
+    // myVideoList();
     setOpen(false);
   };
 
