@@ -4,6 +4,7 @@ const app = require("express")();
 const https = require("https");
 const cors = require("cors");
 const fs = require("fs");
+const path = require("path");
 
 // 11 19 강동하 bodyparser 구현
 const bodyParser = require("body-parser");
@@ -32,6 +33,10 @@ const io = require("socket.io")(server, {
 });
 
 app.use(express.static("public"));
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+})
 
 app.use(cors());
 app.get("/", (req, res) => {
