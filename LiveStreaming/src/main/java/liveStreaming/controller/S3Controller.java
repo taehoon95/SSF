@@ -20,13 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class S3Controller {
 	private final S3Uploader s3Uploader;
 
-	@GetMapping("/test")
-	public ResponseEntity<Object> showTest() {
-		return ResponseEntity.ok("test");
-	}
-
-	@CrossOrigin(origins = "*")
+	// CrossOrigin 어노테이션을 사용하여 CORS를 적용(CORS는 Origin끼리 요청을 주고받을 수 있게 정해둔 표준)
+	@CrossOrigin(origins="*")
 	@PostMapping("/upload")
+	// 파일을 업로드 할 때는 MultipartFile을 사용
 	public ResponseEntity<Object> upload(@RequestParam(value = "file") MultipartFile multipartFile) throws IOException {
 		return ResponseEntity.ok(s3Uploader.upload(multipartFile, "static"));
 	}
