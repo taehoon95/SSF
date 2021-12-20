@@ -136,7 +136,7 @@ const WatchPage2 = (props) => {
   // 2021-11-25 강동하 영상 들어올 시 조회수 + 1
   // 최초 1회만
   useEffect(() => {
-    axios.patch('/api/viewsinc', {v_code : props.match.params.v_code})
+    axios.patch('https://teamstance.shop:8080/api/viewsinc', {v_code : props.match.params.v_code})
       .then(response => {
         console.log("조회수 증가");
         setViews(1);
@@ -158,7 +158,7 @@ const WatchPage2 = (props) => {
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
   const selectVideo = () => {
     axios
-      .get(`/api/thisvideo/${props.match.params.v_code}`)
+      .get(`https://teamstance.shop:8080/api/thisvideo/${props.match.params.v_code}`)
       //.get(`https://18.219.234.0:8080/api/thisvideo/${props.match.params.v_code}`)
       .then((response) => {
         // console.log(response.data);
@@ -196,7 +196,7 @@ const WatchPage2 = (props) => {
   // 영상 링크 구현 이후 영상 정보 가져온 후 파라미터에 v_code로 변경
   const selectComment = () => {
     axios
-      .get(`/api/commentselect/${props.match.params.v_code}`)
+      .get(`https://teamstance.shop:8080/api/commentselect/${props.match.params.v_code}`)
       //.get(`https://18.219.234.0:8080/api/commentselect/${props.match.params.v_code}`)
       .then((response) => {
         setCommentInfo(response.data);

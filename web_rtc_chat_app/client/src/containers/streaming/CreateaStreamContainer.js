@@ -119,7 +119,7 @@ const CreateaStreamContainer = () => {
           console.log(selectedIFile);
           let imagePreProcess = selectedIFile.name.replace(imegePattern, "");
           // 썸네일 파일이름 중복체크
-          axios.get(`/api/streamfilename/${imagePreProcess}`)
+          axios.get(`https://teamstance.shop:8080/api/streamfilename/${imagePreProcess}`)
           .then(response => {
             let INumber = response.data;
             //console.log(INumber);
@@ -164,7 +164,7 @@ const CreateaStreamContainer = () => {
         imgData.append("file", selectedIFile, img);
   
         axios
-        .post("/api/uploadimg", imgData, {
+        .post("https://teamstance.shop:8080/api/uploadimg", imgData, {
           //.post("https://18.219.234.0:8080/api/upload", imgData, {
           headers: {
             "Content-Type": "multipart/form-data",

@@ -49,7 +49,7 @@ const ListChangeContainer = () => {
   const onUpdate = (e) => {
     if(selectchangevalue == 1){
     axios
-      .patch(`/api/videoupdate`, {
+      .patch(`https://teamstance.shop:8080/api/videoupdate`, {
         v_code,
         c_code: selectCategory,
         v_name: v_name,
@@ -77,7 +77,7 @@ const ListChangeContainer = () => {
 
   const myVideoListchange = () => {
     axios
-      .get(`/api/videochangeserch/${v_code}`)
+      .get(`https://teamstance.shop:8080/api/videochangeserch/${v_code}`)
       .then((response) => {
         setV_name(response.data[0].v_name);
         setC_code(response.data[0].c_code);

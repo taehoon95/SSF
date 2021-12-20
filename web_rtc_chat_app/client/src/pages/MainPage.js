@@ -65,7 +65,7 @@ const MainPage = () => {
   // 20211123 윤성준 전체 영상 List api
   const myVideoList = () => {
     axios
-      .get(`/api/videoView`)
+      .get(`https://teamstance.shop:8080/api/videoView`)
       //.get(`https://18.219.234.0:8080/api/videoView`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
@@ -80,7 +80,7 @@ const MainPage = () => {
   // 20211123 윤성준 Top 4 영상 api
   const myTopVideoList = () => {
     axios
-      .get(`/api/videoTop5`)
+      .get(`https://teamstance.shop:8080/api/videoTop5`)
       //.get(`https://18.219.234.0:8080/api/videoTop5`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
@@ -95,7 +95,7 @@ const MainPage = () => {
   // 2021-12-03 윤성준 실시간 영상 랜덤 5
   const myLiveVideoList = () => {
     axios
-      .get(`/api/liveVideo`)
+      .get(`https://teamstance.shop:8080/api/liveVideo`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setLiveVideoShow(response.data);

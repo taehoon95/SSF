@@ -99,7 +99,7 @@ const UploadPage = () => {
     const v_img = url + IResult;
 
     axios
-      .post(`/api/videoUpload`, {
+      .post(`https://teamstance.shop:8080/api/videoUpload`, {
         u_id,
         c_code: selectCategory,
         v_name: inputTitle,
@@ -113,7 +113,7 @@ const UploadPage = () => {
       .catch((error) => {});
 
     axios
-      .post("/api/upload", imgData, {
+      .post("https://teamstance.shop:8080/api/upload", imgData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -121,7 +121,7 @@ const UploadPage = () => {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     axios
-      .post("/api/upload", videoData, {
+      .post("https://teamstance.shop:8080/api/upload", videoData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -168,12 +168,12 @@ const UploadPage = () => {
         let imagePreProcess = selectedIFile.name.replace(imegePattern, "");
         // 영상 제목 중복 체크
         axios
-          .get(`/api/videonamecheck/${inputTitle}`)
+          .get(`https://teamstance.shop:8080/api/videonamecheck/${inputTitle}`)
           .then((response) => {
             if (response.data.length == 0) {
               // 영상 파일이름, 썸네일 파일이름 중복체크
               axios
-                .get(`/api/filename/${videoPreProcess}/${imagePreProcess}`)
+                .get(`https://teamstance.shop:8080/api/filename/${videoPreProcess}/${imagePreProcess}`)
                 .then((response) => {
                   let VNumber = response.data[0].body;
                   let INumber = response.data[1].body;

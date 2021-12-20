@@ -18,8 +18,8 @@ app.use(bodyParser());
 // 11 17 강동하 수정
 // ssl 인증키
 const options = {
-  key: fs.readFileSync("./key.pem"),
-  cert: fs.readFileSync("./cert.pem"),
+  key: fs.readFileSync('../../etc/letsencrypt/live/teamstance.shop/privkey.pem'),
+  cert: fs.readFileSync('../../etc/letsencrypt/live/teamstance.shop/cert.pem')
 };
 
 const server = https.createServer(options, app);
@@ -141,16 +141,16 @@ const config = {
     chunk_size: 60000,
     gop_cache: true,
     ping: 30,
-    ping_timeout: 60,
+    ping_timeout: 60
   },
   http: {
     port: 8000,
-    allow_origin: "*",
+    allow_origin: '*'
   },
   https: {
     port: 8443,
-    key: "./key.pem",
-    cert: "./cert.pem",
+    key: '../../etc/letsencrypt/live/teamstance.shop/privkey.pem',
+    cert: '../../etc/letsencrypt/live/teamstance.shop/cert.pem',
   },
 };
 
