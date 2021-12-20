@@ -149,7 +149,7 @@ const MyVideoSettingPage = ({ history }) => {
   // VideoList 가져오기
   const myVideoList = () => {
     axios
-      .get(`/api/videorecord/${u_id}`)
+      .get(`https://teamstance.shop:8080/api/videorecord/${u_id}`)
       //.get(`https://18.219.234.0:8080/api/videorecord/${u_id}`)
       .then((response) => {
         setMyList(response.data);

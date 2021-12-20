@@ -6,7 +6,7 @@ const MainStreamingListContainer = ({l_code}) => {
     const buildPlayer = () => {
         const player = flv.createPlayer({
           type: "flv",
-          url: `https://localhost:8443/live/${l_code}.flv`,
+          url: `https://teamstance.shop:8443/live/${l_code}.flv`,
         });
         player.attachMediaElement(videoRef.current);
         player.load();
