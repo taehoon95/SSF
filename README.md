@@ -11,7 +11,7 @@
 
 ##### RTMP
 
-순수 TCP 기반의 RTMP 프로토콜은 접속을 지속적으로 유지하는 데 기여한다.또, 실시간 통신을 한다. 부가적으로 비디오 및 오디오 스트림을 부드럽게 전달하기 위해 비디오 및 데이터를 여러 조각들(fragments)로 나누기도 한다. 이 조각들의 크기는 클라이언트와 서버 간에 유동적으로 결정 우리는 60
+순수 TCP 기반의 RTMP 프로토콜은 접속을 지속적으로 유지하는 데 기여한다.또, 실시간 통신을 한다. 부가적으로 비디오 및 오디오 스트림을 부드럽게 전달하기 위해 비디오 및 데이터를 여러 조각들(fragments)로 나누기도 한다.
 
 ##### Node-media-server
 
@@ -25,7 +25,8 @@ JavaScript로 작성된 HTML5 Flash Video(FLV) 플레이어
 
 node-media-server를 이용해서 스트리밍 프로토콜인 rtmp(리얼 타임 메시징 프로토콜)를 사용한다.
 rtmp default 포트 번호인 1935로 설정, HTTPS를 사용 했기 때문에 포트번호 8443, key, cert값을 설정 후 
-NodeMediaServer 객체를 생성 한다. 그 후 run()으로 실행
+NodeMediaServer 객체를 생성
+run() 
 
 ##### Client
 
