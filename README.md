@@ -1,10 +1,10 @@
 # SSF
-더존 최종 프로젝트
+더존 최종 프로젝트(조장: 이태훈)
 20211109 ~ 20211217
 1조 teamstance
 스트리밍 서비스 플랫폼
 
-# 실시간 방송
+# 실시간 방송(이태훈)
 ### 구현한 방식
 
 [온라인 비디오 전송은 스트리밍 프로토콜과 HTTP 기반 프로토콜을 모두 사용합니다](https://www.streamingmedia.com/Articles/ReadArticle.aspx?ArticleID=84496) . [RTMP (Real-Time Messaging Protocol)](https://www.wowza.com/blog/rtmp-streaming-real-time-messaging-protocol) 와 같은 스트리밍 프로토콜은 전용 스트리밍 서버를 사용하여 비디오를 빠르게 전달할 수있는 반면, HTTP 기반 프로토콜은 일반 웹 서버를 사용하여 시청 환경을 최적화하고 빠르게 확장 할 수 있습니다.
@@ -34,7 +34,7 @@ url을 우리가 사용할 도메인:포트번호/{스트림키}.flv 로 조합�
 player.attachMediaElement(video태그 정보: id나 useRef) 로 설정 후
 load()로 실행 destroy()로 종료
 
-# 채팅 구현한 방식
+# 채팅 구현한 방식(이태훈)
 
 #### 1. Server.js
 
