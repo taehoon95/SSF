@@ -11,8 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import { Alert } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-// 2021 1125 streaming 방만들기 이태훈 << 구대기
-// 2021-12-02 강동하 대규모 리팩토링2
+// 2021 1125 streaming 방만들기 이태훈 
 
 const CreateaStreamContainer = () => {
   const { socketRef } = useContext(SocketContext);
