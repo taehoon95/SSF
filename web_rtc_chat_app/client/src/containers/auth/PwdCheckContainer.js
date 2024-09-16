@@ -187,7 +187,7 @@ const PwdCheckContainer = ({ history }) => {
 
       try {
         axios
-          .post("https://localhost:5000/api/email", { u_email })
+          .post("https://teamstance.shop:5000/api/email", { u_email })
           .then((response) => {
             // console.log(response.data.number);
             const a = response.data.number;

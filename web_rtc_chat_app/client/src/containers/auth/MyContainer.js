@@ -75,7 +75,7 @@ const MyContainer = () => {
   // 내 영상 리스트 슬라이더 api
   const myVideoList = () => {
     axios
-      .get(`/api/videorecord/${u_id}`)
+      .get(`https://teamstance.shop:8080/api/videorecord/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         setMyList(response.data);
@@ -89,7 +89,7 @@ const MyContainer = () => {
   // 강동하 영상 조회수 차트 api
   const myVideoViews = () => {
     axios
-      .get(`/api/videoviews/${u_id}`)
+      .get(`https://teamstance.shop:8080/api/videoviews/${u_id}`)
       .then((response) => {
         //alert("record 가져오기 성공ㅎㅎ");
         // console.log(response.data);

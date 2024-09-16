@@ -7,7 +7,7 @@ const SocketContext = createContext();
 // 배포시에 ip 변경하기
 // 땡겨받고 자기 ip로 변경
 
-const SOCKET_SERVER_URL = "https://localhost:5000";
+const SOCKET_SERVER_URL = "https://teamstance.shop:5000";
 // const socket = io("https://218.159.169.101:5000",{ secure : true });
 // const socket = io("https://18.219.234.0:5000",{ secure : true });
 // const socket = io("https://172.31.47.101:5000",{ secure : true });
